@@ -1,0 +1,27 @@
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# Исходники дизайнера (не публикуются)
+изображения/
+
+# Неиспользуемые изображения и иконки
+assets/img/house-*.jpg
+assets/img/hero.jpg
+assets/img/hero-mobile.jpg
+assets/icons/clock.svg
+assets/icons/map-pin-cta.svg
+
+# Конфиденциальные данные — никогда не в репозиторий
+.env
+.env.*
+config.local.php
+*.key
+*.pem
+id_rsa*
+id_ed25519*
+
+# Логи и временные файлы
+*.log
+logs/
+.claude/
