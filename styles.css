@@ -1424,7 +1424,9 @@ body.has-modal { overflow: hidden; }
   .actions { flex-direction: column; width: 100%; padding: 0 var(--page-x); }
 
   /* Hero */
-  .hero { height: auto; min-height: 640px; aspect-ratio: 780 / 1570; } /* мобильные фото 390×785 */
+  /* первый экран целиком помещается в экран телефона под шапкой (64px); svh — без учёта панелей браузера.
+     Фото 390×785 подрезается сверху и снизу (object-fit: cover), не выше самого фото и не ниже 520px */
+  .hero { height: clamp(520px, calc(100svh - 64px), calc(100vw * 1570 / 780)); min-height: 0; aspect-ratio: auto; }
   .hero__canvas img { object-position: var(--xm, 70%) 50%; }
   /* у слайдов с отдельным мобильным фото кадр уже готов — показываем целиком */
   .hero__canvas picture img { object-position: 50% 50%; }
