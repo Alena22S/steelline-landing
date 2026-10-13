@@ -1427,9 +1427,14 @@ body.has-modal { overflow: hidden; }
   .actions { flex-direction: column; width: 100%; padding: 0 var(--page-x); }
 
   /* Hero */
-  /* первый экран целиком помещается в экран телефона под шапкой (64px); svh — без учёта панелей браузера.
-     Фото 390×785 подрезается сверху и снизу (object-fit: cover), не выше самого фото и не ниже 520px */
-  .hero { height: clamp(520px, calc(100svh - 64px), calc(100vw * 1570 / 780)); min-height: 0; aspect-ratio: auto; }
+  /* первый экран помещается между шапкой (64px) и закреплённой кнопкой заявки (52px + 12px + 12px);
+     svh — без учёта панелей браузера. Фото 390×785 подрезается сверху и снизу (object-fit: cover),
+     не выше самого фото и не ниже 480px */
+  .hero {
+    height: clamp(480px, calc(100svh - 64px - 76px - env(safe-area-inset-bottom, 0px)), calc(100vw * 1570 / 780));
+    min-height: 0;
+    aspect-ratio: auto;
+  }
   .hero__canvas img { object-position: var(--xm, 70%) 50%; }
   /* у слайдов с отдельным мобильным фото кадр уже готов — показываем целиком */
   .hero__canvas picture img { object-position: 50% 50%; }
@@ -1440,7 +1445,7 @@ body.has-modal { overflow: hidden; }
     display: block;
     position: absolute;
     inset: auto 0 0;
-    height: 367px; /* 303px + место под закреплённую кнопку */
+    height: 303px;
     background: linear-gradient(0deg, rgba(9, 10, 6, 0.48) 1.484%, rgba(9, 10, 6, 0));
   }
   .hero__scrim::before {
@@ -1455,8 +1460,7 @@ body.has-modal { overflow: hidden; }
   .hero__inner {
     position: absolute;
     inset: 0;
-    /* снизу — место под закреплённую кнопку заявки (52px + отступ 12px) */
-    padding: 0 24px calc(32.27px + 64px + env(safe-area-inset-bottom, 0px));
+    padding: 0 24px 32.27px;
     justify-content: flex-end;
   }
   .hero__content { gap: 24px; width: 100%; }
