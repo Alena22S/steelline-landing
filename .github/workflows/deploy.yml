@@ -1,0 +1,74 @@
+# Публикация лендинга на Beget (promo.steelline.store) по SSH/rsync.
+#
+# Пока запускается ТОЛЬКО вручную: GitHub → Actions → «Публикация на Beget» → Run workflow.
+#   check  — подключиться, показать содержимое папки и что будет загружено (ничего не меняет)
+#   deploy — загрузить файлы
+# Автозапуск при push в main включим после первой успешной публикации.
+#
+# Секреты (GitHub → Settings → Secrets and variables → Actions):
+#   BEGET_SSH_KEY     — приватный ключ ~/.ssh/steelline_beget_deploy (целиком, с BEGIN/END)
+#   BEGET_KNOWN_HOSTS — отпечатки сервера alenasxp.beget.tech (строки ssh-keyscan)
+
+name: Публикация на Beget
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "check — только проверка, deploy — загрузка"
+        type: choice
+        options: [check, deploy]
+        default: check
+
+concurrency:
+  group: beget-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  BEGET_HOST: alenasxp.beget.tech
+  BEGET_USER: alenasxp
+  BEGET_PATH: steelline/public_html/
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Настроить SSH
+        env:
+          SSH_KEY: ${{ secrets.BEGET_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.BEGET_KNOWN_HOSTS }}
+        run: |
+          test -n "$SSH_KEY" || { echo "Нет секрета BEGET_SSH_KEY"; exit 1; }
+          test -n "$KNOWN_HOSTS" || { echo "Нет секрета BEGET_KNOWN_HOSTS"; exit 1; }
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Проверить подключение и папку сайта
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes -o BatchMode=yes \
+            "$BEGET_USER@$BEGET_HOST" "ls -la $BEGET_PATH"
+
+      # Файлы на сервере не удаляются (без --delete): index.php-заглушку Beget уберём отдельно, с подтверждением
+      - name: Загрузить файлы (rsync)
+        run: |
+          DRY=""
+          if [ "${{ inputs.mode }}" != "deploy" ]; then DRY="--dry-run"; echo "Режим check: только список изменений"; fi
+          rsync -rlvz --itemize-changes $DRY \
+            --chmod=D755,F644 \
+            --exclude '.git/' --exclude '.github/' \
+            --exclude '.gitignore' --exclude '.nojekyll' --exclude '.DS_Store' \
+            -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes -o BatchMode=yes" \
+            ./ "$BEGET_USER@$BEGET_HOST:$BEGET_PATH"
+
+      - name: Удалить ключ с машины GitHub
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
