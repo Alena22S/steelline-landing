@@ -1428,11 +1428,11 @@ body.has-modal { overflow: hidden; }
   .actions { flex-direction: column; width: 100%; padding: 0 var(--page-x); }
 
   /* Hero */
-  /* первый экран = шапка (64px) + баннер + бегущая строка (62px) ровно в высоту экрана;
+  /* баннер на 15% выше свободной высоты экрана (экран − шапка 64px − бегущая строка 62px);
      svh — без учёта панелей браузера. Фото 390×785 подрезается (object-fit: cover),
      баннер не выше самого фото и не ниже 480px */
   .hero {
-    height: clamp(480px, calc(100svh - 64px - 62px), calc(100vw * 1570 / 780));
+    height: clamp(520px, calc((100svh - 64px - 62px) * 1.15), calc(100vw * 1570 / 780)); /* +15%: бегущая строка — по скроллу */
     min-height: 0;
     aspect-ratio: auto;
   }
