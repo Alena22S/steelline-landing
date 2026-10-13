@@ -127,6 +127,7 @@ address { font-style: normal; }
 
 /* Закреплённая кнопка заявки — только на телефоне */
 .sticky-cta { display: none; }
+.reviews__more .arrow-dark { display: none; }
 
 .actions { display: flex; gap: 12px; justify-content: center; }
 
@@ -1648,6 +1649,13 @@ body.has-modal { overflow: hidden; }
   .eng-card__desc--cta { width: auto; gap: 10px; }
   .eng-card__copy { gap: 10px; }
   .eng-card__desc--cta { gap: 16px; align-items: stretch; }
+  /* на телефоне заявку ведёт закреплённая кнопка — дублирующие кнопки прячем */
+  .eng-card__desc--cta .btn,
+  .doors__cta { display: none; }
+  /* «Смотреть обзоры» — обводкой, без заливки */
+  .reviews__more { background: transparent; color: var(--c-navy); border: 1px solid rgba(6, 31, 59, 0.32); }
+  .reviews__more .arrow-light { display: none; }
+  .reviews__more .arrow-dark { display: block; }
   .eng-card__desc--cta .btn {
     position: absolute;
     left: 28px;
