@@ -83,6 +83,8 @@ $sources = [
     'tech-card' => 'блок «Инженерия»',
     'doors'     => 'блок «Какая дверь подойдёт»',
     'contact'   => 'кнопка «Записаться на подбор»',
+    'idea'      => 'блок «Дверь под вашу идею»',
+    'sticky'    => 'закреплённая кнопка (телефон)',
 ];
 $h = function ($s) { return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); };
 
