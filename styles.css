@@ -1432,7 +1432,7 @@ body.has-modal { overflow: hidden; }
      svh — без учёта панелей браузера. Фото 390×785 подрезается (object-fit: cover),
      баннер не выше самого фото и не ниже 480px */
   .hero {
-    height: clamp(520px, calc((100svh - 64px - 62px) * 1.15), calc(100vw * 1570 / 780)); /* +15%: бегущая строка — по скроллу */
+    height: clamp(520px, calc((100svh - 64px - 62px) * 1.15 - 16px), calc(100vw * 1570 / 780)); /* +15% и −16px: бегущая строка — по скроллу */
     min-height: 0;
     aspect-ratio: auto;
   }
