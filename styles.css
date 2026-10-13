@@ -1428,11 +1428,11 @@ body.has-modal { overflow: hidden; }
   .actions { flex-direction: column; width: 100%; padding: 0 var(--page-x); }
 
   /* Hero */
-  /* первый экран помещается между шапкой (64px) и закреплённой кнопкой заявки (52px + 12px + 12px);
-     svh — без учёта панелей браузера. Фото 390×785 подрезается сверху и снизу (object-fit: cover),
-     не выше самого фото и не ниже 480px */
+  /* первый экран = шапка (64px) + баннер + бегущая строка (62px) ровно в высоту экрана;
+     svh — без учёта панелей браузера. Фото 390×785 подрезается (object-fit: cover),
+     баннер не выше самого фото и не ниже 480px */
   .hero {
-    height: clamp(480px, calc(100svh - 64px - 76px - env(safe-area-inset-bottom, 0px)), calc(100vw * 1570 / 780));
+    height: clamp(480px, calc(100svh - 64px - 62px), calc(100vw * 1570 / 780));
     min-height: 0;
     aspect-ratio: auto;
   }
@@ -1500,7 +1500,13 @@ body.has-modal { overflow: hidden; }
     gap: 12px;
     font-size: 15px;
     box-shadow: 0 8px 24px rgba(6, 31, 59, 0.28);
+    /* появляется только после первого экрана (класс ставит script.js) */
+    opacity: 0;
+    transform: translateY(calc(100% + 24px));
+    pointer-events: none;
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.25s ease, filter 0.2s;
   }
+  .sticky-cta.is-visible { opacity: 1; transform: none; pointer-events: auto; }
   /* при открытом меню кнопку прячем */
   body:has(.header.is-open) .sticky-cta { display: none; }
   /* индикатор слайдов — вверху, полоски мельче */

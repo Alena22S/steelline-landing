@@ -977,3 +977,17 @@
   });
 })();
 
+/* ---------- Закреплённая кнопка заявки (телефон): появляется после первого экрана ---------- */
+(function () {
+  var cta = document.querySelector('.sticky-cta');
+  var edge = document.querySelector('.ticker') || document.querySelector('.hero');
+  if (!cta || !edge || !('IntersectionObserver' in window)) {
+    if (cta) cta.classList.add('is-visible');
+    return;
+  }
+  new IntersectionObserver(function (entries) {
+    var e = entries[0];
+    // показываем, когда бегущая строка целиком ушла под шапку (64px)
+    cta.classList.toggle('is-visible', !e.isIntersecting && e.boundingClientRect.top < 64);
+  }, { rootMargin: '-64px 0px 0px 0px' }).observe(edge);
+})();
