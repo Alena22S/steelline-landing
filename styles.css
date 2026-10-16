@@ -127,6 +127,29 @@ address { font-style: normal; }
 
 /* Закреплённая кнопка заявки — только на телефоне */
 .sticky-cta { display: none; }
+
+/* Уведомление о cookie */
+.cookie {
+  position: fixed;
+  z-index: 60;
+  left: 24px;
+  bottom: 24px;
+  width: min(440px, calc(100vw - 48px));
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--c-navy);
+  box-shadow: 0 12px 40px rgba(6, 31, 59, 0.18);
+  animation: cookie-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+@keyframes cookie-in { from { opacity: 0; transform: translateY(16px); } }
+@media (prefers-reduced-motion: reduce) { .cookie { animation: none; } }
+.cookie__text { font-family: var(--f-inter); font-size: 14px; line-height: 1.45; color: var(--c-muted); text-wrap: pretty; }
+.cookie__actions { display: flex; gap: 8px; }
+.cookie__btn { flex: 1; justify-content: center; height: 44px; padding: 0 16px; }
 .reviews__more .arrow-dark { display: none; }
 
 .actions { display: flex; gap: 12px; justify-content: center; }
@@ -1510,6 +1533,10 @@ body.has-modal { overflow: hidden; }
     transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.25s ease, filter 0.2s;
   }
   .sticky-cta.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+  /* пока открыто уведомление о cookie — кнопка заявки стоит над ним */
+  .sticky-cta { bottom: calc(12px + var(--cookie-h, 0px) + env(safe-area-inset-bottom, 0px)); }
+  .cookie { left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); width: auto; padding: 16px; gap: 12px; }
+  .cookie__text { font-size: 13px; }
   /* при открытом меню кнопку прячем */
   body:has(.header.is-open) .sticky-cta { display: none; }
   /* индикатор слайдов — вверху, полоски мельче */

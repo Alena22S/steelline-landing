@@ -991,3 +991,35 @@
     cta.classList.toggle('is-visible', !e.isIntersecting && e.boundingClientRect.top < 64);
   }, { rootMargin: '-64px 0px 0px 0px' }).observe(edge);
 })();
+
+/* ---------- Уведомление о cookie ----------
+   Выбор: 'all' — все cookie (можно подключать Яндекс.Метрику), 'necessary' — только необходимые.
+   Текущий выбор: window.cookieConsent; при выборе — событие 'cookie-consent' на document. */
+(function () {
+  var KEY = 'cookie-consent';
+  var box = document.getElementById('cookie');
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  window.cookieConsent = saved;
+  if (!box || saved) return;
+
+  var root = document.documentElement;
+  function syncHeight() { root.style.setProperty('--cookie-h', box.hidden ? '0px' : (box.offsetHeight + 12) + 'px'); }
+
+  box.hidden = false;
+  syncHeight();
+  window.addEventListener('resize', syncHeight);
+
+  box.addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-cookie]');
+    if (!btn) return;
+    var value = btn.getAttribute('data-cookie');
+    try { localStorage.setItem(KEY, value); } catch (err) {}
+    window.cookieConsent = value;
+    box.hidden = true;
+    syncHeight();
+    window.removeEventListener('resize', syncHeight);
+    document.dispatchEvent(new CustomEvent('cookie-consent', { detail: value }));
+  });
+})();
+

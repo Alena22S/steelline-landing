@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=51">
+  <link rel="stylesheet" href="styles.css?v=52">
 </head>
 <body>
 
@@ -605,6 +605,15 @@
   </main>
 
   <!-- Footer -->
+  <!-- Уведомление о cookie: выбор хранится в браузере (script.js), Метрику подключать только при «Принять» -->
+  <div class="cookie" id="cookie" role="region" aria-label="Уведомление о cookie" hidden>
+    <p class="cookie__text">Мы используем cookie, чтобы сайт работал корректно и&nbsp;чтобы понимать, как им&nbsp;пользуются. Нажимая «Принять», вы&nbsp;соглашаетесь на&nbsp;использование всех cookie.</p>
+    <div class="cookie__actions">
+      <button class="btn btn--gradient cookie__btn" type="button" data-cookie="all">Принять</button>
+      <button class="btn btn--outline btn--outline-soft cookie__btn" type="button" data-cookie="necessary">Только необходимые</button>
+    </div>
+  </div>
+
   <!-- Мобильная кнопка заявки, закреплена внизу экрана (только ≤767px) -->
   <a class="btn btn--gradient sticky-cta" href="#contacts" data-open-form="sticky">Получить подбор двери <img src="assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
 
@@ -928,6 +937,6 @@
     </div>
   </dialog>
 
-  <script src="script.js?v=32"></script>
+  <script src="script.js?v=33"></script>
 </body>
 </html>
