@@ -1274,13 +1274,24 @@ body.has-modal { overflow: hidden; }
 .lead__done-icon {
   display: grid;
   place-items: center;
-  width: 64px;
-  height: 64px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
-  background: var(--c-chip-bg);
+  background: #e3efff;
   color: var(--c-blue);
 }
-.lead__done .btn { margin-top: 8px; }
+/* «Вернуться на сайт» — <button>: сбрасываем системный серый фон, оставляем только обводку */
+.lead__done .btn {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: 8px;
+  padding: 0 28px;
+  background: transparent;
+  border: 1px solid rgba(26, 35, 32, 0.48);
+  color: var(--c-navy);
+  font-family: var(--f-manrope);
+}
+.lead__done .btn:hover { border-color: var(--c-navy); background: rgba(6, 31, 59, 0.03); }
 
 /* ---------- Все видеообзоры (модальное окно) ---------- */
 .reels { width: min(1160px, calc(100vw - 32px)); }
