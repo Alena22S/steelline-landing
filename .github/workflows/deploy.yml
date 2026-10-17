@@ -69,7 +69,7 @@ jobs:
               'smtp_pass'  => '$MAIL_PASS',
               'from_email' => 'segimova.alena@yandex.ru',
               'from_name'  => 'Сайт «Стальная линия»',
-              'to' => ['alena.segimova22@mail.ru', 'segimova.alena@yandex.ru', 'astroom@steelline.store'],
+              'to' => ['alena.segimova22@mail.ru', 'segimova.alena@yandex.ru'], // astroom@steelline.store — добавить после проверки
               'leads_dir'  => '$(dirname "${DEPLOY_PATH%/}")/leads',
           ];
           PHP
