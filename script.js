@@ -652,7 +652,13 @@
     function show(i) {
       index = (i + items.length) % items.length;
       var src = items[index].querySelector('img');
-      img.src = src.currentSrc || src.src;
+      // в галерее — лёгкие миниатюры, в просмотре — полное фото (data-full)
+      img.src = items[index].dataset.full || src.currentSrc || src.src;
+      // соседние полные фото подгружаем заранее, чтобы листание было без задержки
+      [index + 1, index - 1].forEach(function (j) {
+        var it = items[(j + items.length) % items.length];
+        if (it.dataset.full) (new Image()).src = it.dataset.full;
+      });
       img.alt = src.alt;
       title.textContent = src.alt;
       count.textContent = (index + 1) + ' / ' + items.length;
@@ -1136,7 +1142,7 @@
    Браузер грузит lazy-фото в горизонтальной ленте только при прокрутке до них — карточки «проявлялись» с задержкой */
 (function () {
   if (!('IntersectionObserver' in window)) return;
-  document.querySelectorAll('#eng-track').forEach(function (track) {
+  document.querySelectorAll('#eng-track, .salon-gallery').forEach(function (track) {
     var io = new IntersectionObserver(function (entries) {
       if (!entries[0].isIntersecting) return;
       io.disconnect();
