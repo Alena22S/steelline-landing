@@ -866,8 +866,8 @@
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
     </button>
 
-    <!-- data-test-mode: тестовый режим, заявки не отправляются (GitHub Pages не выполняет PHP). Удалить атрибут на хостинге с PHP -->
-    <form data-test-mode class="lead__form" id="lead-form" action="send.php" method="post" enctype="multipart/form-data" novalidate>
+    <!-- Заявки уходят в send.php. Для тестового режима (без отправки) добавить атрибут data-test-mode -->
+    <form class="lead__form" id="lead-form" action="send.php" method="post" enctype="multipart/form-data" novalidate>
       <div class="lead__head">
         <h2 class="lead__title" id="lead-title" data-title-photo="Бесплатно подберём дверь по фото проёма" data-title-contact="Оставьте контакты">Бесплатно подберём дверь по фото проёма</h2>
         <p class="lead__lead" data-lead-photo="Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире." data-lead-contact="Свяжемся с вами, ответим на вопросы и поможем с выбором. Можно сразу прикрепить фото проёма — подберём подходящие двери.">Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире.</p>
