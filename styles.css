@@ -825,8 +825,8 @@ address { font-style: normal; }
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  /* ширина 1040, фото крупное — как фото в других блоках */
-  width: 1040px;
+  /* фото 600 + колонка текста ~520, чтобы описание укладывалось максимум в 3 строки */
+  width: 1200px;
   height: 614px;
   gap: 32px;
   padding: 24px;
