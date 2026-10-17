@@ -52,6 +52,7 @@ jobs:
             ./ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH"
 
       # Настройки почты для send.php — ВНЕ папки сайта (её перезаписывает rsync --delete).
+      # Папки config/ и leads/ и их группу (пользователь PHP) создаёт администратор сервера; здесь группу не меняем.
       # Пароль приложения Яндекса берётся из секрета MAIL_SMTP_PASS; без секрета шаг пропускается.
       - name: Настройки почты для формы
         env:
@@ -74,12 +75,12 @@ jobs:
           ];
           PHP
           ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes -o BatchMode=yes "$DEPLOY_USER@$DEPLOY_HOST" \
-            "SITE='${DEPLOY_PATH%/}'; BASE=\$(dirname \"\$SITE\"); GRP=\$(stat -c %G \"\$SITE\");
+            "SITE='${DEPLOY_PATH%/}'; BASE=\$(dirname \"\$SITE\");
              set -e; umask 027;
              mkdir -p \"\$BASE/config\" \"\$BASE/leads\";
              cat > \"\$BASE/config/mail.php.tmp\"; mv \"\$BASE/config/mail.php.tmp\" \"\$BASE/config/mail.php\";
-             chgrp \"\$GRP\" \"\$BASE/config\" \"\$BASE/config/mail.php\" \"\$BASE/leads\" 2>/dev/null || echo \"chgrp \$GRP не удалось\";
-             chmod 750 \"\$BASE/config\"; chmod 640 \"\$BASE/config/mail.php\"; chmod 770 \"\$BASE/leads\";
+             chgrp \"\$(stat -c %G \"\$BASE/config\")\" \"\$BASE/config/mail.php\" || echo 'группу файла сменить не удалось';
+             chmod 640 \"\$BASE/config/mail.php\";
              echo '--- проверка ---';
              echo \"папка сайта: \$(stat -c '%U:%G' \"\$SITE\")\";
              echo \"PHP работает от: \$(ps -eo user,comm | awk '/php/ {print \$1}' | sort -u | tr '\\n' ' ')\";
