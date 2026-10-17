@@ -127,6 +127,8 @@ address { font-style: normal; }
 
 /* Закреплённая кнопка заявки — только на телефоне */
 .sticky-cta { display: none; }
+/* внутри карты кликов Метрики уведомление о cookie не нужно */
+.in-metrika .cookie { display: none !important; }
 
 /* Уведомление о cookie */
 .cookie {

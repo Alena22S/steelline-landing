@@ -22,7 +22,23 @@
 
   var saved = null;
   try { saved = localStorage.getItem('cookie-consent'); } catch (e) {}
-  if (saved === 'all') load();
+
+  // Сайт открыт внутри инструментов самой Метрики (карта кликов, аналитика форм, Вебвизор) —
+  // это смотрит владелец сайта, а не посетитель: подключаем счётчик и не показываем уведомление о cookie
+  var inMetrika = false;
+  try {
+    var anc = location.ancestorOrigins;
+    inMetrika = window.self !== window.top && (
+      /metrika\.yandex|webvisor\.com|metrica\.yandex/.test(document.referrer) ||
+      (anc && anc.length && /metrika\.yandex|webvisor\.com|metrica\.yandex/.test(anc[anc.length - 1]))
+    );
+  } catch (e) {}
+  if (inMetrika) {
+    document.documentElement.classList.add('in-metrika');
+    load();
+  } else if (saved === 'all') {
+    load();
+  }
   document.addEventListener('cookie-consent', function (e) { if (e.detail === 'all') load(); });
 
   // Клики-цели по всему сайту
