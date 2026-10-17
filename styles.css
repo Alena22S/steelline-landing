@@ -821,11 +821,11 @@ address { font-style: normal; }
   display: flex;
   flex-direction: column;
   gap: 20px;
-  /* вертикальная карточка, как на телефоне: в экран помещаются две и половина третьей
-     (ширина от левого поля до правого края экрана = 2,5 карточки + 2 промежутка по 24px) */
-  width: calc((100vw - var(--page-x) - 48px) / 2.5);
+  /* вертикальная карточка, как на телефоне: в экран помещаются две целиком,
+     третья выглядывает на 8vw (при 1728 — ~140px), намекая на прокрутку */
+  width: calc((92vw - var(--page-x) - 48px) / 2);
   min-width: 340px;
-  max-width: 720px;
+  max-width: 820px;
   padding: 20px;
   border: 1px solid rgba(14, 23, 42, 0.05);
   border-radius: 12px;
@@ -853,7 +853,7 @@ address { font-style: normal; }
   flex: none;
   margin-top: auto;
   width: 100%;
-  aspect-ratio: 541 / 510;
+  aspect-ratio: 4 / 3; /* карточка широкая — фото ниже, чтобы она помещалась в экран */
   border-radius: 8px;
   overflow: hidden;
 }
