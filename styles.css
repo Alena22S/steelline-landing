@@ -782,10 +782,7 @@ address { font-style: normal; }
 }
 
 /* ---------- Engineering ---------- */
-.eng { display: flex; flex-direction: column; gap: 80px; padding-left: 0; padding-right: 0; background: #f9fafb; }
-/* у серой подложки свои границы — линии-разделители рядом с блоком не нужны */
-.divider:has(+ .eng),
-.eng + .divider { display: none; }
+.eng { display: flex; flex-direction: column; gap: 80px; padding-left: 0; padding-right: 0; }
 .eng__head {
   display: flex;
   align-items: flex-start;
