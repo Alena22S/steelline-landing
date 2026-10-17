@@ -1132,3 +1132,17 @@
   });
 })();
 
+/* ---------- Фото в горизонтальных лентах: начинаем грузить заранее, когда лента подъезжает к экрану ----------
+   Браузер грузит lazy-фото в горизонтальной ленте только при прокрутке до них — карточки «проявлялись» с задержкой */
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  document.querySelectorAll('#eng-track').forEach(function (track) {
+    var io = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      io.disconnect();
+      track.querySelectorAll('img[loading="lazy"]').forEach(function (img) { img.loading = 'eager'; });
+    }, { rootMargin: '800px 0px' });
+    io.observe(track);
+  });
+})();
+
