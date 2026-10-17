@@ -825,9 +825,9 @@ address { font-style: normal; }
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  /* чуть компактнее, чем в макете (1158×558): масштаб 0,9 */
+  /* ширина 1040, фото крупное — как фото в других блоках */
   width: 1040px;
-  height: 507px;
+  height: 614px;
   gap: 32px;
   padding: 24px;
   border-radius: 12px;
@@ -852,8 +852,8 @@ address { font-style: normal; }
 .eng-card__media {
   position: relative;
   flex: none;
-  width: 487px; /* 541×510 в масштабе 0,9 */
-  height: 459px;
+  width: 600px; /* пропорции 541×510 */
+  height: 566px;
   border-radius: 8px;
   overflow: hidden;
 }
