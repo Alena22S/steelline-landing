@@ -51,6 +51,41 @@ jobs:
             -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes -o BatchMode=yes" \
             ./ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH"
 
+      # Настройки почты для send.php — ВНЕ папки сайта (её перезаписывает rsync --delete).
+      # Пароль приложения Яндекса берётся из секрета MAIL_SMTP_PASS; без секрета шаг пропускается.
+      - name: Настройки почты для формы
+        env:
+          MAIL_PASS: ${{ secrets.MAIL_SMTP_PASS }}
+        run: |
+          if [ -z "$MAIL_PASS" ]; then echo "Секрета MAIL_SMTP_PASS нет — настройки почты не трогаю"; exit 0; fi
+          # пароль приложения Яндекса — только латинские буквы и цифры; кавычки и т.п. сломали бы PHP-файл
+          printf '%s' "$MAIL_PASS" | grep -Eq '^[A-Za-z0-9]+$' || { echo "MAIL_SMTP_PASS: допустимы только латинские буквы и цифры (без пробелов)"; exit 1; }
+          cat > mail.php <<PHP
+          <?php
+          return [
+              'smtp_host'  => 'smtp.yandex.ru',
+              'smtp_port'  => 465,
+              'smtp_user'  => 'segimova.alena@yandex.ru',
+              'smtp_pass'  => '$MAIL_PASS',
+              'from_email' => 'segimova.alena@yandex.ru',
+              'from_name'  => 'Сайт «Стальная линия»',
+              'to' => ['alena.segimova22@mail.ru', 'segimova.alena@yandex.ru', 'astroom@steelline.store'],
+              'leads_dir'  => '$(dirname "${DEPLOY_PATH%/}")/leads',
+          ];
+          PHP
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes -o BatchMode=yes "$DEPLOY_USER@$DEPLOY_HOST" \
+            "SITE='${DEPLOY_PATH%/}'; BASE=\$(dirname \"\$SITE\"); GRP=\$(stat -c %G \"\$SITE\");
+             set -e; umask 027;
+             mkdir -p \"\$BASE/config\" \"\$BASE/leads\";
+             cat > \"\$BASE/config/mail.php.tmp\"; mv \"\$BASE/config/mail.php.tmp\" \"\$BASE/config/mail.php\";
+             chgrp \"\$GRP\" \"\$BASE/config\" \"\$BASE/config/mail.php\" \"\$BASE/leads\" 2>/dev/null || echo \"chgrp \$GRP не удалось\";
+             chmod 750 \"\$BASE/config\"; chmod 640 \"\$BASE/config/mail.php\"; chmod 770 \"\$BASE/leads\";
+             echo '--- проверка ---';
+             echo \"папка сайта: \$(stat -c '%U:%G' \"\$SITE\")\";
+             echo \"PHP работает от: \$(ps -eo user,comm | awk '/php/ {print \$1}' | sort -u | tr '\\n' ' ')\";
+             ls -ld \"\$BASE/config\" \"\$BASE/config/mail.php\" \"\$BASE/leads\"" < mail.php
+          rm -f mail.php
+
       - name: Удалить ключ
         if: always()
         run: rm -f ~/.ssh/deploy_key
