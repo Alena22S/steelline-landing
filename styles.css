@@ -88,6 +88,8 @@ address { font-style: normal; }
 .btn img { flex: none; transform: translateY(1px); transition: transform 0.2s; }
 .btn:hover img { transform: translate(3px, 1px); }
 .btn--lg { height: 48px; }
+/* у <button> браузер рисует свою рамку и серый фон — сбрасываем (нулевая специфичность: обводки .btn--outline и т.п. сохраняются) */
+:where(button.btn) { -webkit-appearance: none; appearance: none; border: 0; background: none; font-family: var(--f-manrope); }
 
 .btn--gradient { background: var(--grad-primary); color: #fff; }
 .btn--gradient.btn--lg { gap: 12px; }
