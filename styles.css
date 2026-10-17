@@ -843,8 +843,8 @@ address { font-style: normal; }
 .eng-card__title { font-weight: 500; font-size: 32px; line-height: 1.2; color: var(--c-ink); }
 .eng-card__text {
   font-family: var(--f-inter);
-  font-size: 17px;
-  line-height: 1.4;
+  font-size: 18px; /* как описания в карточках «Какая дверь подойдёт» */
+  line-height: 1.2;
   letter-spacing: 0.18px;
   color: var(--c-muted-2);
 }
