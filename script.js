@@ -1,12 +1,27 @@
-/* ---------- Яндекс Метрика: подключается только после «Принять» в уведомлении о cookie ---------- */
+/* ---------- Яндекс Метрика и пиксель VK Ads: подключаются только после «Принять» в уведомлении о cookie ---------- */
 (function () {
-  var ID = 113661573;
+  var ID = 113661573;      // Яндекс Метрика
+  var VK_ID = '3805477';   // пиксель VK Ads (Top.Mail.Ru)
   var loaded = false;
+  var vkLoaded = false;
 
   // Цели: window.siteGoal('lead_success') — безопасно вызывать всегда; без согласия ничего не отправляется
   window.siteGoal = function (name, params) {
     if (loaded && typeof window.ym === 'function') window.ym(ID, 'reachGoal', name, params || {});
+    if (vkLoaded) window._tmr.push({ type: 'reachGoal', id: VK_ID, goal: name });
   };
+
+  function loadVk() {
+    if (vkLoaded) return;
+    vkLoaded = true;
+    var _tmr = window._tmr || (window._tmr = []);
+    _tmr.push({ id: VK_ID, type: 'pageView', start: Date.now() });
+    if (document.getElementById('tmr-code')) return;
+    var ts = document.createElement('script');
+    ts.async = true; ts.id = 'tmr-code'; ts.src = 'https://top-fwz1.mail.ru/js/code.js';
+    var first = document.getElementsByTagName('script')[0];
+    first.parentNode.insertBefore(ts, first);
+  }
 
   function load() {
     if (loaded) return;
@@ -38,8 +53,9 @@
     load();
   } else if (saved === 'all') {
     load();
+    loadVk();
   }
-  document.addEventListener('cookie-consent', function (e) { if (e.detail === 'all') load(); });
+  document.addEventListener('cookie-consent', function (e) { if (e.detail === 'all') { load(); loadVk(); } });
 
   // Клики-цели по всему сайту
   document.addEventListener('click', function (e) {
