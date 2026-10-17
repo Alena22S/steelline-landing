@@ -1,3 +1,42 @@
+/* ---------- Яндекс Метрика: подключается только после «Принять» в уведомлении о cookie ---------- */
+(function () {
+  var ID = 113661573;
+  var loaded = false;
+
+  // Цели: window.siteGoal('lead_success') — безопасно вызывать всегда; без согласия ничего не отправляется
+  window.siteGoal = function (name, params) {
+    if (loaded && typeof window.ym === 'function') window.ym(ID, 'reachGoal', name, params || {});
+  };
+
+  function load() {
+    if (loaded) return;
+    loaded = true;
+    (function (m, e, t, r, i, k, a) {
+      m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
+      m[i].l = 1 * new Date();
+      k = e.createElement(t); a = e.getElementsByTagName(t)[0];
+      k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
+    })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + ID, 'ym');
+    window.ym(ID, 'init', { webvisor: true, clickmap: true, accurateTrackBounce: true, trackLinks: true });
+  }
+
+  var saved = null;
+  try { saved = localStorage.getItem('cookie-consent'); } catch (e) {}
+  if (saved === 'all') load();
+  document.addEventListener('cookie-consent', function (e) { if (e.detail === 'all') load(); });
+
+  // Клики-цели по всему сайту
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (href.indexOf('tel:') === 0) window.siteGoal('phone_click');
+    else if (href.indexOf('mailto:') === 0) window.siteGoal('email_click');
+    else if (href.indexOf('yandex.ru/maps') !== -1) window.siteGoal('route_click');
+    else if (href.indexOf('steelline.store/catalog') !== -1) window.siteGoal('catalog_click');
+  });
+})();
+
 (function () {
   // Мобильное меню
   var header = document.querySelector('.header');
@@ -513,6 +552,7 @@
       var thumb = e.target.closest('.video-card__thumb[data-video]');
       if (!thumb) return;
       e.preventDefault();
+      window.siteGoal('video_open');
       // список роликов — карточки из того же блока (страница или модалка с обзорами)
       var scope = thumb.closest('.reels__body, .reviews__grid') || document;
       list = Array.prototype.slice.call(scope.querySelectorAll('.video-card__thumb[data-video]'));
@@ -687,6 +727,7 @@
     lead.textContent = contact ? lead.dataset.leadContact : lead.dataset.leadPhoto;
     form.elements.source.value = source || '';
     openedAt = Date.now();
+    window.siteGoal('form_open', { source: source || '' });
     form.hidden = false;
     done.hidden = true;
     status.textContent = '';
@@ -907,6 +948,7 @@
       return;
     }
     status.classList.remove('is-info');
+    window.siteGoal('form_submit');
 
     setLoading(true);
     Promise.all(files.map(compress)).then(function (ready) {
@@ -924,10 +966,12 @@
       form.hidden = true;
       done.hidden = false;
       done.querySelector('.btn').focus();
+      window.siteGoal('lead_success', { source: form.elements.source.value });
     }).catch(function (err) {
       var msg = err && err.message && err.message !== 'send_failed' && err.message !== 'Failed to fetch'
         ? err.message + ' '
         : 'Не получилось отправить заявку. ';
+      window.siteGoal('form_error');
       status.innerHTML = '';
       status.appendChild(document.createTextNode(msg + 'Позвоните нам: '));
       var a = document.createElement('a');
