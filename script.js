@@ -170,13 +170,25 @@
     function itemFor(pos) { return items[(offset + pos) % n]; }
     function plain(html) { return html.replace(/<br[^>]*>/g, ' ').replace(/\s+/g, ' ').trim(); }
 
-    // заранее подгружаем все фото, чтобы смена шла без мигания
+    // фото подгружаем заранее, чтобы смена шла без мигания, — но только когда блок рядом с экраном
+    // (а на телефоне, где этот слайдер скрыт, не подгружаем вовсе)
     function preload(src) {
       var img = new Image();
       img.src = src;
       return img.decode ? img.decode().catch(function () {}) : Promise.resolve();
     }
-    var ready = Promise.all(items.map(function (it) { return preload(it.src); }));
+    var startPreload;
+    var ready = new Promise(function (resolve) {
+      startPreload = function () { resolve(Promise.all(items.map(function (it) { return preload(it.src); }))); };
+    });
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting && stage.offsetParent !== null) { io.disconnect(); startPreload(); }
+      }, { rootMargin: '600px 0px' });
+      io.observe(stage);
+    } else {
+      startPreload();
+    }
 
     function setText(card, it) {
       card.querySelector('.idea2-card__title').innerHTML = it.title;
@@ -265,6 +277,7 @@
   // Центрированная карусель («За рамками…»): масштаб карточек под ширину экрана,
   // отступы, чтобы первая и последняя карточки вставали по центру, и ширина белого fade по бокам
   document.querySelectorAll('[data-center]').forEach(function (track) {
+    if (track.closest('[hidden]')) return; // блок скрыт — не клонируем карточки и не грузим их фото
     var PEEK = 80; // сколько видно соседних карточек с каждой стороны на десктопе
     var DESIGN_W = 1475;
 
