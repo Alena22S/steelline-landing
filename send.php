@@ -1,17 +1,21 @@
 <?php
 /**
- * Приём заявок с сайта: контакты + фото проёма → письмо на почту салона.
- * Работает на любом PHP-хостинге с настроенной функцией mail() (Beget, Timeweb, REG.RU и т.п.).
+ * Приём заявок с сайта: контакты + фото проёма → письмо на почту (через SMTP) + копия в журнал на сервере.
+ *
+ * Пароли здесь НЕ хранятся. Настройки читаются из файла ВНЕ папки сайта (её перезаписывает автопубликация):
+ *   /opt/steelline-promo/config/mail.php   (= папка выше сайта / config / mail.php)
+ * Шаблон — config/mail.example.php в репозитории.
+ * Журнал заявок и счётчик частоты — /opt/steelline-promo/leads/
  */
 
-// ---- Настройки ----
-$TO        = 'astroom@steelline.store';          // куда приходят заявки
-$FROM      = 'no-reply@steelline.store';          // адрес отправителя на домене сайта
-$SUBJECT   = 'Заявка на подбор двери с сайта';
+// ---- Постоянные настройки (без секретов) ----
 $MAX_FILES = 5;
 $MAX_SIZE  = 10 * 1024 * 1024;                    // 10 МБ на файл
 $ALLOWED   = ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'];
-// -------------------
+$RATE_MAX  = 5;                                   // не больше 5 заявок…
+$RATE_WIN  = 600;                                 // …за 10 минут с одного IP
+$MIN_FILL  = 3;                                   // быстрее 3 секунд форму заполняют только боты
+// ----------------------------------------------
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -25,9 +29,32 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     reply(false, 'Неверный запрос.', 405);
 }
 
-// Ловушка для ботов: настоящий посетитель это поле не заполняет
+$BASE     = dirname(__DIR__);                     // /opt/steelline-promo
+$CFG_FILE = getenv('STEELLINE_MAIL_CONFIG') ?: $BASE . '/config/mail.php';
+$cfg      = is_readable($CFG_FILE) ? require $CFG_FILE : null;
+$LEADS    = (is_array($cfg) && !empty($cfg['leads_dir'])) ? rtrim($cfg['leads_dir'], '/') : $BASE . '/leads';
+
+// Ловушки для ботов: скрытое поле и слишком быстрая отправка. Боту отвечаем «успешно», ничего не делая
 if (!empty($_POST['website'])) {
     reply(true);
+}
+$started = isset($_POST['ts']) ? (int) $_POST['ts'] : 0;
+if ($started > 0 && (time() - (int) floor($started / 1000)) < $MIN_FILL) {
+    reply(true);
+}
+
+// Ограничение частоты по IP
+$ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+if (is_dir($LEADS) && is_writable($LEADS)) {
+    $rateFile = $LEADS . '/.rate-' . hash('sha256', $ip) . '.json';
+    $now  = time();
+    $hits = is_readable($rateFile) ? (json_decode((string) file_get_contents($rateFile), true) ?: []) : [];
+    $hits = array_values(array_filter($hits, function ($t) use ($now, $RATE_WIN) { return $t > $now - $RATE_WIN; }));
+    if (count($hits) >= $RATE_MAX) {
+        reply(false, 'Слишком много заявок подряд. Попробуйте через несколько минут или позвоните нам.', 429);
+    }
+    $hits[] = $now;
+    @file_put_contents($rateFile, json_encode($hits), LOCK_EX);
 }
 
 function field($key, $max) {
@@ -35,18 +62,29 @@ function field($key, $max) {
     $v = str_replace(["\r", "\0"], '', $v);
     return mb_substr($v, 0, $max);
 }
+function line($key, $max) {                       // однострочные поля: без переводов строк
+    return str_replace("\n", ' ', field($key, $max));
+}
 
-$name    = field('name', 80);
-$phone   = field('phone', 30);
-$email   = field('email', 120);
+$name    = line('name', 80);
+$phone   = line('phone', 30);
+$email   = line('email', 120);
 $comment = field('comment', 1000);
-$source  = field('source', 40);
+$source  = line('source', 40);
 $consent = !empty($_POST['consent']);
 
 if (mb_strlen($name) < 2) reply(false, 'Укажите имя.', 422);
 if (strlen(preg_replace('/\D/', '', $phone)) !== 11) reply(false, 'Укажите телефон полностью.', 422);
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) reply(false, 'Проверьте адрес почты.', 422);
 if (!$consent) reply(false, 'Нужно согласие на обработку данных.', 422);
+
+// Метки рекламы и откуда пришёл посетитель (собирает script.js)
+$trackKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'yclid', 'gclid', 'referrer', 'landing'];
+$track = [];
+foreach ($trackKeys as $k) {
+    $v = line($k, 300);
+    if ($v !== '') $track[$k] = $v;
+}
 
 // ---- Фото ----
 $attachments = [];
@@ -76,6 +114,23 @@ if (!empty($_FILES['photos']) && is_array($_FILES['photos']['name'])) {
     }
 }
 
+// ---- Копия заявки в журнал на сервере (без фото) — даже если письмо не уйдёт, заявка не потеряется ----
+$logged = false;
+if (is_dir($LEADS) && is_writable($LEADS)) {
+    $entry = [
+        'time' => date('c'), 'name' => $name, 'phone' => $phone, 'email' => $email,
+        'comment' => $comment, 'photos' => count($attachments), 'source' => $source, 'track' => $track,
+    ];
+    $logFile = $LEADS . '/leads-' . date('Y-m') . '.jsonl';
+    $logged  = @file_put_contents($logFile, json_encode($entry, JSON_UNESCAPED_UNICODE) . "\n", FILE_APPEND | LOCK_EX) !== false;
+    if ($logged) @chmod($logFile, 0600);
+}
+
+if (!is_array($cfg)) {
+    // Почта не настроена: заявка сохранена в журнал (если он доступен), посетителю — честное сообщение
+    reply(false, $logged ? 'Заявка сохранена, но письмо пока не отправилось. Мы свяжемся с вами.' : 'Форма временно не работает.', 503);
+}
+
 // ---- Письмо ----
 $sources = [
     'header'    => 'кнопка в шапке',
@@ -85,6 +140,11 @@ $sources = [
     'contact'   => 'кнопка «Записаться на подбор»',
     'idea'      => 'блок «Дверь под вашу идею»',
     'sticky'    => 'закреплённая кнопка (телефон)',
+];
+$trackNames = [
+    'utm_source' => 'utm_source', 'utm_medium' => 'utm_medium', 'utm_campaign' => 'utm_campaign',
+    'utm_content' => 'utm_content', 'utm_term' => 'utm_term', 'yclid' => 'yclid (Директ)', 'gclid' => 'gclid',
+    'referrer' => 'Пришёл с', 'landing' => 'Страница входа',
 ];
 $h = function ($s) { return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); };
 
@@ -96,32 +156,88 @@ $html .= '<tr><td><b>Почта</b></td><td><a href="mailto:' . $h($email) . '">
 if ($comment !== '') $html .= '<tr><td valign="top"><b>Комментарий</b></td><td>' . nl2br($h($comment)) . '</td></tr>';
 $html .= '<tr><td><b>Фото проёма</b></td><td>' . (count($attachments) ? count($attachments) . ' во вложении' : 'не приложены') . '</td></tr>';
 if (isset($sources[$source])) $html .= '<tr><td><b>Откуда</b></td><td>' . $sources[$source] . '</td></tr>';
+foreach ($track as $k => $v) {
+    $html .= '<tr><td><b>' . $h($trackNames[$k]) . '</b></td><td>' . $h($v) . '</td></tr>';
+}
 $html .= '</table>';
 
+$to       = array_values(array_filter((array) $cfg['to'], function ($a) { return filter_var($a, FILTER_VALIDATE_EMAIL); }));
+$from     = $cfg['from_email'];
+$fromName = $cfg['from_name'] ?? 'Сайт «Стальная линия»';
+$subject  = 'Заявка на подбор двери с сайта — ' . $name;
+$enc      = function ($s) { return '=?UTF-8?B?' . base64_encode($s) . '?='; };
+
 $boundary = '=_' . bin2hex(random_bytes(12));
-$encSubject = '=?UTF-8?B?' . base64_encode($SUBJECT . ' — ' . $name) . '?=';
-
-$headers  = 'From: =?UTF-8?B?' . base64_encode('Сайт «Стальная линия»') . "?= <$FROM>\r\n";
-$headers .= "Reply-To: $email\r\n";
-$headers .= "MIME-Version: 1.0\r\n";
-$headers .= "Content-Type: multipart/mixed; boundary=\"$boundary\"";
-
-$body  = "--$boundary\r\n";
-$body .= "Content-Type: text/html; charset=UTF-8\r\n";
-$body .= "Content-Transfer-Encoding: base64\r\n\r\n";
-$body .= chunk_split(base64_encode($html)) . "\r\n";
-
+$msg  = 'Date: ' . date('r') . "\r\n";
+$msg .= 'From: ' . $enc($fromName) . " <$from>\r\n";
+$msg .= 'To: ' . implode(', ', $to) . "\r\n";
+$msg .= "Reply-To: $email\r\n";
+$msg .= 'Subject: ' . $enc($subject) . "\r\n";
+$msg .= 'Message-ID: <' . bin2hex(random_bytes(16)) . '@' . substr(strrchr($from, '@'), 1) . ">\r\n";
+$msg .= "MIME-Version: 1.0\r\n";
+$msg .= "Content-Type: multipart/mixed; boundary=\"$boundary\"\r\n\r\n";
+$msg .= "--$boundary\r\n";
+$msg .= "Content-Type: text/html; charset=UTF-8\r\n";
+$msg .= "Content-Transfer-Encoding: base64\r\n\r\n";
+$msg .= chunk_split(base64_encode($html)) . "\r\n";
 foreach ($attachments as $file) {
-    $body .= "--$boundary\r\n";
-    $body .= "Content-Type: {$file['mime']}; name=\"{$file['name']}\"\r\n";
-    $body .= "Content-Transfer-Encoding: base64\r\n";
-    $body .= "Content-Disposition: attachment; filename=\"{$file['name']}\"\r\n\r\n";
-    $body .= chunk_split(base64_encode($file['data'])) . "\r\n";
+    $msg .= "--$boundary\r\n";
+    $msg .= "Content-Type: {$file['mime']}; name=\"{$file['name']}\"\r\n";
+    $msg .= "Content-Transfer-Encoding: base64\r\n";
+    $msg .= "Content-Disposition: attachment; filename=\"{$file['name']}\"\r\n\r\n";
+    $msg .= chunk_split(base64_encode($file['data'])) . "\r\n";
 }
-$body .= "--$boundary--";
+$msg .= "--$boundary--\r\n";
 
-if (!mail($TO, $encSubject, $body, $headers, '-f' . $FROM)) {
-    reply(false, 'Не получилось отправить заявку.', 500);
+/** Отправка через SMTP с SSL (порт 465) и AUTH LOGIN. Возвращает '' или текст ошибки (для журнала сервера). */
+function smtp_send(array $cfg, $from, array $to, $msg) {
+    $host = $cfg['smtp_host'];
+    $port = (int) ($cfg['smtp_port'] ?? 465);
+    $ctx  = stream_context_create(['ssl' => ['verify_peer' => true, 'verify_peer_name' => true]]);
+    $fp   = @stream_socket_client("ssl://$host:$port", $errno, $errstr, 20, STREAM_CLIENT_CONNECT, $ctx);
+    if (!$fp) return "connect: $errstr ($errno)";
+    stream_set_timeout($fp, 20);
+
+    $read = function () use ($fp) {
+        $data = '';
+        while (($line = fgets($fp, 515)) !== false) {
+            $data .= $line;
+            if (strlen($line) < 4 || $line[3] === ' ') break;
+        }
+        return $data;
+    };
+    $cmd = function ($line, $expect) use ($fp, $read) {
+        if ($line !== null) fwrite($fp, $line . "\r\n");
+        $resp = $read();
+        return ((int) substr($resp, 0, 3) === $expect) ? '' : trim($resp);
+    };
+
+    $steps = [
+        [null, 220],
+        ['EHLO ' . (gethostname() ?: 'localhost'), 250],
+        ['AUTH LOGIN', 334],
+        [base64_encode($cfg['smtp_user']), 334],
+        [base64_encode($cfg['smtp_pass']), 235],
+        ["MAIL FROM:<$from>", 250],
+    ];
+    foreach ($to as $rcpt) $steps[] = ["RCPT TO:<$rcpt>", 250];
+    $steps[] = ['DATA', 354];
+    foreach ($steps as $i => $s) {
+        $err = $cmd($s[0], $s[1]);
+        if ($err !== '') { fclose($fp); return ($i === 4 ? 'auth' : 'smtp') . ": $err"; }
+    }
+    // точка в начале строки внутри письма удваивается (правило SMTP)
+    $body = preg_replace('/^\./m', '..', $msg);
+    $err  = $cmd($body . "\r\n.", 250);
+    $cmd('QUIT', 221);
+    fclose($fp);
+    return $err === '' ? '' : "data: $err";
+}
+
+$error = $to ? smtp_send($cfg, $from, $to, $msg) : 'no recipients';
+if ($error !== '') {
+    error_log('steelline send.php: ' . $error);
+    reply(false, $logged ? 'Заявка сохранена, но письмо не отправилось. Мы свяжемся с вами.' : 'Не получилось отправить заявку.', 500);
 }
 
 reply(true);

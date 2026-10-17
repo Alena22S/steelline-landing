@@ -25,3 +25,7 @@ id_ed25519*
 *.log
 logs/
 .claude/
+
+# Настройки почты с паролем — только на сервере
+mail.php
+!server/mail.example.php

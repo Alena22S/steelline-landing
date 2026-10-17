@@ -663,12 +663,30 @@
   var status = form.querySelector('.lead__status');
   var files = [];
   var lastTrigger = null;
+  var openedAt = 0;
+
+  // Метки рекламы и источник визита: запоминаем при первом заходе в этой вкладке, отправляем с заявкой
+  var TRACK_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'yclid', 'gclid'];
+  var track = {};
+  try { track = JSON.parse(sessionStorage.getItem('lead-track') || '{}') || {}; } catch (e) { track = {}; }
+  (function () {
+    var params = new URLSearchParams(location.search);
+    var fresh = {};
+    TRACK_KEYS.forEach(function (k) { var v = params.get(k); if (v) fresh[k] = v.slice(0, 300); });
+    if (Object.keys(fresh).length) track = fresh; // новый переход по рекламе важнее старого
+    if (!track.landing) track.landing = location.href.slice(0, 300);
+    if (!track.referrer && document.referrer && document.referrer.indexOf(location.host) === -1) {
+      track.referrer = document.referrer.slice(0, 300);
+    }
+    try { sessionStorage.setItem('lead-track', JSON.stringify(track)); } catch (e) {}
+  })();
 
   function openForm(source) {
     var contact = source === 'contact';
     title.textContent = contact ? title.dataset.titleContact : title.dataset.titlePhoto;
     lead.textContent = contact ? lead.dataset.leadContact : lead.dataset.leadPhoto;
     form.elements.source.value = source || '';
+    openedAt = Date.now();
     form.hidden = false;
     done.hidden = true;
     status.textContent = '';
@@ -894,6 +912,8 @@
     Promise.all(files.map(compress)).then(function (ready) {
       var data = new FormData(form);
       data.set('phone', formatPhone(phoneDigits(phone.value)));
+      data.set('ts', String(openedAt));
+      Object.keys(track).forEach(function (k) { data.set(k, track[k]); });
       ready.forEach(function (file) { data.append('photos[]', file, file.name); });
       return fetch(form.action, { method: 'POST', body: data, headers: { Accept: 'application/json' } });
     }).then(function (res) {

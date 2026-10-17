@@ -46,7 +46,7 @@ jobs:
         run: |
           rsync -rlz --delete --itemize-changes \
             --chmod=D755,F644 \
-            --exclude '.git/' --exclude '.github/' \
+            --exclude '.git/' --exclude '.github/' --exclude 'server/' \
             --exclude '.gitignore' --exclude '.nojekyll' --exclude '.DS_Store' \
             -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=yes -o BatchMode=yes" \
             ./ "$DEPLOY_USER@$DEPLOY_HOST:$DEPLOY_PATH"
