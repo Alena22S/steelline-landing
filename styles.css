@@ -150,6 +150,7 @@ address { font-style: normal; }
 .cookie__copy { display: flex; flex-direction: column; gap: 6px; }
 .cookie__title { font-weight: 600; font-size: 17px; line-height: 1.3; color: var(--c-navy); }
 .cookie__text { font-family: var(--f-inter); font-size: 14px; line-height: 1.45; color: var(--c-muted); text-wrap: pretty; }
+.cookie__text a { color: var(--c-blue); text-decoration: underline; text-underline-offset: 2px; }
 .cookie__actions { display: flex; gap: 8px; }
 /* <button> со стилями .btn сайта: сбрасываем системную рамку и серый фон */
 .cookie__btn {

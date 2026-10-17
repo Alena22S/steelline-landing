@@ -1,0 +1,46 @@
+/* Страницы «Политика конфиденциальности» и «Согласие на обработку данных» */
+:root {
+  --c-navy: #061f3b;
+  --c-ink: #1a2320;
+  --c-muted: #5e6c66;
+  --c-blue: #1e67b9;
+  --c-line: rgba(6, 31, 59, 0.1);
+  --f-manrope: "Manrope", system-ui, sans-serif;
+  --f-inter: "Inter", system-ui, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #fff; color: var(--c-ink); font-family: var(--f-inter); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: var(--c-blue); text-underline-offset: 2px; }
+a[href^="tel:"] { white-space: nowrap; }
+
+.legal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px max(24px, calc((100vw - 1280px) / 2));
+  border-bottom: 1px solid var(--c-line);
+}
+.legal-header img { display: block; width: 200px; height: auto; }
+.legal-back { font-family: var(--f-manrope); font-weight: 600; font-size: 14px; color: var(--c-navy); text-decoration: none; white-space: nowrap; }
+.legal-back:hover { color: var(--c-blue); }
+
+.legal { max-width: 800px; margin: 0 auto; padding: 56px 24px 96px; }
+.legal h1 { font-family: var(--f-manrope); font-weight: 500; font-size: 40px; line-height: 1.15; letter-spacing: -0.4px; color: var(--c-navy); text-wrap: balance; }
+.legal__meta { margin-top: 12px; font-size: 14px; color: var(--c-muted); }
+.legal h2 { margin-top: 40px; font-family: var(--f-manrope); font-weight: 600; font-size: 22px; line-height: 1.3; color: var(--c-navy); }
+.legal p, .legal li { margin-top: 12px; text-wrap: pretty; }
+.legal ul { padding-left: 22px; }
+.legal li { margin-top: 6px; }
+.legal__card { margin-top: 24px; padding: 20px 24px; border-radius: 12px; background: #f6f8fb; }
+.legal__card p { margin-top: 4px; }
+.legal__card p:first-child { margin-top: 0; }
+
+@media (max-width: 767px) {
+  .legal-header { padding: 16px; }
+  .legal-header img { width: 160px; }
+  .legal { padding: 32px 16px 64px; }
+  .legal h1 { font-size: 28px; }
+  .legal h2 { margin-top: 32px; font-size: 19px; }
+  body { font-size: 15px; }
+}
