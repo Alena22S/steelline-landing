@@ -1,8 +1,9 @@
 /* Прототип каталога: раздел (catalog.html?cat=…) и страница модели (model.html?id=…) на данных из data/catalog.json */
 (function () {
   var PAGE = 24;
-  // флажки «да/нет» в группе «Предложения»
+  // флажки «да/нет»: терморазрыв — отдельной группой «Утепление», остальные — «Предложения»
   var FLAGS = [
+    { key: 'thermo', label: 'С терморазрывом', test: function (p) { return p.thermo; } },
     { key: 'specialPrice', label: 'По спец цене', test: function (p) { return p.specialPrice; } },
     { key: 'special', label: 'Спецпредложения', test: function (p) { return p.special.length > 0; } }
   ];
@@ -42,7 +43,7 @@
       '<p class="pcard__price">от ' + rub(p.price) + '</p></div></a>';
   }
 
-  fetch('data/catalog.json?v=3').then(function (r) { return r.json(); }).then(function (data) {
+  fetch('data/catalog.json?v=4').then(function (r) { return r.json(); }).then(function (data) {
     if (document.getElementById('cat')) initCatalog(data);
     if (document.getElementById('model')) initModel(data);
   });
@@ -98,12 +99,15 @@
       });
       html += '</div>';
     });
-    var flags = FLAGS.filter(function (f) { return base.some(f.test) && !base.every(f.test); });
-    if (flags.length) {
-      html += '<div class="fgroup" role="group" aria-label="Предложения"><p class="fgroup__title">Предложения</p>' + flags.map(function (f) {
+    function flagGroup(title, keys) {
+      var list = FLAGS.filter(function (f) { return keys.indexOf(f.key) !== -1 && base.some(f.test) && !base.every(f.test); });
+      if (!list.length) return '';
+      return '<div class="fgroup" role="group" aria-label="' + title + '"><p class="fgroup__title">' + title + '</p>' + list.map(function (f) {
         return '<label class="fcheck"><input type="checkbox" data-flag="' + f.key + '">' + f.label + '<span data-count></span></label>';
       }).join('') + '</div>';
     }
+    html = html.replace('<div class="fgroup" role="group" aria-label="Стиль">', flagGroup('Утепление', ['thermo']) + '<div class="fgroup" role="group" aria-label="Стиль">');
+    html += flagGroup('Предложения', ['specialPrice', 'special']);
     groupsEl.innerHTML = html;
 
     function match(p, skip) {
