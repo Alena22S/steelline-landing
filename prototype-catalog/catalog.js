@@ -106,8 +106,9 @@
         return '<label class="fcheck"><input type="checkbox" data-flag="' + f.key + '">' + f.label + '<span data-count></span></label>';
       }).join('') + '</div>';
     }
-    html = html.replace('<div class="fgroup" role="group" aria-label="Стиль">', flagGroup('Утепление', ['thermo']) + '<div class="fgroup" role="group" aria-label="Стиль">');
-    html += flagGroup('Предложения', ['specialPrice', 'special']);
+    // «Утепление» и «Предложения» — сразу после «Назначения», чтобы были видны без прокрутки
+    html = html.replace('<div class="fgroup" role="group" aria-label="Стиль">',
+      flagGroup('Утепление', ['thermo']) + flagGroup('Предложения', ['specialPrice', 'special']) + '<div class="fgroup" role="group" aria-label="Стиль">');
     groupsEl.innerHTML = html;
 
     function match(p, skip) {

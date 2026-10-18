@@ -26,7 +26,14 @@
 
 /* Фильтры + список */
 .cat__body { display: grid; grid-template-columns: 264px 1fr; gap: 40px; align-items: start; margin-top: 40px; padding-bottom: 96px; }
-.cat-filters { position: sticky; top: calc(var(--header-h) + 24px); display: flex; flex-direction: column; gap: 20px; }
+.cat-filters {
+  position: sticky; top: calc(var(--header-h) + 24px); display: flex; flex-direction: column; gap: 20px;
+  /* панель выше экрана — прокручивается сама, иначе нижние фильтры не достать */
+  max-height: calc(100vh - var(--header-h) - 48px); overflow-y: auto; overscroll-behavior: contain;
+  padding-right: 8px; scrollbar-width: thin; scrollbar-color: rgba(6, 31, 59, 0.18) transparent;
+}
+.cat-filters::-webkit-scrollbar { width: 6px; }
+.cat-filters::-webkit-scrollbar-thumb { border-radius: 6px; background: rgba(6, 31, 59, 0.18); }
 .cat-filters__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
 .cat-filters__title { font-weight: 600; font-size: 18px; color: var(--c-ink); }
 .cat-filters__reset { padding: 0; border: 0; background: none; font-family: var(--f-inter); font-size: 14px; color: var(--c-blue); cursor: pointer; }
