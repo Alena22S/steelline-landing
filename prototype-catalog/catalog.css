@@ -145,6 +145,10 @@
 .specs__row { display: flex; justify-content: space-between; gap: 24px; padding: 14px 0; border-bottom: 1px solid rgba(6, 31, 59, 0.08); }
 .specs__row dt { color: var(--c-muted); }
 .specs__row dd { margin: 0; text-align: right; color: var(--c-ink); }
+.specs-tabs { display: flex; gap: 8px; margin-top: 20px; }
+.specs-tabs button { padding: 8px 16px; border: 1px solid rgba(6, 31, 59, 0.16); border-radius: 100px; background: #fff; font-family: var(--f-manrope); font-weight: 600; font-size: 14px; color: var(--c-navy); cursor: pointer; }
+.specs-tabs button.is-active { background: var(--c-navy); border-color: var(--c-navy); color: #fff; }
+.specs-note { margin-top: 12px; font-family: var(--f-inter); font-size: 14px; color: var(--c-muted); }
 .specs-empty { margin-top: 24px; padding: 28px 32px; border: 1.5px dashed rgba(30, 103, 185, 0.3); border-radius: 12px; background: #f9fbfe; font-family: var(--f-inter); font-size: 15px; line-height: 1.5; color: var(--c-muted); }
 .specs-empty b { display: block; margin-bottom: 4px; font-family: var(--f-manrope); font-size: 17px; color: var(--c-navy); }
 
@@ -181,6 +185,8 @@
   .cat-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 767px) {
+  /* поля от края экрана — как на главной (12px) */
+  .wrap { padding-left: var(--page-x); padding-right: var(--page-x); }
   .cat__head { gap: 14px; padding-top: 24px; }
   .cat__title { font-size: 30px; }
   .cat__lead { font-size: 15px; }
