@@ -905,6 +905,8 @@ address { font-style: normal; }
   transition: transform .3s ease;
 }
 .doors__link:hover { transform: scale(1.08); }
+.doors .feature.is-clickable { cursor: pointer; }
+.doors .feature.is-clickable:hover .doors__link { transform: scale(1.08); }
 .doors__link:focus-visible { outline: 2px solid #1e67b9; outline-offset: 3px; }
 .doors__go { display: grid; place-items: center; }
 .doors__go > img { grid-area: 1 / 1; position: static; }

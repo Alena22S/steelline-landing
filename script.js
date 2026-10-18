@@ -1252,3 +1252,18 @@
       .then(function () { submit.disabled = false; submitText.textContent = 'Жду звонка'; });
   });
 })();
+
+/* ---------- «Какая дверь подойдёт вашему дому?»: кликабельна вся карточка, а не только стрелка ---------- */
+(function () {
+  document.querySelectorAll('.doors .feature').forEach(function (card) {
+    var link = card.querySelector('.doors__link');
+    if (!link) return;
+    card.classList.add('is-clickable');
+    card.addEventListener('click', function (e) {
+      if (e.target.closest('a, button')) return; // по самой стрелке — обычный переход
+      if (window.getSelection && String(window.getSelection())) return; // выделяли текст — не переходим
+      if (e.metaKey || e.ctrlKey) window.open(link.href, '_blank');
+      else location.href = link.href;
+    });
+  });
+})();
