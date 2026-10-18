@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Тестовая версия: не индексировать. Убрать при запуске на боевом домене -->
+  <meta name="robots" content="noindex, nofollow">
+  <title>Каталог входных дверей — Стальная линия</title>
+  <meta name="description" content="Входные двери «Стальная линия» — эксклюзивно на Урале. Индивидуальный дизайн, двери с терморазрывом, нестандартные входные группы. Екатеринбург, ИЦ Аструм.">
+  <link rel="icon" href="../favicon.ico" sizes="16x16">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../assets/icons/favicon-96.png">
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=68">
+  <link rel="stylesheet" href="catalog.css?v=1">
+</head>
+<body class="page-catalog">
+
+  <header class="header" id="top">
+    <div class="header__main">
+      <a class="header__logo" href="../" aria-label="Стальная линия — на главную">
+        <img class="header__logo-desktop" src="../assets/icons/logo.svg" width="246.5" height="43.2242" alt="Стальная линия — двери в квартиру и дом">
+        <img class="header__logo-mobile" src="../assets/icons/logo-mobile.svg" width="179.273" height="31.4358" alt="Стальная линия — двери в квартиру и дом">
+      </a>
+      <nav class="header__nav" id="site-nav" aria-label="Основная навигация">
+        <a href="catalog.html">Каталог</a>
+        <a href="../#reviews">Обзор дверей</a>
+        <a href="../#custom">Двери на заказ</a>
+        <a href="../#tech">Технологии</a>
+        <a href="../#contacts">Контакты</a>
+      </nav>
+      <div class="header__address">
+        <img src="../assets/icons/map-pin.svg" width="16" height="16" alt="">
+        <span>Екатеринбург, ИЦ Аструм</span>
+      </div>
+      <a class="btn btn--gradient header__cta" href="../#contacts" data-open-form="header">Подобрать дверь</a>
+      <button class="header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-nav">
+        <img src="../assets/icons/menu.svg" width="25" height="24" alt="">
+      </button>
+    </div>
+    <div class="header__facts">
+      <div class="fact"><img src="../assets/icons/badge-30.svg" width="24" height="24" alt="30"><span>Лет производства</span></div>
+      <div class="fact"><img src="../assets/icons/badge-2.svg" width="24" height="24" alt="2"><span>Года гарантии</span></div>
+      <div class="fact"><img src="../assets/icons/badge-20.svg" width="24" height="24" alt="20"><span>стран присутствия</span></div>
+    </div>
+  </header>
+
+  <main class="cat" id="cat">
+    <div class="cat__head wrap">
+      <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>/</span><a href="catalog.html">Каталог</a><span class="js-crumb-cat" hidden>/</span><span class="js-crumb-cat-name"></span></nav>
+      <h1 class="cat__title js-cat-title">Каталог входных дверей</h1>
+      <p class="cat__lead js-cat-lead">Двери для дома и квартиры собственного производства «Стальной линии». Выберите раздел или настройте фильтры — а если сложно определиться, подберём дверь по&nbsp;фото проёма.</p>
+    </div>
+
+    <nav class="cat-tabs wrap js-tabs" aria-label="Разделы каталога"></nav>
+
+    <div class="cat__body wrap">
+      <aside class="cat-filters js-filters" aria-label="Фильтры">
+        <div class="cat-filters__head">
+          <span class="cat-filters__title">Фильтры</span>
+          <button class="cat-filters__reset js-reset" type="button">Сбросить</button>
+          <button class="cat-filters__close js-filters-close" type="button" aria-label="Закрыть фильтры"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        </div>
+        <div class="js-filter-groups"></div>
+        <button class="btn btn--gradient btn--lg cat-filters__apply js-filters-close" type="button">Показать модели</button>
+      </aside>
+
+      <section class="cat__list">
+        <div class="cat-toolbar">
+          <p class="cat-toolbar__count js-count"></p>
+          <button class="btn btn--outline cat-toolbar__filters js-filters-open" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="16" cy="7" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg>Фильтры<span class="cat-toolbar__badge js-active-count" hidden></span></button>
+          <label class="cat-sort"><span class="cat-sort__label">Сортировка</span>
+            <select class="cat-sort__select js-sort">
+              <option value="popular">Сначала популярные</option>
+              <option value="price-asc">Сначала дешевле</option>
+              <option value="price-desc">Сначала дороже</option>
+              <option value="name">По названию</option>
+            </select>
+          </label>
+        </div>
+        <div class="cat-grid js-grid"></div>
+        <div class="cat-empty js-empty" hidden>
+          <p class="cat-empty__title">Таких моделей не нашлось</p>
+          <p class="cat-empty__text">Попробуйте убрать часть фильтров — или пришлите фото проёма, и мы подберём дверь сами.</p>
+          <div class="cat-empty__actions">
+            <button class="btn btn--outline btn--lg js-reset" type="button">Сбросить фильтры</button>
+            <a class="btn btn--gradient btn--lg" href="#" data-open-form="catalog-empty">Подобрать дверь</a>
+          </div>
+        </div>
+        <button class="btn btn--outline btn--lg cat-more js-more" type="button" hidden>Показать ещё</button>
+      </section>
+    </div>
+
+    <section class="cat-cta wrap">
+      <div class="cat-cta__text">
+        <h2 class="cat-cta__title">Не нашли подходящую модель?</h2>
+        <p class="cat-cta__lead">Пришлите фото проёма — подберём дверь под ваш дом, стиль и&nbsp;бюджет. Бесплатно.</p>
+      </div>
+      <a class="btn btn--gradient btn--lg" href="#" data-open-form="catalog-cta">Получить подбор двери <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+    </section>
+  </main>
+
+  <div class="cookie" id="cookie" role="region" aria-label="Уведомление о cookie" hidden>
+    <div class="cookie__copy">
+      <p class="cookie__title">Мы используем cookie</p>
+      <p class="cookie__text">Чтобы сайт работал корректно и&nbsp;чтобы понимать, как им&nbsp;пользуются. Нажимая «Принять», вы&nbsp;соглашаетесь на&nbsp;использование всех cookie. <a href="../privacy.html#cookie" target="_blank">Подробнее</a></p>
+    </div>
+    <div class="cookie__actions">
+      <button class="btn btn--gradient btn--lg cookie__btn" type="button" data-cookie="all">Принять</button>
+      <button class="btn btn--outline btn--lg cookie__btn" type="button" data-cookie="necessary">Только необходимые</button>
+    </div>
+  </div>
+
+  <a class="btn btn--gradient sticky-cta" href="#" data-open-form="sticky">Получить подбор двери <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+
+  <footer class="footer">
+    <div class="footer__top">
+      <div class="footer__rep">
+        <span class="footer__logo" role="img" aria-label="Дверной Молл — больше, чем двери"></span>
+        <p class="footer__rep-text">Эксклюзивный представитель «Стальной линии» <br>на Урале — «Дверной Молл».</p>
+      </div>
+      <nav class="footer__nav" aria-label="Навигация в подвале">
+        <a href="../#doors">Каталог</a>
+        <a href="../">Бренды</a>
+        <a href="../#custom">Проекты</a>
+        <a href="../#contacts">Салон</a>
+        <a href="../#contacts">Для дизайнеров</a>
+        <a href="../#contacts">Контакты</a>
+      </nav>
+    </div>
+    <div class="footer__salons">
+      <address class="footer-salon">
+        <p class="footer-salon__name">Интерьерный центр «ASTROOM»</p>
+        <p>Екатеринбург, ул. Цвиллинга, 1<br>6 этаж, Галерея А</p>
+        <p class="footer-salon__muted">Пн–Вс 10:00–20:00</p>
+        <p class="footer-salon__links">
+          <a class="footer__phone" href="tel:+79222077552">+7 (922) 207-75-52</a>
+          <a class="footer__phone" href="tel:+73433852803">+7 (343) 385-28-03</a>
+          <a href="mailto:astroom@steelline.store">astroom@steelline.store</a>
+        </p>
+      </address>
+      <address class="footer-salon">
+        <p class="footer-salon__name">Салон «Дверная лавка»</p>
+        <p>Арамиль, ул. Гарнизон, 5</p>
+        <p class="footer-salon__muted">Пн–Пт 09:00–18:00</p>
+        <p class="footer-salon__links">
+          <a class="footer__phone" href="tel:+79193977317">+7 (919) 397-73-17</a>
+          <a href="mailto:zakazdver@bk.ru">zakazdver@bk.ru</a>
+        </p>
+      </address>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 Дверной Молл. ООО «Прогресс», ИНН&nbsp;6685206681, ОГРН&nbsp;1226600080321</p>
+      <div class="footer__legal">
+        <a href="../privacy.html">Политика конфиденциальности</a>
+        <a href="../consent.html">Согласие на обработку данных</a>
+      </div>
+    </div>
+  </footer>
+
+  <dialog class="lead" id="lead" aria-labelledby="lead-title">
+    <button class="lead__close" type="button" aria-label="Закрыть" data-close-form>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+
+    <!-- Заявки уходят в send.php. Для тестового режима (без отправки) добавить атрибут data-test-mode -->
+    <form class="lead__form" id="lead-form" action="../send.php" method="post" enctype="multipart/form-data" novalidate>
+      <div class="lead__head">
+        <h2 class="lead__title" id="lead-title" data-title-photo="Бесплатно подберём дверь по фото проёма" data-title-contact="Оставьте контакты">Бесплатно подберём дверь по фото проёма</h2>
+        <p class="lead__lead" data-lead-photo="Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире." data-lead-contact="Свяжемся с вами, ответим на вопросы и поможем с выбором. Можно сразу прикрепить фото проёма — подберём подходящие двери.">Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире.</p>
+      </div>
+
+      <ol class="lead__steps">
+        <li><span>1</span>Фото проёма</li>
+        <li><span>2</span>Ваши контакты</li>
+        <li><span>3</span>Подборка от нас</li>
+      </ol>
+
+      <div class="field">
+        <span class="field__label" id="photos-label">Фото проёма <span class="field__hint">до 5 фото, JPG, PNG или HEIC</span></span>
+        <label class="dropzone" for="lead-photos">
+          <input class="dropzone__input" id="lead-photos" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" multiple aria-labelledby="photos-label" aria-describedby="photos-error">
+          <svg class="dropzone__icon" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="3" y="7" width="26" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M11 7l2-3h6l2 3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="16" cy="17" r="5" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span class="dropzone__text"><b>Загрузите фото</b><span class="dropzone__drag"> или перетащите сюда</span></span>
+          <span class="dropzone__sub">Снимите проём целиком, вместе с откосами и полом</span>
+        </label>
+        <ul class="previews" id="lead-previews" aria-live="polite"></ul>
+        <p class="field__error" id="photos-error"></p>
+      </div>
+
+      <div class="lead__grid">
+        <div class="field">
+          <label class="field__label" for="lead-name">Имя</label>
+          <input class="input ym-disable-keys ym-hide-content" id="lead-name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="Как к вам обращаться">
+          <p class="field__error"></p>
+        </div>
+        <div class="field">
+          <label class="field__label" for="lead-phone">Телефон</label>
+          <input class="input ym-disable-keys ym-hide-content" id="lead-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+7 (___) ___-__-__">
+          <p class="field__error"></p>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field__label" for="lead-email">Почта <span class="field__hint">пришлём подборку сюда</span></label>
+        <input class="input ym-disable-keys ym-hide-content" id="lead-email" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="name@mail.ru">
+        <p class="field__error"></p>
+      </div>
+      <div class="field">
+        <label class="field__label" for="lead-comment">Комментарий <span class="field__hint">необязательно</span></label>
+        <textarea class="input input--area ym-disable-keys ym-hide-content" id="lead-comment" name="comment" rows="3" maxlength="1000" placeholder="Размеры проёма, квартира или дом, пожелания по цвету"></textarea>
+      </div>
+
+      <!-- Ловушка для спам-ботов: люди это поле не видят -->
+      <input class="lead__trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="source" value="">
+
+      <div class="field">
+        <label class="check">
+          <input type="checkbox" name="consent" value="1" required>
+          <span>Даю <a href="../consent.html" target="_blank">согласие на&nbsp;обработку персональных данных</a> и&nbsp;принимаю <a href="../privacy.html" target="_blank">политику конфиденциальности</a></span>
+        </label>
+        <p class="field__error"></p>
+      </div>
+
+      <button class="btn btn--gradient btn--lg lead__submit" type="submit">
+        <span class="lead__submit-text">Получить подбор двери</span>
+        <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt="">
+      </button>
+      <p class="lead__status" role="alert"></p>
+    </form>
+
+    <div class="lead__done" hidden>
+      <span class="lead__done-icon" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 32 32" fill="none"><path d="M8 16.5l5.5 5.5L24 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h2 class="lead__title">Заявка отправлена</h2>
+      <p class="lead__lead">Спасибо! Мы посмотрим фото и пришлём подборку на почту. Если появятся вопросы — позвоним.</p>
+      <button class="btn btn--outline btn--outline-soft btn--lg" type="button" data-close-form>Вернуться на сайт</button>
+    </div>
+  </dialog>
+
+  <script src="../script.js?v=41"></script>
+  <script src="catalog.js?v=1"></script>
+</body>
+</html>

@@ -140,6 +140,9 @@ $sources = [
     'contact'   => 'кнопка «Записаться на подбор»',
     'idea'      => 'блок «Дверь под вашу идею»',
     'sticky'    => 'закреплённая кнопка (телефон)',
+    'model'         => 'страница модели в каталоге',
+    'catalog-cta'   => 'каталог: «Не нашли подходящую модель?»',
+    'catalog-empty' => 'каталог: «Таких моделей не нашлось»',
 ];
 $trackNames = [
     'utm_source' => 'utm_source', 'utm_medium' => 'utm_medium', 'utm_campaign' => 'utm_campaign',
