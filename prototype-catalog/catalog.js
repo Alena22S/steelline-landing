@@ -88,10 +88,10 @@
     var groupsEl = document.querySelector('.js-filter-groups');
     var html = '';
     GROUPS.forEach(function (g) {
+      // все 7 групп показываем всегда, варианты — по всему каталогу; недоступные в разделе — бледные с нулём
       var vals = {};
-      base.forEach(function (p) { p[g.key].forEach(function (v) { vals[v] = 1; }); });
+      data.products.forEach(function (p) { p[g.key].forEach(function (v) { vals[v] = 1; }); });
       var list = Object.keys(vals).sort();
-      if (list.length < 2) return; // нечего выбирать
       html += '<div class="fgroup" role="group" aria-label="' + g.title + '"><p class="fgroup__title">' + g.title + '</p>';
       list.forEach(function (v) {
         html += '<label class="fcheck"><input type="checkbox" data-key="' + g.key + '" value="' + esc(v) + '">' +
@@ -100,8 +100,7 @@
       html += '</div>';
     });
     function flagGroup(title, keys) {
-      var list = FLAGS.filter(function (f) { return keys.indexOf(f.key) !== -1 && base.some(f.test) && !base.every(f.test); });
-      if (!list.length) return '';
+      var list = FLAGS.filter(function (f) { return keys.indexOf(f.key) !== -1; });
       return '<div class="fgroup" role="group" aria-label="' + title + '"><p class="fgroup__title">' + title + '</p>' + list.map(function (f) {
         return '<label class="fcheck"><input type="checkbox" data-flag="' + f.key + '">' + f.label + '<span data-count></span></label>';
       }).join('') + '</div>';
@@ -147,6 +146,7 @@
         var label = inp.closest('.fcheck');
         label.querySelector('[data-count]').textContent = n;
         label.classList.toggle('is-zero', !n && !inp.checked);
+        inp.disabled = !n && !inp.checked; // в этом разделе таких моделей нет — нечего выбирать
       });
       var active = GROUPS.reduce(function (s, g) { return s + state[g.key].length; }, 0) + FLAGS.filter(function (f) { return state[f.key]; }).length;
       var badge = document.querySelector('.js-active-count');

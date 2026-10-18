@@ -34,18 +34,18 @@
 }
 .cat-filters::-webkit-scrollbar { width: 6px; }
 .cat-filters::-webkit-scrollbar-thumb { border-radius: 6px; background: rgba(6, 31, 59, 0.18); }
-.cat-filters__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.cat-filters__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
 .cat-filters__title { font-weight: 600; font-size: 18px; color: var(--c-ink); }
 .cat-filters__reset { padding: 0; border: 0; background: none; font-family: var(--f-inter); font-size: 14px; color: var(--c-blue); cursor: pointer; }
 .cat-filters__reset:disabled { color: var(--c-muted); opacity: 0.5; cursor: default; }
 .cat-filters__close, .cat-filters__apply { display: none; }
 /* группа фильтров: разделитель сверху, воздух 24px до него снизу у предыдущей группы */
-.fgroup { display: flex; flex-direction: column; gap: 5px; padding: 10px 0 10px; border-top: 1px solid rgba(6, 31, 59, 0.1); }
+.fgroup { display: flex; flex-direction: column; gap: 5px; padding: 9px 0; border-top: 1px solid rgba(6, 31, 59, 0.1); }
 .fgroup__title { margin-bottom: 2px; font-weight: 600; font-size: 15px; line-height: 18px; color: var(--c-ink); }
 .fcheck { display: flex; align-items: center; gap: 10px; font-family: var(--f-inter); font-size: 15px; line-height: 20px; color: var(--c-ink); cursor: pointer; }
 .fcheck input { width: 18px; height: 18px; margin: 0; accent-color: var(--c-blue); }
 .fcheck span { margin-left: auto; font-size: 13px; color: var(--c-muted); }
-.fcheck.is-zero { opacity: 0.4; }
+.fcheck.is-zero { opacity: 0.4; cursor: default; }
 
 .cat-toolbar { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
 .cat-toolbar__count { margin-right: auto; font-family: var(--f-inter); font-size: 15px; color: var(--c-muted); }

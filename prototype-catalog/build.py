@@ -38,11 +38,11 @@ def fix(html):
 def page(title, body_class, main):
     h = fix(head)
     h = re.sub(r'<title>.*?</title>', '<title>%s</title>' % title, h)
-    h += '  <link rel="stylesheet" href="catalog.css?v=9">\n</head>\n'
+    h += '  <link rel="stylesheet" href="catalog.css?v=10">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(footer) + '\n\n  ' +
-            fix(lead) + '\n\n  ' + fix(script) + '\n  <script src="catalog.js?v=8"></script>\n</body>\n</html>\n')
+            fix(lead) + '\n\n  ' + fix(script) + '\n  <script src="catalog.js?v=9"></script>\n</body>\n</html>\n')
 
 
 catalog_main = '''  <main class="cat" id="cat">
