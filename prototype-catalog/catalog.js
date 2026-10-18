@@ -43,6 +43,74 @@
       '<p class="pcard__price">от ' + rub(p.price) + '</p></div></a>';
   }
 
+  /* Своя выпадашка в стиле сайта поверх обычного <select> (на телефоне остаётся системный список).
+     <select> остаётся источником значения: при выборе меняем его и шлём 'change'. */
+  function customSelect(select) {
+    var wrap = document.createElement('div');
+    wrap.className = 'csel';
+    var id = 'csel-' + Math.random().toString(36).slice(2, 8);
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'csel__btn';
+    btn.setAttribute('aria-haspopup', 'listbox');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-controls', id);
+    var list = document.createElement('ul');
+    list.className = 'csel__list';
+    list.id = id;
+    list.setAttribute('role', 'listbox');
+    list.tabIndex = -1;
+    list.hidden = true;
+    Array.prototype.forEach.call(select.options, function (o, i) {
+      var li = document.createElement('li');
+      li.className = 'csel__opt';
+      li.setAttribute('role', 'option');
+      li.dataset.value = o.value;
+      li.textContent = o.textContent;
+      list.appendChild(li);
+    });
+    select.parentNode.insertBefore(wrap, select);
+    wrap.appendChild(select);
+    wrap.appendChild(btn);
+    wrap.appendChild(list);
+    var opts = list.querySelectorAll('.csel__opt');
+    var active = select.selectedIndex;
+
+    function sync() {
+      btn.textContent = select.options[select.selectedIndex].textContent;
+      opts.forEach(function (li, i) { li.setAttribute('aria-selected', i === select.selectedIndex ? 'true' : 'false'); });
+    }
+    function highlight(i) {
+      active = (i + opts.length) % opts.length;
+      opts.forEach(function (li, j) { li.classList.toggle('is-active', j === active); });
+    }
+    function open() {
+      list.hidden = false; wrap.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true');
+      highlight(select.selectedIndex); list.focus();
+    }
+    function close(focusBtn) {
+      list.hidden = true; wrap.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false');
+      if (focusBtn) btn.focus();
+    }
+    function choose(i) {
+      if (select.selectedIndex !== i) { select.selectedIndex = i; select.dispatchEvent(new Event('change', { bubbles: true })); }
+      sync(); close(true);
+    }
+    btn.addEventListener('click', function () { list.hidden ? open() : close(); });
+    btn.addEventListener('keydown', function (e) { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); open(); } });
+    list.addEventListener('click', function (e) { var li = e.target.closest('.csel__opt'); if (li) choose(Array.prototype.indexOf.call(opts, li)); });
+    list.addEventListener('mousemove', function (e) { var li = e.target.closest('.csel__opt'); if (li) highlight(Array.prototype.indexOf.call(opts, li)); });
+    list.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); highlight(active + 1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); highlight(active - 1); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(active); }
+      else if (e.key === 'Escape' || e.key === 'Tab') { close(e.key === 'Escape'); }
+    });
+    document.addEventListener('click', function (e) { if (!wrap.contains(e.target) && !list.hidden) close(); });
+    select.addEventListener('change', sync);
+    sync();
+  }
+
   fetch('data/catalog.json?v=4').then(function (r) { return r.json(); }).then(function (data) {
     if (document.getElementById('cat')) initCatalog(data);
     if (document.getElementById('model')) initModel(data);
@@ -165,7 +233,9 @@
       }
       state.shown = PAGE; render();
     });
-    document.querySelector('.js-sort').addEventListener('change', function (e) { state.sort = e.target.value; render(); });
+    var sortSelect = document.querySelector('.js-sort');
+    sortSelect.addEventListener('change', function (e) { state.sort = e.target.value; render(); });
+    customSelect(sortSelect);
     more.addEventListener('click', function () { state.shown += PAGE; render(); });
     document.querySelectorAll('.js-reset').forEach(function (b) {
       b.addEventListener('click', function () {

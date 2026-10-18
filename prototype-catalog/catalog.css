@@ -53,6 +53,43 @@
   font-family: var(--f-manrope); font-weight: 600; font-size: 14px; color: var(--c-navy); cursor: pointer;
 }
 
+/* Своя выпадашка сортировки (десктоп и планшет); на телефоне — системный список */
+.csel { position: relative; }
+.csel .cat-sort__select { display: none; }
+.csel__btn {
+  -webkit-appearance: none; appearance: none;
+  display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 14px 0 16px;
+  border: 1px solid rgba(6, 31, 59, 0.16); border-radius: 4px; background: #fff;
+  font-family: var(--f-manrope); font-weight: 600; font-size: 14px; color: var(--c-navy); cursor: pointer;
+  transition: border-color 0.2s;
+}
+.csel__btn::after {
+  content: ""; width: 12px; height: 8px; flex: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%23061f3b' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center;
+  transition: transform 0.25s ease;
+}
+.csel__btn:hover, .csel.is-open .csel__btn { border-color: var(--c-navy); }
+.csel.is-open .csel__btn::after { transform: rotate(180deg); }
+.csel__btn:focus-visible { outline: 2px solid var(--c-blue); outline-offset: 2px; }
+.csel__list {
+  position: absolute; z-index: 20; top: calc(100% + 6px); right: 0; min-width: 100%;
+  margin: 0; padding: 6px; list-style: none; border-radius: 8px; background: #fff;
+  box-shadow: 0 12px 32px rgba(6, 31, 59, 0.14), 0 0 0 1px rgba(6, 31, 59, 0.06);
+  animation: csel-in 0.18s ease;
+}
+.csel__list:focus { outline: none; }
+@keyframes csel-in { from { opacity: 0; transform: translateY(-4px); } }
+.csel__opt {
+  position: relative; padding: 10px 36px 10px 14px; border-radius: 6px; white-space: nowrap;
+  font-family: var(--f-manrope); font-weight: 600; font-size: 14px; color: var(--c-navy); cursor: pointer;
+}
+.csel__opt.is-active { background: var(--c-chip-bg); }
+.csel__opt[aria-selected="true"] { color: var(--c-blue); }
+.csel__opt[aria-selected="true"]::after {
+  content: ""; position: absolute; right: 12px; top: 50%; width: 14px; height: 10px; margin-top: -5px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10' fill='none'%3E%3Cpath d='M1 5l4 4 8-8' stroke='%231e67b9' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat center;
+}
+
 /* Сетка карточек */
 .cat-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px 24px; }
 .cat-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
@@ -197,6 +234,9 @@
   .cat-toolbar { flex-wrap: wrap; gap: 10px; }
   .cat-toolbar__count { width: 100%; order: -1; }
   .cat-sort__label { display: none; }
+  /* на телефоне — системный список выбора, он удобнее */
+  .csel .cat-sort__select { display: block; }
+  .csel__btn, .csel__list { display: none !important; }
   .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; }
   .pcard { gap: 10px; }
   .pcard__title { font-size: 16px; }
