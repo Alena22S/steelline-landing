@@ -46,8 +46,15 @@
   function initCatalog(data) {
     var params = new URLSearchParams(location.search);
     var catSlug = params.get('cat') || '';
-    var cat = data.categories.filter(function (c) { return c.slug === catSlug; })[0];
-    var base = cat ? data.products.filter(function (p) { return p.cats.indexOf(cat.slug) !== -1; }) : data.products;
+    // родительские разделы: все двери для дома / для квартиры
+    var PARENTS = {
+      dom: { slug: 'dom', name: 'Двери в дом', lead: 'Входные двери для частного дома и коттеджа: тёплые, с терморазрывом, для нестандартных проёмов и по спец цене.' },
+      kvartira: { slug: 'kvartira', name: 'Двери в квартиру', lead: 'Надёжные входные двери для квартиры: классика и современный дизайн, умные замки.' }
+    };
+    var cat = data.categories.filter(function (c) { return c.slug === catSlug; })[0] || PARENTS[catSlug];
+    var base = !cat ? data.products : data.products.filter(function (p) {
+      return p.cats.some(function (c) { return c === cat.slug || c.indexOf(cat.slug + '/') === 0; });
+    });
 
     // шапка
     if (cat) {
@@ -59,6 +66,10 @@
     }
     // разделы
     var tabs = '<a class="cat-tab' + (cat ? '' : ' is-active') + '" href="catalog.html">Все модели <span>' + data.products.length + '</span></a>';
+    ['dom', 'kvartira'].forEach(function (k) {
+      var n = data.products.filter(function (p) { return p.cats.some(function (c) { return c.indexOf(k + '/') === 0; }); }).length;
+      tabs += '<a class="cat-tab' + (cat && cat.slug === k ? ' is-active' : '') + '" href="catalog.html?cat=' + k + '">' + PARENTS[k].name + ' <span>' + n + '</span></a>';
+    });
     data.categories.forEach(function (c) {
       tabs += '<a class="cat-tab' + (cat && cat.slug === c.slug ? ' is-active' : '') + '" href="catalog.html?cat=' + c.slug + '">' + esc(c.name) + ' <span>' + c.count + '</span></a>';
     });
