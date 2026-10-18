@@ -27,9 +27,9 @@
 /* Фильтры + список */
 .cat__body { display: grid; grid-template-columns: 264px 1fr; gap: 40px; align-items: start; margin-top: 40px; padding-bottom: 96px; }
 .cat-filters {
-  position: sticky; top: calc(var(--header-h) + 24px); display: flex; flex-direction: column; gap: 20px;
+  position: sticky; top: calc(var(--header-h) + 16px); display: flex; flex-direction: column; gap: 8px;
   /* панель выше экрана — прокручивается сама, иначе нижние фильтры не достать */
-  max-height: calc(100vh - var(--header-h) - 48px); overflow-y: auto; overscroll-behavior: contain;
+  max-height: calc(100vh - var(--header-h) - 32px); overflow-y: auto; overscroll-behavior: contain;
   padding-right: 8px; scrollbar-width: thin; scrollbar-color: rgba(6, 31, 59, 0.18) transparent;
 }
 .cat-filters::-webkit-scrollbar { width: 6px; }
@@ -40,9 +40,9 @@
 .cat-filters__reset:disabled { color: var(--c-muted); opacity: 0.5; cursor: default; }
 .cat-filters__close, .cat-filters__apply { display: none; }
 /* группа фильтров: разделитель сверху, воздух 24px до него снизу у предыдущей группы */
-.fgroup { display: flex; flex-direction: column; gap: 12px; padding: 24px 0; border-top: 1px solid rgba(6, 31, 59, 0.1); }
-.fgroup__title { margin-bottom: 2px; font-weight: 600; font-size: 15px; color: var(--c-ink); }
-.fcheck { display: flex; align-items: center; gap: 10px; font-family: var(--f-inter); font-size: 15px; color: var(--c-ink); cursor: pointer; }
+.fgroup { display: flex; flex-direction: column; gap: 5px; padding: 10px 0 10px; border-top: 1px solid rgba(6, 31, 59, 0.1); }
+.fgroup__title { margin-bottom: 2px; font-weight: 600; font-size: 15px; line-height: 18px; color: var(--c-ink); }
+.fcheck { display: flex; align-items: center; gap: 10px; font-family: var(--f-inter); font-size: 15px; line-height: 20px; color: var(--c-ink); cursor: pointer; }
 .fcheck input { width: 18px; height: 18px; margin: 0; accent-color: var(--c-blue); }
 .fcheck span { margin-left: auto; font-size: 13px; color: var(--c-muted); }
 .fcheck.is-zero { opacity: 0.4; }
