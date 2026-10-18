@@ -1,6 +1,11 @@
 /* Прототип каталога: раздел (catalog.html?cat=…) и страница модели (model.html?id=…) на данных из data/catalog.json */
 (function () {
   var PAGE = 24;
+  // флажки «да/нет» в группе «Предложения»
+  var FLAGS = [
+    { key: 'specialPrice', label: 'По спец цене', test: function (p) { return p.specialPrice; } },
+    { key: 'special', label: 'Спецпредложения', test: function (p) { return p.special.length > 0; } }
+  ];
   var GROUPS = [
     { key: 'place', title: 'Назначение' },
     { key: 'style', title: 'Стиль' },
@@ -37,7 +42,7 @@
       '<p class="pcard__price">от ' + rub(p.price) + '</p></div></a>';
   }
 
-  fetch('data/catalog.json?v=2').then(function (r) { return r.json(); }).then(function (data) {
+  fetch('data/catalog.json?v=3').then(function (r) { return r.json(); }).then(function (data) {
     if (document.getElementById('cat')) initCatalog(data);
     if (document.getElementById('model')) initModel(data);
   });
@@ -76,7 +81,8 @@
     document.querySelector('.js-tabs').innerHTML = tabs;
 
     // фильтры
-    var state = { special: false, sort: 'popular', shown: PAGE };
+    var state = { sort: 'popular', shown: PAGE };
+    FLAGS.forEach(function (f) { state[f.key] = false; });
     GROUPS.forEach(function (g) { state[g.key] = []; });
     var groupsEl = document.querySelector('.js-filter-groups');
     var html = '';
@@ -92,13 +98,16 @@
       });
       html += '</div>';
     });
-    if (base.some(function (p) { return p.special.length; })) {
-      html += '<div class="fgroup"><label class="fcheck"><input type="checkbox" data-key="special">Только спецпредложения<span data-count></span></label></div>';
+    var flags = FLAGS.filter(function (f) { return base.some(f.test) && !base.every(f.test); });
+    if (flags.length) {
+      html += '<div class="fgroup" role="group" aria-label="Предложения"><p class="fgroup__title">Предложения</p>' + flags.map(function (f) {
+        return '<label class="fcheck"><input type="checkbox" data-flag="' + f.key + '">' + f.label + '<span data-count></span></label>';
+      }).join('') + '</div>';
     }
     groupsEl.innerHTML = html;
 
     function match(p, skip) {
-      if (state.special && skip !== 'special' && !p.special.length) return false;
+      if (!FLAGS.every(function (f) { return !state[f.key] || skip === f.key || f.test(p); })) return false;
       return GROUPS.every(function (g) {
         if (g.key === skip || !state[g.key].length) return true;
         return p[g.key].some(function (v) { return state[g.key].indexOf(v) !== -1; });
@@ -124,14 +133,16 @@
 
       // счётчики у вариантов: сколько будет, если отметить
       groupsEl.querySelectorAll('input').forEach(function (inp) {
-        var key = inp.dataset.key, n;
-        if (key === 'special') n = base.filter(function (p) { return match(p, 'special') && p.special.length; }).length;
-        else n = base.filter(function (p) { return match(p, key) && p[key].indexOf(inp.value) !== -1; }).length;
+        var key = inp.dataset.key, flag = inp.dataset.flag, n;
+        if (flag) {
+          var f = FLAGS.filter(function (x) { return x.key === flag; })[0];
+          n = base.filter(function (p) { return match(p, flag) && f.test(p); }).length;
+        } else n = base.filter(function (p) { return match(p, key) && p[key].indexOf(inp.value) !== -1; }).length;
         var label = inp.closest('.fcheck');
         label.querySelector('[data-count]').textContent = n;
         label.classList.toggle('is-zero', !n && !inp.checked);
       });
-      var active = GROUPS.reduce(function (s, g) { return s + state[g.key].length; }, 0) + (state.special ? 1 : 0);
+      var active = GROUPS.reduce(function (s, g) { return s + state[g.key].length; }, 0) + FLAGS.filter(function (f) { return state[f.key]; }).length;
       var badge = document.querySelector('.js-active-count');
       badge.hidden = !active; badge.textContent = active;
       document.querySelectorAll('.cat-filters__reset').forEach(function (b) { b.disabled = !active; });
@@ -140,7 +151,7 @@
 
     groupsEl.addEventListener('change', function (e) {
       var inp = e.target; var key = inp.dataset.key;
-      if (key === 'special') state.special = inp.checked;
+      if (inp.dataset.flag) state[inp.dataset.flag] = inp.checked;
       else {
         var arr = state[key]; var i = arr.indexOf(inp.value);
         if (inp.checked && i === -1) arr.push(inp.value);
@@ -152,7 +163,7 @@
     more.addEventListener('click', function () { state.shown += PAGE; render(); });
     document.querySelectorAll('.js-reset').forEach(function (b) {
       b.addEventListener('click', function () {
-        GROUPS.forEach(function (g) { state[g.key] = []; }); state.special = false; state.shown = PAGE;
+        GROUPS.forEach(function (g) { state[g.key] = []; }); FLAGS.forEach(function (f) { state[f.key] = false; }); state.shown = PAGE;
         groupsEl.querySelectorAll('input').forEach(function (i) { i.checked = false; });
         render();
       });

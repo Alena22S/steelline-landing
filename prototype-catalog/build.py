@@ -42,7 +42,7 @@ def page(title, body_class, main):
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(footer) + '\n\n  ' +
-            fix(lead) + '\n\n  ' + fix(script) + '\n  <script src="catalog.js?v=4"></script>\n</body>\n</html>\n')
+            fix(lead) + '\n\n  ' + fix(script) + '\n  <script src="catalog.js?v=5"></script>\n</body>\n</html>\n')
 
 
 catalog_main = '''  <main class="cat" id="cat">
