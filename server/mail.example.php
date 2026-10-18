@@ -25,6 +25,13 @@ return [
         'astroom@steelline.store',
     ],
 
+    // Заказ обратного звонка — свой список (необязательно; если нет — берётся 'to')
+    'to_callback' => [
+        'alena.segimova22@mail.ru',
+        'segimova.alena@yandex.ru',
+        'astroom@steelline.store',
+    ],
+
     // Журнал заявок и счётчик частоты (папка вне site/, PHP должен иметь право записи)
     'leads_dir' => '/opt/steelline-promo/leads',
 ];

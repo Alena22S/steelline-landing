@@ -71,6 +71,8 @@ jobs:
               'from_email' => 'segimova.alena@yandex.ru',
               'from_name'  => 'Сайт «Стальная линия»',
               'to' => ['alena.segimova22@mail.ru', 'segimova.alena@yandex.ru'], // astroom@steelline.store — добавить после проверки
+              // заказ обратного звонка — дополнительно в салон ASTROOM
+              'to_callback' => ['alena.segimova22@mail.ru', 'segimova.alena@yandex.ru', 'astroom@steelline.store'],
               'leads_dir'  => '$(dirname "${DEPLOY_PATH%/}")/leads',
           ];
           PHP

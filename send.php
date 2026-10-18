@@ -172,7 +172,9 @@ foreach ($track as $k => $v) {
 }
 $html .= '</table>';
 
-$to       = array_values(array_filter((array) $cfg['to'], function ($a) { return filter_var($a, FILTER_VALIDATE_EMAIL); }));
+// для заказа звонка — свой список получателей (с почтой салона), если он задан в настройках
+$toList   = ($isCallback && !empty($cfg['to_callback'])) ? $cfg['to_callback'] : $cfg['to'];
+$to       = array_values(array_filter((array) $toList, function ($a) { return filter_var($a, FILTER_VALIDATE_EMAIL); }));
 $from     = $cfg['from_email'];
 $fromName = $cfg['from_name'] ?? 'Сайт «Стальная линия»';
 $subject  = ($isCallback ? 'Заказ обратного звонка — ' : 'Заявка на подбор двери с сайта — ') . $name;
