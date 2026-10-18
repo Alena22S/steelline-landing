@@ -41,7 +41,7 @@ def page(title, body_class, main):
     nav_header = fix(header).replace('href="../#doors">Каталог', 'href="catalog.html">Каталог')
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(footer) + '\n\n  ' +
-            fix(lead) + '\n\n  ' + fix(script) + '\n  <script src="catalog.js?v=1"></script>\n</body>\n</html>\n')
+            fix(lead) + '\n\n  ' + fix(script) + '\n  <script src="catalog.js?v=2"></script>\n</body>\n</html>\n')
 
 
 catalog_main = '''  <main class="cat" id="cat">

@@ -2,6 +2,7 @@
 (function () {
   var PAGE = 24;
   var GROUPS = [
+    { key: 'place', title: 'Назначение' },
     { key: 'style', title: 'Стиль' },
     { key: 'coating', title: 'Покрытие' },
     { key: 'window', title: 'Окно' },
@@ -36,7 +37,7 @@
       '<p class="pcard__price">от ' + rub(p.price) + '</p></div></a>';
   }
 
-  fetch('data/catalog.json').then(function (r) { return r.json(); }).then(function (data) {
+  fetch('data/catalog.json?v=2').then(function (r) { return r.json(); }).then(function (data) {
     if (document.getElementById('cat')) initCatalog(data);
     if (document.getElementById('model')) initModel(data);
   });
