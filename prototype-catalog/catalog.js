@@ -74,15 +74,15 @@
       base.forEach(function (p) { p[g.key].forEach(function (v) { vals[v] = 1; }); });
       var list = Object.keys(vals).sort();
       if (list.length < 2) return; // нечего выбирать
-      html += '<fieldset class="fgroup"><legend class="fgroup__title">' + g.title + '</legend>';
+      html += '<div class="fgroup" role="group" aria-label="' + g.title + '"><p class="fgroup__title">' + g.title + '</p>';
       list.forEach(function (v) {
         html += '<label class="fcheck"><input type="checkbox" data-key="' + g.key + '" value="' + esc(v) + '">' +
           esc(g.label ? g.label(v) : v) + '<span data-count></span></label>';
       });
-      html += '</fieldset>';
+      html += '</div>';
     });
     if (base.some(function (p) { return p.special.length; })) {
-      html += '<fieldset class="fgroup"><label class="fcheck"><input type="checkbox" data-key="special">Только спецпредложения<span data-count></span></label></fieldset>';
+      html += '<div class="fgroup"><label class="fcheck"><input type="checkbox" data-key="special">Только спецпредложения<span data-count></span></label></div>';
     }
     groupsEl.innerHTML = html;
 
