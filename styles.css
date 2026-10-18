@@ -1295,6 +1295,46 @@ body.has-modal { overflow: hidden; }
 }
 .lead__done .btn:hover { border-color: var(--c-navy); background: rgba(6, 31, 59, 0.03); }
 
+/* ---------- Обратный звонок ---------- */
+.callback-fab {
+  -webkit-appearance: none; appearance: none;
+  position: fixed; z-index: 55; right: 28px; bottom: 28px;
+  display: flex; align-items: center; gap: 0;
+  padding: 0; border: 0; background: none; cursor: pointer;
+}
+.callback-fab__icon {
+  position: relative; display: grid; place-items: center; width: 60px; height: 60px; border-radius: 50%;
+  background: var(--grad-primary); color: #fff; box-shadow: 0 10px 28px rgba(30, 103, 185, 0.35);
+  transition: transform 0.25s ease;
+}
+/* мягкая волна вокруг кнопки — привлекает внимание, но не мельтешит */
+.callback-fab__icon::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%;
+  box-shadow: 0 0 0 0 rgba(30, 103, 185, 0.35); animation: callback-pulse 2.8s ease-out infinite;
+}
+@keyframes callback-pulse { 0% { box-shadow: 0 0 0 0 rgba(30, 103, 185, 0.35); } 70%, 100% { box-shadow: 0 0 0 16px rgba(30, 103, 185, 0); } }
+.callback-fab__label {
+  max-width: 0; overflow: hidden; margin-right: 0; padding: 0; border-radius: 100px; background: #fff;
+  font-family: var(--f-manrope); font-weight: 700; font-size: 14px; line-height: 44px; white-space: nowrap; color: var(--c-navy);
+  box-shadow: 0 8px 24px rgba(6, 31, 59, 0.14); opacity: 0;
+  transition: max-width 0.35s ease, padding 0.35s ease, margin 0.35s ease, opacity 0.25s ease;
+}
+.callback-fab:hover .callback-fab__label, .callback-fab:focus-visible .callback-fab__label { max-width: 200px; margin-right: 12px; padding: 0 20px; opacity: 1; }
+.callback-fab:hover .callback-fab__icon { transform: scale(1.06); }
+.callback-fab:focus-visible { outline: none; }
+.callback-fab:focus-visible .callback-fab__icon { box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--c-blue); }
+@media (prefers-reduced-motion: reduce) { .callback-fab__icon::after { animation: none; } }
+/* пока открыто уведомление о cookie или форма — не мешаем */
+body.has-modal .callback-fab { display: none; }
+
+.callback { width: min(480px, calc(100vw - 32px)); }
+.callback__form { display: flex; flex-direction: column; gap: 18px; padding: 48px 44px 40px; }
+.callback .lead__head { margin-bottom: 4px; }
+.callback .lead__title { font-size: 30px; }
+.callback__icon { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: #e3efff; color: var(--c-blue); }
+.callback .lead__done { padding: 56px 44px; }
+.callback .lead__done a { color: var(--c-navy); font-weight: 600; white-space: nowrap; }
+
 /* ---------- Все видеообзоры (модальное окно) ---------- */
 .reels { width: min(1160px, calc(100vw - 32px)); }
 .reels__body { display: flex; flex-direction: column; gap: 40px; padding: 40px; }
@@ -1565,6 +1605,7 @@ body.has-modal { overflow: hidden; }
     transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.25s ease, filter 0.2s;
   }
   .sticky-cta.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+  .callback-fab { display: none; } /* на телефоне — закреплённая кнопка заявки */
   /* пока открыто уведомление о cookie — кнопка заявки стоит над ним */
   .sticky-cta { bottom: calc(12px + var(--cookie-h, 0px) + env(safe-area-inset-bottom, 0px)); }
   .cookie { left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); width: auto; padding: 20px 16px 16px; gap: 16px; }

@@ -21,6 +21,7 @@ footer = part('<footer class="footer">', '</footer>')
 cookie = part('<div class="cookie"', '</div>\n  </div>')
 sticky = part('<a class="btn btn--gradient sticky-cta"', '</a>')
 lead = part('<dialog class="lead" id="lead"', '</dialog>')
+callback = part('<button class="callback-fab"', '</dialog>')
 script = re.search(r'<script src="script\.js\?v=\d+"></script>', src).group(0)
 
 
@@ -41,7 +42,7 @@ def page(title, body_class, main):
     h += '  <link rel="stylesheet" href="catalog.css?v=11">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
-            '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(footer) + '\n\n  ' +
+            '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
             fix(lead) + '\n\n  ' + fix(script) + '\n  <script src="catalog.js?v=9"></script>\n</body>\n</html>\n')
 
 

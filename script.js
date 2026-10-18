@@ -1152,3 +1152,103 @@
   });
 })();
 
+
+/* ---------- Обратный звонок: плавающая кнопка и короткая форма (имя + телефон) ---------- */
+(function () {
+  var dialog = document.getElementById('callback');
+  var form = document.getElementById('callback-form');
+  if (!dialog || !form) return;
+  var done = dialog.querySelector('.callback__done');
+  var phone = document.getElementById('callback-phone');
+  var submit = form.querySelector('.callback__submit');
+  var submitText = form.querySelector('.callback__submit-text');
+  var status = form.querySelector('.callback__status');
+  var openedAt = 0;
+  var opener = null;
+
+  function digits(v) {
+    var d = v.replace(/\D/g, '');
+    if (d[0] === '8') d = '7' + d.slice(1);
+    if (d && d[0] !== '7') d = '7' + d;
+    return d.slice(0, 11);
+  }
+  function format(d) {
+    if (!d) return '';
+    var r = '+7';
+    if (d.length > 1) r += ' (' + d.slice(1, 4);
+    if (d.length >= 4) r += ')';
+    if (d.length > 4) r += ' ' + d.slice(4, 7);
+    if (d.length > 7) r += '-' + d.slice(7, 9);
+    if (d.length > 9) r += '-' + d.slice(9, 11);
+    return r;
+  }
+  phone.addEventListener('input', function () { phone.value = format(digits(phone.value)); });
+  phone.addEventListener('focus', function () { if (!phone.value) phone.value = '+7 ('; });
+  phone.addEventListener('blur', function () { if (digits(phone.value).length <= 1) phone.value = ''; });
+
+  function setError(input, msg) {
+    var field = input.closest('.field');
+    field.classList.toggle('is-invalid', !!msg);
+    input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    field.querySelector('.field__error').textContent = msg;
+  }
+
+  function open(e) {
+    if (e) e.preventDefault();
+    opener = document.activeElement;
+    form.hidden = false; done.hidden = true; status.textContent = '';
+    openedAt = Date.now();
+    document.body.classList.add('has-modal');
+    dialog.showModal();
+    window.siteGoal && window.siteGoal('callback_open');
+  }
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('[data-open-callback]')) open(e);
+    if (e.target.closest('[data-close-callback]')) dialog.close();
+  });
+  dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
+  dialog.addEventListener('close', function () {
+    document.body.classList.remove('has-modal');
+    if (!done.hidden) form.reset();
+    if (opener && opener.focus) opener.focus();
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    status.textContent = '';
+    var ok = true;
+    if (form.elements.name.value.trim().length < 2) { setError(form.elements.name, 'Укажите имя'); ok = false; } else setError(form.elements.name, '');
+    if (digits(phone.value).length !== 11) { setError(phone, 'Укажите телефон полностью'); ok = false; } else setError(phone, '');
+    if (!form.elements.consent.checked) { setError(form.elements.consent, 'Нужно ваше согласие'); ok = false; } else setError(form.elements.consent, '');
+    if (!ok) { var first = form.querySelector('[aria-invalid="true"]'); if (first) first.focus(); return; }
+
+    var data = new FormData(form);
+    data.set('phone', format(digits(phone.value)));
+    data.set('ts', String(openedAt));
+    data.set('page', location.href.slice(0, 300));
+    try {
+      var track = JSON.parse(sessionStorage.getItem('lead-track') || '{}') || {};
+      Object.keys(track).forEach(function (k) { data.set(k, track[k]); });
+    } catch (err) {}
+
+    submit.disabled = true; submitText.textContent = 'Отправляем…';
+    fetch(form.getAttribute('action'), { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+      .then(function (res) {
+        return res.json().catch(function () { return {}; }).then(function (json) {
+          if (!res.ok || !json.ok) throw new Error(json.error || 'send_failed');
+        });
+      })
+      .then(function () {
+        form.hidden = true; done.hidden = false;
+        window.siteGoal && window.siteGoal('callback_success');
+      })
+      .catch(function (err) {
+        var msg = err && err.message && err.message !== 'send_failed' && err.message !== 'Failed to fetch' ? err.message + ' ' : 'Не получилось отправить заявку. ';
+        status.innerHTML = '';
+        status.appendChild(document.createTextNode(msg + 'Позвоните нам: '));
+        var a = document.createElement('a'); a.href = 'tel:+79222077552'; a.textContent = '+7 (922) 207-75-52';
+        status.appendChild(a);
+      })
+      .then(function () { submit.disabled = false; submitText.textContent = 'Жду звонка'; });
+  });
+})();

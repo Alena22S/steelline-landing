@@ -71,11 +71,17 @@ $phone   = line('phone', 30);
 $email   = line('email', 120);
 $comment = field('comment', 1000);
 $source  = line('source', 40);
+$page    = line('page', 300);
 $consent = !empty($_POST['consent']);
+$isCallback = ($source === 'callback'); // заказ обратного звонка: только имя и телефон
 
 if (mb_strlen($name) < 2) reply(false, 'Укажите имя.', 422);
 if (strlen(preg_replace('/\D/', '', $phone)) !== 11) reply(false, 'Укажите телефон полностью.', 422);
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) reply(false, 'Проверьте адрес почты.', 422);
+if ($isCallback) {
+    if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) $email = '';
+} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    reply(false, 'Проверьте адрес почты.', 422);
+}
 if (!$consent) reply(false, 'Нужно согласие на обработку данных.', 422);
 
 // Метки рекламы и откуда пришёл посетитель (собирает script.js)
@@ -118,7 +124,7 @@ if (!empty($_FILES['photos']) && is_array($_FILES['photos']['name'])) {
 $logged = false;
 if (is_dir($LEADS) && is_writable($LEADS)) {
     $entry = [
-        'time' => date('c'), 'name' => $name, 'phone' => $phone, 'email' => $email,
+        'time' => date('c'), 'type' => $isCallback ? 'callback' : 'lead', 'page' => $page, 'name' => $name, 'phone' => $phone, 'email' => $email,
         'comment' => $comment, 'photos' => count($attachments), 'source' => $source, 'track' => $track,
     ];
     $logFile = $LEADS . '/leads-' . date('Y-m') . '.jsonl';
@@ -143,6 +149,7 @@ $sources = [
     'model'         => 'страница модели в каталоге',
     'catalog-cta'   => 'каталог: «Не нашли подходящую модель?»',
     'catalog-empty' => 'каталог: «Таких моделей не нашлось»',
+    'callback'      => 'кнопка «Заказать звонок»',
 ];
 $trackNames = [
     'utm_source' => 'utm_source', 'utm_medium' => 'utm_medium', 'utm_campaign' => 'utm_campaign',
@@ -151,13 +158,14 @@ $trackNames = [
 ];
 $h = function ($s) { return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); };
 
-$html  = '<h2 style="font-family:Arial,sans-serif;color:#061f3b">Новая заявка с сайта</h2>';
+$html  = '<h2 style="font-family:Arial,sans-serif;color:#061f3b">' . ($isCallback ? 'Заказ обратного звонка — перезвонить в течение часа' : 'Новая заявка с сайта') . '</h2>';
 $html .= '<table cellpadding="6" style="font-family:Arial,sans-serif;font-size:14px;color:#061f3b">';
 $html .= '<tr><td><b>Имя</b></td><td>' . $h($name) . '</td></tr>';
 $html .= '<tr><td><b>Телефон</b></td><td><a href="tel:+' . preg_replace('/\D/', '', $phone) . '">' . $h($phone) . '</a></td></tr>';
-$html .= '<tr><td><b>Почта</b></td><td><a href="mailto:' . $h($email) . '">' . $h($email) . '</a></td></tr>';
+if ($email !== '') $html .= '<tr><td><b>Почта</b></td><td><a href="mailto:' . $h($email) . '">' . $h($email) . '</a></td></tr>';
 if ($comment !== '') $html .= '<tr><td valign="top"><b>Комментарий</b></td><td>' . nl2br($h($comment)) . '</td></tr>';
-$html .= '<tr><td><b>Фото проёма</b></td><td>' . (count($attachments) ? count($attachments) . ' во вложении' : 'не приложены') . '</td></tr>';
+if (!$isCallback) $html .= '<tr><td><b>Фото проёма</b></td><td>' . (count($attachments) ? count($attachments) . ' во вложении' : 'не приложены') . '</td></tr>';
+if ($page !== '') $html .= '<tr><td><b>Страница</b></td><td>' . $h($page) . '</td></tr>';
 if (isset($sources[$source])) $html .= '<tr><td><b>Откуда</b></td><td>' . $sources[$source] . '</td></tr>';
 foreach ($track as $k => $v) {
     $html .= '<tr><td><b>' . $h($trackNames[$k]) . '</b></td><td>' . $h($v) . '</td></tr>';
@@ -167,14 +175,14 @@ $html .= '</table>';
 $to       = array_values(array_filter((array) $cfg['to'], function ($a) { return filter_var($a, FILTER_VALIDATE_EMAIL); }));
 $from     = $cfg['from_email'];
 $fromName = $cfg['from_name'] ?? 'Сайт «Стальная линия»';
-$subject  = 'Заявка на подбор двери с сайта — ' . $name;
+$subject  = ($isCallback ? 'Заказ обратного звонка — ' : 'Заявка на подбор двери с сайта — ') . $name;
 $enc      = function ($s) { return '=?UTF-8?B?' . base64_encode($s) . '?='; };
 
 $boundary = '=_' . bin2hex(random_bytes(12));
 $msg  = 'Date: ' . date('r') . "\r\n";
 $msg .= 'From: ' . $enc($fromName) . " <$from>\r\n";
 $msg .= 'To: ' . implode(', ', $to) . "\r\n";
-$msg .= "Reply-To: $email\r\n";
+if ($email !== '') $msg .= "Reply-To: $email\r\n";
 $msg .= 'Subject: ' . $enc($subject) . "\r\n";
 $msg .= 'Message-ID: <' . bin2hex(random_bytes(16)) . '@' . substr(strrchr($from, '@'), 1) . ">\r\n";
 $msg .= "MIME-Version: 1.0\r\n";
