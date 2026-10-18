@@ -106,9 +106,10 @@
         return '<label class="fcheck"><input type="checkbox" data-flag="' + f.key + '">' + f.label + '<span data-count></span></label>';
       }).join('') + '</div>';
     }
-    // «Утепление» и «Предложения» — сразу после «Назначения», чтобы были видны без прокрутки
-    html = html.replace('<div class="fgroup" role="group" aria-label="Стиль">',
-      flagGroup('Утепление', ['thermo']) + flagGroup('Предложения', ['specialPrice', 'special']) + '<div class="fgroup" role="group" aria-label="Стиль">');
+    // порядок: Назначение, Стиль, Утепление, Предложения, Покрытие, Окно, Серия — главное видно без прокрутки
+    var flagsHtml = flagGroup('Утепление', ['thermo']) + flagGroup('Предложения', ['specialPrice', 'special']);
+    var anchor = '<div class="fgroup" role="group" aria-label="Покрытие">';
+    html = html.indexOf(anchor) !== -1 ? html.replace(anchor, flagsHtml + anchor) : html + flagsHtml;
     groupsEl.innerHTML = html;
 
     function match(p, skip) {
