@@ -218,6 +218,6 @@ portfolio_main = '''  <main class="port" id="port">
     </dialog>
   </main>'''
 
-open(os.path.join(OUT, 'portfolio.html'), 'w', encoding='utf-8').write(page('Наши работы — Стальная линия', 'page-portfolio', portfolio_main, ('portfolio.js?v=11',)))
+open(os.path.join(OUT, 'portfolio.html'), 'w', encoding='utf-8').write(page('Наши работы — Стальная линия', 'page-portfolio', portfolio_main, ('portfolio.js?v=12',)))
 
 print('ok')

@@ -55,10 +55,12 @@
     var tSelect = document.querySelector('.js-port-type');
     var tBtn = document.querySelector('.js-port-type-btn');
     var tList = document.querySelector('.js-port-type-list');
-    var tWrap = tBtn.parentNode;
+    // если браузер взял из кэша старую страницу без выпадашки — пропускаем её, карточки всё равно рисуем
+    var tWrap = tBtn && tBtn.parentNode;
     var tActive = 0;
     function typeLabel(v) { return v || 'Все двери'; }
     function typeMenu() {
+      if (!tWrap) return;
       var vals = [''].concat(TYPES);
       tSelect.innerHTML = vals.map(function (v) {
         var n = count('type', v);
@@ -89,6 +91,7 @@
       if (!li || li.classList.contains('is-disabled')) return;
       tClose(true); if (li.dataset.v !== state.type) setType(li.dataset.v);
     }
+    if (tWrap) {
     tBtn.addEventListener('click', function () { tList.hidden ? tOpen() : tClose(); });
     tBtn.addEventListener('keydown', function (e) { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); tOpen(); } });
     tList.addEventListener('click', function (e) { tChoose(e.target.closest('.csel__opt')); });
@@ -101,6 +104,7 @@
     });
     document.addEventListener('click', function (e) { if (!tWrap.contains(e.target) && !tList.hidden) tClose(); });
     tSelect.addEventListener('change', function () { setType(tSelect.value); });
+    }
 
     var grid = document.querySelector('.js-port-grid');
     var more = document.querySelector('.js-port-more');
@@ -119,7 +123,7 @@
       list = all.filter(function (p) {
         return (!state.region || p.region === state.region) && (!state.type || p.tags.indexOf(state.type) !== -1);
       });
-      tabs(document.querySelector('.js-port-regions'));
+      if (regionsEl) tabs(regionsEl);
       typeMenu();
       grid.innerHTML = list.slice(0, state.shown).map(card).join('');
       more.hidden = list.length <= state.shown;
@@ -127,7 +131,8 @@
       document.querySelector('.js-port-count').textContent = 'Найдено ' + list.length + ' ' + plural(list.length, 'проект', 'проекта', 'проектов');
     }
 
-    document.querySelector('.js-port-regions').addEventListener('click', function (e) {
+    var regionsEl = document.querySelector('.js-port-regions');
+    regionsEl && regionsEl.addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b || b.disabled) return;
       state.region = b.dataset.v; state.shown = PAGE; render();
     });
