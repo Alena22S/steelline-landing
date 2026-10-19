@@ -23,25 +23,84 @@
     var cities = {};
     all.forEach(function (p) { cities[p.city] = 1; });
     var nc = Object.keys(cities).length;
-    document.querySelector('.js-port-stats').innerHTML =
-      '<div><dt>' + all.length + '</dt><dd>' + plural(all.length, 'установленная<br>дверь', 'установленные<br>двери', 'установленных<br>дверей') + '</dd></div>' +
-      '<div><dt>' + nc + '</dt><dd>' + plural(nc, 'город', 'города', 'городов') + '<span class="port-stats__more"> от&nbsp;Екатеринбурга<br>до&nbsp;Нью-Йорка</span></dd></div>' +
-      '<div><dt>2&nbsp;года</dt><dd>гарантии<br>на&nbsp;монтаж</dd></div>';
+    var badgesEl = document.querySelector('.js-port-badges');
+    // бейджи-факты с иконками
+    if (badgesEl) badgesEl.innerHTML =
+      badge('door', '<path pathLength="1" d="M4 21h16"/><path pathLength="1" d="M6 21V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17"/><g class="port-badge__leaf"><path pathLength="1" d="M7 21V4h7.5v17"/><path pathLength="1" d="M12.5 12.5v.01"/></g>', all.length, plural(all.length, 'установленная дверь', 'установленные двери', 'установленных дверей')) +
+      badge('pin', '<g class="port-badge__pin"><path pathLength="1" d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle pathLength="1" cx="12" cy="9.5" r="2.5"/></g>', nc, plural(nc, 'город', 'города', 'городов')) +
+      badge('shield', '<path pathLength="1" d="M12 3 5 6v5.5c0 4.3 3 8 7 9.5 4-1.5 7-5.2 7-9.5V6l-7-3Z"/><path class="port-badge__check" pathLength="1" d="m9 12 2 2 4-4"/>', '2 года', 'гарантии на&nbsp;монтаж');
+    function badge(kind, icon, num, text) {
+      return '<li class="port-badge port-badge--' + kind + '"><span class="port-badge__icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + icon + '</svg></span>' +
+        '<span><b>' + num + '</b> ' + text + '</span></li>';
+    }
 
-    function chips(el, key, values) {
-      function count(v) {
-        return all.filter(function (p) {
-          var okR = key === 'region' ? (!v || p.region === v) : (!state.region || p.region === state.region);
-          var okT = key === 'type' ? (!v || p.tags.indexOf(v) !== -1) : (!state.type || p.tags.indexOf(state.type) !== -1);
-          return okR && okT;
-        }).length;
-      }
-      el.innerHTML = [''].concat(values).map(function (v) {
-        var n = count(v);
-        return '<button type="button" class="' + (state[key] === v ? 'is-active' : '') + '" aria-pressed="' + (state[key] === v) + '" data-v="' + esc(v) + '"' + (n ? '' : ' disabled') + '>' +
-          (v || (key === 'region' ? 'Все города' : 'Все двери')) + '<span>' + n + '</span></button>';
+    function count(key, v) {
+      return all.filter(function (p) {
+        var okR = key === 'region' ? (!v || p.region === v) : (!state.region || p.region === state.region);
+        var okT = key === 'type' ? (!v || p.tags.indexOf(v) !== -1) : (!state.type || p.tags.indexOf(state.type) !== -1);
+        return okR && okT;
+      }).length;
+    }
+
+    // Города — чипсы, как разделы каталога
+    function tabs(el) {
+      el.innerHTML = [''].concat(REGIONS).map(function (v) {
+        var n = count('region', v);
+        return '<button type="button" class="cat-tab' + (state.region === v ? ' is-active' : '') + '" aria-pressed="' + (state.region === v) + '" data-v="' + esc(v) + '"' + (n ? '' : ' disabled') + '>' +
+          (v || 'Все города') + '<span>' + n + '</span></button>';
       }).join('');
     }
+
+    // Вид двери — выпадашка в стиле сортировки каталога; на телефоне CSS показывает системный <select>
+    var tSelect = document.querySelector('.js-port-type');
+    var tBtn = document.querySelector('.js-port-type-btn');
+    var tList = document.querySelector('.js-port-type-list');
+    var tWrap = tBtn.parentNode;
+    var tActive = 0;
+    function typeLabel(v) { return v || 'Все двери'; }
+    function typeMenu() {
+      var vals = [''].concat(TYPES);
+      tSelect.innerHTML = vals.map(function (v) {
+        var n = count('type', v);
+        return '<option value="' + esc(v) + '"' + (state.type === v ? ' selected' : '') + (n ? '' : ' disabled') + '>' + typeLabel(v) + ' (' + n + ')</option>';
+      }).join('');
+      tList.innerHTML = vals.map(function (v) {
+        var n = count('type', v);
+        return '<li class="csel__opt' + (n ? '' : ' is-disabled') + '" role="option" data-v="' + esc(v) + '" aria-selected="' + (state.type === v) + '"' + (n ? '' : ' aria-disabled="true"') + '>' +
+          typeLabel(v) + '<span>' + n + '</span></li>';
+      }).join('');
+      tBtn.textContent = typeLabel(state.type);
+    }
+    function tOpts() { return tList.querySelectorAll('.csel__opt'); }
+    function tHighlight(i) {
+      var o = tOpts(); tActive = (i + o.length) % o.length;
+      o.forEach(function (li, j) { li.classList.toggle('is-active', j === tActive); });
+    }
+    function tOpen() {
+      tList.hidden = false; tWrap.classList.add('is-open'); tBtn.setAttribute('aria-expanded', 'true');
+      tHighlight(Math.max(0, [''].concat(TYPES).indexOf(state.type))); tList.focus();
+    }
+    function tClose(focusBtn) {
+      tList.hidden = true; tWrap.classList.remove('is-open'); tBtn.setAttribute('aria-expanded', 'false');
+      if (focusBtn) tBtn.focus();
+    }
+    function setType(v) { state.type = v; state.shown = PAGE; render(); }
+    function tChoose(li) {
+      if (!li || li.classList.contains('is-disabled')) return;
+      tClose(true); if (li.dataset.v !== state.type) setType(li.dataset.v);
+    }
+    tBtn.addEventListener('click', function () { tList.hidden ? tOpen() : tClose(); });
+    tBtn.addEventListener('keydown', function (e) { if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); tOpen(); } });
+    tList.addEventListener('click', function (e) { tChoose(e.target.closest('.csel__opt')); });
+    tList.addEventListener('mousemove', function (e) { var li = e.target.closest('.csel__opt'); if (li) tHighlight(Array.prototype.indexOf.call(tOpts(), li)); });
+    tList.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowDown') { e.preventDefault(); tHighlight(tActive + 1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); tHighlight(tActive - 1); }
+      else if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tChoose(tOpts()[tActive]); }
+      else if (e.key === 'Escape' || e.key === 'Tab') { tClose(e.key === 'Escape'); }
+    });
+    document.addEventListener('click', function (e) { if (!tWrap.contains(e.target) && !tList.hidden) tClose(); });
+    tSelect.addEventListener('change', function () { setType(tSelect.value); });
 
     var grid = document.querySelector('.js-port-grid');
     var more = document.querySelector('.js-port-more');
@@ -60,8 +119,8 @@
       list = all.filter(function (p) {
         return (!state.region || p.region === state.region) && (!state.type || p.tags.indexOf(state.type) !== -1);
       });
-      chips(document.querySelector('.js-port-regions'), 'region', REGIONS);
-      chips(document.querySelector('.js-port-types'), 'type', TYPES);
+      tabs(document.querySelector('.js-port-regions'));
+      typeMenu();
       grid.innerHTML = list.slice(0, state.shown).map(card).join('');
       more.hidden = list.length <= state.shown;
       more.textContent = 'Показать ещё ' + Math.min(PAGE, list.length - state.shown);
@@ -71,10 +130,6 @@
     document.querySelector('.js-port-regions').addEventListener('click', function (e) {
       var b = e.target.closest('button'); if (!b || b.disabled) return;
       state.region = b.dataset.v; state.shown = PAGE; render();
-    });
-    document.querySelector('.js-port-types').addEventListener('click', function (e) {
-      var b = e.target.closest('button'); if (!b || b.disabled) return;
-      state.type = b.dataset.v; state.shown = PAGE; render();
     });
     more.addEventListener('click', function () { state.shown += PAGE; render(); });
 

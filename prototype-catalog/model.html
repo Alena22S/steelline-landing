@@ -13,8 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=71">
-  <link rel="stylesheet" href="catalog.css?v=26">
+  <link rel="stylesheet" href="../styles.css?v=72">
+  <link rel="stylesheet" href="catalog.css?v=36">
 </head>
 <body class="page-model">
 
@@ -25,7 +25,15 @@
         <img class="header__logo-mobile" src="../assets/icons/logo-mobile.svg" width="179.273" height="31.4358" alt="Стальная линия — двери в квартиру и дом">
       </a>
       <nav class="header__nav" id="site-nav" aria-label="Основная навигация">
-        <a href="catalog.html">Каталог</a>
+        <div class="nav-dd">
+          <a class="nav-dd__toggle" href="catalog.html" aria-haspopup="true">Каталог</a>
+          <div class="nav-dd__menu">
+            <div class="nav-dd__list">
+              <a href="catalog.html">Каталог дверей</a>
+              <a href="portfolio.html">Наши работы</a>
+            </div>
+          </div>
+        </div>
         <a href="../#reviews">Обзор дверей</a>
         <a href="../#custom">Двери на заказ</a>
         <a href="../#tech">Технологии</a>
@@ -172,7 +180,7 @@
       <nav class="footer__nav" aria-label="Навигация в подвале">
         <a href="catalog.html">Каталог</a>
         <a href="../">Бренды</a>
-        <a href="../#custom">Проекты</a>
+        <a href="portfolio.html">Наши работы</a>
         <a href="../#contacts">Салон</a>
         <a href="../#contacts">Для дизайнеров</a>
         <a href="../#contacts">Контакты</a>

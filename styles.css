@@ -230,6 +230,29 @@ address { font-style: normal; }
 }
 .header__nav a:hover { color: var(--c-blue); }
 
+/* Временная выпадашка у «Каталога»: каталог дверей и «Наши работы» (до переделки меню) */
+.header__main { position: relative; z-index: 2; }
+.nav-dd { position: relative; }
+.nav-dd__toggle { display: inline-flex; align-items: center; gap: 6px; }
+.nav-dd__toggle::after {
+  content: ""; width: 10px; height: 6px; flex: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23061f3b' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center;
+  transition: transform 0.25s ease;
+}
+.nav-dd__menu {
+  position: absolute; top: 100%; left: -18px; padding-top: 18px; /* прозрачный мостик, чтобы меню не закрывалось по пути курсора */
+  visibility: hidden; opacity: 0; transform: translateY(-4px);
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+}
+.nav-dd__list {
+  display: flex; flex-direction: column; min-width: 200px; padding: 6px; border-radius: 12px; background: #fff;
+  box-shadow: 0 16px 40px rgba(6, 31, 59, 0.14), 0 0 0 0.5px rgba(6, 31, 59, 0.08);
+}
+.nav-dd__list a { padding: 10px 12px; border-radius: 8px; transition: background-color 0.2s, color 0.2s; }
+.nav-dd__list a:hover { background: var(--c-chip-bg); }
+.nav-dd:hover .nav-dd__menu, .nav-dd:focus-within .nav-dd__menu { visibility: visible; opacity: 1; transform: none; }
+.nav-dd:hover .nav-dd__toggle::after, .nav-dd:focus-within .nav-dd__toggle::after { transform: rotate(180deg); }
+
 .header__address {
   display: flex;
   align-items: center;
@@ -1510,6 +1533,12 @@ body.has-modal .callback-fab { display: none; }
   }
   .header__nav a { padding: 14px 0; border-bottom: 1px solid var(--c-divider); }
   .header.is-open .header__nav { visibility: visible; opacity: 1; transform: none; }
+  /* в бургере выпадашка раскрыта — два обычных пункта */
+  .nav-dd, .nav-dd__list { display: contents; }
+  .nav-dd__toggle { display: none; }
+  .nav-dd__menu { display: contents; visibility: inherit; opacity: 1; transform: none; }
+  .nav-dd__list a { padding: 14px 0; border-radius: 0; }
+  .nav-dd__list a:hover { background: none; }
 
   .section__title,
   .cta__title { font-size: 40px; }

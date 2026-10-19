@@ -44,7 +44,7 @@ def page(title, body_class, main, scripts=('catalog.js?v=10',)):
     h = re.sub(r'\s*<meta name="yandex-verification"[^>]*>', '', h)
     h = h.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
                   '<meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="robots" content="noindex, nofollow">', 1)
-    h += '  <link rel="stylesheet" href="catalog.css?v=26">\n</head>\n'
+    h += '  <link rel="stylesheet" href="catalog.css?v=36">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
@@ -170,15 +170,19 @@ open(os.path.join(OUT, 'model.html'), 'w', encoding='utf-8').write(page('Мод�
 portfolio_main = '''  <main class="port" id="port">
     <div class="wrap">
       <nav class="crumbs port-crumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>/</span><span>Наши работы</span></nav>
-      <h1 class="cat__title port-title">Наши работы</h1>
-      <div class="port-head">
-        <p class="cat__lead port-lead js-port-lead"></p>
-        <dl class="port-stats js-port-stats"></dl>
+      <div class="port-headline">
+        <h1 class="cat__title port-title">Наши работы</h1>
+        <ul class="port-badges js-port-badges"></ul>
       </div>
+      <p class="cat__lead port-lead js-port-lead"></p>
 
       <div class="port-bar">
         <div class="port-tabs js-port-regions" role="group" aria-label="Город"></div>
-        <div class="port-seg js-port-types" role="group" aria-label="Тип двери"></div>
+        <div class="csel port-type">
+          <select class="cat-sort__select js-port-type" aria-label="Вид двери"></select>
+          <button type="button" class="csel__btn js-port-type-btn" aria-haspopup="listbox" aria-expanded="false" aria-controls="port-type-list"></button>
+          <ul class="csel__list js-port-type-list" id="port-type-list" role="listbox" tabindex="-1" hidden></ul>
+        </div>
       </div>
     </div>
 
@@ -214,6 +218,6 @@ portfolio_main = '''  <main class="port" id="port">
     </dialog>
   </main>'''
 
-open(os.path.join(OUT, 'portfolio.html'), 'w', encoding='utf-8').write(page('Наши работы — Стальная линия', 'page-portfolio', portfolio_main, ('portfolio.js?v=4',)))
+open(os.path.join(OUT, 'portfolio.html'), 'w', encoding='utf-8').write(page('Наши работы — Стальная линия', 'page-portfolio', portfolio_main, ('portfolio.js?v=11',)))
 
 print('ok')
