@@ -28,7 +28,8 @@
 .cat__body { display: grid; grid-template-columns: 264px 1fr; gap: 40px; align-items: start; margin-top: 40px; padding-bottom: 96px; }
 /* Панель фильтров — в обычном потоке страницы (не «липнет»): так у групп есть воздух и нет внутренней прокрутки */
 .cat-filters { display: flex; flex-direction: column; }
-.cat-filters__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-bottom: 20px; }
+/* высота строки = высоте панели сортировки справа (40px) — «Фильтры» и «Найдено N моделей» на одной линии */
+.cat-filters__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 40px; margin-bottom: 24px; } /* разделитель — на уровне верха сетки */
 .cat-filters__title { font-weight: 600; font-size: 18px; color: var(--c-ink); }
 .cat-filters__reset { padding: 0; border: 0; background: none; font-family: var(--f-inter); font-size: 14px; color: var(--c-blue); cursor: pointer; }
 .cat-filters__reset:disabled { color: var(--c-muted); opacity: 0.5; cursor: default; }
