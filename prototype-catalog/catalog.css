@@ -275,13 +275,13 @@
 /* карточки-преимущества: тот же светло-серый, что у фона фото в карточках каталога */
 .port-stats { display: flex; gap: 8px; margin: 0; }
 .port-stats > div {
-  display: flex; flex-direction: column; justify-content: space-between; gap: 20px;
-  width: 232px; padding: 20px; border-radius: 8px;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 10px;
+  width: 200px; padding: 14px 16px; border-radius: 8px;
   background: linear-gradient(180deg, #f4f6f9 0%, #e9edf2 100%);
 }
-.port-stats dt { font-weight: 500; font-size: 40px; line-height: 1; letter-spacing: -0.5px; color: var(--c-navy); white-space: nowrap; }
+.port-stats dt { font-weight: 500; font-size: 28px; line-height: 1; letter-spacing: -0.3px; color: var(--c-navy); white-space: nowrap; }
 .port-stats dd {
-  margin: 0; font-family: var(--f-inter); font-size: 14px; line-height: 1.35; color: var(--c-muted);
+  margin: 0; font-family: var(--f-inter); font-size: 13px; line-height: 1.35; color: var(--c-muted);
   display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
 }
 
@@ -364,8 +364,8 @@
 @media (max-width: 767px) {
   .port-crumbs { padding-top: 24px; }
   .port-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
-  .port-stats > div { width: auto; gap: 12px; padding: 14px 12px; }
-  .port-stats dt { font-size: 26px; }
+  .port-stats > div { width: auto; gap: 8px; padding: 12px; }
+  .port-stats dt { font-size: 20px; }
   .port-stats dd { font-size: 12px; }
   .port-stats__more { display: none; }
   .port-bar { margin-top: 28px; }
