@@ -22,10 +22,11 @@
     document.querySelector('.js-port-lead').textContent = data.intro;
     var cities = {};
     all.forEach(function (p) { cities[p.city] = 1; });
+    var nc = Object.keys(cities).length;
     document.querySelector('.js-port-stats').innerHTML =
-      '<li><b>' + all.length + '</b>' + plural(all.length, 'установленная дверь', 'установленные двери', 'установленных дверей') + ' в&nbsp;портфолио</li>' +
-      '<li><b>' + Object.keys(cities).length + '</b>' + plural(Object.keys(cities).length, 'город', 'города', 'городов') + ' — от&nbsp;Екатеринбурга до&nbsp;Нью-Йорка</li>' +
-      '<li><b>2 года</b>гарантии на&nbsp;монтаж собственной бригадой</li>';
+      '<div><dt>' + all.length + '</dt><dd>' + plural(all.length, 'установленная дверь', 'установленные двери', 'установленных дверей') + '</dd></div>' +
+      '<div><dt>' + nc + '</dt><dd>' + plural(nc, 'город', 'города', 'городов') + ' — от&nbsp;Екатеринбурга до&nbsp;Нью-Йорка</dd></div>' +
+      '<div><dt>2&nbsp;года</dt><dd>гарантии на&nbsp;монтаж</dd></div>';
 
     function chips(el, key, values) {
       function count(v) {
@@ -37,8 +38,8 @@
       }
       el.innerHTML = [''].concat(values).map(function (v) {
         var n = count(v);
-        return '<button type="button" class="cat-tab' + (state[key] === v ? ' is-active' : '') + '" data-v="' + esc(v) + '"' + (n ? '' : ' disabled') + '>' +
-          (v || (key === 'region' ? 'Все города' : 'Все двери')) + ' <span>' + n + '</span></button>';
+        return '<button type="button" class="' + (state[key] === v ? 'is-active' : '') + '" aria-pressed="' + (state[key] === v) + '" data-v="' + esc(v) + '"' + (n ? '' : ' disabled') + '>' +
+          (v || (key === 'region' ? 'Все города' : 'Все двери')) + '<span>' + n + '</span></button>';
       }).join('');
     }
 

@@ -44,7 +44,7 @@ def page(title, body_class, main, scripts=('catalog.js?v=10',)):
     h = re.sub(r'\s*<meta name="yandex-verification"[^>]*>', '', h)
     h = h.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
                   '<meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="robots" content="noindex, nofollow">', 1)
-    h += '  <link rel="stylesheet" href="catalog.css?v=15">\n</head>\n'
+    h += '  <link rel="stylesheet" href="catalog.css?v=18">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
@@ -168,16 +168,20 @@ open(os.path.join(OUT, 'catalog.html'), 'w', encoding='utf-8').write(page('Ка�
 open(os.path.join(OUT, 'model.html'), 'w', encoding='utf-8').write(page('Модель двери — Стальная линия', 'page-model', model_main))
 
 portfolio_main = '''  <main class="port" id="port">
-    <div class="cat__head wrap">
-      <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>/</span><span>Наши работы</span></nav>
-      <h1 class="cat__title">Наши работы</h1>
-      <p class="cat__lead js-port-lead"></p>
-      <ul class="port-stats js-port-stats"></ul>
-    </div>
+    <div class="wrap">
+      <nav class="crumbs port-crumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>/</span><span>Наши работы</span></nav>
+      <header class="port-head">
+        <div class="port-head__text">
+          <h1 class="cat__title">Наши работы</h1>
+          <p class="cat__lead js-port-lead"></p>
+        </div>
+        <dl class="port-stats js-port-stats"></dl>
+      </header>
 
-    <div class="port-filters wrap">
-      <div class="port-filters__row js-port-regions" role="group" aria-label="Город"></div>
-      <div class="port-filters__row js-port-types" role="group" aria-label="Тип двери"></div>
+      <div class="port-bar">
+        <div class="port-tabs js-port-regions" role="group" aria-label="Город"></div>
+        <div class="port-seg js-port-types" role="group" aria-label="Тип двери"></div>
+      </div>
     </div>
 
     <section class="port__body wrap">
@@ -212,6 +216,6 @@ portfolio_main = '''  <main class="port" id="port">
     </dialog>
   </main>'''
 
-open(os.path.join(OUT, 'portfolio.html'), 'w', encoding='utf-8').write(page('Наши работы — Стальная линия', 'page-portfolio', portfolio_main, ('portfolio.js?v=1',)))
+open(os.path.join(OUT, 'portfolio.html'), 'w', encoding='utf-8').write(page('Наши работы — Стальная линия', 'page-portfolio', portfolio_main, ('portfolio.js?v=2',)))
 
 print('ok')

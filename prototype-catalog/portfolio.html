@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css?v=71">
-  <link rel="stylesheet" href="catalog.css?v=15">
+  <link rel="stylesheet" href="catalog.css?v=18">
 </head>
 <body class="page-portfolio">
 
@@ -48,16 +48,20 @@
   </header>
 
   <main class="port" id="port">
-    <div class="cat__head wrap">
-      <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>/</span><span>Наши работы</span></nav>
-      <h1 class="cat__title">Наши работы</h1>
-      <p class="cat__lead js-port-lead"></p>
-      <ul class="port-stats js-port-stats"></ul>
-    </div>
+    <div class="wrap">
+      <nav class="crumbs port-crumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>/</span><span>Наши работы</span></nav>
+      <header class="port-head">
+        <div class="port-head__text">
+          <h1 class="cat__title">Наши работы</h1>
+          <p class="cat__lead js-port-lead"></p>
+        </div>
+        <dl class="port-stats js-port-stats"></dl>
+      </header>
 
-    <div class="port-filters wrap">
-      <div class="port-filters__row js-port-regions" role="group" aria-label="Город"></div>
-      <div class="port-filters__row js-port-types" role="group" aria-label="Тип двери"></div>
+      <div class="port-bar">
+        <div class="port-tabs js-port-regions" role="group" aria-label="Город"></div>
+        <div class="port-seg js-port-types" role="group" aria-label="Тип двери"></div>
+      </div>
     </div>
 
     <section class="port__body wrap">
@@ -275,6 +279,6 @@
   </dialog>
 
   <script src="../script.js?v=43"></script>
-  <script src="portfolio.js?v=1"></script>
+  <script src="portfolio.js?v=2"></script>
 </body>
 </html>
