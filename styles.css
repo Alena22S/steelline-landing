@@ -308,6 +308,18 @@ address { font-style: normal; }
   font-size: 48px;
   line-height: 1.1;
 }
+/* надзаголовок внутри H1 — ключевая фраза для поиска, визуально небольшая строка над заголовком */
+.hero__kicker {
+  display: block;
+  margin-bottom: 18px;
+  font-family: var(--f-inter);
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
 .hero__lead {
   font-family: var(--f-inter);
   font-size: 16px;
@@ -1568,6 +1580,7 @@ body.has-modal .callback-fab { display: none; }
   .hero__content { gap: 24px; width: 100%; }
   .hero__text { gap: 16px; }
   .hero__title { font-size: 28px; line-height: 1.1; }
+  .hero__kicker { margin-bottom: 12px; font-size: 11px; }
   .hero__lead { font-size: 15px; line-height: 1.3; }
   /* в баннере — «Смотреть каталог» в стеклянном стиле; заявка — в закреплённой кнопке снизу */
   .hero__actions .btn--glass { display: none; }
