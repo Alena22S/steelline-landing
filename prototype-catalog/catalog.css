@@ -286,6 +286,14 @@
   margin: 0; max-width: 190px; font-family: var(--f-inter); font-size: 14px; line-height: 1.35; color: var(--c-muted);
   display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
 }
+@media (min-width: 1360px) {
+  /* цифра и подпись в строку — карточки ровно по высоте вводного текста: верх и низ совпадают */
+  .port-head { align-items: stretch; }
+  .port-stats { grid-auto-columns: auto; }
+  .port-stats > div { flex-direction: row; align-items: center; justify-content: flex-start; gap: 14px; padding: 0 20px; }
+  .port-stats { flex: none; }
+  .port-stats dd { max-width: none; white-space: nowrap; }
+}
 
 /* панель фильтров: города — вкладки с подчёркиванием, типы — сегментный переключатель */
 .port-bar { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; margin-top: 48px; }
@@ -354,7 +362,7 @@
 @media (max-width: 1199px) {
   .port-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
-@media (max-width: 1023px) {
+@media (max-width: 1359px) {
   .port-head { flex-direction: column; align-items: flex-start; gap: 28px; }
 }
 @media (max-width: 1023px) {

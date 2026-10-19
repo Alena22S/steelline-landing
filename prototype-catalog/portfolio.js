@@ -24,9 +24,9 @@
     all.forEach(function (p) { cities[p.city] = 1; });
     var nc = Object.keys(cities).length;
     document.querySelector('.js-port-stats').innerHTML =
-      '<div><dt>' + all.length + '</dt><dd>' + plural(all.length, 'установленная дверь', 'установленные двери', 'установленных дверей') + '</dd></div>' +
-      '<div><dt>' + nc + '</dt><dd>' + plural(nc, 'город', 'города', 'городов') + '<span class="port-stats__more"> от&nbsp;Екатеринбурга до&nbsp;Нью-Йорка</span></dd></div>' +
-      '<div><dt>2&nbsp;года</dt><dd>гарантии на&nbsp;монтаж</dd></div>';
+      '<div><dt>' + all.length + '</dt><dd>' + plural(all.length, 'установленная<br>дверь', 'установленные<br>двери', 'установленных<br>дверей') + '</dd></div>' +
+      '<div><dt>' + nc + '</dt><dd>' + plural(nc, 'город', 'города', 'городов') + '<span class="port-stats__more"> от&nbsp;Екатеринбурга<br>до&nbsp;Нью-Йорка</span></dd></div>' +
+      '<div><dt>2&nbsp;года</dt><dd>гарантии<br>на&nbsp;монтаж</dd></div>';
 
     function chips(el, key, values) {
       function count(v) {
