@@ -272,12 +272,18 @@
 /* шапка: заголовок слева, крупные цифры справа — без подложек, на одной базовой линии */
 .port-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 48px; margin-top: 20px; }
 .port-head__text { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
-.port-stats { display: flex; margin: 0; }
-.port-stats > div { display: flex; flex-direction: column; gap: 6px; padding: 0 32px; border-left: 1px solid rgba(6, 31, 59, 0.12); }
-.port-stats > div:first-child { padding-left: 0; border-left: 0; }
-.port-stats > div:last-child { padding-right: 0; }
-.port-stats dt { font-weight: 500; font-size: 44px; line-height: 1; letter-spacing: -0.5px; color: var(--c-navy); white-space: nowrap; }
-.port-stats dd { margin: 0; max-width: 170px; font-family: var(--f-inter); font-size: 14px; line-height: 1.35; color: var(--c-muted); }
+/* карточки-преимущества: тот же светло-серый, что у фона фото в карточках каталога */
+.port-stats { display: flex; gap: 8px; margin: 0; }
+.port-stats > div {
+  display: flex; flex-direction: column; justify-content: space-between; gap: 20px;
+  width: 232px; padding: 20px; border-radius: 8px;
+  background: linear-gradient(180deg, #f4f6f9 0%, #e9edf2 100%);
+}
+.port-stats dt { font-weight: 500; font-size: 40px; line-height: 1; letter-spacing: -0.5px; color: var(--c-navy); white-space: nowrap; }
+.port-stats dd {
+  margin: 0; font-family: var(--f-inter); font-size: 14px; line-height: 1.35; color: var(--c-muted);
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
+}
 
 /* панель фильтров: города — вкладки с подчёркиванием, типы — сегментный переключатель */
 .port-bar { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; margin-top: 48px; }
@@ -357,9 +363,11 @@
 }
 @media (max-width: 767px) {
   .port-crumbs { padding-top: 24px; }
-  .port-stats > div { padding: 0 14px; }
-  .port-stats dt { font-size: 28px; }
+  .port-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
+  .port-stats > div { width: auto; gap: 12px; padding: 14px 12px; }
+  .port-stats dt { font-size: 26px; }
   .port-stats dd { font-size: 12px; }
+  .port-stats__more { display: none; }
   .port-bar { margin-top: 28px; }
   .port-tabs, .port-seg { overflow-x: auto; scrollbar-width: none; }
   .port-tabs::-webkit-scrollbar, .port-seg::-webkit-scrollbar { display: none; }
