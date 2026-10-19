@@ -270,18 +270,20 @@
 /* ---------- Наши работы (портфолио) ---------- */
 .port-crumbs { padding-top: 48px; }
 /* шапка: заголовок слева, крупные цифры справа — без подложек, на одной базовой линии */
-.port-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 48px; margin-top: 20px; }
-.port-head__text { display: flex; flex-direction: column; gap: 16px; max-width: 560px; }
+.port-title { margin-top: 20px; }
+/* вводный текст и карточки на одной линии: верх карточек = верх первой строки текста */
+.port-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 48px; margin-top: 16px; }
+.port-lead { max-width: 560px; margin: 0; }
 /* карточки-преимущества: тот же светло-серый, что у фона фото в карточках каталога */
-.port-stats { display: flex; gap: 8px; margin: 0; }
+.port-stats { display: grid; grid-auto-flow: column; grid-auto-columns: 228px; gap: 8px; margin: 0; }
 .port-stats > div {
-  display: flex; flex-direction: column; justify-content: space-between; gap: 10px;
-  width: 200px; padding: 14px 16px; border-radius: 8px;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 12px;
+  padding: 14px 18px; border-radius: 8px;
   background: linear-gradient(180deg, #f4f6f9 0%, #e9edf2 100%);
 }
-.port-stats dt { font-weight: 500; font-size: 28px; line-height: 1; letter-spacing: -0.3px; color: var(--c-navy); white-space: nowrap; }
+.port-stats dt { font-weight: 500; font-size: 40px; line-height: 1; letter-spacing: -0.5px; color: var(--c-navy); white-space: nowrap; }
 .port-stats dd {
-  margin: 0; font-family: var(--f-inter); font-size: 13px; line-height: 1.35; color: var(--c-muted);
+  margin: 0; max-width: 190px; font-family: var(--f-inter); font-size: 14px; line-height: 1.35; color: var(--c-muted);
   display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
 }
 
@@ -364,8 +366,8 @@
 @media (max-width: 767px) {
   .port-crumbs { padding-top: 24px; }
   .port-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; }
-  .port-stats > div { width: auto; gap: 8px; padding: 12px; }
-  .port-stats dt { font-size: 20px; }
+  .port-stats > div { gap: 10px; padding: 12px; }
+  .port-stats dt { font-size: 26px; }
   .port-stats dd { font-size: 12px; }
   .port-stats__more { display: none; }
   .port-bar { margin-top: 28px; }

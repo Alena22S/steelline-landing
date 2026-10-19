@@ -44,7 +44,7 @@ def page(title, body_class, main, scripts=('catalog.js?v=10',)):
     h = re.sub(r'\s*<meta name="yandex-verification"[^>]*>', '', h)
     h = h.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
                   '<meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="robots" content="noindex, nofollow">', 1)
-    h += '  <link rel="stylesheet" href="catalog.css?v=20">\n</head>\n'
+    h += '  <link rel="stylesheet" href="catalog.css?v=23">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
@@ -170,13 +170,11 @@ open(os.path.join(OUT, 'model.html'), 'w', encoding='utf-8').write(page('Мод�
 portfolio_main = '''  <main class="port" id="port">
     <div class="wrap">
       <nav class="crumbs port-crumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>/</span><span>Наши работы</span></nav>
-      <header class="port-head">
-        <div class="port-head__text">
-          <h1 class="cat__title">Наши работы</h1>
-          <p class="cat__lead js-port-lead"></p>
-        </div>
+      <h1 class="cat__title port-title">Наши работы</h1>
+      <div class="port-head">
+        <p class="cat__lead port-lead js-port-lead"></p>
         <dl class="port-stats js-port-stats"></dl>
-      </header>
+      </div>
 
       <div class="port-bar">
         <div class="port-tabs js-port-regions" role="group" aria-label="Город"></div>
