@@ -36,7 +36,7 @@ def fix(html):
     return html
 
 
-def page(title, body_class, main):
+def page(title, body_class, main, scripts=('catalog.js?v=10',)):
     h = fix(head)
     h = re.sub(r'<title>.*?</title>', '<title>%s</title>' % title, h)
     # прототип каталога не индексируем до переноса на Astro (дубли steelline.store)
@@ -44,11 +44,11 @@ def page(title, body_class, main):
     h = re.sub(r'\s*<meta name="yandex-verification"[^>]*>', '', h)
     h = h.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
                   '<meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="robots" content="noindex, nofollow">', 1)
-    h += '  <link rel="stylesheet" href="catalog.css?v=13">\n</head>\n'
+    h += '  <link rel="stylesheet" href="catalog.css?v=15">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
-            fix(lead) + '\n\n  ' + fix(script) + '\n  <script src="catalog.js?v=10"></script>\n</body>\n</html>\n')
+            fix(lead) + '\n\n  ' + fix(script) + ''.join('\n  <script src="%s"></script>' % x for x in scripts) + '\n</body>\n</html>\n')
 
 
 catalog_main = '''  <main class="cat" id="cat">
@@ -166,4 +166,52 @@ model_main = '''  <main class="model-page" id="model">
 
 open(os.path.join(OUT, 'catalog.html'), 'w', encoding='utf-8').write(page('Каталог входных дверей — Стальная линия', 'page-catalog', catalog_main))
 open(os.path.join(OUT, 'model.html'), 'w', encoding='utf-8').write(page('Модель двери — Стальная линия', 'page-model', model_main))
+
+portfolio_main = '''  <main class="port" id="port">
+    <div class="cat__head wrap">
+      <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>/</span><span>Наши работы</span></nav>
+      <h1 class="cat__title">Наши работы</h1>
+      <p class="cat__lead js-port-lead"></p>
+      <ul class="port-stats js-port-stats"></ul>
+    </div>
+
+    <div class="port-filters wrap">
+      <div class="port-filters__row js-port-regions" role="group" aria-label="Город"></div>
+      <div class="port-filters__row js-port-types" role="group" aria-label="Тип двери"></div>
+    </div>
+
+    <section class="port__body wrap">
+      <p class="cat-toolbar__count js-port-count"></p>
+      <div class="port-grid js-port-grid"></div>
+      <button class="btn btn--outline btn--lg cat-more js-port-more" type="button" hidden>Показать ещё</button>
+    </section>
+
+    <section class="cat-cta wrap">
+      <div class="cat-cta__text">
+        <h2 class="cat-cta__title">Хотите такую же дверь?</h2>
+        <p class="cat-cta__lead">Пришлите фото проёма — подберём модель, рассчитаем стоимость и&nbsp;установим. Гарантия на&nbsp;монтаж 2&nbsp;года.</p>
+      </div>
+      <a class="btn btn--gradient btn--lg" href="#" data-open-form="portfolio-cta">Получить подбор двери <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+    </section>
+
+    <dialog class="port-view js-port-view" aria-label="Проект">
+      <button class="port-view__close js-pv-close" type="button" aria-label="Закрыть"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      <button class="port-view__nav port-view__nav--prev js-pv-prev" type="button" aria-label="Предыдущий проект"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="port-view__nav port-view__nav--next js-pv-next" type="button" aria-label="Следующий проект"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <div class="port-view__media"><img class="port-view__img js-pv-img" alt=""></div>
+      <div class="port-view__side">
+        <span class="tag tag--blue port-view__city js-pv-city"></span>
+        <h2 class="port-view__title js-pv-title"></h2>
+        <div class="port-view__thumbs js-pv-thumbs"></div>
+        <div class="port-view__actions">
+          <a class="btn btn--gradient btn--lg" href="#" data-open-form="portfolio">Хочу такую дверь</a>
+          <a class="btn btn--outline btn--lg js-pv-model" href="#" hidden>Модель в каталоге</a>
+        </div>
+        <p class="port-view__count js-pv-count"></p>
+      </div>
+    </dialog>
+  </main>'''
+
+open(os.path.join(OUT, 'portfolio.html'), 'w', encoding='utf-8').write(page('Наши работы — Стальная линия', 'page-portfolio', portfolio_main, ('portfolio.js?v=1',)))
+
 print('ok')
