@@ -337,11 +337,12 @@
 .port__body { padding-top: 32px; padding-bottom: 96px; }
 .port__body .cat-toolbar__count { margin-bottom: 20px; }
 .port-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px 20px; }
+/* width: 100% — Safari не растягивает <button> по колонке сетки, и блок с фото (без своей ширины) схлопывался в 0 */
 .port-card {
-  -webkit-appearance: none; appearance: none; display: flex; flex-direction: column; gap: 4px;
+  -webkit-appearance: none; appearance: none; display: flex; flex-direction: column; gap: 4px; width: 100%; min-width: 0;
   padding: 0; border: 0; background: none; text-align: left; cursor: pointer; color: var(--c-ink);
 }
-.port-card__media { position: relative; display: block; overflow: hidden; aspect-ratio: 3 / 4; margin-bottom: 10px; border-radius: 8px; background: #eef1f5; }
+.port-card__media { position: relative; display: block; width: 100%; overflow: hidden; aspect-ratio: 3 / 4; margin-bottom: 10px; border-radius: 8px; background: #eef1f5; }
 .port-card__photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 0.35s ease, transform 0.6s cubic-bezier(0.2, 0.6, 0.2, 1); }
 .port-card__photo + .port-card__photo { opacity: 0; }
 .port-card:hover .port-card__photo { transform: scale(1.04); }

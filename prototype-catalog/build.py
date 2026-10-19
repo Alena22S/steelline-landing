@@ -44,7 +44,7 @@ def page(title, body_class, main, scripts=('catalog.js?v=10',)):
     h = re.sub(r'\s*<meta name="yandex-verification"[^>]*>', '', h)
     h = h.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
                   '<meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="robots" content="noindex, nofollow">', 1)
-    h += '  <link rel="stylesheet" href="catalog.css?v=36">\n</head>\n'
+    h += '  <link rel="stylesheet" href="catalog.css?v=37">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
