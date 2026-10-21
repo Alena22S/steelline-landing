@@ -299,8 +299,11 @@
     function render() {
       var list = base.filter(function (p) { return match(p); });
       var pr = function (p) { return isInterior(p) ? (salePrice(p) || p.priceKit || 0) : p.price; };
-      // межкомнатные: по умолчанию сначала двери на распродаже
-      if (interior && state.sort === 'popular') list.sort(function (a, b) { return (b.sale ? 1 : 0) - (a.sale ? 1 : 0); });
+      // межкомнатные: по умолчанию сначала двери на распродаже — от самых дешёвых (цена со скидкой), потом остальные в прежнем порядке
+      if (interior && state.sort === 'popular') list.sort(function (a, b) {
+        if (a.sale !== b.sale) return (b.sale ? 1 : 0) - (a.sale ? 1 : 0);
+        return a.sale ? pr(a) - pr(b) : 0;
+      });
       if (state.sort === 'price-asc') list.sort(function (a, b) { return pr(a) - pr(b); });
       if (state.sort === 'price-desc') list.sort(function (a, b) { return pr(b) - pr(a); });
       if (state.sort === 'name') list.sort(function (a, b) { return a.title.localeCompare(b.title, 'ru'); });
