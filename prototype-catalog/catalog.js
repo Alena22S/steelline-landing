@@ -293,12 +293,35 @@
     }
 
     var grid = document.querySelector('.js-grid');
+    // сколько карточек в ряду сейчас (3 на десктопе, 2 на телефоне)
+    function gridCols() {
+      var t = getComputedStyle(grid).gridTemplateColumns;
+      return t && t !== 'none' ? t.split(' ').length : 3;
+    }
+    // ряд дорогих, ряд доступных. Порог — 100 000 ₽; если доступных в разделе меньше ряда — делим раздел пополам по цене
+    function alternateRows(list, cols) {
+      var limit = 100000;
+      if (list.filter(function (p) { return p.price < limit; }).length < cols) {
+        var prices = list.map(function (p) { return p.price; }).sort(function (a, b) { return a - b; });
+        limit = prices[Math.floor(prices.length / 2)] || limit;
+      }
+      var hi = list.filter(function (p) { return p.price >= limit; });
+      var lo = list.filter(function (p) { return p.price < limit; });
+      var out = [], i = 0, j = 0;
+      while (i < hi.length || j < lo.length) {
+        out = out.concat(hi.slice(i, i + cols)); i += cols;
+        out = out.concat(lo.slice(j, j + cols)); j += cols;
+      }
+      return out;
+    }
     var more = document.querySelector('.js-more');
     var empty = document.querySelector('.js-empty');
 
     function render() {
       var list = base.filter(function (p) { return match(p); });
       var pr = function (p) { return isInterior(p) ? (salePrice(p) || p.priceKit || 0) : p.price; };
+      // входные: по умолчанию ряды чередуются — дорогие и доступные (до 100 000 ₽), чтобы не казалось, что всё дорого
+      if (!interior && state.sort === 'popular') list = alternateRows(list, gridCols());
       // межкомнатные: по умолчанию сначала двери на распродаже — от самых дешёвых (цена со скидкой), потом остальные в прежнем порядке
       if (interior && state.sort === 'popular') list.sort(function (a, b) {
         if (a.sale !== b.sale) return (b.sale ? 1 : 0) - (a.sale ? 1 : 0);
@@ -363,6 +386,8 @@
     document.querySelectorAll('.js-filters-close').forEach(function (b) { b.addEventListener('click', function () { setPanel(false); }); });
     document.addEventListener('click', function (e) { if (document.body.classList.contains('filters-open') && !panel.contains(e.target) && !e.target.closest('.js-filters-open')) setPanel(false); });
 
+    var lastCols = gridCols();
+    window.addEventListener('resize', function () { var c = gridCols(); if (c !== lastCols) { lastCols = c; render(); } });
     render();
   }
 
