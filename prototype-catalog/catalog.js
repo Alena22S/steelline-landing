@@ -30,6 +30,15 @@
   var ABOUT_AURUM = 'Фабрика Aurum Doors — один из крупнейших производителей межкомнатных дверей. Полотна делают на оборудовании Barberan (Испания), Weinig (Германия) и Plasmek (Турция) из материалов Egger, Kronostar, Kastamonu, Renolit и Kleiberit.';
   // новые блоки страниц: если браузер показал старую страницу из кэша, их нет — работаем с пустышкой, а не падаем
   function q(sel) { return document.querySelector(sel) || document.createElement('div'); }
+  // межкомнатные: кнопка открывает короткую форму «Получите скидку 40%» (режим sale у формы обратного звонка)
+  function toSaleButton(b, text, model) {
+    if (!b || !b.firstChild || !document.getElementById('callback')) return; // старая страница из кэша — оставляем как есть
+    b.firstChild.nodeValue = text + ' ';
+    b.removeAttribute('data-open-form');
+    b.dataset.openCallback = 'sale';
+    if (model) b.dataset.model = model;
+  }
+  function saleSticky(model) { toSaleButton(document.querySelector('.sticky-cta'), 'Заказать дверь со скидкой', model); }
   // распродажа склада: −40% на полотно; в комплекте дешевеет только полотно
   var SALE = 0.4;
   function salePrice(p) { return p.sale && p.price ? Math.round(p.price * (1 - SALE)) : p.price; }
@@ -206,6 +215,7 @@
       '<a class="cat-kind' + (interior ? '' : ' is-active') + '" href="catalog.html"' + (interior ? '' : ' aria-current="page"') + '>Входные двери <span>' + nEntry + '</span></a>' +
       '<a class="cat-kind' + (interior ? ' is-active' : '') + '" href="catalog.html?cat=mezhkom"' + (interior ? ' aria-current="page"' : '') + '>Межкомнатные двери <span>' + (data.products.length - nEntry) + '</span></a>';
     if (interior) {
+      saleSticky();
       // баннер распродажи склада: три двери Кобальт в разных цветах
       var picks = [['au-co7', 'Аляска'], ['au-co2', 'Антрацит'], ['au-co12', 'Deep Green']];
       var doors = picks.map(function (pk) {
@@ -446,6 +456,10 @@
 
   /* ---------- Страница межкомнатной двери (Aurum) ---------- */
   function initInterior(p, data) {
+    if (p.sale) { // у моделей без скидки кнопки остаются «Получить подбор двери»
+      saleSticky(p.title);
+      toSaleButton(document.querySelector('.model__actions [data-open-form="model"]'), 'Получить скидку 40%', p.title);
+    }
     var cat = data.categories.filter(function (c) { return c.slug === p.cats[0]; })[0];
     document.title = 'Межкомнатная дверь Aurum Doors ' + p.title + ' — Стальная линия';
     var kicker = q('.js-kicker');

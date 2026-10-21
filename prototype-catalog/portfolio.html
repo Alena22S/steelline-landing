@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css?v=72">
-  <link rel="stylesheet" href="catalog.css?v=50">
+  <link rel="stylesheet" href="catalog.css?v=51">
 </head>
 <body class="page-portfolio">
 
@@ -132,8 +132,8 @@
     <form class="callback__form" id="callback-form" action="../send.php" method="post" novalidate>
       <div class="lead__head">
         <span class="callback__icon" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M5.1 3.5h3.1l1.6 4-2 1.3a10.6 10.6 0 0 0 7.4 7.4l1.3-2 4 1.6v3.1a2 2 0 0 1-2.1 2A16.6 16.6 0 0 1 3.1 5.6a2 2 0 0 1 2-2.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
-        <h2 class="lead__title" id="callback-title">Перезвоним в&nbsp;течение часа</h2>
-        <p class="lead__lead">Оставьте номер — менеджер салона свяжется с&nbsp;вами в&nbsp;рабочее время, ежедневно с&nbsp;10:00 до&nbsp;20:00.</p>
+        <h2 class="lead__title callback__title" id="callback-title">Перезвоним в&nbsp;течение часа</h2>
+        <p class="lead__lead callback__lead">Оставьте номер — менеджер салона свяжется с&nbsp;вами в&nbsp;рабочее время, ежедневно с&nbsp;10:00 до&nbsp;20:00.</p>
       </div>
       <div class="field">
         <label class="field__label" for="callback-name">Имя</label>
@@ -147,6 +147,7 @@
       </div>
       <input class="lead__trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <input type="hidden" name="source" value="callback">
+      <input type="hidden" name="comment" value="">
       <div class="field">
         <label class="check">
           <input type="checkbox" name="consent" value="1" required>
@@ -160,7 +161,7 @@
     <div class="lead__done callback__done" hidden>
       <span class="lead__done-icon" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 32 32" fill="none"><path d="M8 16.5l5.5 5.5L24 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <h2 class="lead__title">Заявка принята</h2>
-      <p class="lead__lead">Перезвоним в&nbsp;течение часа в&nbsp;рабочее время. Если звонок нужен срочно — <a href="tel:+79222077552">+7&nbsp;(922)&nbsp;207-75-52</a>.</p>
+      <p class="lead__lead callback__done-lead">Перезвоним в&nbsp;течение часа в&nbsp;рабочее время. Если звонок нужен срочно — <a href="tel:+79222077552">+7&nbsp;(922)&nbsp;207-75-52</a>.</p>
       <button class="btn btn--outline btn--outline-soft btn--lg" type="button" data-close-callback>Вернуться на сайт</button>
     </div>
   </dialog>
@@ -289,7 +290,7 @@
     </div>
   </dialog>
 
-  <script src="../script.js?v=43"></script>
+  <script src="../script.js?v=44"></script>
   <script src="portfolio.js?v=12"></script>
 </body>
 </html>

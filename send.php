@@ -73,7 +73,8 @@ $comment = field('comment', 1000);
 $source  = line('source', 40);
 $page    = line('page', 300);
 $consent = !empty($_POST['consent']);
-$isCallback = ($source === 'callback'); // заказ обратного звонка: только имя и телефон
+$isSale     = ($source === 'sale');     // заявка на скидку (распродажа межкомнатных Aurum): имя, телефон, модель
+$isCallback = ($source === 'callback' || $isSale); // короткая форма: только имя и телефон
 
 if (mb_strlen($name) < 2) reply(false, 'Укажите имя.', 422);
 if (strlen(preg_replace('/\D/', '', $phone)) !== 11) reply(false, 'Укажите телефон полностью.', 422);
@@ -124,7 +125,7 @@ if (!empty($_FILES['photos']) && is_array($_FILES['photos']['name'])) {
 $logged = false;
 if (is_dir($LEADS) && is_writable($LEADS)) {
     $entry = [
-        'time' => date('c'), 'type' => $isCallback ? 'callback' : 'lead', 'page' => $page, 'name' => $name, 'phone' => $phone, 'email' => $email,
+        'time' => date('c'), 'type' => $isSale ? 'sale' : ($isCallback ? 'callback' : 'lead'), 'page' => $page, 'name' => $name, 'phone' => $phone, 'email' => $email,
         'comment' => $comment, 'photos' => count($attachments), 'source' => $source, 'track' => $track,
     ];
     $logFile = $LEADS . '/leads-' . date('Y-m') . '.jsonl';
@@ -150,6 +151,7 @@ $sources = [
     'catalog-cta'   => 'каталог: «Не нашли подходящую модель?»',
     'catalog-empty' => 'каталог: «Таких моделей не нашлось»',
     'callback'      => 'кнопка «Заказать звонок»',
+    'sale'          => 'межкомнатные: форма «Получите скидку 40%»',
 ];
 $trackNames = [
     'utm_source' => 'utm_source', 'utm_medium' => 'utm_medium', 'utm_campaign' => 'utm_campaign',
@@ -158,7 +160,7 @@ $trackNames = [
 ];
 $h = function ($s) { return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); };
 
-$html  = '<h2 style="font-family:Arial,sans-serif;color:#061f3b">' . ($isCallback ? 'Заказ обратного звонка — перезвонить в течение часа' : 'Новая заявка с сайта') . '</h2>';
+$html  = '<h2 style="font-family:Arial,sans-serif;color:#061f3b">' . ($isSale ? 'Заявка на скидку −40% (межкомнатные Aurum, распродажа склада)' : ($isCallback ? 'Заказ обратного звонка — перезвонить в течение часа' : 'Новая заявка с сайта')) . '</h2>';
 $html .= '<table cellpadding="6" style="font-family:Arial,sans-serif;font-size:14px;color:#061f3b">';
 $html .= '<tr><td><b>Имя</b></td><td>' . $h($name) . '</td></tr>';
 $html .= '<tr><td><b>Телефон</b></td><td><a href="tel:+' . preg_replace('/\D/', '', $phone) . '">' . $h($phone) . '</a></td></tr>';
@@ -177,7 +179,7 @@ $toList   = ($isCallback && !empty($cfg['to_callback'])) ? $cfg['to_callback'] :
 $to       = array_values(array_filter((array) $toList, function ($a) { return filter_var($a, FILTER_VALIDATE_EMAIL); }));
 $from     = $cfg['from_email'];
 $fromName = $cfg['from_name'] ?? 'Сайт «Стальная линия»';
-$subject  = ($isCallback ? 'Заказ обратного звонка — ' : 'Заявка на подбор двери с сайта — ') . $name;
+$subject  = ($isSale ? 'Заявка на скидку −40% (межкомнатные Aurum) — ' : ($isCallback ? 'Заказ обратного звонка — ' : 'Заявка на подбор двери с сайта — ')) . $name;
 $enc      = function ($s) { return '=?UTF-8?B?' . base64_encode($s) . '?='; };
 
 $boundary = '=_' . bin2hex(random_bytes(12));

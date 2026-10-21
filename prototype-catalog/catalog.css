@@ -50,6 +50,8 @@
 .sale-banner__doors img { height: 290px; width: auto; margin-left: 10px; mix-blend-mode: multiply; }
 .sale-banner__doors img:first-child { margin-left: 0; }
 .sale-banner__doors img:nth-child(2) { height: 306px; }
+.sale-banner__photo { display: none; }
+.sale-banner__photo img { display: block; width: 100%; height: auto; border-radius: 12px; }
 .pcard__badge.pcard__badge--sale { background: #c2412f; color: #fff; }
 .model__tags .tag--sale, .tag--sale { padding: 6px 12px 5px; border: 1.177px solid #c2412f; border-radius: 100px; background: #c2412f; font-weight: 700; font-size: 12px; line-height: 16px; color: #fff; }
 .cat-tab {
@@ -309,6 +311,8 @@
   .cat-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 767px) {
+  .sale-banner__inner { display: none; }
+  .sale-banner__photo { display: block; }
   .sale-banner__inner { flex-direction: column; align-items: flex-start; gap: 20px; min-height: 0; padding: 24px 20px 28px; }
   .sale-banner__badge { width: 120px; height: 120px; box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.45); }
   .sale-banner__badge b { font-size: 36px; }

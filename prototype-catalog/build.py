@@ -36,7 +36,7 @@ def fix(html):
     return html
 
 
-def page(title, body_class, main, scripts=('catalog.js?v=24',)):
+def page(title, body_class, main, scripts=('catalog.js?v=27',)):
     h = fix(head)
     h = re.sub(r'<title>.*?</title>', '<title>%s</title>' % title, h)
     # прототип каталога не индексируем до переноса на Astro (дубли steelline.store)
@@ -44,7 +44,7 @@ def page(title, body_class, main, scripts=('catalog.js?v=24',)):
     h = re.sub(r'\s*<meta name="yandex-verification"[^>]*>', '', h)
     h = h.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
                   '<meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="robots" content="noindex, nofollow">', 1)
-    h += '  <link rel="stylesheet" href="catalog.css?v=50">\n</head>\n'
+    h += '  <link rel="stylesheet" href="catalog.css?v=51">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
@@ -73,6 +73,10 @@ catalog_main = '''  <main class="cat" id="cat">
         </div>
         <div class="sale-banner__doors js-sale-doors" aria-hidden="true"></div>
       </div>
+      <!-- на телефоне вместо баннера — готовая картинка распродажи -->
+      <a class="sale-banner__photo" href="catalog.html?cat=mezhkom/kobalt">
+        <img src="img/aurum/sale-mobile.webp" width="1200" height="800" loading="lazy" alt="Распродажа склада межкомнатных дверей Aurum Doors: скидка 40%. Екатеринбург, ИЦ Аструм, 6 уровень, галерея А">
+      </a>
     </section>
 
     <div class="cat__body wrap">

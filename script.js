@@ -1165,6 +1165,26 @@
   var status = form.querySelector('.callback__status');
   var openedAt = 0;
   var opener = null;
+  // режим «скидка» (межкомнатные Aurum на распродаже): та же форма, свои тексты и источник заявки
+  var titleEl = dialog.querySelector('.callback__title');
+  var leadEl = dialog.querySelector('.callback__lead');
+  var doneLead = dialog.querySelector('.callback__done-lead');
+  var base = { title: titleEl.innerHTML, lead: leadEl.innerHTML, done: doneLead.innerHTML, submit: submitText.textContent };
+  var SALE = {
+    title: 'Получите скидку 40%',
+    lead: 'Оставьте телефон — менеджер проверит наличие на&nbsp;складе в&nbsp;Екатеринбурге и&nbsp;закрепит за&nbsp;вами скидку 40% на&nbsp;полотно.',
+    done: 'Менеджер позвонит в&nbsp;рабочее время, проверит наличие и&nbsp;закрепит скидку. Срочно — <a href="tel:+79222077552">+7&nbsp;(922)&nbsp;207-75-52</a>.',
+    submit: 'Получить скидку'
+  };
+  var label = base.submit;
+  function setMode(trigger) {
+    var sale = trigger && trigger.dataset.openCallback === 'sale';
+    var t = sale ? SALE : base;
+    titleEl.innerHTML = t.title; leadEl.innerHTML = t.lead; doneLead.innerHTML = t.done;
+    submitText.textContent = label = t.submit;
+    form.elements.source.value = sale ? 'sale' : 'callback';
+    if (form.elements.comment) form.elements.comment.value = sale && trigger.dataset.model ? 'Модель: ' + trigger.dataset.model : '';
+  }
 
   function digits(v) {
     var d = v.replace(/\D/g, '');
@@ -1193,17 +1213,19 @@
     field.querySelector('.field__error').textContent = msg;
   }
 
-  function open(e) {
+  function open(e, trigger) {
     if (e) e.preventDefault();
+    setMode(trigger);
     opener = document.activeElement;
     form.hidden = false; done.hidden = true; status.textContent = '';
     openedAt = Date.now();
     document.body.classList.add('has-modal');
     dialog.showModal();
-    window.siteGoal && window.siteGoal('callback_open');
+    window.siteGoal && window.siteGoal(form.elements.source.value === 'sale' ? 'sale_open' : 'callback_open');
   }
   document.addEventListener('click', function (e) {
-    if (e.target.closest('[data-open-callback]')) open(e);
+    var t = e.target.closest('[data-open-callback]');
+    if (t) open(e, t);
     if (e.target.closest('[data-close-callback]')) dialog.close();
   });
   dialog.addEventListener('click', function (e) { if (e.target === dialog) dialog.close(); });
@@ -1240,7 +1262,7 @@
       })
       .then(function () {
         form.hidden = true; done.hidden = false;
-        window.siteGoal && window.siteGoal('callback_success');
+        window.siteGoal && window.siteGoal(form.elements.source.value === 'sale' ? 'sale_success' : 'callback_success');
       })
       .catch(function (err) {
         var msg = err && err.message && err.message !== 'send_failed' && err.message !== 'Failed to fetch' ? err.message + ' ' : 'Не получилось отправить заявку. ';
@@ -1249,7 +1271,7 @@
         var a = document.createElement('a'); a.href = 'tel:+79222077552'; a.textContent = '+7 (922) 207-75-52';
         status.appendChild(a);
       })
-      .then(function () { submit.disabled = false; submitText.textContent = 'Жду звонка'; });
+      .then(function () { submit.disabled = false; submitText.textContent = label; });
   });
 })();
 
