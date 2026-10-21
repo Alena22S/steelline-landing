@@ -27,6 +27,7 @@
     { key: 'window', title: 'Остекление' }
   ];
   function isInterior(p) { return p.kind === 'interior'; }
+  var ABOUT_AURUM = 'Фабрика Aurum Doors — один из крупнейших производителей межкомнатных дверей. Полотна делают на оборудовании Barberan (Испания), Weinig (Германия) и Plasmek (Турция) из материалов Egger, Kronostar, Kastamonu, Renolit и Kleiberit.';
   // новые блоки страниц: если браузер показал старую страницу из кэша, их нет — работаем с пустышкой, а не падаем
   function q(sel) { return document.querySelector(sel) || document.createElement('div'); }
   // распродажа склада: −40% на полотно; в комплекте дешевеет только полотно
@@ -167,7 +168,7 @@
     var PARENTS = {
       dom: { slug: 'dom', name: 'Двери в дом', lead: 'Входные двери для частного дома и коттеджа: тёплые, с терморазрывом, для нестандартных проёмов и по спец цене.' },
       kvartira: { slug: 'kvartira', name: 'Двери в квартиру', lead: 'Надёжные входные двери для квартиры: классика и современный дизайн, умные замки.' },
-      mezhkom: { slug: 'mezhkom', name: 'Межкомнатные двери', lead: 'Межкомнатные двери Aurum: царговые и каркасно-щитовые коллекции, двери в эмали и скрытые двери под покраску. Больше 10 цветов, стекло и погонаж в тон.' }
+      mezhkom: { slug: 'mezhkom', name: 'Межкомнатные двери', lead: ABOUT_AURUM + ' В каталоге — царговые и каркасно-щитовые коллекции, двери в эмали и скрытые двери под покраску.' }
     };
     var cat = data.categories.filter(function (c) { return c.slug === catSlug; })[0] || PARENTS[catSlug];
     // вид каталога: входные или межкомнатные двери — у каждого свои разделы и фильтры
@@ -526,6 +527,9 @@
     document.querySelector('.js-specs').innerHTML = list.length
       ? (p.desc ? '<p class="specs-lead">' + esc(p.desc) + '</p>' : '') + '<dl class="specs specs--text">' + list.map(function (s) { return '<div class="specs__row"><dt>' + esc(s.title) + '</dt><dd>' + esc(s.value) + '</dd></div>'; }).join('') + '</dl>'
       : (p.desc ? '<p class="specs-lead">' + esc(p.desc) + '</p>' : '<div class="specs-empty"><b>Характеристики уточняйте у&nbsp;менеджера</b>Подскажем размеры, стекло и&nbsp;фурнитуру — оставьте заявку или позвоните.</div>');
+
+    // о фабрике — после характеристик
+    q('.js-specs').insertAdjacentHTML('beforeend', '<div class="about-maker"><b>О фабрике</b><p>' + ABOUT_AURUM + '</p></div>');
 
     // погонаж
     if (p.molding.length) {
