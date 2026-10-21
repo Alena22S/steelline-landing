@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css?v=72">
-  <link rel="stylesheet" href="catalog.css?v=37">
+  <link rel="stylesheet" href="catalog.css?v=49">
 </head>
 <body class="page-catalog">
 
@@ -29,7 +29,8 @@
           <a class="nav-dd__toggle" href="catalog.html" aria-haspopup="true">Каталог</a>
           <div class="nav-dd__menu">
             <div class="nav-dd__list">
-              <a href="catalog.html">Каталог дверей</a>
+              <a href="catalog.html">Входные двери</a>
+              <a href="catalog.html?cat=mezhkom">Межкомнатные двери</a>
               <a href="portfolio.html">Наши работы</a>
             </div>
           </div>
@@ -58,11 +59,26 @@
   <main class="cat" id="cat">
     <div class="cat__head wrap">
       <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>/</span><a href="catalog.html">Каталог</a><span class="js-crumb-cat" hidden>/</span><span class="js-crumb-cat-name"></span></nav>
+      <p class="cat__kicker js-cat-kicker" hidden></p>
       <h1 class="cat__title js-cat-title">Каталог входных дверей</h1>
       <p class="cat__lead js-cat-lead">Двери для дома и квартиры собственного производства «Стальной линии». Выберите раздел или настройте фильтры — а если сложно определиться, подберём дверь по&nbsp;фото проёма.</p>
     </div>
 
+    <nav class="cat-kinds wrap js-kinds" aria-label="Вид дверей"></nav>
     <nav class="cat-tabs wrap js-tabs" aria-label="Разделы каталога"></nav>
+
+    <section class="sale-banner wrap js-sale" hidden aria-label="Распродажа склада">
+      <div class="sale-banner__inner">
+        <div class="sale-banner__badge"><span>скидка на&nbsp;полотна</span><b>−40%</b></div>
+        <div class="sale-banner__text">
+          <p class="sale-banner__kicker">Aurum doors</p>
+          <h2 class="sale-banner__title">Распродажа склада в&nbsp;Екатеринбурге</h2>
+          <p class="sale-banner__lead">Скидка 40% на&nbsp;полотна коллекции Кобальт. 400 полотен в&nbsp;наличии — забрать можно сразу.</p>
+          <a class="btn sale-banner__btn" href="catalog.html?cat=mezhkom/kobalt">Смотреть двери Кобальт <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+        </div>
+        <div class="sale-banner__doors js-sale-doors" aria-hidden="true"></div>
+      </div>
+    </section>
 
     <div class="cat__body wrap">
       <aside class="cat-filters js-filters" aria-label="Фильтры">
@@ -293,6 +309,6 @@
   </dialog>
 
   <script src="../script.js?v=43"></script>
-  <script src="catalog.js?v=10"></script>
+  <script src="catalog.js?v=22"></script>
 </body>
 </html>

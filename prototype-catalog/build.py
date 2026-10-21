@@ -36,7 +36,7 @@ def fix(html):
     return html
 
 
-def page(title, body_class, main, scripts=('catalog.js?v=10',)):
+def page(title, body_class, main, scripts=('catalog.js?v=22',)):
     h = fix(head)
     h = re.sub(r'<title>.*?</title>', '<title>%s</title>' % title, h)
     # прототип каталога не индексируем до переноса на Astro (дубли steelline.store)
@@ -44,7 +44,7 @@ def page(title, body_class, main, scripts=('catalog.js?v=10',)):
     h = re.sub(r'\s*<meta name="yandex-verification"[^>]*>', '', h)
     h = h.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
                   '<meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="robots" content="noindex, nofollow">', 1)
-    h += '  <link rel="stylesheet" href="catalog.css?v=37">\n</head>\n'
+    h += '  <link rel="stylesheet" href="catalog.css?v=49">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
@@ -54,11 +54,26 @@ def page(title, body_class, main, scripts=('catalog.js?v=10',)):
 catalog_main = '''  <main class="cat" id="cat">
     <div class="cat__head wrap">
       <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>/</span><a href="catalog.html">Каталог</a><span class="js-crumb-cat" hidden>/</span><span class="js-crumb-cat-name"></span></nav>
+      <p class="cat__kicker js-cat-kicker" hidden></p>
       <h1 class="cat__title js-cat-title">Каталог входных дверей</h1>
       <p class="cat__lead js-cat-lead">Двери для дома и квартиры собственного производства «Стальной линии». Выберите раздел или настройте фильтры — а если сложно определиться, подберём дверь по&nbsp;фото проёма.</p>
     </div>
 
+    <nav class="cat-kinds wrap js-kinds" aria-label="Вид дверей"></nav>
     <nav class="cat-tabs wrap js-tabs" aria-label="Разделы каталога"></nav>
+
+    <section class="sale-banner wrap js-sale" hidden aria-label="Распродажа склада">
+      <div class="sale-banner__inner">
+        <div class="sale-banner__badge"><span>скидка на&nbsp;полотна</span><b>−40%</b></div>
+        <div class="sale-banner__text">
+          <p class="sale-banner__kicker">Aurum doors</p>
+          <h2 class="sale-banner__title">Распродажа склада в&nbsp;Екатеринбурге</h2>
+          <p class="sale-banner__lead">Скидка 40% на&nbsp;полотна коллекции Кобальт. 400 полотен в&nbsp;наличии — забрать можно сразу.</p>
+          <a class="btn sale-banner__btn" href="catalog.html?cat=mezhkom/kobalt">Смотреть двери Кобальт <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+        </div>
+        <div class="sale-banner__doors js-sale-doors" aria-hidden="true"></div>
+      </div>
+    </section>
 
     <div class="cat__body wrap">
       <aside class="cat-filters js-filters" aria-label="Фильтры">
@@ -119,9 +134,16 @@ model_main = '''  <main class="model-page" id="model">
 
       <div class="model__info">
         <div class="model__tags js-tags"></div>
+        <p class="model__kicker js-kicker" hidden></p>
         <h1 class="model__title js-title"></h1>
         <p class="model__price"><span class="js-price"></span></p>
-        <p class="model__note">Цена — за дверь в базовой комплектации. Итог зависит от размера, отделки и фурнитуры.</p>
+        <p class="model__kit js-kit" hidden></p>
+        <p class="model__note js-note">Цена — за дверь в базовой комплектации. Итог зависит от размера, отделки и фурнитуры.</p>
+
+        <div class="model__colors js-colors-wrap" hidden>
+          <p class="model__label">Цвет: <b class="js-color-name"></b></p>
+          <div class="model__swatches js-colors" role="radiogroup" aria-label="Цвет двери"></div>
+        </div>
 
         <div class="model__series js-series-wrap" hidden>
           <p class="model__label">Серия</p>
@@ -135,7 +157,7 @@ model_main = '''  <main class="model-page" id="model">
           <a class="btn btn--outline btn--lg" href="#" data-open-form="contact">Записаться на подбор</a>
         </div>
 
-        <ul class="model__perks">
+        <ul class="model__perks js-perks">
           <li><b>30 лет</b> производства</li>
           <li><b>2 года</b> гарантии на дверь и монтаж</li>
           <li><b>Хранение</b> двери на складе до установки</li>
@@ -148,6 +170,12 @@ model_main = '''  <main class="model-page" id="model">
     <section class="model-specs wrap">
       <h2 class="model-specs__title">Характеристики</h2>
       <div class="js-specs"></div>
+    </section>
+
+    <section class="model-molding wrap js-molding-wrap" hidden>
+      <h2 class="model-specs__title">Погонаж</h2>
+      <p class="model-molding__lead">Коробка, наличники и доборы — в цвет полотна.</p>
+      <div class="js-molding"></div>
     </section>
 
     <section class="model-similar wrap">

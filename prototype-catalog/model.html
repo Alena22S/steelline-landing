@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css?v=72">
-  <link rel="stylesheet" href="catalog.css?v=37">
+  <link rel="stylesheet" href="catalog.css?v=49">
 </head>
 <body class="page-model">
 
@@ -29,7 +29,8 @@
           <a class="nav-dd__toggle" href="catalog.html" aria-haspopup="true">Каталог</a>
           <div class="nav-dd__menu">
             <div class="nav-dd__list">
-              <a href="catalog.html">Каталог дверей</a>
+              <a href="catalog.html">Входные двери</a>
+              <a href="catalog.html?cat=mezhkom">Межкомнатные двери</a>
               <a href="portfolio.html">Наши работы</a>
             </div>
           </div>
@@ -68,9 +69,16 @@
 
       <div class="model__info">
         <div class="model__tags js-tags"></div>
+        <p class="model__kicker js-kicker" hidden></p>
         <h1 class="model__title js-title"></h1>
         <p class="model__price"><span class="js-price"></span></p>
-        <p class="model__note">Цена — за дверь в базовой комплектации. Итог зависит от размера, отделки и фурнитуры.</p>
+        <p class="model__kit js-kit" hidden></p>
+        <p class="model__note js-note">Цена — за дверь в базовой комплектации. Итог зависит от размера, отделки и фурнитуры.</p>
+
+        <div class="model__colors js-colors-wrap" hidden>
+          <p class="model__label">Цвет: <b class="js-color-name"></b></p>
+          <div class="model__swatches js-colors" role="radiogroup" aria-label="Цвет двери"></div>
+        </div>
 
         <div class="model__series js-series-wrap" hidden>
           <p class="model__label">Серия</p>
@@ -84,7 +92,7 @@
           <a class="btn btn--outline btn--lg" href="#" data-open-form="contact">Записаться на подбор</a>
         </div>
 
-        <ul class="model__perks">
+        <ul class="model__perks js-perks">
           <li><b>30 лет</b> производства</li>
           <li><b>2 года</b> гарантии на дверь и монтаж</li>
           <li><b>Хранение</b> двери на складе до установки</li>
@@ -97,6 +105,12 @@
     <section class="model-specs wrap">
       <h2 class="model-specs__title">Характеристики</h2>
       <div class="js-specs"></div>
+    </section>
+
+    <section class="model-molding wrap js-molding-wrap" hidden>
+      <h2 class="model-specs__title">Погонаж</h2>
+      <p class="model-molding__lead">Коробка, наличники и доборы — в цвет полотна.</p>
+      <div class="js-molding"></div>
     </section>
 
     <section class="model-similar wrap">
@@ -296,6 +310,6 @@
   </dialog>
 
   <script src="../script.js?v=43"></script>
-  <script src="catalog.js?v=10"></script>
+  <script src="catalog.js?v=22"></script>
 </body>
 </html>
