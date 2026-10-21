@@ -149,7 +149,7 @@
 
   Promise.all([
     fetch('data/catalog.json?v=5').then(function (r) { return r.json(); }),
-    fetch('data/aurum.json?v=4').then(function (r) { return r.json(); }).catch(function () { return { categories: [], products: [] }; })
+    fetch('data/aurum.json?v=5').then(function (r) { return r.json(); }).catch(function () { return { categories: [], products: [] }; })
   ]).then(function (res) {
     var data = res[0], aurum = res[1];
     data.products.forEach(function (p) { p.kind = 'entry'; });
