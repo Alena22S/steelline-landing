@@ -51,7 +51,8 @@
 .sale-banner__doors img:first-child { margin-left: 0; }
 .sale-banner__doors img:nth-child(2) { height: 306px; }
 .sale-banner__photo { display: none; }
-.sale-banner__photo img { display: block; width: 100%; height: auto; border-radius: 12px; }
+/* на телефоне — повыше: кадр почти квадратный, обрезаем справа (текст и адрес на картинке — слева) */
+.sale-banner__photo img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; object-position: left center; border-radius: 12px; }
 .pcard__badge.pcard__badge--sale { background: #c2412f; color: #fff; }
 .model__tags .tag--sale, .tag--sale { padding: 6px 12px 5px; border: 1.177px solid #c2412f; border-radius: 100px; background: #c2412f; font-weight: 700; font-size: 12px; line-height: 16px; color: #fff; }
 .cat-tab {
