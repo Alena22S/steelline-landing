@@ -7,6 +7,7 @@
   var isInteriorPage = /\/prototype-catalog\/catalog\.html$/.test(location.pathname) && /[?&]cat=mezhkom(%2F|\/|&|$)/.test(location.search) ||
     /\/prototype-catalog\/model\.html$/.test(location.pathname) && /[?&]id=au-/.test(location.search);
   var VK_ID = '3805477';   // пиксель VK Ads (Top.Mail.Ru)
+  var VK_ID_INTERIOR = '3807732'; // отдельный пиксель VK — только на страницах межкомнатных дверей
   var loaded = false;
   var vkLoaded = false;
 
@@ -16,7 +17,10 @@
       window.ym(ID, 'reachGoal', name, params || {});
       if (isInteriorPage) window.ym(ID_INTERIOR, 'reachGoal', name, params || {});
     }
-    if (vkLoaded) window._tmr.push({ type: 'reachGoal', id: VK_ID, goal: name });
+    if (vkLoaded) {
+      window._tmr.push({ type: 'reachGoal', id: VK_ID, goal: name });
+      if (isInteriorPage) window._tmr.push({ type: 'reachGoal', id: VK_ID_INTERIOR, goal: name });
+    }
   };
 
   function loadVk() {
@@ -24,6 +28,7 @@
     vkLoaded = true;
     var _tmr = window._tmr || (window._tmr = []);
     _tmr.push({ id: VK_ID, type: 'pageView', start: Date.now() });
+    if (isInteriorPage) _tmr.push({ id: VK_ID_INTERIOR, type: 'pageView', start: Date.now() });
     if (document.getElementById('tmr-code')) return;
     var ts = document.createElement('script');
     ts.async = true; ts.id = 'tmr-code'; ts.src = 'https://top-fwz1.mail.ru/js/code.js';
