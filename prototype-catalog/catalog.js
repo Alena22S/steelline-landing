@@ -157,15 +157,21 @@
     sync();
   }
 
+  // загружаем только нужные данные: входные — data/catalog.json; межкомнатные — лёгкий список для каталога
+  // или полный data/aurum.json для страницы модели; счётчики переключателя — data/counts.json
+  var V = 6;
+  function load(name) { return fetch('data/' + name + '?v=' + V).then(function (r) { return r.json(); }); }
+  var qs = new URLSearchParams(location.search);
+  var isCat = !!document.getElementById('cat');
+  var wantInterior = isCat ? /^mezhkom(\/|$)/.test(qs.get('cat') || '') : /^au-/.test(qs.get('id') || '');
   Promise.all([
-    fetch('data/catalog.json?v=5').then(function (r) { return r.json(); }),
-    fetch('data/aurum.json?v=5').then(function (r) { return r.json(); }).catch(function () { return { categories: [], products: [] }; })
+    load(wantInterior ? (isCat ? 'aurum-list.json' : 'aurum.json') : 'catalog.json'),
+    isCat ? load('counts.json').catch(function () { return null; }) : null
   ]).then(function (res) {
-    var data = res[0], aurum = res[1];
-    data.products.forEach(function (p) { p.kind = 'entry'; });
-    data.products = data.products.concat(aurum.products);
-    data.categories = data.categories.concat(aurum.categories);
-    if (document.getElementById('cat')) initCatalog(data);
+    var data = res[0];
+    data.counts = res[1];
+    if (!wantInterior) data.products.forEach(function (p) { p.kind = 'entry'; });
+    if (isCat) initCatalog(data);
     if (document.getElementById('model')) initModel(data);
   });
 
@@ -210,10 +216,12 @@
       }
     }
     // входные / межкомнатные
-    var nEntry = data.products.filter(function (p) { return !isInterior(p); }).length;
+    var counts = data.counts || {};
+    var nEntry = interior ? counts.entry : kindProducts.length;
+    var nInterior = interior ? kindProducts.length : counts.interior;
     q('.js-kinds').innerHTML =
-      '<a class="cat-kind' + (interior ? '' : ' is-active') + '" href="catalog.html"' + (interior ? '' : ' aria-current="page"') + '>Входные двери <span>' + nEntry + '</span></a>' +
-      '<a class="cat-kind' + (interior ? ' is-active' : '') + '" href="catalog.html?cat=mezhkom"' + (interior ? ' aria-current="page"' : '') + '>Межкомнатные двери <span>' + (data.products.length - nEntry) + '</span></a>';
+      '<a class="cat-kind' + (interior ? '' : ' is-active') + '" href="catalog.html"' + (interior ? '' : ' aria-current="page"') + '>Входные двери' + (nEntry ? ' <span>' + nEntry + '</span>' : '') + '</a>' +
+      '<a class="cat-kind' + (interior ? ' is-active' : '') + '" href="catalog.html?cat=mezhkom"' + (interior ? ' aria-current="page"' : '') + '>Межкомнатные двери' + (nInterior ? ' <span>' + nInterior + '</span>' : '') + '</a>';
     if (interior) {
       saleSticky();
       // баннер распродажи склада: три двери Кобальт в разных цветах

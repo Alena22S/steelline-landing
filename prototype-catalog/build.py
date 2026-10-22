@@ -2,7 +2,7 @@
 Запуск: python3 prototype-catalog/build.py  → prototype-catalog/catalog.html и model.html
 В Astro эти части станут общими компонентами; здесь — только для согласования дизайна.
 """
-import os, re
+import json, os, re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'prototype-catalog')
@@ -36,7 +36,7 @@ def fix(html):
     return html
 
 
-def page(title, body_class, main, scripts=('catalog.js?v=29',)):
+def page(title, body_class, main, scripts=('catalog.js?v=30',)):
     h = fix(head)
     h = re.sub(r'<title>.*?</title>', '<title>%s</title>' % title, h)
     # прототип каталога не индексируем до переноса на Astro (дубли steelline.store)
@@ -75,7 +75,10 @@ catalog_main = '''  <main class="cat" id="cat">
       </div>
       <!-- на телефоне вместо баннера — готовая картинка распродажи -->
       <a class="sale-banner__photo" href="catalog.html?cat=mezhkom/kobalt">
-        <img src="img/aurum/sale-mobile.webp" width="1200" height="800" loading="lazy" alt="Распродажа склада межкомнатных дверей Aurum Doors: скидка 40%. Екатеринбург, ИЦ Аструм, 6 уровень, галерея А">
+        <picture>
+          <source media="(max-width: 767px)" srcset="img/aurum/sale-mobile.webp">
+          <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width="1200" height="800" fetchpriority="high" alt="Распродажа склада межкомнатных дверей Aurum Doors: скидка 40%. Екатеринбург, ИЦ Аструм, 6 уровень, галерея А">
+        </picture>
       </a>
     </section>
 
@@ -195,6 +198,19 @@ model_main = '''  <main class="model-page" id="model">
       <img class="photo-view__img js-photo-view-img" alt="">
     </dialog>
   </main>'''
+
+# Данные для страниц каталога: у межкомнатных — облегчённый список для карточек и фильтров (подробности — только на странице модели),
+# плюс счётчики для переключателя «Входные / Межкомнатные», чтобы не загружать ради них второй файл
+def _json(name):
+    return json.load(open(os.path.join(OUT, 'data', name), encoding='utf-8'))
+_aurum, _entry = _json('aurum.json'), _json('catalog.json')
+_keep = ['id', 'kind', 'title', 'collection', 'collectionName', 'cats', 'price', 'priceKit', 'photos', 'colorNames',
+         'style', 'window', 'inStock', 'sale', 'scene', 'colorNote']
+_list = [dict({k: p[k] for k in _keep if k in p}, colors=[{'name': c['name'], 'swatch': c['swatch']} for c in p['colors']])
+         for p in _aurum['products']]
+json.dump({'categories': _aurum['categories'], 'products': _list}, open(os.path.join(OUT, 'data', 'aurum-list.json'), 'w', encoding='utf-8'),
+          ensure_ascii=False, separators=(',', ':'))
+json.dump({'entry': len(_entry['products']), 'interior': len(_aurum['products'])}, open(os.path.join(OUT, 'data', 'counts.json'), 'w', encoding='utf-8'))
 
 open(os.path.join(OUT, 'catalog.html'), 'w', encoding='utf-8').write(page('Каталог входных дверей — Стальная линия', 'page-catalog', catalog_main))
 open(os.path.join(OUT, 'model.html'), 'w', encoding='utf-8').write(page('Модель двери — Стальная линия', 'page-model', model_main))
