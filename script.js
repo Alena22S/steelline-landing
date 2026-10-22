@@ -2,13 +2,20 @@
    Не подключаются, только если посетитель нажал «Отказаться» (в хранилище — 'necessary'). ---------- */
 (function () {
   var ID = 113661573;      // Яндекс Метрика
+  // отдельный счётчик «межком на сайте СЛ» — только на страницах межкомнатных дверей (раздел каталога и модели Aurum)
+  var ID_INTERIOR = 113740896;
+  var isInteriorPage = /\/prototype-catalog\/catalog\.html$/.test(location.pathname) && /[?&]cat=mezhkom(%2F|\/|&|$)/.test(location.search) ||
+    /\/prototype-catalog\/model\.html$/.test(location.pathname) && /[?&]id=au-/.test(location.search);
   var VK_ID = '3805477';   // пиксель VK Ads (Top.Mail.Ru)
   var loaded = false;
   var vkLoaded = false;
 
   // Цели: window.siteGoal('lead_success') — безопасно вызывать всегда; после отказа ничего не отправляется
   window.siteGoal = function (name, params) {
-    if (loaded && typeof window.ym === 'function') window.ym(ID, 'reachGoal', name, params || {});
+    if (loaded && typeof window.ym === 'function') {
+      window.ym(ID, 'reachGoal', name, params || {});
+      if (isInteriorPage) window.ym(ID_INTERIOR, 'reachGoal', name, params || {});
+    }
     if (vkLoaded) window._tmr.push({ type: 'reachGoal', id: VK_ID, goal: name });
   };
 
@@ -34,7 +41,9 @@
       k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
     })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + ID, 'ym');
     // Вебвизор (запись действий на странице) — только после «Понятно»; до этого Метрика считает визиты, источники и цели без записи
-    window.ym(ID, 'init', { webvisor: saved === 'all' || inMetrika, clickmap: true, accurateTrackBounce: true, trackLinks: true });
+    var opts = { webvisor: saved === 'all' || inMetrika, clickmap: true, accurateTrackBounce: true, trackLinks: true };
+    window.ym(ID, 'init', opts);
+    if (isInteriorPage) window.ym(ID_INTERIOR, 'init', opts);
   }
 
   var saved = null;
