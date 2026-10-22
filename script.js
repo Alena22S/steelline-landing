@@ -33,7 +33,8 @@
       k = e.createElement(t); a = e.getElementsByTagName(t)[0];
       k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
     })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + ID, 'ym');
-    window.ym(ID, 'init', { webvisor: true, clickmap: true, accurateTrackBounce: true, trackLinks: true });
+    // Вебвизор (запись действий на странице) — только после «Понятно»; до этого Метрика считает визиты, источники и цели без записи
+    window.ym(ID, 'init', { webvisor: saved === 'all' || inMetrika, clickmap: true, accurateTrackBounce: true, trackLinks: true });
   }
 
   var saved = null;
