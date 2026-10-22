@@ -1,11 +1,12 @@
-/* ---------- Яндекс Метрика и пиксель VK Ads: подключаются только после «Принять» в уведомлении о cookie ---------- */
+/* ---------- Яндекс Метрика и пиксель VK Ads: подключаются сразу (уведомление о cookie — информационное).
+   Не подключаются, только если посетитель нажал «Отказаться» (в хранилище — 'necessary'). ---------- */
 (function () {
   var ID = 113661573;      // Яндекс Метрика
   var VK_ID = '3805477';   // пиксель VK Ads (Top.Mail.Ru)
   var loaded = false;
   var vkLoaded = false;
 
-  // Цели: window.siteGoal('lead_success') — безопасно вызывать всегда; без согласия ничего не отправляется
+  // Цели: window.siteGoal('lead_success') — безопасно вызывать всегда; после отказа ничего не отправляется
   window.siteGoal = function (name, params) {
     if (loaded && typeof window.ym === 'function') window.ym(ID, 'reachGoal', name, params || {});
     if (vkLoaded) window._tmr.push({ type: 'reachGoal', id: VK_ID, goal: name });
@@ -51,11 +52,22 @@
   if (inMetrika) {
     document.documentElement.classList.add('in-metrika');
     load();
-  } else if (saved === 'all') {
+  } else if (saved !== 'necessary') {
     load();
     loadVk();
   }
-  document.addEventListener('cookie-consent', function (e) { if (e.detail === 'all') { load(); loadVk(); } });
+  // «Отказаться»: дальше не считаем, удаляем cookie Метрики; со следующей страницы счётчики не подключаются
+  document.addEventListener('cookie-consent', function (e) {
+    if (e.detail !== 'necessary') return;
+    loaded = false; vkLoaded = false;
+    document.cookie.split(';').forEach(function (c) {
+      var name = c.split('=')[0].trim();
+      if (/^_ym|^yandexuid|^tmr_/.test(name)) {
+        document.cookie = name + '=; Max-Age=0; path=/';
+        document.cookie = name + '=; Max-Age=0; path=/; domain=.' + location.hostname.replace(/^www\./, '');
+      }
+    });
+  });
 
   // Клики-цели по всему сайту
   document.addEventListener('click', function (e) {
@@ -1108,7 +1120,7 @@
 })();
 
 /* ---------- Уведомление о cookie ----------
-   Выбор: 'all' — все cookie (можно подключать Яндекс.Метрику), 'necessary' — только необходимые.
+   Выбор: 'all' — «Понятно» (Метрика и пиксель VK работают), 'necessary' — «Отказаться» (отключаем их).
    Текущий выбор: window.cookieConsent; при выборе — событие 'cookie-consent' на document. */
 (function () {
   var KEY = 'cookie-consent';
