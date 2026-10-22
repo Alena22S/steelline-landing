@@ -14,6 +14,105 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css?v=72">
+  <script>
+    /* ---------- Яндекс Метрика и пиксель VK Ads: подключаются сразу (уведомление о cookie — информационное).
+       Не подключаются, только если посетитель нажал «Отказаться» (в хранилище — 'necessary'). ---------- */
+    (function () {
+      var ID = 113661573;      // Яндекс Метрика
+      // отдельный счётчик «межком на сайте СЛ» — только на страницах межкомнатных дверей (раздел каталога и модели Aurum)
+      var ID_INTERIOR = 113740896;
+      var isInteriorPage = /\/prototype-catalog\/catalog\.html$/.test(location.pathname) && /[?&]cat=mezhkom(%2F|\/|&|$)/.test(location.search) ||
+        /\/prototype-catalog\/model\.html$/.test(location.pathname) && /[?&]id=au-/.test(location.search);
+      var VK_ID = '3805477';   // пиксель VK Ads (Top.Mail.Ru)
+      var VK_ID_INTERIOR = '3807732'; // отдельный пиксель VK — только на страницах межкомнатных дверей
+      var loaded = false;
+      var vkLoaded = false;
+
+      // Цели: window.siteGoal('lead_success') — безопасно вызывать всегда; после отказа ничего не отправляется
+      window.siteGoal = function (name, params) {
+        if (loaded && typeof window.ym === 'function') {
+          window.ym(ID, 'reachGoal', name, params || {});
+          if (isInteriorPage) window.ym(ID_INTERIOR, 'reachGoal', name, params || {});
+        }
+        if (vkLoaded) {
+          window._tmr.push({ type: 'reachGoal', id: VK_ID, goal: name });
+          if (isInteriorPage) window._tmr.push({ type: 'reachGoal', id: VK_ID_INTERIOR, goal: name });
+        }
+      };
+
+      function loadVk() {
+        if (vkLoaded) return;
+        vkLoaded = true;
+        var _tmr = window._tmr || (window._tmr = []);
+        _tmr.push({ id: VK_ID, type: 'pageView', start: Date.now() });
+        if (isInteriorPage) _tmr.push({ id: VK_ID_INTERIOR, type: 'pageView', start: Date.now() });
+        if (document.getElementById('tmr-code')) return;
+        var ts = document.createElement('script');
+        ts.async = true; ts.id = 'tmr-code'; ts.src = 'https://top-fwz1.mail.ru/js/code.js';
+        var first = document.getElementsByTagName('script')[0];
+        first.parentNode.insertBefore(ts, first);
+      }
+
+      function load() {
+        if (loaded) return;
+        loaded = true;
+        (function (m, e, t, r, i, k, a) {
+          m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
+          m[i].l = 1 * new Date();
+          k = e.createElement(t); a = e.getElementsByTagName(t)[0];
+          k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + ID, 'ym');
+        // Вебвизор (запись действий на странице) — только после «Понятно»; до этого Метрика считает визиты, источники и цели без записи
+        var opts = { webvisor: saved === 'all' || inMetrika, clickmap: true, accurateTrackBounce: true, trackLinks: true };
+        window.ym(ID, 'init', opts);
+        if (isInteriorPage) window.ym(ID_INTERIOR, 'init', opts);
+      }
+
+      var saved = null;
+      try { saved = localStorage.getItem('cookie-consent'); } catch (e) {}
+
+      // Сайт открыт внутри инструментов самой Метрики (карта кликов, аналитика форм, Вебвизор) —
+      // это смотрит владелец сайта, а не посетитель: подключаем счётчик и не показываем уведомление о cookie
+      var inMetrika = false;
+      try {
+        var anc = location.ancestorOrigins;
+        inMetrika = window.self !== window.top && (
+          /metrika\.yandex|webvisor\.com|metrica\.yandex/.test(document.referrer) ||
+          (anc && anc.length && /metrika\.yandex|webvisor\.com|metrica\.yandex/.test(anc[anc.length - 1]))
+        );
+      } catch (e) {}
+      if (inMetrika) {
+        document.documentElement.classList.add('in-metrika');
+        load();
+      } else if (saved !== 'necessary') {
+        load();
+        loadVk();
+      }
+      // «Отказаться»: дальше не считаем, удаляем cookie Метрики; со следующей страницы счётчики не подключаются
+      document.addEventListener('cookie-consent', function (e) {
+        if (e.detail !== 'necessary') return;
+        loaded = false; vkLoaded = false;
+        document.cookie.split(';').forEach(function (c) {
+          var name = c.split('=')[0].trim();
+          if (/^_ym|^yandexuid|^tmr_/.test(name)) {
+            document.cookie = name + '=; Max-Age=0; path=/';
+            document.cookie = name + '=; Max-Age=0; path=/; domain=.' + location.hostname.replace(/^www\./, '');
+          }
+        });
+      });
+
+      // Клики-цели по всему сайту
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href');
+        if (href.indexOf('tel:') === 0) window.siteGoal('phone_click');
+        else if (href.indexOf('mailto:') === 0) window.siteGoal('email_click');
+        else if (href.indexOf('yandex.ru/maps') !== -1) window.siteGoal('route_click');
+        else if (href.indexOf('steelline.store/catalog') !== -1) window.siteGoal('catalog_click');
+      });
+    })();
+  </script>
   <link rel="stylesheet" href="catalog.css?v=52">
 </head>
 <body class="page-catalog">
@@ -316,7 +415,7 @@
     </div>
   </dialog>
 
-  <script src="../script.js?v=48"></script>
+  <script src="../script.js?v=49"></script>
   <script src="catalog.js?v=30"></script>
 </body>
 </html>
