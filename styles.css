@@ -166,6 +166,7 @@ address { font-style: normal; }
   border: 0;
   font-family: var(--f-manrope);
 }
+.cookie__btn.btn--lg { height: 38px; font-size: 14px; } /* компактнее основных кнопок сайта */
 .cookie__btn.btn--outline { background: transparent; border: 1px solid rgba(26, 35, 32, 0.48); color: var(--c-navy); }
 .cookie__btn.btn--outline:hover { border-color: var(--c-navy); background: rgba(6, 31, 59, 0.03); }
 .cookie__btn:focus-visible { outline: 2px solid var(--c-blue); outline-offset: 2px; }
