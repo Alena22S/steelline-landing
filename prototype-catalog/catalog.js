@@ -159,7 +159,7 @@
 
   // загружаем только нужные данные: входные — data/catalog.json; межкомнатные — лёгкий список для каталога
   // или полный data/aurum.json для страницы модели; счётчики переключателя — data/counts.json
-  var V = 6;
+  var V = 8;
   function load(name) { return fetch('data/' + name + '?v=' + V).then(function (r) { return r.json(); }); }
   var qs = new URLSearchParams(location.search);
   var isCat = !!document.getElementById('cat');
@@ -468,7 +468,11 @@
     function row(s) { return '<div class="specs__row"><dt>' + esc(s.title) + '</dt><dd>' + esc(s.value) + '</dd></div>'; }
     function renderSpecs(seriesNum) {
       var key = specSeries.filter(function (k) { return k.indexOf(seriesNum) === 0; })[0] || specSeries[0];
-      var list = (key ? data.seriesSpecs[key].rows : []).concat(p.specs);
+      var own = {};
+      p.specs.forEach(function (s) { own[s.title] = s; });
+      // строки модели точнее серийных: одноимённые заменяем, остальные добавляем в конец
+      var list = (key ? data.seriesSpecs[key].rows : []).map(function (s) { var o = own[s.title]; if (o) delete own[s.title]; return o || s; })
+        .concat(p.specs.filter(function (s) { return own[s.title]; }));
       if (!list.length) {
         specsEl.innerHTML = '<div class="specs-empty"><b>Характеристики уточняйте у&nbsp;менеджера</b>Подскажем толщину полотна, утепление, замки и&nbsp;фурнитуру для этой модели — оставьте заявку или позвоните.</div>';
         return;
