@@ -36,6 +36,7 @@
     b.firstChild.nodeValue = text + ' ';
     b.removeAttribute('data-open-form');
     b.dataset.openCallback = 'sale';
+    b.classList.add('is-sale'); // на телефоне показываем только кнопку распродажи
     if (model) b.dataset.model = model;
   }
   // «Похожие модели»: стрелки листают ленту на ширину видимой части; у краёв — неактивны, без прокрутки — скрыты

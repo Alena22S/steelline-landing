@@ -38,7 +38,7 @@ def fix(html):
     return html
 
 
-def page(title, body_class, main, scripts=('catalog.js?v=34',)):
+def page(title, body_class, main, scripts=('catalog.js?v=35',)):
     h = fix(head)
     h = re.sub(r'<title>.*?</title>', '<title>%s</title>' % title, h)
     # прототип каталога не индексируем до переноса на Astro (дубли steelline.store)

@@ -1941,7 +1941,7 @@ body.has-modal .callback-fab { display: none; }
 .bonus-fab__close:hover { background: #f1f3f6; color: var(--c-navy); }
 @media (max-width: 767px) {
   /* телефон: компактно над закреплённой кнопкой «Получить подбор двери» */
-  .bonus-fab { left: 12px; right: 12px; max-width: none; bottom: calc(80px + var(--cookie-h, 0px) + env(safe-area-inset-bottom, 0px)); border-radius: 14px; }
+  .bonus-fab { left: 12px; right: 12px; max-width: none; bottom: calc(12px + var(--cookie-h, 0px) + env(safe-area-inset-bottom, 0px)); border-radius: 14px; }
   .bonus-fab__open { flex: 1; gap: 12px; padding: 10px 6px 10px 10px; }
   .bonus-fab__pct { width: 46px; height: 46px; border-radius: 12px; font-size: 15px; }
   .bonus-fab__text b { font-size: 14px; }
@@ -1962,3 +1962,6 @@ body.has-modal .callback-fab { display: none; }
 @media (max-width: 479px) { .callback__done-actions { flex-direction: column; align-items: stretch; } .callback__done-actions .btn { max-width: none; } }
 .callback__catalog[hidden] { display: none; }
 .field[hidden] { display: none; }
+
+/* Телефон: закреплённую кнопку «Получить подбор двери» не показываем — остаётся только «Заказать дверь со скидкой» на межкомнатных */
+@media (max-width: 767px) { .sticky-cta:not(.is-sale) { display: none !important; } }
