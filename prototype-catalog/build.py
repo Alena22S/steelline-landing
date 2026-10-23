@@ -17,7 +17,7 @@ def part(start, end):
 
 head = src[src.index('<!doctype html>'):src.index('</head>')]
 header = part('<header class="header"', '</header>')
-footer = part('<footer class="footer">', '</footer>')
+footer = part('<footer class="footer" id="footer">', '</footer>')
 cookie = part('<div class="cookie"', '</div>\n  </div>')
 sticky = part('<a class="btn btn--gradient sticky-cta"', '</a>')
 lead = part('<dialog class="lead" id="lead"', '</dialog>')
@@ -33,6 +33,7 @@ def fix(html):
     html = html.replace('href="#top"', 'href="../"')
     html = html.replace('href="prototype-catalog/', 'href="')  # ссылки лендинга на каталог — изнутри папки каталога
     html = re.sub(r'href="#(?!")', 'href="../#', html)
+    html = html.replace('href="../#footer"', 'href="#footer"')  # «Контакты» в шапке — к подвалу этой же страницы
     return html
 
 
