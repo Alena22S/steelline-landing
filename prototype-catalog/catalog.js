@@ -38,6 +38,24 @@
     b.dataset.openCallback = 'sale';
     if (model) b.dataset.model = model;
   }
+  // «Похожие модели»: стрелки листают ленту на ширину видимой части; у краёв — неактивны, без прокрутки — скрыты
+  function similarArrows() {
+    var track = document.querySelector('.js-similar');
+    var prev = document.querySelector('.js-similar-prev'), next = document.querySelector('.js-similar-next');
+    if (!track || !prev || !next) return;
+    function sync() {
+      var max = track.scrollWidth - track.clientWidth;
+      prev.hidden = next.hidden = max <= 2;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= max - 2;
+    }
+    function step(dir) { track.scrollBy({ left: dir * track.clientWidth, behavior: 'smooth' }); }
+    prev.onclick = function () { step(-1); };
+    next.onclick = function () { step(1); };
+    track.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+  }
   function saleSticky(model) { toSaleButton(document.querySelector('.sticky-cta'), 'Заказать дверь со скидкой', model); }
   // распродажа склада: −40% на полотно; в комплекте дешевеет только полотно
   var SALE = 0.4;
@@ -489,8 +507,9 @@
 
     // похожие: из того же раздела, сначала той же стилистики
     var similar = data.products.filter(function (x) { return x.id !== p.id && x.cats.indexOf(p.cats[0]) !== -1; })
-      .sort(function (a, b) { return (b.style[0] === p.style[0]) - (a.style[0] === p.style[0]); }).slice(0, 4);
+      .sort(function (a, b) { return (b.style[0] === p.style[0]) - (a.style[0] === p.style[0]); }).slice(0, 12);
     document.querySelector('.js-similar').innerHTML = similar.map(card).join('');
+    similarArrows();
     if (cat) document.querySelector('.js-similar-all').href = 'catalog.html?cat=' + cat.slug;
   }
 
@@ -600,9 +619,10 @@
     }
 
     // похожие: из той же коллекции
-    var similar = data.products.filter(function (x) { return x.id !== p.id && isInterior(x) && x.collection === p.collection; }).slice(0, 4);
-    if (similar.length < 4) similar = similar.concat(data.products.filter(function (x) { return isInterior(x) && x.id !== p.id && x.collection !== p.collection; }).slice(0, 4 - similar.length));
+    var similar = data.products.filter(function (x) { return x.id !== p.id && isInterior(x) && x.collection === p.collection; }).slice(0, 12);
+    if (similar.length < 8) similar = similar.concat(data.products.filter(function (x) { return isInterior(x) && x.id !== p.id && x.collection !== p.collection; }).slice(0, 8 - similar.length));
     document.querySelector('.js-similar').innerHTML = similar.map(card).join('');
+    similarArrows();
     document.querySelector('.js-similar-all').href = 'catalog.html?cat=' + (cat ? cat.slug : 'mezhkom');
   }
 })();

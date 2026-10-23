@@ -278,6 +278,20 @@
 
 .model-similar { margin: 96px 0 100px; }
 .model-similar__head { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
+.model-similar__nav { display: flex; align-items: center; gap: 8px; }
+.similar-arrow {
+  -webkit-appearance: none; appearance: none; display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
+  border: 1px solid rgba(6, 31, 59, 0.16); border-radius: 50%; background: #fff; color: var(--c-navy); cursor: pointer;
+  transition: border-color 0.2s, opacity 0.2s;
+}
+.similar-arrow:hover:not(:disabled) { border-color: var(--c-navy); }
+.similar-arrow:disabled { opacity: 0.35; cursor: default; }
+.similar-arrow[hidden] { display: none; }
+.similar-arrow--next svg { transform: scaleX(-1); }
+.model-similar__nav .btn { margin-left: 8px; }
+/* лента похожих: 4 карточки на экране, остальные — прокруткой */
+.similar-track { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px; }
+.similar-track > .pcard { flex: 0 0 calc((100% - 72px) / 4); scroll-snap-align: start; }
 
 .photo-view { width: min(900px, calc(100vw - 32px)); height: min(92dvh, 1100px); margin: auto; padding: 0; border: 0; border-radius: 16px; background: #f4f6f9; overflow: hidden; }
 .photo-view::backdrop { background: rgba(6, 31, 59, 0.6); backdrop-filter: blur(4px); }
@@ -290,6 +304,7 @@
   .sale-banner__doors img { height: 210px; margin-left: 8px; }
   .sale-banner__doors img:nth-child(2) { height: 222px; }
   .cat-grid--4 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .similar-track > .pcard { flex-basis: calc((100% - 48px) / 3); }
   .model { gap: 40px; }
   .model__title { font-size: 40px; }
 }
@@ -369,6 +384,9 @@
   .specs { grid-template-columns: 1fr; }
   .model-similar { margin: 56px 0 64px; }
   .model-similar__head .btn { display: none; }
+  .model-similar__nav .similar-arrow { display: none; }
+  .similar-track { gap: 12px; margin: 0 calc(-1 * var(--page-x)); padding: 0 var(--page-x) 4px; scroll-padding: 0 var(--page-x); }
+  .similar-track > .pcard { flex-basis: 46%; }
   .cat-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .photo-view__img { padding: 16px; }
 }
