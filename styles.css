@@ -1967,6 +1967,8 @@ body.has-modal .callback-fab { display: none; }
 
 /* Карточка «Хаски» в блоке «Технологии»: на телефоне — круглая стрелка в углу фото вместо широкой кнопки */
 .eng-card__go { display: none; }
+.eng-card__media--2 { position: relative; }
+.eng-card__photo-link { position: absolute; inset: 0; z-index: 2; cursor: pointer; }
 @media (max-width: 767px) {
   .eng-card__media--2 { position: relative; }
   .eng-card__go {
