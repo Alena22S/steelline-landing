@@ -93,11 +93,14 @@ if ($isCallback || $isContact) {
 }
 if (!$consent) reply(false, 'Нужно согласие на обработку данных.', 422);
 
-// Купон 20%: единый код для всех (менеджерам не нужно искать), срок — 7 дней с момента получения
+// Купон 20%: код SL2026-ДДММ — день и месяц получения (по Екатеринбургу), срок — 7 дней с этой даты.
+// По коду менеджер сразу видит, когда купон выдан и до какого числа действует.
 $coupon = ''; $couponUntil = '';
 if ($isBonus) {
-    $coupon = 'SL2026';
-    $couponUntil = date('d.m.Y', time() + 7 * 86400);
+    $tz = new DateTimeZone('Asia/Yekaterinburg');
+    $issued = new DateTime('now', $tz);
+    $coupon = 'SL2026-' . $issued->format('dm');
+    $couponUntil = (clone $issued)->modify('+7 days')->format('d.m.Y');
 }
 
 // Метки рекламы и откуда пришёл посетитель (собирает script.js)
