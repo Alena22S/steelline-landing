@@ -1955,7 +1955,10 @@ body.has-modal .callback-fab { display: none; }
 .bonus-terms summary::-webkit-details-marker { display: none; }
 .bonus-terms ul { margin: 10px 0 0; padding: 12px 14px 12px 30px; border-radius: 10px; background: #f6f8fb; line-height: 1.5; }
 .callback__done-title { display: block; margin-bottom: 4px; font-family: var(--f-manrope); font-size: 20px; color: var(--c-navy); }
-.lead__done .callback__catalog { margin-bottom: 8px; border: 0; background: var(--grad-primary); color: #fff; }
-.lead__done .callback__catalog img { display: block; }
+/* после отправки купона: две кнопки одного размера в ряд, на телефоне — друг под другом */
+.callback__done-actions { display: flex; justify-content: center; gap: 12px; width: 100%; }
+.callback__done-actions .btn { flex: 1 1 0; max-width: 240px; margin: 0; }
+.callback .lead__done .callback__catalog { border: 0; background: var(--grad-primary); color: #fff; }
+@media (max-width: 479px) { .callback__done-actions { flex-direction: column; align-items: stretch; } .callback__done-actions .btn { max-width: none; } }
 .callback__catalog[hidden] { display: none; }
 .field[hidden] { display: none; }

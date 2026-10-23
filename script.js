@@ -5,9 +5,10 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
   if (!fab || window.siteIsInterior) return;
   var KEY = 'bonus-fab-closed';
   try { if (sessionStorage.getItem(KEY)) return; } catch (e) {}
-  // показываем, когда прокрутили страницу на один экран
+  // в каталоге и на страницах моделей — сразу; на остальных страницах — когда прокрутили на один экран
+  var instant = /\/prototype-catalog\/(catalog|model)\.html$/.test(location.pathname);
   function onScroll() {
-    if (window.scrollY < window.innerHeight) return;
+    if (!instant && window.scrollY < window.innerHeight) return;
     window.removeEventListener('scroll', onScroll);
     fab.hidden = false;
     requestAnimationFrame(function () { fab.classList.add('is-shown'); });
