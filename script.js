@@ -70,9 +70,22 @@
       if (moved) el.scrollLeft = startScroll - dx;
     });
 
-    window.addEventListener('pointerup', function () {
+    window.addEventListener('pointerup', function (e) {
       if (!down) return;
       down = false;
+      // широкие карточки с «примагничиванием» (блок «Технологии»): иначе после короткого перетаскивания лента возвращается назад —
+      // доводим до соседней карточки в сторону перетаскивания
+      var dx = e.clientX - startX;
+      if (moved && !el.hasAttribute('data-loop') && Math.abs(dx) > 50 && el.children.length > 1) {
+        var base = el.firstElementChild.offsetLeft;
+        var stops = Array.prototype.map.call(el.children, function (c) { return c.offsetLeft - base; });
+        var cur = 0;
+        stops.forEach(function (x, i) { if (Math.abs(x - startScroll) < Math.abs(stops[cur] - startScroll)) cur = i; });
+        var next = Math.max(0, Math.min(stops.length - 1, cur + (dx < 0 ? 1 : -1)));
+        el.scrollTo({ left: Math.min(stops[next], el.scrollWidth - el.clientWidth), behavior: 'smooth' });
+        setTimeout(function () { el.classList.remove('is-dragging'); }, 600); // «примагничивание» включаем после доводки
+        return;
+      }
       el.classList.remove('is-dragging');
     });
 
