@@ -1964,3 +1964,18 @@ body.has-modal .callback-fab { display: none; }
 
 /* Телефон: закреплённую кнопку «Получить подбор двери» не показываем — остаётся только «Заказать дверь со скидкой» на межкомнатных */
 @media (max-width: 767px) { .sticky-cta:not(.is-sale) { display: none !important; } }
+
+/* Карточка «Хаски» в блоке «Технологии»: на телефоне — круглая стрелка в углу фото вместо широкой кнопки */
+.eng-card__go { display: none; }
+@media (max-width: 767px) {
+  .eng-card__media--2 { position: relative; }
+  .eng-card__go {
+    position: absolute; z-index: 3; right: 12px; bottom: 12px; display: grid; place-items: center;
+    width: 44px; height: 44px; border-radius: 50%; background: #fff; box-shadow: 0 4px 14px rgba(6, 31, 59, 0.28);
+    transition: transform 0.3s ease;
+  }
+  .eng-card__go:active { transform: scale(0.94); }
+  /* общее правило «картинки на всё фото» сюда не относится */
+  .eng-card__media .eng-card__go img { position: static; inset: auto; left: auto !important; top: auto !important; width: 11px !important; height: 11px !important; object-fit: contain; transform: rotate(90deg); }
+  .eng-card__desc--cta .eng-card__btn--husky { display: none; }
+}
