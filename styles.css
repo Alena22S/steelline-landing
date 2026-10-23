@@ -1892,3 +1892,8 @@ body.has-modal .callback-fab { display: none; }
   .footer__bottom { flex-direction: column; align-items: flex-start; }
   .footer__legal { flex-direction: column; gap: 8px; }
 }
+
+/* Форма «Записаться на подбор»: только имя, телефон и комментарий — без шагов, фото и почты */
+.lead__form.is-contact .lead__steps,
+.lead__form.is-contact .field--photo,
+.lead__form.is-contact .field--email { display: none; }

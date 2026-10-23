@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=72">
+  <link rel="stylesheet" href="../styles.css?v=73">
   <script>
     /* ---------- Яндекс Метрика и пиксель VK Ads: подключаются сразу (уведомление о cookie — информационное).
        Не подключаются, только если посетитель нажал «Отказаться» (в хранилище — 'necessary'). ---------- */
@@ -344,8 +344,8 @@
     <!-- Заявки уходят в send.php. Для тестового режима (без отправки) добавить атрибут data-test-mode -->
     <form class="lead__form" id="lead-form" action="../send.php" method="post" enctype="multipart/form-data" novalidate>
       <div class="lead__head">
-        <h2 class="lead__title" id="lead-title" data-title-photo="Бесплатно подберём дверь по фото проёма" data-title-contact="Оставьте контакты">Бесплатно подберём дверь по фото проёма</h2>
-        <p class="lead__lead" data-lead-photo="Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире." data-lead-contact="Свяжемся с вами, ответим на вопросы и поможем с выбором. Можно сразу прикрепить фото проёма — подберём подходящие двери.">Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире.</p>
+        <h2 class="lead__title" id="lead-title" data-title-photo="Бесплатно подберём дверь по фото проёма" data-title-contact="Запись на подбор">Бесплатно подберём дверь по фото проёма</h2>
+        <p class="lead__lead" data-lead-photo="Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире." data-lead-contact="Оставьте имя и телефон — перезвоним, ответим на вопросы и запишем на подбор в салоне или замер.">Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире.</p>
       </div>
 
       <ol class="lead__steps">
@@ -354,7 +354,7 @@
         <li><span>3</span>Подборка от нас</li>
       </ol>
 
-      <div class="field">
+      <div class="field field--photo">
         <span class="field__label" id="photos-label">Фото проёма <span class="field__hint">до 5 фото, JPG, PNG или HEIC</span></span>
         <label class="dropzone" for="lead-photos">
           <input class="dropzone__input" id="lead-photos" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" multiple aria-labelledby="photos-label" aria-describedby="photos-error">
@@ -378,7 +378,7 @@
           <p class="field__error"></p>
         </div>
       </div>
-      <div class="field">
+      <div class="field field--email">
         <label class="field__label" for="lead-email">Почта <span class="field__hint">пришлём подборку сюда</span></label>
         <input class="input ym-disable-keys ym-hide-content" id="lead-email" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="name@mail.ru">
         <p class="field__error"></p>
@@ -410,12 +410,12 @@
     <div class="lead__done" hidden>
       <span class="lead__done-icon" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 32 32" fill="none"><path d="M8 16.5l5.5 5.5L24 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <h2 class="lead__title">Заявка отправлена</h2>
-      <p class="lead__lead">Спасибо! Мы посмотрим фото и пришлём подборку на почту. Если появятся вопросы — позвоним.</p>
+      <p class="lead__lead lead__done-lead" data-done-contact="Спасибо! Перезвоним в&nbsp;рабочее время и&nbsp;договоримся о&nbsp;подборе.">Спасибо! Мы посмотрим фото и пришлём подборку на почту. Если появятся вопросы — позвоним.</p>
       <button class="btn btn--outline btn--outline-soft btn--lg" type="button" data-close-form>Вернуться на сайт</button>
     </div>
   </dialog>
 
-  <script src="../script.js?v=49"></script>
+  <script src="../script.js?v=50"></script>
   <script src="catalog.js?v=30"></script>
 </body>
 </html>

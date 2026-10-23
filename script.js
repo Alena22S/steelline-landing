@@ -682,6 +682,9 @@
   var phone = document.getElementById('lead-phone');
   var submit = form.querySelector('.lead__submit');
   var submitText = form.querySelector('.lead__submit-text');
+  var doneLead = dialog.querySelector('.lead__done-lead') || document.createElement('p');
+  function isContact() { return form.classList.contains('is-contact'); }
+  function submitLabel() { return isContact() ? 'Записаться на подбор' : 'Получить подбор двери'; }
   var status = form.querySelector('.lead__status');
   var files = [];
   var lastTrigger = null;
@@ -705,6 +708,11 @@
 
   function openForm(source) {
     var contact = source === 'contact';
+    // «Записаться на подбор» — короткая форма: имя, телефон, комментарий (без фото и почты)
+    form.classList.toggle('is-contact', contact);
+    if (!doneLead.dataset.donePhoto) doneLead.dataset.donePhoto = doneLead.innerHTML;
+    doneLead.innerHTML = contact ? doneLead.dataset.doneContact : doneLead.dataset.donePhoto;
+    submitText.textContent = submitLabel();
     title.textContent = contact ? title.dataset.titleContact : title.dataset.titlePhoto;
     lead.textContent = contact ? lead.dataset.leadContact : lead.dataset.leadPhoto;
     form.elements.source.value = source || '';
@@ -886,7 +894,7 @@
 
     if (name.value.trim().length < 2) { setError(name, 'Укажите имя'); ok = false; } else setError(name, '');
     if (phoneDigits(phone.value).length !== 11) { setError(phone, 'Укажите телефон полностью'); ok = false; } else setError(phone, '');
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())) { setError(email, 'Проверьте адрес почты'); ok = false; } else setError(email, '');
+    if (!isContact() && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())) { setError(email, 'Проверьте адрес почты'); ok = false; } else setError(email, '');
     if (!consent.checked) { setError(consent, 'Нужно ваше согласие, чтобы отправить заявку'); ok = false; } else setError(consent, '');
 
     if (!ok) {
@@ -902,7 +910,7 @@
 
   function setLoading(on) {
     submit.disabled = on;
-    submitText.textContent = on ? 'Отправляем…' : 'Получить подбор двери';
+    submitText.textContent = on ? 'Отправляем…' : submitLabel();
   }
 
   function resetForm() {
