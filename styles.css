@@ -1803,8 +1803,7 @@ body.has-modal .callback-fab { display: none; }
   .eng-card__desc--cta { width: auto; gap: 10px; }
   .eng-card__copy { gap: 10px; }
   .eng-card__desc--cta { gap: 16px; align-items: stretch; }
-  /* на телефоне заявку ведёт закреплённая кнопка — дублирующие кнопки прячем */
-  .eng-card__desc--cta .btn,
+  /* закреплённой кнопки на телефоне больше нет — кнопки в карточках «Технологии» показываем (поверх низа фото) */
   .doors__cta { display: none; }
   /* «Смотреть обзоры» — обводкой, без заливки */
   .reviews__more { background: transparent; color: var(--c-navy); border: 1px solid rgba(6, 31, 59, 0.32); }
