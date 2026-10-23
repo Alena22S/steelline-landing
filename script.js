@@ -1083,7 +1083,7 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
 })();
 
 /* ---------- Уведомление о cookie ----------
-   Выбор: 'all' — «Понятно» (Метрика и пиксель VK работают), 'necessary' — «Отказаться» (отключаем их).
+   Выбор: 'all' — «Хорошо» (Метрика и пиксель VK работают), 'necessary' — «Отказаться» (отключаем их).
    Текущий выбор: window.cookieConsent; при выборе — событие 'cookie-consent' на document. */
 (function () {
   var KEY = 'cookie-consent';

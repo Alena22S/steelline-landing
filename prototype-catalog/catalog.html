@@ -63,7 +63,7 @@
           k = e.createElement(t); a = e.getElementsByTagName(t)[0];
           k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
         })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + ID, 'ym');
-        // Вебвизор (запись действий на странице) — только после «Понятно»; до этого Метрика считает визиты, источники и цели без записи
+        // Вебвизор (запись действий на странице) — только после «Хорошо»; до этого Метрика считает визиты, источники и цели без записи
         var opts = { webvisor: saved === 'all' || inMetrika, clickmap: true, accurateTrackBounce: true, trackLinks: true };
         window.ym(ID, 'init', opts);
         if (isInteriorPage) window.ym(ID_INTERIOR, 'init', opts);
@@ -235,11 +235,10 @@
 
   <div class="cookie" id="cookie" role="region" aria-label="Уведомление о cookie" hidden>
     <div class="cookie__copy">
-      <p class="cookie__title">Мы используем cookie</p>
-      <p class="cookie__text">И&nbsp;Яндекс Метрику — чтобы сайт работал корректно и&nbsp;чтобы понимать, как им&nbsp;пользуются. Продолжая пользоваться сайтом, вы&nbsp;соглашаетесь с&nbsp;этим. <a href="../privacy.html#cookie" target="_blank">Подробнее</a></p>
+      <p class="cookie__text">Мы используем файлы куки, чтобы сайтом было удобно пользоваться. <a href="../privacy.html#cookie" target="_blank">Подробнее</a></p>
     </div>
     <div class="cookie__actions">
-      <button class="btn btn--gradient btn--lg cookie__btn" type="button" data-cookie="all">Понятно</button>
+      <button class="btn btn--gradient btn--lg cookie__btn" type="button" data-cookie="all">Хорошо</button>
       <button class="btn btn--outline btn--lg cookie__btn" type="button" data-cookie="necessary">Отказаться</button>
     </div>
   </div>
