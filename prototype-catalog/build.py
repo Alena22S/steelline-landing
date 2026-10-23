@@ -37,7 +37,7 @@ def fix(html):
     return html
 
 
-def page(title, body_class, main, scripts=('catalog.js?v=33',)):
+def page(title, body_class, main, scripts=('catalog.js?v=34',)):
     h = fix(head)
     h = re.sub(r'<title>.*?</title>', '<title>%s</title>' % title, h)
     # прототип каталога не индексируем до переноса на Astro (дубли steelline.store)
@@ -45,7 +45,7 @@ def page(title, body_class, main, scripts=('catalog.js?v=33',)):
     h = re.sub(r'\s*<meta name="yandex-verification"[^>]*>', '', h)
     h = h.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
                   '<meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="robots" content="noindex, nofollow">', 1)
-    h += '  <link rel="stylesheet" href="catalog.css?v=53">\n</head>\n'
+    h += '  <link rel="stylesheet" href="catalog.css?v=54">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
@@ -189,14 +189,14 @@ model_main = '''  <main class="model-page" id="model">
     <section class="model-similar wrap">
       <div class="model-similar__head">
         <h2 class="model-similar__title">Похожие модели</h2>
-        <div class="model-similar__nav">
-          <button class="similar-arrow js-similar-prev" type="button" aria-label="Предыдущие модели"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <button class="similar-arrow similar-arrow--next js-similar-next" type="button" aria-label="Следующие модели"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          <a class="btn btn--outline js-similar-all" href="catalog.html">Все модели раздела</a>
-        </div>
+        <a class="btn btn--outline js-similar-all" href="catalog.html">Все модели раздела</a>
       </div>
-      <!-- лента: листается пальцем, мышью (data-drag в script.js) и стрелками -->
-      <div class="similar-track scroller js-similar" data-drag></div>
+      <!-- лента: листается пальцем, мышью (data-drag в script.js) и стрелками по краям — появляются при наведении -->
+      <div class="similar-wrap">
+        <button class="similar-arrow js-similar-prev" type="button" aria-label="Предыдущие модели"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="similar-track scroller js-similar" data-drag></div>
+        <button class="similar-arrow similar-arrow--next js-similar-next" type="button" aria-label="Следующие модели"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
     </section>
 
     <dialog class="photo-view js-photo-view" aria-label="Фото двери">

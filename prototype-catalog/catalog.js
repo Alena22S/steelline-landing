@@ -44,6 +44,8 @@
     var prev = document.querySelector('.js-similar-prev'), next = document.querySelector('.js-similar-next');
     if (!track || !prev || !next) return;
     function sync() {
+      var media = track.querySelector('.pcard__media');
+      if (media) prev.style.top = next.style.top = (media.offsetHeight / 2) + 'px'; // середина фото
       var max = track.scrollWidth - track.clientWidth;
       prev.hidden = next.hidden = max <= 2;
       prev.disabled = track.scrollLeft <= 2;

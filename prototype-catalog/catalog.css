@@ -278,17 +278,20 @@
 
 .model-similar { margin: 96px 0 100px; }
 .model-similar__head { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
-.model-similar__nav { display: flex; align-items: center; gap: 8px; }
+/* стрелки по краям ленты, на середине высоты фото (top задаёт JS); появляются при наведении на блок */
+.similar-wrap { position: relative; }
 .similar-arrow {
-  -webkit-appearance: none; appearance: none; display: grid; place-items: center; width: 44px; height: 44px; padding: 0;
-  border: 1px solid rgba(6, 31, 59, 0.16); border-radius: 50%; background: #fff; color: var(--c-navy); cursor: pointer;
-  transition: border-color 0.2s, opacity 0.2s;
+  -webkit-appearance: none; appearance: none; position: absolute; z-index: 2; top: 40%; display: grid; place-items: center;
+  width: 48px; height: 48px; margin-top: -24px; padding: 0; border: 0; border-radius: 50%; background: #fff; color: var(--c-navy);
+  box-shadow: 0 6px 20px rgba(6, 31, 59, 0.16); cursor: pointer;
+  opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s, transform 0.2s;
 }
-.similar-arrow:hover:not(:disabled) { border-color: var(--c-navy); }
-.similar-arrow:disabled { opacity: 0.35; cursor: default; }
+.js-similar-prev { left: -24px; }
+.js-similar-next { right: -24px; }
+.similar-wrap:hover .similar-arrow:not(:disabled), .similar-arrow:focus-visible { opacity: 1; visibility: visible; }
+.similar-arrow:hover { transform: scale(1.06); }
 .similar-arrow[hidden] { display: none; }
 .similar-arrow--next svg { transform: scaleX(-1); }
-.model-similar__nav .btn { margin-left: 8px; }
 /* лента похожих: 4 карточки на экране, остальные — прокруткой */
 .similar-track { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px; }
 .similar-track > .pcard { flex: 0 0 calc((100% - 72px) / 4); scroll-snap-align: start; }
@@ -384,7 +387,7 @@
   .specs { grid-template-columns: 1fr; }
   .model-similar { margin: 56px 0 64px; }
   .model-similar__head .btn { display: none; }
-  .model-similar__nav .similar-arrow { display: none; }
+  .similar-arrow { display: none; }
   .similar-track { gap: 12px; margin: 0 calc(-1 * var(--page-x)); padding: 0 var(--page-x) 4px; scroll-padding: 0 var(--page-x); }
   .similar-track > .pcard { flex-basis: 46%; }
   .cat-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
