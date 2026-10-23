@@ -1897,3 +1897,65 @@ body.has-modal .callback-fab { display: none; }
 .lead__form.is-contact .lead__steps,
 .lead__form.is-contact .field--photo,
 .lead__form.is-contact .field--email { display: none; }
+
+/* «Скидка 20% за заявку» в формах — в фирменных цветах */
+.form-bonus {
+  display: flex; align-items: center; gap: 16px; margin-top: 18px; padding: 14px 20px 14px 18px; border-radius: 14px; text-align: left;
+  background: linear-gradient(135deg, #f3f8ff 0%, #e7f0fc 100%); border: 0.5px solid rgba(30, 103, 185, 0.22);
+}
+.form-bonus b {
+  flex: none; font-family: var(--f-manrope); font-weight: 700; font-size: 34px; line-height: 1; letter-spacing: -1px;
+  background: linear-gradient(135deg, #1e67b9 0%, #061f3b 100%); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.form-bonus span { display: flex; flex-direction: column; gap: 2px; padding-left: 16px; border-left: 1px solid rgba(30, 103, 185, 0.2);
+  font-family: var(--f-inter); font-size: 13px; line-height: 1.4; color: var(--c-muted); }
+.form-bonus strong { font-family: var(--f-manrope); font-weight: 700; font-size: 15px; color: var(--c-navy); }
+.form-bonus[hidden], .form-bonus-done[hidden] { display: none; }
+.form-bonus-done { margin-top: 12px; font-family: var(--f-manrope); font-weight: 700; font-size: 16px; color: var(--c-blue); }
+
+/* Закреплённая карточка «Вам доступна скидка 20%» — слева внизу (справа кнопка звонка); над уведомлением о cookie */
+.bonus-fab {
+  position: fixed; z-index: 54; left: 24px; bottom: calc(24px + var(--cookie-h, 0px));
+  display: flex; align-items: stretch; max-width: 360px; border-radius: 16px; background: #fff;
+  box-shadow: 0 14px 40px rgba(6, 31, 59, 0.18), 0 0 0 0.5px rgba(30, 103, 185, 0.18);
+  opacity: 0; transform: translateY(12px); transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.bonus-fab.is-shown { opacity: 1; transform: none; }
+.bonus-fab[hidden], body.has-modal .bonus-fab { display: none; }
+.bonus-fab__open {
+  -webkit-appearance: none; appearance: none; display: flex; align-items: center; gap: 14px; padding: 12px 8px 12px 12px;
+  border: 0; background: none; text-align: left; cursor: pointer;
+}
+.bonus-fab__pct {
+  flex: none; display: grid; place-items: center; width: 56px; height: 56px; border-radius: 14px; background: var(--grad-primary);
+  font-family: var(--f-manrope); font-weight: 700; font-size: 17px; letter-spacing: -0.5px; color: #fff;
+}
+.bonus-fab__text { display: flex; flex-direction: column; gap: 2px; }
+.bonus-fab__text b { font-family: var(--f-manrope); font-weight: 700; font-size: 15px; line-height: 1.25; color: var(--c-navy); }
+.bonus-fab__text span { font-family: var(--f-inter); font-size: 13px; line-height: 1.35; color: var(--c-muted); }
+.bonus-fab__open:hover .bonus-fab__text b { color: var(--c-blue); }
+.bonus-fab__close {
+  -webkit-appearance: none; appearance: none; align-self: flex-start; display: grid; place-items: center; width: 32px; height: 32px; margin: 6px 6px 0 0;
+  padding: 0; border: 0; border-radius: 50%; background: none; color: var(--c-muted); cursor: pointer;
+}
+.bonus-fab__close:hover { background: #f1f3f6; color: var(--c-navy); }
+@media (max-width: 767px) {
+  /* телефон: компактно над закреплённой кнопкой «Получить подбор двери» */
+  .bonus-fab { left: 12px; right: 12px; max-width: none; bottom: calc(80px + var(--cookie-h, 0px) + env(safe-area-inset-bottom, 0px)); border-radius: 14px; }
+  .bonus-fab__open { flex: 1; gap: 12px; padding: 10px 6px 10px 10px; }
+  .bonus-fab__pct { width: 46px; height: 46px; border-radius: 12px; font-size: 15px; }
+  .bonus-fab__text b { font-size: 14px; }
+  .bonus-fab__text span { font-size: 12px; }
+}
+
+/* Купон 20%: условия акции и ссылка в каталог после отправки */
+.bonus-terms { margin-top: 12px; text-align: left; font-family: var(--f-inter); font-size: 13px; color: var(--c-muted); }
+.bonus-terms[hidden] { display: none; }
+.bonus-terms summary { display: inline-block; cursor: pointer; color: var(--c-blue); text-decoration: underline; text-underline-offset: 3px; list-style: none; }
+.bonus-terms summary::-webkit-details-marker { display: none; }
+.bonus-terms ul { margin: 10px 0 0; padding: 12px 14px 12px 30px; border-radius: 10px; background: #f6f8fb; line-height: 1.5; }
+.callback__done-title { display: block; margin-bottom: 4px; font-family: var(--f-manrope); font-size: 20px; color: var(--c-navy); }
+.lead__done .callback__catalog { margin-bottom: 8px; border: 0; background: var(--grad-primary); color: #fff; }
+.lead__done .callback__catalog img { display: block; }
+.callback__catalog[hidden] { display: none; }
+.field[hidden] { display: none; }

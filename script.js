@@ -1,3 +1,25 @@
+/* Скидка 20% за заявку: плашка в форме звонка и закреплённая карточка — кроме страниц межкомнатных дверей */
+if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(function (el) { el.hidden = true; });
+(function () {
+  var fab = document.querySelector('.js-bonus-fab');
+  if (!fab || window.siteIsInterior) return;
+  var KEY = 'bonus-fab-closed';
+  try { if (sessionStorage.getItem(KEY)) return; } catch (e) {}
+  // показываем, когда прокрутили страницу на один экран
+  function onScroll() {
+    if (window.scrollY < window.innerHeight) return;
+    window.removeEventListener('scroll', onScroll);
+    fab.hidden = false;
+    requestAnimationFrame(function () { fab.classList.add('is-shown'); });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  fab.querySelector('.js-bonus-close').addEventListener('click', function () {
+    fab.hidden = true;
+    try { sessionStorage.setItem(KEY, '1'); } catch (e) {}
+  });
+})();
+
 /* Метрика, пиксели VK и цели — встроены в <head> страницы (index.html), чтобы запускаться сразу, не дожидаясь загрузки страницы */
 
 (function () {
@@ -1128,13 +1150,32 @@
     done: 'Менеджер позвонит в&nbsp;рабочее время, проверит наличие и&nbsp;закрепит скидку. Срочно — <a href="tel:+79222077552">+7&nbsp;(922)&nbsp;207-75-52</a>.',
     submit: 'Получить скидку'
   };
+  // режим «скидка 20%» — по закреплённой карточке «Вам доступна скидка 20%»
+  var BONUS = {
+    title: 'Получите скидку 20% на&nbsp;входную дверь',
+    lead: 'Оставьте электронную почту — мы&nbsp;отправим вам персональный купон на&nbsp;скидку 20%. Купон действует 7&nbsp;дней с&nbsp;момента получения.',
+    done: 'А&nbsp;пока посмотрите входные двери, на&nbsp;которые действует скидка. Купон пришёл на&nbsp;почту — если не&nbsp;видите письмо, проверьте папку «Спам».',
+    submit: 'Получить купон'
+  };
+  var iconEl = dialog.querySelector('.callback__icon');
+  var baseIcon = iconEl ? iconEl.innerHTML : '';
+  var COUPON_ICON = '<svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M3 8.5V6.8C3 6.36 3.36 6 3.8 6h16.4c.44 0 .8.36.8.8v1.7a2.5 2.5 0 0 0 0 5v1.7c0 .44-.36.8-.8.8H3.8a.8.8 0 0 1-.8-.8v-1.7a2.5 2.5 0 0 0 0-5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" transform="translate(0 1.5)"/><path d="M9.5 14.5l5-5M9.6 9.8h.01M14.4 14.2h.01" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+  var doneTitle = dialog.querySelector('.callback__done .lead__title');
+  var baseDoneTitle = doneTitle ? doneTitle.innerHTML : '';
   var label = base.submit;
   function setMode(trigger) {
-    var sale = trigger && trigger.dataset.openCallback === 'sale';
-    var t = sale ? SALE : base;
+    var mode = trigger && trigger.dataset.openCallback;
+    var sale = mode === 'sale', bonus = mode === 'bonus';
+    var t = sale ? SALE : bonus ? BONUS : base;
     titleEl.innerHTML = t.title; leadEl.innerHTML = t.lead; doneLead.innerHTML = t.done;
+    dialog.querySelectorAll('.js-form-bonus').forEach(function (el) { el.hidden = sale || bonus || !!window.siteIsInterior; });
+    // режим купона: только почта (+ условия акции), после отправки — ссылка в каталог
+    dialog.querySelectorAll('.js-bonus-only').forEach(function (el) { el.hidden = !bonus; });
+    dialog.querySelectorAll('.js-bonus-hide').forEach(function (el) { el.hidden = bonus; });
+    if (doneTitle) doneTitle.innerHTML = bonus ? 'Ваш купон отправлен!' : baseDoneTitle;
+    if (iconEl) iconEl.innerHTML = bonus ? COUPON_ICON : baseIcon;
     submitText.textContent = label = t.submit;
-    form.elements.source.value = sale ? 'sale' : 'callback';
+    form.elements.source.value = sale ? 'sale' : bonus ? 'bonus' : 'callback';
     if (form.elements.comment) form.elements.comment.value = sale && trigger.dataset.model ? 'Модель: ' + trigger.dataset.model : '';
   }
 
@@ -1173,7 +1214,8 @@
     openedAt = Date.now();
     document.body.classList.add('has-modal');
     dialog.showModal();
-    window.siteGoal && window.siteGoal(form.elements.source.value === 'sale' ? 'sale_open' : 'callback_open');
+    var src = form.elements.source.value;
+    window.siteGoal && window.siteGoal(src === 'sale' ? 'sale_open' : src === 'bonus' ? 'bonus_open' : 'callback_open');
   }
   document.addEventListener('click', function (e) {
     var t = e.target.closest('[data-open-callback]');
@@ -1191,15 +1233,22 @@
     e.preventDefault();
     status.textContent = '';
     var ok = true;
-    if (form.elements.name.value.trim().length < 2) { setError(form.elements.name, 'Укажите имя'); ok = false; } else setError(form.elements.name, '');
-    if (digits(phone.value).length !== 11) { setError(phone, 'Укажите телефон полностью'); ok = false; } else setError(phone, '');
+    var isBonus = form.elements.source.value === 'bonus';
+    if (isBonus) {
+      var em = form.elements.email;
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em.value.trim())) { setError(em, 'Проверьте адрес почты'); ok = false; } else setError(em, '');
+    } else {
+      if (form.elements.name.value.trim().length < 2) { setError(form.elements.name, 'Укажите имя'); ok = false; } else setError(form.elements.name, '');
+      if (digits(phone.value).length !== 11) { setError(phone, 'Укажите телефон полностью'); ok = false; } else setError(phone, '');
+    }
     if (!form.elements.consent.checked) { setError(form.elements.consent, 'Нужно ваше согласие'); ok = false; } else setError(form.elements.consent, '');
     if (!ok) { var first = form.querySelector('[aria-invalid="true"]'); if (first) first.focus(); return; }
 
     var data = new FormData(form);
-    data.set('phone', format(digits(phone.value)));
+    if (form.elements.source.value !== 'bonus') data.set('phone', format(digits(phone.value)));
     data.set('ts', String(openedAt));
     data.set('page', location.href.slice(0, 300));
+    if (!window.siteIsInterior && form.elements.source.value !== 'sale') data.set('bonus', '20');
     try {
       var track = JSON.parse(sessionStorage.getItem('lead-track') || '{}') || {};
       Object.keys(track).forEach(function (k) { data.set(k, track[k]); });
@@ -1214,7 +1263,8 @@
       })
       .then(function () {
         form.hidden = true; done.hidden = false;
-        window.siteGoal && window.siteGoal(form.elements.source.value === 'sale' ? 'sale_success' : 'callback_success');
+        var src = form.elements.source.value;
+        window.siteGoal && window.siteGoal(src === 'sale' ? 'sale_success' : src === 'bonus' ? 'bonus_success' : 'callback_success');
       })
       .catch(function (err) {
         var msg = err && err.message && err.message !== 'send_failed' && err.message !== 'Failed to fetch' ? err.message + ' ' : 'Не получилось отправить заявку. ';

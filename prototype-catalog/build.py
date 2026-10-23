@@ -22,6 +22,7 @@ cookie = part('<div class="cookie"', '</div>\n  </div>')
 sticky = part('<a class="btn btn--gradient sticky-cta"', '</a>')
 lead = part('<dialog class="lead" id="lead"', '</dialog>')
 callback = part('<button class="callback-fab"', '</dialog>')
+bonus = part('<div class="bonus-fab js-bonus-fab"', '\n  </div>')  # карточка «Вам доступна скидка 20%»
 script = re.search(r'<script src="script\.js\?v=\d+"></script>', src).group(0)
 
 
@@ -48,7 +49,7 @@ def page(title, body_class, main, scripts=('catalog.js?v=34',)):
     h += '  <link rel="stylesheet" href="catalog.css?v=54">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
-            '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
+            '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(bonus) + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
             fix(lead) + '\n\n  ' + fix(script) + ''.join('\n  <script src="%s"></script>' % x for x in scripts) + '\n</body>\n</html>\n')
 
 

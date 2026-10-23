@@ -30,6 +30,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # Ошибка в PHP сломала бы отправку всех форм — проверяем синтаксис до публикации
+      - name: Проверить синтаксис PHP
+        run: for f in *.php; do php -l "$f" || exit 1; done
+
       - name: Настроить SSH
         env:
           SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
