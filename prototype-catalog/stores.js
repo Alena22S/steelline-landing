@@ -170,7 +170,6 @@
             '<div><dt>Телефон</dt><dd class="shop__links">' + phones + '</dd></div>' +
             (emails ? '<div><dt>Почта</dt><dd class="shop__links">' + emails + '</dd></div>' : '') +
           '</dl>' +
-          (s.rating ? '<iframe class="shop__rating" src="https://yandex.ru/sprav/widget/rating-badge/' + esc(s.rating) + '?type=rating" width="150" height="50" frameborder="0" loading="lazy" title="Рейтинг на Яндекс Картах"></iframe>' : '') +
           '<a class="btn btn--outline btn--outline-soft shop__route" href="' + routeUrl(s) + '" target="_blank" rel="noopener">Как добраться <img src="../assets/icons/arrow-right-dark-3.svg" width="24" height="24" alt=""></a>' +
         '</div>' +
         photos +

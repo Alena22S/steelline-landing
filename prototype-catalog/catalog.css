@@ -556,7 +556,6 @@
 .shop__links { display: flex; flex-direction: column; min-width: 0; }
 .shop__links a { color: var(--c-ink); overflow-wrap: anywhere; transition: color 0.2s; }
 .shop__links a:hover { color: var(--c-blue); }
-.shop__rating { display: block; width: 150px; height: 50px; border: 0; }
 .shop__route { margin-top: auto; }
 
 .shop__photos { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 8px; min-width: 0; }
