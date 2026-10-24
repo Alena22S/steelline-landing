@@ -993,6 +993,7 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
       done.hidden = false;
       done.querySelector('.btn').focus();
       window.siteGoal('lead_success', { source: form.elements.source.value });
+      window.siteGoal('lead_any', { source: form.elements.source.value }); // любая отправленная заявка — цель для оптимизации рекламы
     }).catch(function (err) {
       var msg = err && err.message && err.message !== 'send_failed' && err.message !== 'Failed to fetch'
         ? err.message + ' '
@@ -1266,6 +1267,7 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
         form.hidden = true; done.hidden = false;
         var src = form.elements.source.value;
         window.siteGoal && window.siteGoal(src === 'sale' ? 'sale_success' : src === 'bonus' ? 'bonus_success' : 'callback_success');
+        window.siteGoal && window.siteGoal('lead_any', { source: src }); // любая отправленная заявка — цель для оптимизации рекламы
       })
       .catch(function (err) {
         var msg = err && err.message && err.message !== 'send_failed' && err.message !== 'Failed to fetch' ? err.message + ' ' : 'Не получилось отправить заявку. ';
