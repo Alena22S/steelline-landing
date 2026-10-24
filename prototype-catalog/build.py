@@ -46,7 +46,7 @@ def page(title, body_class, main, scripts=('catalog.js?v=35',)):
     h = re.sub(r'\s*<meta name="yandex-verification"[^>]*>', '', h)
     h = h.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
                   '<meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="robots" content="noindex, nofollow">', 1)
-    h += '  <link rel="stylesheet" href="catalog.css?v=54">\n</head>\n'
+    h += '  <link rel="stylesheet" href="catalog.css?v=62">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(bonus) + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
@@ -276,3 +276,40 @@ portfolio_main = '''  <main class="port" id="port">
 open(os.path.join(OUT, 'portfolio.html'), 'w', encoding='utf-8').write(page('Наши работы — Стальная линия', 'page-portfolio', portfolio_main, ('portfolio.js?v=12',)))
 
 print('ok')
+
+stores_main = '''  <main class="port shops" id="shops">
+    <div class="wrap">
+      <nav class="crumbs port-crumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>/</span><span>Наши магазины</span></nav>
+      <div class="port-headline">
+        <h1 class="cat__title port-title">Наши магазины</h1>
+        <ul class="port-badges js-shops-badges"></ul>
+      </div>
+      <p class="cat__lead port-lead">Приходите посмотреть двери вживую: образцы отделок, фурнитура и&nbsp;замки. Главный салон в&nbsp;Екатеринбурге&nbsp;— в&nbsp;интерьерном центре ASTROOM.</p>
+
+      <div class="port-bar">
+        <div class="port-tabs js-shops-regions" role="group" aria-label="Регион"></div>
+      </div>
+    </div>
+
+    <section class="shops__body wrap">
+      <div class="shops-list js-shops-list"></div>
+    </section>
+
+    <section class="cat-cta wrap">
+      <div class="cat-cta__text">
+        <h2 class="cat-cta__title">Нет салона в&nbsp;вашем городе?</h2>
+        <p class="cat-cta__lead">Пришлите фото проёма&nbsp;— подберём дверь дистанционно, рассчитаем стоимость и&nbsp;расскажем, как заказать в&nbsp;вашем городе.</p>
+      </div>
+      <a class="btn btn--gradient btn--lg" href="#" data-open-form="stores-cta">Получить подбор двери <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+    </section>
+
+    <dialog class="shop-view js-shop-view" aria-label="Фото салона">
+      <button class="port-view__close js-sv-close" type="button" aria-label="Закрыть"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      <button class="port-view__nav port-view__nav--prev js-sv-prev" type="button" aria-label="Предыдущее фото"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="port-view__nav shop-view__next js-sv-next" type="button" aria-label="Следующее фото"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <img class="shop-view__img js-sv-img" alt="">
+      <p class="shop-view__cap js-sv-cap"></p>
+    </dialog>
+  </main>'''
+
+open(os.path.join(OUT, 'stores.html'), 'w', encoding='utf-8').write(page('Наши магазины — Стальная линия', 'page-portfolio page-stores', stores_main, ('stores.js?v=11',)))

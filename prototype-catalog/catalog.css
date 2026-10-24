@@ -526,3 +526,94 @@
   .port-view { width: 100vw; height: 100dvh; max-height: none; border-radius: 0; }
   .port-view__title { font-size: 20px; }
 }
+
+/* ===== Наши магазины ===== */
+.shops .port-bar { position: relative; }
+.cat-tab__arrow { margin: 0 -2px 0 -2px; transition: transform 0.25s ease; }
+.cat-tab[aria-expanded="true"] .cat-tab__arrow { transform: rotate(180deg); }
+.shops-menu { left: 0; right: auto; width: max-content; min-width: 0; padding: 4px; }
+.shops-menu .csel__opt { display: flex; align-items: baseline; gap: 8px; padding: 8px 32px 8px 12px; font-size: 14px; }
+.shops-menu .csel__opt[aria-selected="true"]::after { right: 10px; }
+.shops-menu .csel__opt span { font-family: var(--f-inter); font-weight: 500; font-size: 12px; color: var(--c-muted); }
+.shops-menu .csel__opt--all { margin-bottom: 3px; }
+.shops-menu .csel__opt--all::before { content: ""; position: absolute; left: 8px; right: 8px; bottom: -3px; height: 1px; background: rgba(6, 31, 59, 0.08); }
+.shops__body { padding-top: 32px; padding-bottom: 96px; }
+.shops-list { display: flex; flex-direction: column; gap: 20px; }
+.shop {
+  display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.15fr) minmax(0, 1fr); gap: 28px;
+  padding: 24px; border: 0.5px solid rgba(6, 31, 59, 0.18); border-radius: 16px; background: #fff;
+}
+.shop.no-photos { grid-template-columns: minmax(0, 0.9fr) minmax(0, 2.15fr); }
+.shop__info { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; min-width: 0; }
+.shop__city { padding: 6px 12px 5px; font-size: 12px; line-height: 16px; }
+.shop__name { font-weight: 500; font-size: 24px; line-height: 1.25; color: var(--c-ink); text-wrap: balance; }
+.shop__addr { display: flex; flex-direction: column; gap: 2px; font-size: 16px; line-height: 1.45; color: var(--c-ink); }
+.shop__addr span { font-size: 14px; color: var(--c-muted); }
+.shop__rows { display: flex; flex-direction: column; gap: 10px; margin: 4px 0 0; }
+.shop__rows div { display: grid; grid-template-columns: 104px 1fr; gap: 12px; }
+.shop__rows dt { font-family: var(--f-inter); font-size: 13px; line-height: 1.6; color: var(--c-muted); }
+.shop__rows dd { margin: 0; font-family: var(--f-inter); font-size: 14px; line-height: 1.6; color: var(--c-ink); }
+.shop__links { display: flex; flex-direction: column; min-width: 0; }
+.shop__links a { color: var(--c-ink); overflow-wrap: anywhere; transition: color 0.2s; }
+.shop__links a:hover { color: var(--c-blue); }
+.shop__rating { display: block; width: 150px; height: 50px; border: 0; }
+.shop__route { margin-top: auto; }
+
+.shop__photos { display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 8px; min-width: 0; }
+.shop__photos.is-single { grid-template-rows: 1fr; }
+.shop__main, .shop__thumb { position: relative; display: block; padding: 0; border: 0; border-radius: 10px; overflow: hidden; background: #eef1f5; cursor: zoom-in; }
+.shop__main { min-height: 240px; }
+.shop__main img, .shop__thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.shop__main:hover img, .shop__thumb:hover img { transform: scale(1.03); }
+.shop__thumbs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.shop__thumb { aspect-ratio: 1; border-radius: 8px; }
+.shop__more { position: absolute; inset: 0; display: grid; place-items: center; background: rgba(6, 31, 59, 0.55); font-weight: 600; font-size: 16px; color: #fff; }
+
+.shops-more { gap: 10px; margin-top: 12px; }
+.shops-more span { font-family: var(--f-inter); font-weight: 500; font-size: 14px; color: var(--c-muted); }
+.shop:focus { outline: none; }
+.shop__map { position: relative; display: block; min-height: 320px; border-radius: 10px; overflow: hidden; background: #eef1f5; }
+.shop__map-live { position: absolute; inset: 0; display: block; width: 100%; padding: 0; border: 0; background: none; cursor: pointer; }
+.shop__map-live img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
+.shop__map-live:hover img { transform: scale(1.02); }
+.shop__map-hint {
+  position: absolute; top: 12px; right: 12px; display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 100px;
+  background: rgba(6, 31, 59, 0.78); font-family: var(--f-manrope); font-weight: 600; font-size: 12px; color: #fff;
+  opacity: 0; transform: translateY(-4px); transition: opacity 0.2s, transform 0.2s;
+}
+.shop__map-live:hover .shop__map-hint, .shop__map-live:focus-visible .shop__map-hint { opacity: 1; transform: none; }
+.shop__map-open {
+  position: absolute; left: 12px; bottom: 12px; padding: 8px 14px; border-radius: 100px; background: #fff;
+  box-shadow: 0 2px 10px rgba(6, 31, 59, 0.14); font-weight: 600; font-size: 13px; color: var(--c-navy); transition: color 0.2s;
+}
+.shop__map-open:hover { color: var(--c-blue); }
+.shop__map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+/* на телефоне наведения нет — подсказка видна всегда */
+@media (hover: none) { .shop__map-hint { opacity: 1; transform: none; } }
+
+.shop-view { width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; display: none; }
+.shop-view[open] { display: grid; place-items: center; }
+.shop-view::backdrop { background: rgba(6, 31, 59, 0.88); backdrop-filter: blur(4px); }
+.shop-view__img { max-width: calc(100vw - 160px); max-height: calc(100dvh - 120px); border-radius: 10px; object-fit: contain; }
+.shop-view__cap { position: absolute; left: 0; right: 0; bottom: 20px; font-family: var(--f-inter); font-size: 14px; color: rgba(255, 255, 255, 0.8); text-align: center; }
+.shop-view__next { right: 16px; }
+.shop-view.is-single .port-view__nav { display: none; }
+
+@media (max-width: 1199px) {
+  .shop { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .shop__map { grid-column: 1 / -1; min-height: 280px; }
+  .shop.no-photos .shop__map { grid-column: auto; }
+}
+@media (max-width: 767px) {
+  .shops__body { padding-top: 20px; padding-bottom: 64px; }
+  .shops-list { gap: 16px; }
+  .shop, .shop.no-photos { grid-template-columns: 1fr; gap: 16px; padding: 16px; border-radius: 14px; }
+  .shop__name { font-size: 20px; }
+  .shop__photos { order: -1; }
+  .shop__main { min-height: 0; aspect-ratio: 4 / 3; }
+  .shop__rows div { grid-template-columns: 92px 1fr; }
+  .shop__route { align-self: stretch; justify-content: center; margin-top: 4px; }
+  .shop__map { min-height: 220px; }
+  .shop-view__img { max-width: 100vw; max-height: calc(100dvh - 140px); border-radius: 0; }
+  .shop-view .port-view__nav { top: auto; bottom: 56px; margin-top: 0; }
+}

@@ -1,0 +1,635 @@
+{
+ "stores": [
+  {
+   "city": "Екатеринбург",
+   "name": "Интерьерный центр ASTROOM",
+   "address": "ул. Цвиллинга, 1",
+   "where": "6 этаж, галерея А",
+   "phones": [
+    {
+     "text": "+7 (922) 207-75-52",
+     "tel": "+79222077552"
+    },
+    {
+     "text": "+7 (343) 385-28-03",
+     "tel": "+73433852803"
+    }
+   ],
+   "emails": [
+    "astroom@steelline.store"
+   ],
+   "hours": [
+    "Пн–Вс: 10:00–20:00"
+   ],
+   "map": "6d0e4e0fd4f44cb7039e91db42d1e309fe6bac172d1819d6a1cfc451841bda50",
+   "photos": [
+    "img/stores/66e046f6c5b0.webp",
+    "img/stores/c861c4328d10.webp",
+    "img/stores/14152a899821.webp",
+    "img/stores/24f49e4809d8.webp",
+    "img/stores/150e53734548.webp",
+    "img/stores/c7488e57a5fa.webp",
+    "img/stores/b0c991ef0482.webp",
+    "img/stores/f9d17ec103a1.webp",
+    "img/stores/8cbc36d7d171.webp",
+    "img/stores/ab1133864321.webp",
+    "img/stores/836089ee5214.webp",
+    "img/stores/ef18f8043511.webp"
+   ],
+   "rating": "8033680538",
+   "ll": "60.625897,56.816631",
+   "mapImg": "img/stores/map-5a73a617d3.webp"
+  },
+  {
+   "city": "Арамиль",
+   "name": "Салон «Дверная лавка»",
+   "address": "ул. Гарнизон, 5",
+   "where": "",
+   "phones": [
+    {
+     "text": "+7 (919) 397-73-17",
+     "tel": "+79193977317"
+    }
+   ],
+   "emails": [
+    "zakazdver@bk.ru"
+   ],
+   "hours": [
+    "Пн–Пт: 9:00–18:00",
+    "Сб: 10:00–16:00"
+   ],
+   "map": "8674d863e807728c71591c248b17602fbdf0e338704b421c0b220d61c38d55c6",
+   "photos": [
+    "img/stores/4e8b3538b987.webp",
+    "img/stores/5cf1f0f460ed.webp",
+    "img/stores/a8bf1accb302.webp",
+    "img/stores/30a967e30a94.webp",
+    "img/stores/2ffc39a71a77.webp",
+    "img/stores/8539f4d09c07.webp",
+    "img/stores/fd8757b55cc6.webp",
+    "img/stores/b34496200113.webp",
+    "img/stores/badae12129e5.webp",
+    "img/stores/fcf7c7ce2681.webp",
+    "img/stores/9ad4e2011471.webp",
+    "img/stores/717483ff2aeb.webp",
+    "img/stores/e29afd08830d.webp",
+    "img/stores/7541a366cb7f.webp",
+    "img/stores/c1a13c8dbd92.webp",
+    "img/stores/a962218e5d62.webp",
+    "img/stores/d09cad07cf77.webp",
+    "img/stores/c4d9cae1162e.webp"
+   ],
+   "rating": "1564598838",
+   "ll": "60.805938,56.699436",
+   "mapImg": "img/stores/map-22c2a8665c.webp"
+  },
+  {
+   "city": "Сургут",
+   "name": "Стальная линия",
+   "address": "ул. Профсоюзов, 51",
+   "where": "",
+   "phones": [
+    {
+     "text": "+7 (922) 244-22-02",
+     "tel": "+79222442202"
+    }
+   ],
+   "emails": [
+    "dveri-surguta.galleri@mail.ru"
+   ],
+   "hours": [
+    "Пн–Сб: 10:00–20:00",
+    "Вс: 10:00–19:00"
+   ],
+   "map": "d8e70063fc135978c453a9d6e342cd0e49f55ba4da9f0b59b1d7ce6e61a74d00",
+   "photos": [
+    "img/stores/47aa01a4f5f4.webp",
+    "img/stores/a4decbbf1fa8.webp",
+    "img/stores/ff41b30caa99.webp",
+    "img/stores/7d6d12636871.webp",
+    "img/stores/bcfbc41ccf32.webp",
+    "img/stores/855cbedaebe1.webp",
+    "img/stores/0c96c3315b76.webp"
+   ],
+   "ll": "73.427528,61.263834",
+   "mapImg": "img/stores/map-5be962b88a.webp"
+  },
+  {
+   "city": "Сургут",
+   "name": "Стальная линия",
+   "address": "ул. Восход, 1",
+   "where": "",
+   "phones": [
+    {
+     "text": "+7 (3462) 31-03-31",
+     "tel": "+73462310331"
+    }
+   ],
+   "emails": [
+    "dm310331@mail.ru"
+   ],
+   "hours": [
+    "Пн–Вс: 10:00–20:00"
+   ],
+   "map": "f98dfffd989704e8b31e8908fadc732c23f546c83dd58e7a4be30915a41c5fc3",
+   "photos": [
+    "img/stores/babc455338d8.webp",
+    "img/stores/5c4b8772394f.webp",
+    "img/stores/24ea0a8935f7.webp",
+    "img/stores/be30eff1781e.webp",
+    "img/stores/ac01f94b27fb.webp",
+    "img/stores/235fec248040.webp",
+    "img/stores/74dcb288edd3.webp"
+   ],
+   "ll": "73.359903,61.25207",
+   "mapImg": "img/stores/map-5153555a37.webp"
+  },
+  {
+   "city": "Пермь",
+   "name": "Стальная линия",
+   "address": "ул. 1-я Красноармейская, 6",
+   "where": "ТЦ «Радуга»",
+   "phones": [
+    {
+     "text": "+7 (342) 207-32-40",
+     "tel": "+73422073240"
+    }
+   ],
+   "emails": [
+    "holz.raduga@mail.ru"
+   ],
+   "hours": [
+    "Пн–Сб: 10:00–21:00",
+    "Вс: 10:00–20:00"
+   ],
+   "map": "a7533b410a0acefdcc2414d1d813df3bb2fa6a04085ea8d8265d22f22c1c3ae6",
+   "photos": [
+    "img/stores/172d85e4c7f5.webp",
+    "img/stores/e3cb0aa2c8a8.webp",
+    "img/stores/aab22d9fdcc2.webp",
+    "img/stores/e0fb291b8a4a.webp",
+    "img/stores/f57691b5f9a1.webp",
+    "img/stores/42ced5241308.webp"
+   ],
+   "ll": "56.26745875462964,58.00231321973272",
+   "mapImg": "img/stores/map-95565405b1.webp"
+  },
+  {
+   "city": "Тюмень",
+   "name": "Стальная линия",
+   "address": "ул. Федюнинского, 43",
+   "where": "ТК «Орион», 1 уровень, 2 линия",
+   "phones": [
+    {
+     "text": "+7 (3452) 38-80-74",
+     "tel": "+73452388074"
+    },
+    {
+     "text": "+7 (919) 950-80-74",
+     "tel": "+79199508074"
+    }
+   ],
+   "emails": [
+    "stroysnami72@yandex.ru"
+   ],
+   "hours": [
+    "Пн–Вс: 10:00–21:00"
+   ],
+   "map": "d6af83b6c65aea87f4550bfb4968346cdcfacbe10659e6fc8e9b91d6c9c069b3",
+   "photos": [
+    "img/stores/6be48d7c5271.webp",
+    "img/stores/47a957dddc2b.webp",
+    "img/stores/9e0d675247fe.webp",
+    "img/stores/0712aa19cbdd.webp",
+    "img/stores/dc3105b57e34.webp",
+    "img/stores/ed85d1242a91.webp",
+    "img/stores/9a47f5f56af0.webp",
+    "img/stores/a41ec92bd40e.webp",
+    "img/stores/a79131f8cc92.webp",
+    "img/stores/96754d219af2.webp",
+    "img/stores/98295d27ea6e.webp",
+    "img/stores/b4bd9cf15c99.webp"
+   ],
+   "ll": "65.545835,57.11206",
+   "mapImg": "img/stores/map-89a3bcf92b.webp"
+  },
+  {
+   "city": "Тюмень",
+   "name": "Салон «Geona»",
+   "address": "ул. Федюнинского, 43",
+   "where": "ТК «Орион», 1 уровень, 1 линия",
+   "phones": [
+    {
+     "text": "+7 (3452) 69-90-45",
+     "tel": "+73452699045"
+    }
+   ],
+   "emails": [],
+   "hours": [
+    "Пн–Вс: 10:00–21:00"
+   ],
+   "map": "d6af83b6c65aea87f4550bfb4968346cdcfacbe10659e6fc8e9b91d6c9c069b3",
+   "photos": [
+    "img/stores/24357a853a27.webp",
+    "img/stores/7308ec47dd07.webp",
+    "img/stores/30664cb74cb4.webp",
+    "img/stores/79262595cc9f.webp"
+   ],
+   "ll": "65.545835,57.11206",
+   "mapImg": "img/stores/map-89a3bcf92b.webp"
+  },
+  {
+   "city": "Тюмень",
+   "name": "Стальная линия",
+   "address": "ул. Молодёжная, 80/2",
+   "where": "ТЦ «1000 мелочей», павильон 4",
+   "phones": [
+    {
+     "text": "+7 (3452) 38-82-84",
+     "tel": "+73452388284"
+    }
+   ],
+   "emails": [
+    "stroysnami72@yandex.ru"
+   ],
+   "hours": [
+    "Пн–Вс: 9:00–19:00"
+   ],
+   "map": "189e54791032b9af53cbe515747d9ed288d436dd6914cbae44d2b242d9cd96b7",
+   "photos": [
+    "img/stores/f9d5db92df72.webp",
+    "img/stores/d5e2110cf94f.webp",
+    "img/stores/c2c2263efcf9.webp",
+    "img/stores/9141464b1931.webp",
+    "img/stores/fa689c06e463.webp",
+    "img/stores/663673d6e184.webp",
+    "img/stores/005478f3a731.webp",
+    "img/stores/9523562bd068.webp",
+    "img/stores/0855fc0750e4.webp"
+   ],
+   "ll": "65.55056,57.129953",
+   "mapImg": "img/stores/map-e6f47559bc.webp"
+  },
+  {
+   "city": "Челябинск",
+   "name": "Ателье паркета и дверей Le Pole",
+   "address": "ул. Труда, 174",
+   "where": "ЖК «Манхэттен»",
+   "phones": [
+    {
+     "text": "+7 (351) 223-83-70",
+     "tel": "+73512238370"
+    }
+   ],
+   "emails": [],
+   "hours": [
+    "Пн–Пт: 10:00–19:00",
+    "Сб: 11:00–18:00",
+    "Вс: выходной"
+   ],
+   "map": "f46eb7f0b677e7f0ae16b05267507df871bb42876ecf62e773a8138a9de46a84",
+   "photos": [
+    "img/stores/0fe571a3600d.webp",
+    "img/stores/e50672dcc068.webp",
+    "img/stores/8cefcfb6ad9c.webp",
+    "img/stores/567e3a802915.webp",
+    "img/stores/301c6c6ccb75.webp",
+    "img/stores/5e8b47283fc9.webp",
+    "img/stores/f66248f82924.webp",
+    "img/stores/3cae759bbc25.webp",
+    "img/stores/ba33fcc5fc1f.webp"
+   ],
+   "ll": "61.365696,55.171488",
+   "mapImg": "img/stores/map-4d098f5243.webp"
+  },
+  {
+   "city": "Челябинск",
+   "name": "Салон Rada doors",
+   "address": "ул. Российская, 142",
+   "where": "ТЦ Palazzo stile & decor",
+   "phones": [
+    {
+     "text": "+7 (958) 881-49-76",
+     "tel": "+79588814976"
+    },
+    {
+     "text": "+7 (904) 809-94-00",
+     "tel": "+79048099400"
+    }
+   ],
+   "emails": [],
+   "hours": [
+    "Пн–Пт: 10:00–20:00",
+    "Сб–Вс: 10:00–19:00"
+   ],
+   "map": "689cbf17de109ceba2da7506c88bba6e888320324180c9061eae969006f7bad1",
+   "photos": [
+    "img/stores/500362163de3.webp",
+    "img/stores/a612f6bdc505.webp"
+   ],
+   "ll": "61.415274,55.166207",
+   "mapImg": "img/stores/map-95c2f017a3.webp"
+  },
+  {
+   "city": "Уфа",
+   "name": "Салон Odin doors",
+   "address": "ул. Менделеева, 158",
+   "where": "ТЦ «ВДНХ»",
+   "phones": [
+    {
+     "text": "+7 (987) 137-05-49",
+     "tel": "+79871370549"
+    }
+   ],
+   "emails": [],
+   "hours": [
+    "Пн–Вс: 10:00–20:00"
+   ],
+   "map": "22af1af50630b63519bd1d8427c7a22e7dccf5d5d3a2c03080b8c7278281de90",
+   "photos": [
+    "img/stores/9b2153958269.webp",
+    "img/stores/b2a3b8bbba38.webp"
+   ],
+   "ll": "56.021178,54.724781",
+   "mapImg": "img/stores/map-9345d80350.webp"
+  },
+  {
+   "city": "Курган",
+   "name": "Стальная линия",
+   "address": "ул. Гоголя, 128",
+   "where": "",
+   "phones": [
+    {
+     "text": "+7 (3522) 63-01-43",
+     "tel": "+73522630143"
+    },
+    {
+     "text": "+7 (908) 007-22-29",
+     "tel": "+79080072229"
+    }
+   ],
+   "emails": [
+    "dekor-parket@mail.ru"
+   ],
+   "hours": [
+    "Пн–Пт: 10:00–19:00",
+    "Сб: 10:00–18:00",
+    "Вс: 10:00–17:00"
+   ],
+   "map": "46edf64b33efe374ac4b0c2cabdb02d11b7cf6214494e57d9c835da89fb37c99",
+   "photos": [
+    "img/stores/7c2b106490fa.webp",
+    "img/stores/1560868b9485.webp",
+    "img/stores/ce0677c11272.webp",
+    "img/stores/f40edaf03b46.webp",
+    "img/stores/99c534e92f03.webp"
+   ],
+   "ll": "65.368005,55.452012",
+   "mapImg": "img/stores/map-8f738d6221.webp"
+  },
+  {
+   "city": "Нижневартовск",
+   "name": "Стальная линия",
+   "address": "ул. Индустриальная, 46, стр. 1",
+   "where": "ИЦ «Новый Гулливер»",
+   "phones": [
+    {
+     "text": "+7 (922) 781-83-20",
+     "tel": "+79227818320"
+    }
+   ],
+   "emails": [],
+   "hours": [
+    "Пн–Вс: 10:00–19:00"
+   ],
+   "map": "9fa7a0a8d86afeab03c349707ddfd9db3f57b1ee6bb5179404d9b3270da2ffd8",
+   "photos": [
+    "img/stores/313f51b34ea3.webp",
+    "img/stores/16e878e3d86d.webp",
+    "img/stores/78f107a168b5.webp"
+   ],
+   "ll": "76.53277,60.961495",
+   "mapImg": "img/stores/map-0634f81c18.webp"
+  },
+  {
+   "city": "Нижневартовск",
+   "name": "Стальная линия",
+   "address": "ул. Индустриальная, 29, стр. 11",
+   "where": "ТЦ «Полигон»",
+   "phones": [
+    {
+     "text": "+7 (950) 514-12-29",
+     "tel": "+79505141229"
+    },
+    {
+     "text": "+7 (3466) 40-10-01",
+     "tel": "+73466401001"
+    },
+    {
+     "text": "+7 (3466) 40-70-05",
+     "tel": "+73466407005"
+    }
+   ],
+   "emails": [
+    "sdpoligon@mail.ru"
+   ],
+   "hours": [
+    "Пн–Вс: 9:00–18:00"
+   ],
+   "photos": [],
+   "ll": "76.52939,60.93525",
+   "mapImg": "img/stores/map-f1f9ca3931.webp"
+  },
+  {
+   "city": "Нижний Тагил",
+   "name": "Стальная линия",
+   "address": "пр. Мира, 34",
+   "where": "",
+   "phones": [
+    {
+     "text": "+7 (953) 606-90-93",
+     "tel": "+79536069093"
+    }
+   ],
+   "emails": [
+    "nt-dveri-ggm@yandex.ru"
+   ],
+   "hours": [
+    "Пн–Вс: 10:00–19:00"
+   ],
+   "map": "a5f476648ce3e9e4e91192fe6b2da4b4defe01afebf35948083d22e57cc66c63",
+   "photos": [
+    "img/stores/225825ef0730.webp",
+    "img/stores/9e7d873ddb64.webp",
+    "img/stores/5936217ff3e8.webp",
+    "img/stores/90329345c270.webp"
+   ],
+   "ll": "59.979999,57.913601",
+   "mapImg": "img/stores/map-cbb71768af.webp"
+  },
+  {
+   "city": "Миасс",
+   "name": "Стальная линия",
+   "address": "пр. Автозаводцев, 20",
+   "where": "",
+   "phones": [
+    {
+     "text": "+7 (3513) 555-666",
+     "tel": "+73513555666"
+    },
+    {
+     "text": "+7 (919) 314-53-33",
+     "tel": "+79193145333"
+    }
+   ],
+   "emails": [],
+   "hours": [
+    "Пн–Пт: 10:00–19:00",
+    "Сб–Вс: 10:00–15:00"
+   ],
+   "map": "1625bcd8a099dcf08abf055dcc1f1c221563c46543c2e7f2de3b4e28f32f5a88",
+   "photos": [
+    "img/stores/568b8bcc7f90.webp"
+   ],
+   "ll": "60.107138,55.058858",
+   "mapImg": "img/stores/map-84e9e39635.webp"
+  },
+  {
+   "city": "Лангепас",
+   "name": "Стальная линия",
+   "address": "ул. Мира, 4",
+   "where": "ТЦ «Борислава»",
+   "phones": [
+    {
+     "text": "+7 (34669) 5-08-67",
+     "tel": "+73466950867"
+    }
+   ],
+   "emails": [],
+   "hours": [
+    "Пн–Пт: 10:00–18:00",
+    "Сб–Вс: выходной"
+   ],
+   "map": "0d655ebf52880c684767eeb6f64a8c5fbc2bbf2f3b25f44f56de61561ac06a0b",
+   "photos": [
+    "img/stores/3a70800e1dc7.webp"
+   ],
+   "ll": "75.178236,61.24631",
+   "mapImg": "img/stores/map-011d3e5934.webp"
+  },
+  {
+   "city": "Каменск-Уральский",
+   "name": "Стальная линия",
+   "address": "ул. 4-й Пятилетки, 45",
+   "where": "ТЦ «Лео»",
+   "phones": [
+    {
+     "text": "+7 (3439) 36-99-90",
+     "tel": "+73439369990"
+    }
+   ],
+   "emails": [
+    "dvernisag-ku@mail.ru"
+   ],
+   "hours": [
+    "Пн–Вс: 10:00–20:00"
+   ],
+   "map": "3b89eecd30f066b3a6f8620b9a2e3320a1109178e8be79f29ead7a99acc5c542",
+   "photos": [
+    "img/stores/f01f07d167ac.webp",
+    "img/stores/550e64705340.webp"
+   ],
+   "ll": "61.928454,56.39316",
+   "mapImg": "img/stores/map-a77868588a.webp"
+  },
+  {
+   "city": "Серов",
+   "name": "Салон дверей «Триумф»",
+   "address": "ул. Ленина, 151",
+   "where": "",
+   "phones": [
+    {
+     "text": "+7 (992) 022-84-14",
+     "tel": "+79920228414"
+    },
+    {
+     "text": "+7 (952) 147-04-50",
+     "tel": "+79521470450"
+    }
+   ],
+   "emails": [
+    "triumfserov@mail.ru"
+   ],
+   "hours": [
+    "Пн–Вс: 10:00–18:00"
+   ],
+   "map": "e703380503dfb866ba1821540bf27b8403a7b8ec7ef5adad036f1af83453bb41",
+   "photos": [
+    "img/stores/1ab4a52c9370.webp",
+    "img/stores/fbc1717308cc.webp",
+    "img/stores/84c219f8bb26.webp"
+   ],
+   "ll": "60.570256,59.605236",
+   "mapImg": "img/stores/map-ba68682c4d.webp"
+  },
+  {
+   "city": "Новый Уренгой",
+   "name": "Стальная линия",
+   "address": "мкр. Энтузиастов, 1",
+   "where": "",
+   "phones": [
+    {
+     "text": "+7 (932) 096-87-67",
+     "tel": "+79320968767"
+    },
+    {
+     "text": "+7 (932) 056-51-54",
+     "tel": "+79320565154"
+    }
+   ],
+   "emails": [
+    "221061@list.ru"
+   ],
+   "hours": [
+    "Пн–Пт: 10:00–19:00",
+    "Сб–Вс: 10:00–18:00"
+   ],
+   "map": "0c266d268c6301fbc011c565afa00887493fa3d5422f45efdac20f3f4766d6b5",
+   "photos": [
+    "img/stores/7c32e667c01d.webp",
+    "img/stores/73b971f581dc.webp"
+   ],
+   "ll": "76.666152,66.083088",
+   "mapImg": "img/stores/map-5dc2a531d8.webp"
+  },
+  {
+   "city": "Югорск",
+   "name": "Стальная линия",
+   "address": "ул. Попова, 2В",
+   "where": "ТД «Светлячок», центральное крыльцо",
+   "phones": [
+    {
+     "text": "+7 (922) 444-44-34",
+     "tel": "+79224444434"
+    },
+    {
+     "text": "+7 (922) 188-88-43",
+     "tel": "+79221888843"
+    }
+   ],
+   "emails": [
+    "dveri-yugorsk@mail.ru"
+   ],
+   "hours": [
+    "Пн–Вс: 11:00–19:00"
+   ],
+   "map": "bbb7010b2fddb5ffc63b9947d41c25ad7470c35a4b6d8c7f3c01b142cc6b6c74",
+   "photos": [
+    "img/stores/ecf2fd33c0cb.webp",
+    "img/stores/452f7ad703fa.webp"
+   ],
+   "ll": "63.309614,61.311276",
+   "mapImg": "img/stores/map-90383f8aea.webp"
+  }
+ ]
+}
