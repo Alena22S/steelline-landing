@@ -312,4 +312,4 @@ stores_main = '''  <main class="port shops" id="shops">
     </dialog>
   </main>'''
 
-open(os.path.join(OUT, 'stores.html'), 'w', encoding='utf-8').write(page('Наши магазины — Стальная линия', 'page-portfolio page-stores', stores_main, ('stores.js?v=11',)))
+open(os.path.join(OUT, 'stores.html'), 'w', encoding='utf-8').write(page('Наши магазины — Стальная линия', 'page-portfolio page-stores', stores_main, ('stores.js?v=12',)))

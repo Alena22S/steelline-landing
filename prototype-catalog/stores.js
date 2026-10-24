@@ -8,7 +8,7 @@
     return many;
   }
 
-  fetch('data/stores.json?v=4').then(function (r) { return r.json(); }).then(init);
+  fetch('data/stores.json?v=5').then(function (r) { return r.json(); }).then(init);
 
   function init(data) {
     var all = data.stores;
