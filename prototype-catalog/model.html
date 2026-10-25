@@ -112,6 +112,27 @@
         else if (href.indexOf('yandex.ru/maps') !== -1) window.siteGoal('route_click');
         else if (href.indexOf('steelline.store/catalog') !== -1) window.siteGoal('catalog_click');
       });
+
+      // Вовлечённость: 30 и 60 секунд на странице (только пока вкладка открыта перед глазами) и прокрутка до середины.
+      // Без Вебвизора Метрика видит лишь первые 15 секунд — каждая цель добавляет сигнал, и время визита ближе к реальному;
+      // для рекламы VK это частое «качественное» событие, на которое можно оптимизировать кампанию, пока заявок мало.
+      var active = 0, last = Date.now(), sent = {};
+      function once(name) { if (!sent[name]) { sent[name] = 1; window.siteGoal(name); } }
+      setInterval(function () {
+        var now = Date.now();
+        if (document.visibilityState === 'visible') active += now - last;
+        last = now;
+        if (active >= 30000) once('engaged_30s');
+        if (active >= 60000) once('engaged_60s');
+      }, 1000);
+      // вернулся на вкладку — время, пока она была скрыта, не считаем
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') last = Date.now();
+      });
+      window.addEventListener('scroll', function () {
+        var d = document.documentElement;
+        if (d.scrollHeight > window.innerHeight * 1.5 && window.scrollY + window.innerHeight >= d.scrollHeight / 2) once('scroll_50');
+      }, { passive: true });
     })();
   </script>
   <link rel="stylesheet" href="catalog.css?v=62">
