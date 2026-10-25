@@ -262,7 +262,9 @@ address { font-style: normal; }
   font-size: 14px;
   color: var(--c-navy);
   white-space: nowrap;
+  transition: color 0.2s;
 }
+a.header__address:hover { color: var(--c-blue); }
 .header__burger { display: none; }
 
 .header__facts {
