@@ -46,7 +46,7 @@ def page(title, body_class, main, scripts=('catalog.js?v=35',)):
     h = re.sub(r'\s*<meta name="yandex-verification"[^>]*>', '', h)
     h = h.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
                   '<meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="robots" content="noindex, nofollow">', 1)
-    h += '  <link rel="stylesheet" href="catalog.css?v=62">\n</head>\n'
+    h += '  <link rel="stylesheet" href="catalog.css?v=67">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(bonus) + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
@@ -313,3 +313,135 @@ stores_main = '''  <main class="port shops" id="shops">
   </main>'''
 
 open(os.path.join(OUT, 'stores.html'), 'w', encoding='utf-8').write(page('Наши магазины — Стальная линия', 'page-portfolio page-stores', stores_main, ('stores.js?v=13',)))
+
+
+# ---------- Гид по продукту (перенос steelline.store/gid) ----------
+# Ролики и обложки — те же, что в окне «Видеообзоры» на главной; видео о фабрике и технологии — data/gid.json (catalog-source/gid.py)
+import html as _html
+_gid = _json('gid.json')
+_ids = {p['title']: p['id'] for p in _entry['products'] if p.get('cats') and p['cats'][0].startswith('dom/')}
+player = part('<dialog class="player" id="player"', '</dialog>')
+
+
+def _reels(group_title):
+    i = src.index('<h3 class="reels__group-title">%s</h3>' % group_title.replace(' ', '\xa0'))
+    j = src.index('</section>', i)
+    cards = re.findall(r'<article class="video-card">.*?</article>', src[i:j], re.S)
+    out = []
+    for c in cards:
+        c = c.replace('<h4 class="video-card__title">', '<h3 class="video-card__title">').replace('</h4>', '</h3>')
+        m = re.search(r'«([^»]+)»', c)
+        # «Модель в каталоге» — для обзоров моделей; второй ролик «Сага» на старом сайте подписан так же, ссылку даём обоим
+        if m and m.group(1) in _ids:
+            c = c.replace('</article>', '  <a class="gid-reel__link" href="model.html?id=%s">Модель в каталоге</a>\n          </article>' % _ids[m.group(1)])
+        out.append(c)
+    # пути лендинга → из папки прототипа (у роликов ещё и data-video)
+    return fix('\n          '.join(out)).replace('data-video="assets/', 'data-video="../assets/')
+
+
+def _dur(sec):
+    return '%d:%02d' % (sec // 60, sec % 60)
+
+
+def _rt(v, big=False):
+    return ('<article class="rt-card%s">' % (' rt-card--big' if big else '') +
+            '<button type="button" class="rt-card__media" data-rutube="%s" aria-label="Смотреть видео: %s">' % (v['id'], _html.escape(v['title'])) +
+            '<img src="%s" alt="" loading="lazy" decoding="async">' % v['poster'] +
+            '<span class="rt-card__play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span>' +
+            '<span class="video-card__badge rt-card__dur">%s</span></button>' % _dur(v['duration']) +
+            '<h3 class="rt-card__title">%s</h3></article>' % _html.escape(v['title']))
+
+
+def _tech_card(t, i):
+    return ('<button type="button" class="tech-card" data-tech="%d">' % i +
+            '<span class="tech-card__media"><img src="%s" alt="" loading="lazy" decoding="async"></span>' % t['img'] +
+            '<span class="tech-card__title">%s</span>' % _html.escape(t['title']) +
+            '<span class="tech-card__lead">%s</span></button>' % _html.escape(t['lead']))
+
+
+_v = _gid['videos']
+gid_main = '''  <main class="port gid" id="gid">
+    <div class="wrap">
+      <nav class="crumbs port-crumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>/</span><a href="catalog.html">Каталог</a><span>/</span><span>Гид по продукту</span></nav>
+      <h1 class="cat__title port-title gid-title">Гид по продукту</h1>
+      <p class="cat__lead port-lead">Всё, что стоит знать перед выбором двери: обзоры моделей, ответы на частые вопросы и&nbsp;технологии фабрики.</p>
+      <nav class="gid-nav" aria-label="Разделы гида">
+        <a class="cat-tab" href="#factory">О фабрике</a>
+        <a class="cat-tab" href="#models">Обзоры моделей</a>
+        <a class="cat-tab" href="#faq">Вопросы и ответы</a>
+        <a class="cat-tab" href="#tech">Технологии и отделка</a>
+      </nav>
+    </div>
+
+    <section class="gid-sec wrap" id="factory" aria-labelledby="factory-title">
+      <h2 class="gid-sec__title" id="factory-title">О фабрике</h2>
+      <div class="gid-factory">
+        ''' + _rt(_v[0], True) + '''
+        <div class="gid-factory__side">
+          ''' + '\n          '.join(_rt(v) for v in _v[1:]) + '''
+        </div>
+      </div>
+    </section>
+
+    <section class="gid-sec wrap" id="models" aria-labelledby="models-title">
+      <div class="gid-sec__head">
+        <h2 class="gid-sec__title" id="models-title">Обзоры моделей</h2>
+        <p class="gid-sec__lead">Можно выбрать готовое решение из&nbsp;каталога или собрать своё: отделку, фрезеровку, цвет двери и&nbsp;коробки, фурнитуру и&nbsp;декор. Изготовим практически любой размер.</p>
+      </div>
+      <div class="gid-reels gid-reels--track" data-drag>
+          ''' + _reels('Обзоры моделей') + '''
+      </div>
+    </section>
+
+    <section class="gid-sec wrap" id="faq" aria-labelledby="faq-title">
+      <div class="gid-sec__head">
+        <h2 class="gid-sec__title" id="faq-title">Вопросы и ответы</h2>
+        <p class="gid-sec__lead">Короткие ролики из&nbsp;салона: отвечаем на&nbsp;то, о&nbsp;чём спрашивают чаще всего.</p>
+      </div>
+      <div class="gid-reels gid-reels--track" data-drag>
+          ''' + _reels('Полезная информация') + '''
+      </div>
+    </section>
+
+    <section class="gid-sec wrap" id="tech" aria-labelledby="tech-title">
+      <div class="gid-sec__head">
+        <h2 class="gid-sec__title" id="tech-title">Технологии и&nbsp;отделка</h2>
+        <p class="gid-sec__lead">Фирменные покрытия, панели из&nbsp;дерева, окна, витражи и&nbsp;индивидуальные решения фабрики «Стальная линия».</p>
+      </div>
+      <div class="tech-grid">
+        ''' + '\n        '.join(_tech_card(t, i) for i, t in enumerate(_gid['tech'])) + '''
+        <a class="tech-card tech-card--cta" href="#" data-open-form="gid-tech">
+          <span class="tech-card__title">Не нашли нужное?</span>
+          <span class="tech-card__lead">Расскажите, какую дверь хотите&nbsp;— подберём отделку и&nbsp;рассчитаем стоимость.</span>
+          <span class="tech-card__go">Записаться на подбор <img src="../assets/icons/arrow-right-white-2.svg" width="20" height="20" alt=""></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="cat-cta wrap">
+      <div class="cat-cta__text">
+        <h2 class="cat-cta__title">Не знаете, что выбрать?</h2>
+        <p class="cat-cta__lead">Пришлите фото проёма&nbsp;— подберём модель и&nbsp;отделку, рассчитаем стоимость и&nbsp;установим. Гарантия на&nbsp;монтаж 2&nbsp;года.</p>
+      </div>
+      <a class="btn btn--gradient btn--lg" href="#" data-open-form="gid-cta">Записаться на подбор <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+    </section>
+
+    <dialog class="tech-view js-tech-view" aria-labelledby="tech-view-title">
+      <button class="port-view__close js-tv-close" type="button" aria-label="Закрыть"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      <div class="tech-view__media"><img class="js-tv-img" alt=""></div>
+      <div class="tech-view__body">
+        <h2 class="tech-view__title js-tv-title" id="tech-view-title"></h2>
+        <p class="tech-view__lead js-tv-lead"></p>
+        <dl class="tech-view__points js-tv-points"></dl>
+        <div class="tech-view__nav">
+          <button type="button" class="btn btn--outline js-tv-prev">Назад</button>
+          <button type="button" class="btn btn--outline js-tv-next">Дальше</button>
+        </div>
+      </div>
+    </dialog>
+    <script type="application/json" id="tech-data">''' + json.dumps(_gid['tech'], ensure_ascii=False).replace('</', '<\\/') + '''</script>
+  </main>
+
+  ''' + fix(player)
+
+open(os.path.join(OUT, 'gid.html'), 'w', encoding='utf-8').write(page('Гид по продукту — Стальная линия', 'page-portfolio page-gid', gid_main, ('gid.js?v=1',)))

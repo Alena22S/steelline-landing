@@ -1,0 +1,655 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Гид по продукту — Стальная линия</title>
+  <meta name="description" content="Входные двери «Стальная линия» — эксклюзивно на Урале. Индивидуальный дизайн, двери с терморазрывом, нестандартные входные группы. Екатеринбург, ИЦ Аструм.">
+  <link rel="icon" href="../favicon.ico" sizes="16x16">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../assets/icons/favicon-96.png">
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=88">
+  <script>
+    /* ---------- Яндекс Метрика и пиксель VK Ads: подключаются сразу (уведомление о cookie — информационное).
+       Не подключаются, только если посетитель нажал «Отказаться» (в хранилище — 'necessary'). ---------- */
+    (function () {
+      var ID = 113661573;      // Яндекс Метрика
+      // отдельный счётчик «межком на сайте СЛ» — только на страницах межкомнатных дверей (раздел каталога и модели Aurum)
+      var ID_INTERIOR = 113740896;
+      var isInteriorPage = /\/prototype-catalog\/catalog\.html$/.test(location.pathname) && /[?&]cat=mezhkom(%2F|\/|&|$)/.test(location.search) ||
+        /\/prototype-catalog\/model\.html$/.test(location.pathname) && /[?&]id=au-/.test(location.search);
+      window.siteIsInterior = isInteriorPage; // формам: на межкомнатных скидку 20% не обещаем
+      var VK_ID = '3805477';   // пиксель VK Ads (Top.Mail.Ru)
+      var VK_ID_INTERIOR = '3807732'; // отдельный пиксель VK — только на страницах межкомнатных дверей
+      var loaded = false;
+      var vkLoaded = false;
+
+      // Цели: window.siteGoal('lead_success') — безопасно вызывать всегда; после отказа ничего не отправляется
+      window.siteGoal = function (name, params) {
+        if (loaded && typeof window.ym === 'function') {
+          window.ym(ID, 'reachGoal', name, params || {});
+          if (isInteriorPage) window.ym(ID_INTERIOR, 'reachGoal', name, params || {});
+        }
+        if (vkLoaded) {
+          window._tmr.push({ type: 'reachGoal', id: VK_ID, goal: name });
+          if (isInteriorPage) window._tmr.push({ type: 'reachGoal', id: VK_ID_INTERIOR, goal: name });
+        }
+      };
+
+      function loadVk() {
+        if (vkLoaded) return;
+        vkLoaded = true;
+        var _tmr = window._tmr || (window._tmr = []);
+        _tmr.push({ id: VK_ID, type: 'pageView', start: Date.now() });
+        if (isInteriorPage) _tmr.push({ id: VK_ID_INTERIOR, type: 'pageView', start: Date.now() });
+        if (document.getElementById('tmr-code')) return;
+        var ts = document.createElement('script');
+        ts.async = true; ts.id = 'tmr-code'; ts.src = 'https://top-fwz1.mail.ru/js/code.js';
+        var first = document.getElementsByTagName('script')[0];
+        first.parentNode.insertBefore(ts, first);
+      }
+
+      function load() {
+        if (loaded) return;
+        loaded = true;
+        (function (m, e, t, r, i, k, a) {
+          m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
+          m[i].l = 1 * new Date();
+          k = e.createElement(t); a = e.getElementsByTagName(t)[0];
+          k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + ID, 'ym');
+        // Вебвизор (запись действий на странице) — только после «Хорошо»; до этого Метрика считает визиты, источники и цели без записи
+        var opts = { webvisor: saved === 'all' || inMetrika, clickmap: true, accurateTrackBounce: true, trackLinks: true };
+        window.ym(ID, 'init', opts);
+        if (isInteriorPage) window.ym(ID_INTERIOR, 'init', opts);
+      }
+
+      var saved = null;
+      try { saved = localStorage.getItem('cookie-consent'); } catch (e) {}
+
+      // Сайт открыт внутри инструментов самой Метрики (карта кликов, аналитика форм, Вебвизор) —
+      // это смотрит владелец сайта, а не посетитель: подключаем счётчик и не показываем уведомление о cookie
+      var inMetrika = false;
+      try {
+        var anc = location.ancestorOrigins;
+        inMetrika = window.self !== window.top && (
+          /metrika\.yandex|webvisor\.com|metrica\.yandex/.test(document.referrer) ||
+          (anc && anc.length && /metrika\.yandex|webvisor\.com|metrica\.yandex/.test(anc[anc.length - 1]))
+        );
+      } catch (e) {}
+      if (inMetrika) {
+        document.documentElement.classList.add('in-metrika');
+        load();
+      } else if (saved !== 'necessary') {
+        load();
+        loadVk();
+      }
+      // «Отказаться»: дальше не считаем, удаляем cookie Метрики; со следующей страницы счётчики не подключаются
+      document.addEventListener('cookie-consent', function (e) {
+        if (e.detail !== 'necessary') return;
+        loaded = false; vkLoaded = false;
+        document.cookie.split(';').forEach(function (c) {
+          var name = c.split('=')[0].trim();
+          if (/^_ym|^yandexuid|^tmr_/.test(name)) {
+            document.cookie = name + '=; Max-Age=0; path=/';
+            document.cookie = name + '=; Max-Age=0; path=/; domain=.' + location.hostname.replace(/^www\./, '');
+          }
+        });
+      });
+
+      // Клики-цели по всему сайту
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href');
+        if (href.indexOf('tel:') === 0) window.siteGoal('phone_click');
+        else if (href.indexOf('mailto:') === 0) window.siteGoal('email_click');
+        else if (href.indexOf('yandex.ru/maps') !== -1) window.siteGoal('route_click');
+        else if (href.indexOf('steelline.store/catalog') !== -1) window.siteGoal('catalog_click');
+      });
+
+      // Вовлечённость: 30 и 60 секунд на странице (только пока вкладка открыта перед глазами) и прокрутка до середины.
+      // Без Вебвизора Метрика видит лишь первые 15 секунд — каждая цель добавляет сигнал, и время визита ближе к реальному;
+      // для рекламы VK это частое «качественное» событие, на которое можно оптимизировать кампанию, пока заявок мало.
+      var active = 0, last = Date.now(), sent = {};
+      function once(name) { if (!sent[name]) { sent[name] = 1; window.siteGoal(name); } }
+      setInterval(function () {
+        var now = Date.now();
+        if (document.visibilityState === 'visible') active += now - last;
+        last = now;
+        if (active >= 30000) once('engaged_30s');
+        if (active >= 60000) once('engaged_60s');
+      }, 1000);
+      // вернулся на вкладку — время, пока она была скрыта, не считаем
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') last = Date.now();
+      });
+      window.addEventListener('scroll', function () {
+        var d = document.documentElement;
+        if (d.scrollHeight > window.innerHeight * 1.5 && window.scrollY + window.innerHeight >= d.scrollHeight / 2) once('scroll_50');
+      }, { passive: true });
+    })();
+  </script>
+  <link rel="stylesheet" href="catalog.css?v=67">
+</head>
+<body class="page-portfolio page-gid">
+
+  <header class="header" id="top">
+    <div class="header__main">
+      <a class="header__logo" href="../" aria-label="Стальная линия — на главную">
+        <img class="header__logo-desktop" src="../assets/icons/logo.svg" width="246.5" height="43.2242" alt="Стальная линия — двери в квартиру и дом">
+        <img class="header__logo-mobile" src="../assets/icons/logo-mobile.svg" width="179.273" height="31.4358" alt="Стальная линия — двери в квартиру и дом">
+      </a>
+      <nav class="header__nav" id="site-nav" aria-label="Основная навигация">
+        <div class="nav-dd">
+          <a class="nav-dd__toggle" href="catalog.html" aria-haspopup="true">Каталог</a>
+          <div class="nav-dd__menu">
+            <div class="nav-dd__list">
+              <a href="catalog.html">Входные двери</a>
+              <a href="catalog.html?cat=mezhkom">Межкомнатные двери</a>
+              <a href="portfolio.html">Наши работы</a>
+              <a href="gid.html">Гид по продукту</a>
+            </div>
+          </div>
+        </div>
+        <a href="../#reviews">Обзор дверей</a>
+        <a href="../#custom">Двери на заказ</a>
+        <a href="../#tech">Технологии</a>
+        <div class="nav-dd">
+          <a class="nav-dd__toggle" href="#footer" aria-haspopup="true">Контакты</a>
+          <div class="nav-dd__menu">
+            <div class="nav-dd__list">
+              <a href="stores.html">Наши магазины</a>
+              <a href="#footer">Контакты</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <a class="header__address" href="stores.html" title="Наши магазины">
+        <img src="../assets/icons/map-pin.svg" width="16" height="16" alt="">
+        <span>Екатеринбург, ИЦ Аструм</span>
+      </a>
+      <a class="btn btn--gradient header__cta" href="../#contacts" data-open-form="header">Подобрать дверь</a>
+      <button class="header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-nav">
+        <img src="../assets/icons/menu.svg" width="25" height="24" alt="">
+      </button>
+    </div>
+    <div class="header__facts">
+      <div class="fact"><img src="../assets/icons/badge-30.svg" width="24" height="24" alt="30"><span>Лет производства</span></div>
+      <div class="fact"><img src="../assets/icons/badge-2.svg" width="24" height="24" alt="2"><span>Года гарантии</span></div>
+      <div class="fact"><img src="../assets/icons/badge-20.svg" width="24" height="24" alt="20"><span>стран присутствия</span></div>
+    </div>
+  </header>
+
+  <main class="port gid" id="gid">
+    <div class="wrap">
+      <nav class="crumbs port-crumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>/</span><a href="catalog.html">Каталог</a><span>/</span><span>Гид по продукту</span></nav>
+      <h1 class="cat__title port-title gid-title">Гид по продукту</h1>
+      <p class="cat__lead port-lead">Всё, что стоит знать перед выбором двери: обзоры моделей, ответы на частые вопросы и&nbsp;технологии фабрики.</p>
+      <nav class="gid-nav" aria-label="Разделы гида">
+        <a class="cat-tab" href="#factory">О фабрике</a>
+        <a class="cat-tab" href="#models">Обзоры моделей</a>
+        <a class="cat-tab" href="#faq">Вопросы и ответы</a>
+        <a class="cat-tab" href="#tech">Технологии и отделка</a>
+      </nav>
+    </div>
+
+    <section class="gid-sec wrap" id="factory" aria-labelledby="factory-title">
+      <h2 class="gid-sec__title" id="factory-title">О фабрике</h2>
+      <div class="gid-factory">
+        <article class="rt-card rt-card--big"><button type="button" class="rt-card__media" data-rutube="429ebc472ec04fb22fdc80aa5baac30e" aria-label="Смотреть видео: О фабрике «Стальная линия»"><img src="img/gid/rt-1.webp" alt="" loading="lazy" decoding="async"><span class="rt-card__play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span><span class="video-card__badge rt-card__dur">1:26</span></button><h3 class="rt-card__title">О фабрике «Стальная линия»</h3></article>
+        <div class="gid-factory__side">
+          <article class="rt-card"><button type="button" class="rt-card__media" data-rutube="4237e084b9ba52e359327cbe76ee082d" aria-label="Смотреть видео: Краш-тест: дверь против 20-тонного самосвала"><img src="img/gid/rt-2.webp" alt="" loading="lazy" decoding="async"><span class="rt-card__play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span><span class="video-card__badge rt-card__dur">3:32</span></button><h3 class="rt-card__title">Краш-тест: дверь против 20-тонного самосвала</h3></article>
+          <article class="rt-card"><button type="button" class="rt-card__media" data-rutube="fddc45b90fc6155c013df511d657df0a" aria-label="Смотреть видео: О производстве дверей — программа «Наш ремонт»"><img src="img/gid/rt-3.webp" alt="" loading="lazy" decoding="async"><span class="rt-card__play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span><span class="video-card__badge rt-card__dur">3:04</span></button><h3 class="rt-card__title">О производстве дверей — программа «Наш ремонт»</h3></article>
+          <article class="rt-card"><button type="button" class="rt-card__media" data-rutube="07a095e957aa52ece9e6ea21749fa3e6" aria-label="Смотреть видео: Отзыв владельца двери «Лира»"><img src="img/gid/rt-4.webp" alt="" loading="lazy" decoding="async"><span class="rt-card__play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5-11-6.5Z"/></svg></span><span class="video-card__badge rt-card__dur">1:42</span></button><h3 class="rt-card__title">Отзыв владельца двери «Лира»</h3></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="gid-sec wrap" id="models" aria-labelledby="models-title">
+      <div class="gid-sec__head">
+        <h2 class="gid-sec__title" id="models-title">Обзоры моделей</h2>
+        <p class="gid-sec__lead">Можно выбрать готовое решение из&nbsp;каталога или собрать своё: отделку, фрезеровку, цвет двери и&nbsp;коробки, фурнитуру и&nbsp;декор. Изготовим практически любой размер.</p>
+      </div>
+      <div class="gid-reels gid-reels--track" data-drag>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-1.mp4" aria-label="Смотреть видео: Дверь для дома «Рапсодия»">
+              <img src="../assets/img/obzor/poster-1.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:27</span>
+            </button>
+            <h3 class="video-card__title">Дверь для дома «Рапсодия»</h3>
+            <a class="gid-reel__link" href="model.html?id=669247072982">Модель в каталоге</a>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-2.mp4" aria-label="Смотреть видео: Дверь для дома «Лира»">
+              <img src="../assets/img/obzor/poster-2.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:44</span>
+            </button>
+            <h3 class="video-card__title">Дверь для дома «Лира»</h3>
+            <a class="gid-reel__link" href="model.html?id=690857140514">Модель в каталоге</a>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-3.mp4" aria-label="Смотреть видео: Дверь для дома «Сага»">
+              <img src="../assets/img/obzor/poster-3.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:28</span>
+            </button>
+            <h3 class="video-card__title">Дверь для дома «Сага»</h3>
+            <a class="gid-reel__link" href="model.html?id=715888846891">Модель в каталоге</a>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-4.mp4" aria-label="Смотреть видео: Дверь для дома «Монарх»">
+              <img src="../assets/img/obzor/poster-4.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:10</span>
+            </button>
+            <h3 class="video-card__title">Дверь для дома «Монарх»</h3>
+            <a class="gid-reel__link" href="model.html?id=885997904470">Модель в каталоге</a>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-5.mp4" aria-label="Смотреть видео: Дверь для дома «Лаврик»">
+              <img src="../assets/img/obzor/poster-5.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:42</span>
+            </button>
+            <h3 class="video-card__title">Дверь для дома «Лаврик»</h3>
+            <a class="gid-reel__link" href="model.html?id=111308003601">Модель в каталоге</a>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-6.mp4" aria-label="Смотреть видео: Дверь для дома «Инта»">
+              <img src="../assets/img/obzor/poster-6.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:15</span>
+            </button>
+            <h3 class="video-card__title">Дверь для дома «Инта»</h3>
+            <a class="gid-reel__link" href="model.html?id=719720071801">Модель в каталоге</a>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/review-3.mp4" aria-label="Смотреть видео: Дверь для дома «Бремен»">
+              <img src="../assets/img/obzor/poster-7.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:24</span>
+            </button>
+            <h3 class="video-card__title">Дверь для дома «Бремен»</h3>
+            <a class="gid-reel__link" href="model.html?id=693236489831">Модель в каталоге</a>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-8.mp4" aria-label="Смотреть видео: Дверь в квартиру «Бореалис»">
+              <img src="../assets/img/obzor/poster-8.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:22</span>
+            </button>
+            <h3 class="video-card__title">Дверь в квартиру «Бореалис»</h3>
+            <a class="gid-reel__link" href="model.html?id=569161028601">Модель в каталоге</a>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-9.mp4" aria-label="Смотреть видео: Дверь для дома «Сага»">
+              <img src="../assets/img/obzor/poster-9.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:40</span>
+            </button>
+            <h3 class="video-card__title">Дверь для дома «Сага»</h3>
+            <a class="gid-reel__link" href="model.html?id=715888846891">Модель в каталоге</a>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-10.mp4" aria-label="Смотреть видео: Дверь для дома «Астар»">
+              <img src="../assets/img/obzor/poster-10.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:18</span>
+            </button>
+            <h3 class="video-card__title">Дверь для дома «Астар»</h3>
+            <a class="gid-reel__link" href="model.html?id=373826863851">Модель в каталоге</a>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-11.mp4" aria-label="Смотреть видео: Дверь для дома «Пиктор»">
+              <img src="../assets/img/obzor/poster-11.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:07</span>
+            </button>
+            <h3 class="video-card__title">Дверь для дома «Пиктор»</h3>
+            <a class="gid-reel__link" href="model.html?id=365283486141">Модель в каталоге</a>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-12.mp4" aria-label="Смотреть видео: Дверь для дома «Мельбурн»">
+              <img src="../assets/img/obzor/poster-12.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:04</span>
+            </button>
+            <h3 class="video-card__title">Дверь для дома «Мельбурн»</h3>
+            <a class="gid-reel__link" href="model.html?id=644465989481">Модель в каталоге</a>
+          </article>
+      </div>
+    </section>
+
+    <section class="gid-sec wrap" id="faq" aria-labelledby="faq-title">
+      <div class="gid-sec__head">
+        <h2 class="gid-sec__title" id="faq-title">Вопросы и ответы</h2>
+        <p class="gid-sec__lead">Короткие ролики из&nbsp;салона: отвечаем на&nbsp;то, о&nbsp;чём спрашивают чаще всего.</p>
+      </div>
+      <div class="gid-reels gid-reels--track" data-drag>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/review-2.mp4" aria-label="Смотреть видео: Чем отличаются двери в дом от дверей в квартиру?">
+              <img src="../assets/img/obzor/poster-13.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:28</span>
+            </button>
+            <h3 class="video-card__title">Чем отличаются двери в дом от дверей в квартиру?</h3>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/review-4.mp4" aria-label="Смотреть видео: Двери с фальш-панелями">
+              <img src="../assets/img/obzor/poster-14.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:18</span>
+            </button>
+            <h3 class="video-card__title">Двери с фальш-панелями</h3>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/review-1.mp4" aria-label="Смотреть видео: Двери с рейлингами">
+              <img src="../assets/img/obzor/poster-15.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:45</span>
+            </button>
+            <h3 class="video-card__title">Двери с рейлингами</h3>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-16.mp4" aria-label="Смотреть видео: Почему так дорого?">
+              <img src="../assets/img/obzor/poster-16.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:37</span>
+            </button>
+            <h3 class="video-card__title">Почему так дорого?</h3>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-17.mp4" aria-label="Смотреть видео: Отделка из натурального дерева">
+              <img src="../assets/img/obzor/poster-17.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:28</span>
+            </button>
+            <h3 class="video-card__title">Отделка из натурального дерева</h3>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-18.mp4" aria-label="Смотреть видео: Сроки изготовления">
+              <img src="../assets/img/obzor/poster-18.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:55</span>
+            </button>
+            <h3 class="video-card__title">Сроки изготовления</h3>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-19.mp4" aria-label="Смотреть видео: Зачем в двери 2 замка?">
+              <img src="../assets/img/obzor/poster-19.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:15</span>
+            </button>
+            <h3 class="video-card__title">Зачем в двери 2 замка?</h3>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-20.mp4" aria-label="Смотреть видео: ТОП-3 модели дверей в дом">
+              <img src="../assets/img/obzor/poster-20.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">1:15</span>
+            </button>
+            <h3 class="video-card__title">ТОП-3 модели дверей в дом</h3>
+          </article>
+      </div>
+    </section>
+
+    <section class="gid-sec wrap" id="tech" aria-labelledby="tech-title">
+      <div class="gid-sec__head">
+        <h2 class="gid-sec__title" id="tech-title">Технологии и&nbsp;отделка</h2>
+        <p class="gid-sec__lead">Фирменные покрытия, панели из&nbsp;дерева, окна, витражи и&nbsp;индивидуальные решения фабрики «Стальная линия».</p>
+      </div>
+      <div class="tech-grid">
+        <button type="button" class="tech-card" data-tech="0"><span class="tech-card__media"><img src="img/gid/tech-wood.webp" alt="" loading="lazy" decoding="async"></span><span class="tech-card__title">Панели из дерева: Concord, Bjork и Oak</span><span class="tech-card__lead">Декоративные панели из натурального дерева: три вида с разным рисунком и назначением.</span></button>
+        <button type="button" class="tech-card" data-tech="1"><span class="tech-card__media"><img src="img/gid/tech-steellak.webp" alt="" loading="lazy" decoding="async"></span><span class="tech-card__title">Покрытие SteelLak</span><span class="tech-card__lead">Фирменная 7-ступенчатая технология окраски панелей: водонепроницаемый «панцирь» против влажности и перепадов температур.</span></button>
+        <button type="button" class="tech-card" data-tech="2"><span class="tech-card__media"><img src="img/gid/tech-steeltex.webp" alt="" loading="lazy" decoding="async"></span><span class="tech-card__title">Покрытие SteelTex</span><span class="tech-card__lead">Собственная разработка «Стальной линии»: ламинирование панелей, устойчивое к царапинам и механическим повреждениям.</span></button>
+        <button type="button" class="tech-card" data-tech="3"><span class="tech-card__media"><img src="img/gid/tech-soft.webp" alt="" loading="lazy" decoding="async"></span><span class="tech-card__title">Покрытие Soft Touch</span><span class="tech-card__lead">Матовое бархатистое покрытие с особыми тактильными ощущениями — по мировым тенденциям в дизайне интерьеров.</span></button>
+        <button type="button" class="tech-card" data-tech="4"><span class="tech-card__media"><img src="img/gid/tech-stone.webp" alt="" loading="lazy" decoding="async"></span><span class="tech-card__title">Покрытие «Камень»</span><span class="tech-card__lead">Отделка с цветом и фактурой натурального камня — самостоятельно или как декоративная вставка.</span></button>
+        <button type="button" class="tech-card" data-tech="5"><span class="tech-card__media"><img src="img/gid/tech-okna.webp" alt="" loading="lazy" decoding="async"></span><span class="tech-card__title">Двери с окнами и ковкой</span><span class="tech-card__lead">Окна придают дому торжественность и украшают парадный вход — в классическом и современном дизайне.</span></button>
+        <button type="button" class="tech-card" data-tech="6"><span class="tech-card__media"><img src="img/gid/tech-vitrage.webp" alt="" loading="lazy" decoding="async"></span><span class="tech-card__title">Витражи</span><span class="tech-card__lead">Витражи наполняют дом рассеянным цветным светом и делают дверь неповторимой.</span></button>
+        <button type="button" class="tech-card" data-tech="7"><span class="tech-card__media"><img src="img/gid/tech-portal.webp" alt="" loading="lazy" decoding="async"></span><span class="tech-card__title">Порталы и наличники</span><span class="tech-card__lead">Порталы и наличники собирают дверь в цельную, статусную входную группу.</span></button>
+        <button type="button" class="tech-card" data-tech="8"><span class="tech-card__media"><img src="img/gid/tech-korob.webp" alt="" loading="lazy" decoding="async"></span><span class="tech-card__title">Окраска короба в два цвета</span><span class="tech-card__lead">Уникальная технология фабрики: внешнюю и внутреннюю стороны коробки можно окрасить в разные цвета.</span></button>
+        <button type="button" class="tech-card" data-tech="9"><span class="tech-card__media"><img src="img/gid/tech-otk.webp" alt="" loading="lazy" decoding="async"></span><span class="tech-card__title">Двери внутреннего открывания</span><span class="tech-card__lead">Двери открываются внутрь квартиры и при этом сохраняют взломостойкость, герметичность и шумоизоляцию. Представлены в серии 100.</span></button>
+        <button type="button" class="tech-card" data-tech="10"><span class="tech-card__media"><img src="img/gid/tech-size.webp" alt="" loading="lazy" decoding="async"></span><span class="tech-card__title">Двери любого размера</span><span class="tech-card__lead">Индивидуальный заказ: практически любой размер, цвет и дизайн.</span></button>
+        <a class="tech-card tech-card--cta" href="#" data-open-form="gid-tech">
+          <span class="tech-card__title">Не нашли нужное?</span>
+          <span class="tech-card__lead">Расскажите, какую дверь хотите&nbsp;— подберём отделку и&nbsp;рассчитаем стоимость.</span>
+          <span class="tech-card__go">Записаться на подбор <img src="../assets/icons/arrow-right-white-2.svg" width="20" height="20" alt=""></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="cat-cta wrap">
+      <div class="cat-cta__text">
+        <h2 class="cat-cta__title">Не знаете, что выбрать?</h2>
+        <p class="cat-cta__lead">Пришлите фото проёма&nbsp;— подберём модель и&nbsp;отделку, рассчитаем стоимость и&nbsp;установим. Гарантия на&nbsp;монтаж 2&nbsp;года.</p>
+      </div>
+      <a class="btn btn--gradient btn--lg" href="#" data-open-form="gid-cta">Записаться на подбор <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+    </section>
+
+    <dialog class="tech-view js-tech-view" aria-labelledby="tech-view-title">
+      <button class="port-view__close js-tv-close" type="button" aria-label="Закрыть"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      <div class="tech-view__media"><img class="js-tv-img" alt=""></div>
+      <div class="tech-view__body">
+        <h2 class="tech-view__title js-tv-title" id="tech-view-title"></h2>
+        <p class="tech-view__lead js-tv-lead"></p>
+        <dl class="tech-view__points js-tv-points"></dl>
+        <div class="tech-view__nav">
+          <button type="button" class="btn btn--outline js-tv-prev">Назад</button>
+          <button type="button" class="btn btn--outline js-tv-next">Дальше</button>
+        </div>
+      </div>
+    </dialog>
+    <script type="application/json" id="tech-data">[{"slug": "wood", "title": "Панели из дерева: Concord, Bjork и Oak", "img": "img/gid/tech-wood.webp", "lead": "Декоративные панели из натурального дерева: три вида с разным рисунком и назначением.", "points": [{"t": "Concord Panel", "d": "Натуральная древесина с верхним слоем из дубового шпона — выразительный рисунок дуба. Ставится в квартирные двери от серии 70 до премиальной серии 100."}, {"t": "Bjork Panel", "d": "Шпон берёзы со сдержанным рисунком, 10 оттенков с патиной. Устойчива к атмосферным воздействиям, плесени и грибку; защитный лак бережёт цвет от выгорания."}, {"t": "Oak Panel", "d": "Основа — влагостойкое тропическое дерево сейба. Многослойная структура защищает от рассыхания и трещин, поэтому панель подходит для дверей на границе «улица — дом»."}, {"t": "Окраска", "d": "Колористы фабрики подчёркивают натуральный рисунок дерева: от спокойных древесных оттенков до акцентных цветов; рисунок каждой панели неповторим."}]}, {"slug": "steellak", "title": "Покрытие SteelLak", "img": "img/gid/tech-steellak.webp", "lead": "Фирменная 7-ступенчатая технология окраски панелей: водонепроницаемый «панцирь» против влажности и перепадов температур.", "points": [{"t": "Для дома на границе «улица — дом»", "d": "Покрытие выдерживает влажность и перепады температур — одно из лучших решений для двери в коттедж."}, {"t": "Практически любой цвет", "d": "Дверь можно окрасить в любой цвет палитры RAL (2328 оттенков), а наружную и внутреннюю панели — в разные цвета."}, {"t": "SteelLak Plus — с патиной", "d": "Мастер вручную наносит патину на каждый элемент фрезеровки. Цвет патины на выбор: чёрный, серебро, золото или кофе."}]}, {"slug": "steeltex", "title": "Покрытие SteelTex", "img": "img/gid/tech-steeltex.webp", "lead": "Собственная разработка «Стальной линии»: ламинирование панелей, устойчивое к царапинам и механическим повреждениям.", "points": [{"t": "Раскрой и фрезерование", "d": "Заготовку из МДФ режут в размер с точностью до миллиметра, рисунок фрезеруют на итальянских станках и дорабатывают вручную."}, {"t": "Шлифование и клей", "d": "Панель шлифуют до идеально гладкой поверхности, наносят полиуретановый клей и сушат в камере."}, {"t": "Вакуумное прессование", "d": "Разогретую плёнку плотно натягивают в вакуумном прессе, без пузырьков и складок; повторный нагрев активирует клей."}, {"t": "Сушка", "d": "Панель равномерно остывает, а через несколько дней покрытие и МДФ становятся единой структурой — вид как в день покупки."}]}, {"slug": "soft", "title": "Покрытие Soft Touch", "img": "img/gid/tech-soft.webp", "lead": "Матовое бархатистое покрытие с особыми тактильными ощущениями — по мировым тенденциям в дизайне интерьеров.", "points": [{"t": "Идеальная матовая поверхность", "d": "Гармонично смотрится и в классическом, и в современном интерьере."}, {"t": "Трендовые цвета", "d": "Благородные оттенки добавляют интерьеру элегантности и лёгкости."}]}, {"slug": "stone", "title": "Покрытие «Камень»", "img": "img/gid/tech-stone.webp", "lead": "Отделка с цветом и фактурой натурального камня — самостоятельно или как декоративная вставка.", "points": [{"t": "Фактура натурального камня", "d": "Покрытие воспроизводит цвет и самобытную фактуру камня — оригинальный акцент для современного интерьера."}, {"t": "Для квартирных дверей", "d": "Простое и неприхотливое в уходе."}]}, {"slug": "okna", "title": "Двери с окнами и ковкой", "img": "img/gid/tech-okna.webp", "lead": "Окна придают дому торжественность и украшают парадный вход — в классическом и современном дизайне.", "points": [{"t": "Многокамерный стеклопакет", "d": "Энергосберегающая рамка из структурированной пены увеличивает теплоизоляцию до 70% по сравнению с алюминиевой."}, {"t": "Защита от посторонних глаз", "d": "Зеркально-тонированный стеклопакет: вы видите улицу, а вас снаружи — нет."}, {"t": "Ковка, решётки и витражи", "d": "Кованая решётка снаружи или лазерная внутри, окна разных форм и размеров, один из трёх видов витража."}]}, {"slug": "vitrage", "title": "Витражи", "img": "img/gid/tech-vitrage.webp", "lead": "Витражи наполняют дом рассеянным цветным светом и делают дверь неповторимой.", "points": [{"t": "Авторский дизайн", "d": "Стёкла разных цветов можно комбинировать и создать свой рисунок; витраж дополняет окна разных форм."}, {"t": "Ручная работа", "d": "Витражи собирают вручную по классической английской технологии из стёкол разной текстуры и матовости."}, {"t": "Визуализация до заказа", "d": "Специалисты прорисуют дверь в цвете — вы увидите её до изготовления."}]}, {"slug": "portal", "title": "Порталы и наличники", "img": "img/gid/tech-portal.webp", "lead": "Порталы и наличники собирают дверь в цельную, статусную входную группу.", "points": [{"t": "Гармоничный вид", "d": "Портал повторяет цвет и фактуру дверной панели."}, {"t": "Широкий выбор", "d": "От роскошных порталов с художественным рисунком до лаконичных решений."}, {"t": "Современные решения", "d": "Широкие наличники задают особый тон экстерьеру и делают вход законченным."}]}, {"slug": "korob", "title": "Окраска короба в два цвета", "img": "img/gid/tech-korob.webp", "lead": "Уникальная технология фабрики: внешнюю и внутреннюю стороны коробки можно окрасить в разные цвета.", "points": [{"t": "Зачем это нужно", "d": "Если наружная и внутренняя панели двери разного цвета, коробка не обязана подходить только к одной из них."}, {"t": "Два цвета одновременно", "d": "Оборудование фабрики позволяет окрасить одну коробку сразу в два цвета — каждая сторона в тон своему интерьеру."}]}, {"slug": "otk", "title": "Двери внутреннего открывания", "img": "img/gid/tech-otk.webp", "lead": "Двери открываются внутрь квартиры и при этом сохраняют взломостойкость, герметичность и шумоизоляцию. Представлены в серии 100.", "points": [{"t": "Если двери сталкиваются с соседскими", "d": "При одновременном открывании двери не бьются друг о друга и не деформируются."}, {"t": "Если мало места в тамбуре", "d": "Когда на площадке не хватает места, чтобы полностью открыть дверь наружу."}, {"t": "Требования пожарной безопасности", "d": "Открытая наружу дверь не перекрывает путь к лестнице."}]}, {"slug": "size", "title": "Двери любого размера", "img": "img/gid/tech-size.webp", "lead": "Индивидуальный заказ: практически любой размер, цвет и дизайн.", "points": [{"t": "Любая высота и ширина", "d": "Дверь делают точно под проём — используется каждый сантиметр."}, {"t": "Свой дизайн", "d": "Отделка, фрезеровка, цвет, фурнитура и декор — команда фабрики сделает дверь по вашему желанию."}]}]</script>
+  </main>
+
+  <dialog class="player" id="player" aria-labelledby="player-title">
+    <div class="player__stage">
+      <video class="player__video" controls playsinline preload="metadata"></video>
+      <div class="player__bar">
+        <p class="player__title" id="player-title"></p>
+        <span class="player__count" aria-live="polite"></span>
+      </div>
+    </div>
+    <button class="player__nav player__nav--prev" type="button" aria-label="Предыдущий ролик" data-player-dir="-1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12.013L20.789 12M14.013 19L21 12L14.012 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="player__nav" type="button" aria-label="Следующий ролик" data-player-dir="1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12.013L20.789 12M14.013 19L21 12L14.012 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="player__close" type="button" aria-label="Закрыть видео" data-close-player>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </dialog>
+
+  <div class="cookie" id="cookie" role="region" aria-label="Уведомление о cookie" hidden>
+    <div class="cookie__copy">
+      <p class="cookie__text">Мы используем файлы cookie, чтобы сайтом было удобно пользоваться. <a href="../privacy.html#cookie" target="_blank">Подробнее</a></p>
+    </div>
+    <div class="cookie__actions">
+      <button class="btn btn--gradient btn--lg cookie__btn" type="button" data-cookie="all">Хорошо</button>
+      <button class="btn btn--outline btn--lg cookie__btn" type="button" data-cookie="necessary">Отказаться</button>
+    </div>
+  </div>
+
+  <a class="btn btn--gradient sticky-cta" href="#" data-open-form="sticky">Получить подбор двери <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+
+  <div class="bonus-fab js-bonus-fab" hidden>
+    <button class="bonus-fab__open" type="button" data-open-callback="bonus">
+      <span class="bonus-fab__pct">−20%</span>
+      <span class="bonus-fab__text"><b>Вам доступна скидка 20%</b><span>Нажмите, чтобы получить персональный купон</span></span>
+    </button>
+    <button class="bonus-fab__close js-bonus-close" type="button" aria-label="Скрыть предложение"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  </div>
+
+  <button class="callback-fab" type="button" data-open-callback aria-label="Заказать обратный звонок">
+    <span class="callback-fab__label">Заказать звонок</span>
+    <span class="callback-fab__icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5.1 3.5h3.1l1.6 4-2 1.3a10.6 10.6 0 0 0 7.4 7.4l1.3-2 4 1.6v3.1a2 2 0 0 1-2.1 2A16.6 16.6 0 0 1 3.1 5.6a2 2 0 0 1 2-2.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+  </button>
+
+  <dialog class="lead callback" id="callback" aria-labelledby="callback-title">
+    <button class="lead__close" type="button" aria-label="Закрыть" data-close-callback>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <form class="callback__form" id="callback-form" action="../send.php" method="post" novalidate>
+      <div class="lead__head">
+        <span class="callback__icon" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M5.1 3.5h3.1l1.6 4-2 1.3a10.6 10.6 0 0 0 7.4 7.4l1.3-2 4 1.6v3.1a2 2 0 0 1-2.1 2A16.6 16.6 0 0 1 3.1 5.6a2 2 0 0 1 2-2.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+        <h2 class="lead__title callback__title" id="callback-title">Перезвоним в&nbsp;течение часа</h2>
+        <p class="lead__lead callback__lead">Оставьте номер — менеджер салона свяжется с&nbsp;вами в&nbsp;рабочее время, ежедневно с&nbsp;10:00 до&nbsp;20:00.</p>
+        <details class="bonus-terms js-bonus-only" hidden>
+          <summary>Условия акции</summary>
+          <ul>
+            <li>Скидка 20% на&nbsp;входные двери «Стальная линия» по&nbsp;персональному купону.</li>
+            <li>Купон действует 7&nbsp;дней с&nbsp;момента получения.</li>
+            <li>Один купон&nbsp;— на&nbsp;один заказ: назовите код менеджеру при оформлении.</li>
+            <li>Скидка не&nbsp;суммируется с&nbsp;другими акциями и&nbsp;не&nbsp;действует на&nbsp;межкомнатные двери.</li>
+          </ul>
+        </details>
+        <p class="form-bonus js-form-bonus"><b>−20%</b><span><strong>Забронируем скидку за&nbsp;вами</strong>Оставьте контакты, чтобы её&nbsp;получить</span></p>
+      </div>
+      <div class="field js-bonus-only" hidden>
+        <label class="field__label" for="callback-email">Электронная почта</label>
+        <input class="input ym-disable-keys ym-hide-content" id="callback-email" name="email" type="email" autocomplete="email" maxlength="120" placeholder="name@mail.ru">
+        <p class="field__error"></p>
+      </div>
+      <div class="field js-bonus-hide">
+        <label class="field__label" for="callback-name">Имя</label>
+        <input class="input ym-disable-keys ym-hide-content" id="callback-name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="Как к вам обращаться">
+        <p class="field__error"></p>
+      </div>
+      <div class="field js-bonus-hide">
+        <label class="field__label" for="callback-phone">Телефон</label>
+        <input class="input ym-disable-keys ym-hide-content" id="callback-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+7 (___) ___-__-__">
+        <p class="field__error"></p>
+      </div>
+      <input class="lead__trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="source" value="callback">
+      <input type="hidden" name="comment" value="">
+      <div class="field">
+        <label class="check">
+          <input type="checkbox" name="consent" value="1" required>
+          <span>Даю <a href="../consent.html" target="_blank">согласие на&nbsp;обработку персональных данных</a> и&nbsp;принимаю <a href="../privacy.html" target="_blank">политику конфиденциальности</a></span>
+        </label>
+        <p class="field__error"></p>
+      </div>
+      <button class="btn btn--gradient btn--lg lead__submit callback__submit" type="submit"><span class="callback__submit-text">Жду звонка</span></button>
+      <p class="lead__status callback__status" role="alert"></p>
+    </form>
+    <div class="lead__done callback__done" hidden>
+      <span class="lead__done-icon" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 32 32" fill="none"><path d="M8 16.5l5.5 5.5L24 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h2 class="lead__title">Заявка принята</h2>
+      <p class="lead__lead callback__done-lead">Перезвоним в&nbsp;течение часа в&nbsp;рабочее время. Если звонок нужен срочно — <a href="tel:+79222077552">+7&nbsp;(922)&nbsp;207-75-52</a>.</p>
+      <p class="form-bonus-done js-form-bonus">Скидка 20% забронирована за&nbsp;вами</p>
+      <div class="callback__done-actions">
+        <a class="btn btn--gradient btn--lg callback__catalog js-bonus-only" href="catalog.html" hidden>Перейти в каталог</a>
+        <button class="btn btn--outline btn--outline-soft btn--lg" type="button" data-close-callback>Вернуться на сайт</button>
+      </div>
+    </div>
+  </dialog>
+
+  <footer class="footer" id="footer">
+    <div class="footer__top">
+      <div class="footer__rep">
+        <span class="footer__logo" role="img" aria-label="Дверной Молл — больше, чем двери"></span>
+        <p class="footer__rep-text">Эксклюзивный представитель «Стальной линии» <br>на Урале — «Дверной Молл».</p>
+      </div>
+      <nav class="footer__nav" aria-label="Навигация в подвале">
+        <a href="catalog.html">Каталог</a>
+        <a href="../">Бренды</a>
+        <a href="portfolio.html">Наши работы</a>
+        <a href="../#contacts">Салон</a>
+        <a href="../#contacts">Для дизайнеров</a>
+        <a href="../#contacts">Контакты</a>
+      </nav>
+    </div>
+    <div class="footer__salons">
+      <address class="footer-salon">
+        <p class="footer-salon__name">Интерьерный центр «ASTROOM»</p>
+        <p>Екатеринбург, ул. Цвиллинга, 1<br>6 этаж, Галерея А</p>
+        <p class="footer-salon__muted">Пн–Вс 10:00–20:00</p>
+        <p class="footer-salon__links">
+          <a class="footer__phone" href="tel:+79222077552">+7 (922) 207-75-52</a>
+          <a class="footer__phone" href="tel:+79826056229">+7 (982) 605-62-29</a>
+          <a href="mailto:astroom@steelline.store">astroom@steelline.store</a>
+        </p>
+      </address>
+      <address class="footer-salon">
+        <p class="footer-salon__name">Салон «Дверная лавка»</p>
+        <p>Арамиль, ул. Гарнизон, 5</p>
+        <p class="footer-salon__muted">Пн–Пт 09:00–18:00</p>
+        <p class="footer-salon__links">
+          <a class="footer__phone" href="tel:+79193977317">+7 (919) 397-73-17</a>
+          <a href="mailto:zakazdver@bk.ru">zakazdver@bk.ru</a>
+        </p>
+      </address>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 Дверной Молл. ООО «Прогресс», ИНН&nbsp;6685206681, ОГРН&nbsp;1226600080321</p>
+      <div class="footer__legal">
+        <a href="../privacy.html">Политика конфиденциальности</a>
+        <a href="../consent.html">Согласие на обработку данных</a>
+      </div>
+    </div>
+  </footer>
+
+  <dialog class="lead" id="lead" aria-labelledby="lead-title">
+    <button class="lead__close" type="button" aria-label="Закрыть" data-close-form>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+
+    <!-- Заявки уходят в send.php. Для тестового режима (без отправки) добавить атрибут data-test-mode -->
+    <form class="lead__form" id="lead-form" action="../send.php" method="post" enctype="multipart/form-data" novalidate>
+      <div class="lead__head">
+        <h2 class="lead__title" id="lead-title" data-title-photo="Бесплатно подберём дверь по фото проёма" data-title-contact="Запись на подбор">Бесплатно подберём дверь по фото проёма</h2>
+        <p class="lead__lead" data-lead-photo="Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире." data-lead-contact="Оставьте имя и телефон — перезвоним, ответим на вопросы и запишем на подбор в салоне или замер.">Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире.</p>
+        
+      </div>
+      <div class="field field--photo">
+        <span class="field__label" id="photos-label">Фото проёма <span class="field__hint">до 5 фото, JPG, PNG или HEIC</span></span>
+        <label class="dropzone" for="lead-photos">
+          <input class="dropzone__input" id="lead-photos" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" multiple aria-labelledby="photos-label" aria-describedby="photos-error">
+          <svg class="dropzone__icon" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="3" y="7" width="26" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M11 7l2-3h6l2 3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="16" cy="17" r="5" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span class="dropzone__text"><b>Загрузите фото</b><span class="dropzone__drag"> или перетащите сюда</span></span>
+          <span class="dropzone__sub">Снимите проём целиком, вместе с откосами и полом</span>
+        </label>
+        <ul class="previews" id="lead-previews" aria-live="polite"></ul>
+        <p class="field__error" id="photos-error"></p>
+      </div>
+
+      <div class="lead__grid">
+        <div class="field">
+          <label class="field__label" for="lead-name">Имя</label>
+          <input class="input ym-disable-keys ym-hide-content" id="lead-name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="Как к вам обращаться">
+          <p class="field__error"></p>
+        </div>
+        <div class="field">
+          <label class="field__label" for="lead-phone">Телефон</label>
+          <input class="input ym-disable-keys ym-hide-content" id="lead-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+7 (___) ___-__-__">
+          <p class="field__error"></p>
+        </div>
+      </div>
+      <div class="field field--email">
+        <label class="field__label" for="lead-email">Почта <span class="field__hint">пришлём подборку сюда</span></label>
+        <input class="input ym-disable-keys ym-hide-content" id="lead-email" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="name@mail.ru">
+        <p class="field__error"></p>
+      </div>
+      <div class="field">
+        <label class="field__label" for="lead-comment">Комментарий <span class="field__hint">необязательно</span></label>
+        <textarea class="input input--area ym-disable-keys ym-hide-content" id="lead-comment" name="comment" rows="3" maxlength="1000" placeholder="Размеры проёма, квартира или дом, пожелания по цвету"></textarea>
+      </div>
+
+      <!-- Ловушка для спам-ботов: люди это поле не видят -->
+      <input class="lead__trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="source" value="">
+
+      <div class="field">
+        <label class="check">
+          <input type="checkbox" name="consent" value="1" required>
+          <span>Даю <a href="../consent.html" target="_blank">согласие на&nbsp;обработку персональных данных</a> и&nbsp;принимаю <a href="../privacy.html" target="_blank">политику конфиденциальности</a></span>
+        </label>
+        <p class="field__error"></p>
+      </div>
+
+      <button class="btn btn--gradient btn--lg lead__submit" type="submit">
+        <span class="lead__submit-text">Получить подбор двери</span>
+        <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt="">
+      </button>
+      <p class="lead__status" role="alert"></p>
+    </form>
+
+    <div class="lead__done" hidden>
+      <span class="lead__done-icon" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 32 32" fill="none"><path d="M8 16.5l5.5 5.5L24 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h2 class="lead__title">Заявка отправлена</h2>
+      <p class="lead__lead lead__done-lead" data-done-contact="Спасибо! Перезвоним в&nbsp;рабочее время и&nbsp;договоримся о&nbsp;подборе.">Спасибо! Мы посмотрим фото и пришлём подборку на почту. Если появятся вопросы — позвоним.</p>
+      
+      <button class="btn btn--outline btn--outline-soft btn--lg" type="button" data-close-form>Вернуться на сайт</button>
+    </div>
+  </dialog>
+
+  <script src="../script.js?v=61"></script>
+  <script src="gid.js?v=1"></script>
+</body>
+</html>

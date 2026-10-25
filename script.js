@@ -566,7 +566,7 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
       e.preventDefault();
       window.siteGoal('video_open');
       // список роликов — карточки из того же блока (страница или модалка с обзорами)
-      var scope = thumb.closest('.reels__body, .reviews__grid') || document;
+      var scope = thumb.closest('.reels__body, .reviews__grid, .gid-reels') || document;
       list = Array.prototype.slice.call(scope.querySelectorAll('.video-card__thumb[data-video]'));
       opener = thumb;
       document.body.classList.add('has-modal');
