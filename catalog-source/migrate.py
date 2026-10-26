@@ -71,7 +71,7 @@ def prio(p):
 today = datetime.date.today().isoformat()
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
 for p in sorted(set(pages), key=lambda p: (-float(prio(p)), p)):
-    sm.append('  <url><loc>%s%s</loc><lastmod>%s</lastmod><priority>%s</priority></url>' % (SITE, p, today, prio(p)))
+    sm.append('  <url><loc>%s%s</loc><lastmod>%s</lastmod><priority>%s</priority></url>' % (SITE, p if p.endswith(('/', '.html')) else p + '/', today, prio(p)))
 sm.append('</urlset>')
 write('sitemap.xml', '\n'.join(sm) + '\n')
 

@@ -1,9 +1,9 @@
 User-agent: *
 Disallow: /send.php
-# прототип каталога закрыт мета-тегом noindex на самих страницах (здесь не запрещаем, чтобы роботы его видели)
+# прототипы с параметрами в адресе закрыты мета-тегом noindex на самих страницах (не запрещаем — пусть роботы его видят)
 
 User-agent: Yandex
 Disallow: /send.php
-Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&yclid&gclid&_ym_debug
+Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term&yclid&gclid&_ym_debug&vitrina
 
-Sitemap: https://promo.steelline.store/sitemap.xml
+Sitemap: https://steelline.store/sitemap.xml

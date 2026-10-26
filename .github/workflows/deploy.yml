@@ -1,10 +1,11 @@
-# Автопубликация лендинга на promo.steelline.store при push в main.
+# Автопубликация сайта steelline.store (раньше — promo.steelline.store) при push в main.
+# Страницы в репозитории уже собраны для домена: catalog-source/migrate.py https://steelline.store
 #
 # Секреты (GitHub → Settings → Secrets and variables → Actions):
 #   DEPLOY_SSH_KEY     — приватный ключ пользователя deploy на сервере (целиком, с BEGIN/END)
 #   DEPLOY_KNOWN_HOSTS — вывод `ssh-keyscan 147.45.213.61`
 
-name: Публикация на promo.steelline.store
+name: Публикация на steelline.store
 
 on:
   push:

@@ -835,7 +835,9 @@ def _static_page(path, title, desc, body_class, body_attrs, main, scripts, ld=()
     html = html.replace('<body class="%s">' % body_class, '<body class="%s"%s>' % (body_class, body_attrs), 1)
     # якоря на этой же странице: из-за <base> «#footer» вёл бы в папку прототипа
     html = re.sub(r'href="#([^"]+)"', lambda m: 'href="%s/#%s"' % (path.rstrip('/'), m.group(1)), html)
-    html = _slash(html).replace('<link rel="canonical" href="%s/">' % url, '<link rel="canonical" href="%s">' % url)
+    # все адреса страниц — со «/» на конце, как их отдаёт сервер (адрес без «/» он переадресует): ссылки, canonical, og:url, микроразметка
+    html = _slash(html)
+    html = re.sub(re.escape(SITE_URL) + r'(/(?:catalog|magazines|gid|port|diz|blog|sert|st\d+)[^"\s<]*?)(?<!/)(?=")', lambda m: SITE_URL + m.group(1) + '/', html)
     out = os.path.join(STATIC_ROOT, path.strip('/'), 'index.html')
     os.makedirs(os.path.dirname(out), exist_ok=True)
     open(out, 'w', encoding='utf-8').write(html)
