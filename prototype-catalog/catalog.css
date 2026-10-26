@@ -150,6 +150,14 @@
 .pcard:hover .pcard__photo:first-child:has(+ .pcard__photo) { opacity: 0; }
 .pcard:hover .pcard__photo + .pcard__photo { opacity: 1; }
 .pcard__badge { position: absolute; top: 14px; left: 14px; z-index: 1; padding: 5px 10px 4px; border-radius: 100px; background: #fff; font-weight: 700; font-size: 11px; line-height: 14px; letter-spacing: 0.2px; color: var(--c-blue); }
+.pcard__warm {
+  position: absolute; left: 14px; bottom: 16px; z-index: 1; display: inline-flex; align-items: center; gap: 5px; padding: 5px 10px 5px 8px; border-radius: 100px;
+  background: rgba(255, 255, 255, 0.92); font-weight: 600; font-size: 11px; line-height: 14px; letter-spacing: 0.2px; color: var(--c-navy);
+  box-shadow: 0 1px 4px rgba(6, 31, 59, 0.08);
+}
+.pcard__warm svg { flex: none; color: #c2412f; }
+.pcard__warm--husky { background: var(--c-navy); color: #fff; }
+.pcard__warm--husky svg { color: #9fd0ff; }
 .pcard__go { position: absolute; right: 16px; bottom: 16px; z-index: 1; display: grid; place-items: center; transition: transform 0.3s ease; }
 .pcard__go > img { grid-area: 1 / 1; position: static; }
 .pcard__go .corner { transform: rotate(90deg); }
@@ -369,6 +377,8 @@
   .pcard__price { font-size: 15px; }
   .pcard__badge { top: 8px; left: 8px; padding: 4px 8px 3px; font-size: 10px; }
   .pcard__go { right: 10px; bottom: 10px; }
+  .pcard__warm { left: 8px; bottom: 12px; padding: 4px 8px 4px 6px; font-size: 10px; gap: 4px; }
+  .pcard__warm svg { width: 11px; height: 11px; }
   .pcard__go > img:first-child { width: 32px; height: 32px; }
   .cat-empty__actions { flex-direction: column; width: 100%; }
   .cat-cta { flex-direction: column; align-items: stretch; margin: 0 var(--page-x) 64px; }
