@@ -46,7 +46,7 @@ def page(title, body_class, main, scripts=('catalog.js?v=35',)):
     h = re.sub(r'\s*<meta name="yandex-verification"[^>]*>', '', h)
     h = h.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
                   '<meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="robots" content="noindex, nofollow">', 1)
-    h += '  <link rel="stylesheet" href="catalog.css?v=67">\n</head>\n'
+    h += '  <link rel="stylesheet" href="catalog.css?v=68">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(bonus) + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
@@ -388,8 +388,12 @@ gid_main = '''  <main class="port gid" id="gid">
         <h2 class="gid-sec__title" id="models-title">Обзоры моделей</h2>
         <p class="gid-sec__lead">Можно выбрать готовое решение из&nbsp;каталога или собрать своё: отделку, фрезеровку, цвет двери и&nbsp;коробки, фурнитуру и&nbsp;декор. Изготовим практически любой размер.</p>
       </div>
-      <div class="gid-reels gid-reels--track" data-drag>
+      <div class="similar-wrap gid-track-wrap">
+        <button class="similar-arrow gid-arrow gid-arrow--prev" type="button" aria-label="Назад"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="gid-reels gid-reels--track" data-drag>
           ''' + _reels('Обзоры моделей') + '''
+        </div>
+        <button class="similar-arrow similar-arrow--next gid-arrow gid-arrow--next" type="button" aria-label="Дальше"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
     </section>
 
@@ -398,8 +402,12 @@ gid_main = '''  <main class="port gid" id="gid">
         <h2 class="gid-sec__title" id="faq-title">Вопросы и ответы</h2>
         <p class="gid-sec__lead">Короткие ролики из&nbsp;салона: отвечаем на&nbsp;то, о&nbsp;чём спрашивают чаще всего.</p>
       </div>
-      <div class="gid-reels gid-reels--track" data-drag>
+      <div class="similar-wrap gid-track-wrap">
+        <button class="similar-arrow gid-arrow gid-arrow--prev" type="button" aria-label="Назад"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <div class="gid-reels gid-reels--track" data-drag>
           ''' + _reels('Полезная информация') + '''
+        </div>
+        <button class="similar-arrow similar-arrow--next gid-arrow gid-arrow--next" type="button" aria-label="Дальше"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
     </section>
 
@@ -444,4 +452,4 @@ gid_main = '''  <main class="port gid" id="gid">
 
   ''' + fix(player)
 
-open(os.path.join(OUT, 'gid.html'), 'w', encoding='utf-8').write(page('Гид по продукту — Стальная линия', 'page-portfolio page-gid', gid_main, ('gid.js?v=1',)))
+open(os.path.join(OUT, 'gid.html'), 'w', encoding='utf-8').write(page('Гид по продукту — Стальная линия', 'page-portfolio page-gid', gid_main, ('gid.js?v=2',)))

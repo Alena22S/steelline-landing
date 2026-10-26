@@ -10,6 +10,27 @@
     b.parentNode.replaceChild(box, b);
   });
 
+  // Ленты роликов: стрелки по краям при наведении (полоса прокрутки скрыта), листают на ширину ленты
+  document.querySelectorAll('.gid-track-wrap').forEach(function (wrap) {
+    var track = wrap.querySelector('.gid-reels--track');
+    var prev = wrap.querySelector('.gid-arrow--prev'), next = wrap.querySelector('.gid-arrow--next');
+    function sync() {
+      var thumb = track.querySelector('.video-card__thumb');
+      if (thumb) prev.style.top = next.style.top = (thumb.offsetHeight / 2) + 'px'; // середина ролика
+      var max = track.scrollWidth - track.clientWidth;
+      prev.hidden = next.hidden = max <= 2;
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= max - 2;
+    }
+    function step(dir) { track.scrollBy({ left: dir * (track.clientWidth - 40), behavior: 'smooth' }); }
+    prev.addEventListener('click', function () { step(-1); });
+    next.addEventListener('click', function () { step(1); });
+    track.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    window.addEventListener('load', sync);
+    sync();
+  });
+
   // Технологии: карточка → окно с фото, описанием и пунктами; листаются стрелками
   var view = document.querySelector('.js-tech-view');
   var dataEl = document.getElementById('tech-data');

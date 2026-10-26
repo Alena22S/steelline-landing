@@ -657,7 +657,11 @@
 .gid-reels .video-card__title { font-size: 16px; line-height: 1.3; }
 .gid-reels .video-card__badge { left: 10px; bottom: 10px; padding: 5px 10px; font-size: 13px; gap: 6px; }
 .gid-reels .video-card__badge img { width: 14px; height: 14px; }
-.gid-reels--track { display: grid; grid-auto-flow: column; grid-auto-columns: 210px; gap: 20px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: thin; scroll-snap-type: x proximity; }
+.gid-reels--track { display: grid; grid-auto-flow: column; grid-auto-columns: 210px; gap: 20px; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
+.gid-reels--track::-webkit-scrollbar { display: none; }
+/* стрелки ленты — как у «Похожих моделей», по краям, середина ролика (top задаёт JS) */
+.gid-arrow--prev { left: -24px; }
+.gid-arrow--next { right: -24px; }
 .gid-reels--track .video-card { scroll-snap-align: start; }
 .gid-reels--track.is-dragging { scroll-snap-type: none; cursor: grabbing; }
 .gid-reel__link { margin-top: 6px; font-family: var(--f-inter); font-weight: 500; font-size: 14px; color: var(--c-blue); }
@@ -717,7 +721,7 @@
   .gid-factory__side .rt-card { display: grid; grid-template-columns: 44% 1fr; gap: 12px; }
   .gid-factory__side .rt-card__title { margin-top: 0; font-size: 14px; }
   .rt-card--big .rt-card__title { font-size: 18px; }
-  .gid-reels--track { grid-auto-columns: 46%; gap: 12px; margin: 0 calc(-1 * var(--page-x)); padding: 0 var(--page-x) 4px; scroll-padding: 0 var(--page-x); scrollbar-width: none; }
+  .gid-reels--track { grid-auto-columns: 46%; gap: 12px; margin: 0 calc(-1 * var(--page-x)); padding: 0 var(--page-x); scroll-padding: 0 var(--page-x); }
   .gid-reels .video-card__title { font-size: 14px; }
   .tech-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .tech-card { padding-bottom: 14px; gap: 6px; }
