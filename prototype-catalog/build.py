@@ -46,7 +46,7 @@ def page(title, body_class, main, scripts=('catalog.js?v=35',)):
     h = re.sub(r'\s*<meta name="yandex-verification"[^>]*>', '', h)
     h = h.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
                   '<meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="robots" content="noindex, nofollow">', 1)
-    h += '  <link rel="stylesheet" href="catalog.css?v=68">\n</head>\n'
+    h += '  <link rel="stylesheet" href="catalog.css?v=69">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(bonus) + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
@@ -354,7 +354,7 @@ def _rt(v, big=False):
 
 def _tech_card(t, i):
     return ('<button type="button" class="tech-card" data-tech="%d">' % i +
-            '<span class="tech-card__media"><img src="%s" alt="" loading="lazy" decoding="async"></span>' % t['img'] +
+            '<span class="tech-card__media"><img src="%s" alt="" width="400" height="300" loading="lazy" decoding="async"></span>' % t['img'] +
             '<span class="tech-card__title">%s</span>' % _html.escape(t['title']) +
             '<span class="tech-card__lead">%s</span></button>' % _html.escape(t['lead']))
 
