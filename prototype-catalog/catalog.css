@@ -744,3 +744,196 @@
   .tech-view__body { padding: 24px 20px 20px; }
   .tech-view__title { font-size: 24px; }
 }
+
+/* ===== Дизайнерам и архитекторам ===== */
+/* лёгкий зум фото при наведении — как у карточек по всему сайту (рамки с overflow:hidden, картинка внутри) */
+.dz-hero__media, .dz-awards__media, .dz-split__media, .dz-finish__media, .dz-macro, .dz-panel__door, .dz-cta__media { overflow: hidden; }
+.dz-hero__media img, .dz-awards__media img, .dz-fig img, .dz-split__media img, .dz-finish__media img, .dz-macro img,
+.dz-panel__door img, .dz-cta__media img, .dz-swatches img, .dz-chips img, .sch__pic svg {
+  transition: transform 0.6s cubic-bezier(0.2, 0.6, 0.2, 1), box-shadow 0.3s;
+}
+.dz-hero__media:hover img, .dz-awards__media:hover img, .dz-fig:hover img, .dz-split__media:hover img, .dz-finish:hover .dz-finish__media img,
+.dz-macro:hover img, .dz-panel:hover .dz-panel__door img, .dz-cta:hover .dz-cta__media img, .sch:hover .sch__pic svg { transform: scale(1.05); }
+/* образцы цвета — приподнимаются (масштаб наехал бы на подпись) */
+.dz-swatches li:hover img, .dz-chips li:hover img { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(6, 31, 59, 0.18); }
+@media (prefers-reduced-motion: reduce) {
+  .dz-hero__media img, .dz-awards__media img, .dz-fig img, .dz-split__media img, .dz-finish__media img, .dz-macro img,
+  .dz-panel__door img, .dz-cta__media img, .dz-swatches img, .dz-chips img, .sch__pic svg { transition: none; }
+}
+.dz { padding-bottom: 100px; }
+.dz-kicker { font-family: var(--f-inter); font-weight: 600; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-blue); }
+.dz-title { font-weight: 500; font-size: 36px; line-height: 1.2; color: var(--c-ink); text-wrap: balance; }
+.dz-sub { font-weight: 600; font-size: 22px; line-height: 1.3; color: var(--c-ink); }
+.dz-sub--gap { margin: 64px 0 24px; }
+.dz-text { font-size: 17px; line-height: 1.55; color: var(--c-muted); text-wrap: pretty; }
+.dz-note { font-family: var(--f-inter); font-size: 13px; line-height: 1.5; color: var(--c-muted); }
+.dz-sec { padding-top: 96px; }
+.dz-sec > .dz-title { margin-bottom: 32px; }
+.dz-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 48px; margin-bottom: 36px; }
+.dz-head .dz-kicker { margin-bottom: 10px; }
+.dz-head__lead { flex: 0 1 600px; font-size: 16px; line-height: 1.55; color: var(--c-muted); text-wrap: pretty; }
+
+/* первый экран */
+.dz-hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: center; padding-top: 40px; }
+.dz-hero__text { display: flex; flex-direction: column; gap: 18px; }
+.dz-hero__text .crumbs { margin-bottom: 18px; }
+.dz-hero__title { font-weight: 500; font-size: 52px; line-height: 1.1; letter-spacing: -0.5px; color: var(--c-ink); text-wrap: balance; }
+.dz-hero__lead { font-size: 18px; line-height: 1.55; color: var(--c-ink); text-wrap: pretty; }
+.dz-hero__who { font-size: 16px; line-height: 1.5; color: var(--c-muted); }
+.dz-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
+.dz-hero__media { border-radius: 20px; overflow: hidden; aspect-ratio: 1 / 1; background: #f3f1ed; }
+.dz-hero__media img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }  /* кадр уже обрезан так, что дверь по центру */
+
+/* условия */
+.dz-terms { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.dz-term { display: flex; flex-direction: column; gap: 12px; padding: 28px; border-radius: 16px; background: var(--c-cta-bg); border: 0.5px solid rgba(6, 31, 59, 0.12); }
+.dz-term__icon { display: grid; place-items: center; width: 52px; height: 52px; flex: none; border-radius: 50%; background: #fff; color: var(--c-blue); box-shadow: 0 2px 10px rgba(6, 31, 59, 0.08); }
+.dz-term h3 { margin-top: 6px; font-weight: 600; font-size: 19px; line-height: 1.3; color: var(--c-ink); }
+.dz-term p { font-family: var(--f-inter); font-size: 15px; line-height: 1.55; color: var(--c-muted); }
+
+/* цифры и награды */
+.dz-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin: 0; padding: 0; list-style: none; border-top: 1px solid rgba(6, 31, 59, 0.12); }
+.dz-stats li { display: flex; flex-direction: column; gap: 8px; padding: 26px 24px 26px 0; border-bottom: 1px solid rgba(6, 31, 59, 0.12); }
+.dz-stats b { font-weight: 500; font-size: 40px; line-height: 1.1; color: var(--c-navy); }
+.dz-stats span { max-width: 260px; font-family: var(--f-inter); font-size: 14px; line-height: 1.5; color: var(--c-muted); }
+.dz-awards { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; align-items: center; margin-top: 56px; }
+.dz-awards__list ul { display: flex; flex-direction: column; gap: 18px; margin: 20px 0 24px; padding: 0; list-style: none; }
+.dz-awards__list li { display: flex; flex-direction: column; gap: 4px; padding-left: 18px; border-left: 2px solid var(--c-blue); }
+.dz-awards__list li b { font-weight: 600; font-size: 17px; color: var(--c-ink); }
+.dz-awards__list li span { font-family: var(--f-inter); font-size: 14px; color: var(--c-muted); }
+.dz-awards__media { border-radius: 16px; overflow: hidden; aspect-ratio: 4 / 5; }
+.dz-awards__media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* фото с подписью */
+.dz-figs { display: grid; gap: 24px; }
+.dz-figs--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 28px; }
+.dz-figs--3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.dz-figs--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.dz-fig { display: flex; flex-direction: column; gap: 12px; margin: 0; }
+.dz-fig__media { display: block; border-radius: 14px; overflow: hidden; background: #f2f4f7; }
+.dz-fig img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: contain; padding: 18px; }
+.dz-figs--photo .dz-fig img { padding: 0; object-fit: cover; }  /* фото дверей в экстерьере — на весь кадр */
+.dz-fig figcaption { font-family: var(--f-inter); font-size: 13px; line-height: 1.5; color: var(--c-muted); }
+.dz-fig figcaption b { display: block; margin-bottom: 2px; font-family: var(--f-manrope); font-weight: 600; font-size: 15px; color: var(--c-ink); }
+
+/* схемы проёмов */
+.dz-schemes { margin-top: 56px; padding: 32px; border-radius: 16px; background: var(--c-cta-bg); border: 0.5px solid rgba(6, 31, 59, 0.12); }
+.dz-schemes__head { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
+.dz-switch { display: flex; gap: 8px; }
+.dz-switch .cat-tab { -webkit-appearance: none; appearance: none; background: #fff; font-family: var(--f-manrope); cursor: pointer; }
+.dz-switch .cat-tab.is-active { background: var(--c-navy); border-color: var(--c-navy); color: #fff; }
+.dz-sch-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 20px; margin: 0 0 20px; padding: 0; list-style: none; }
+.dz-sch-list[hidden] { display: none; }
+.sch { display: flex; flex-direction: column; gap: 6px; }
+.sch__pic { display: grid; place-items: center; height: 170px; margin-bottom: 6px; border-radius: 12px; background: #fff; color: var(--c-navy); }
+.sch__pic svg { width: 96px; height: auto; }
+.sch-fill { fill: var(--c-navy); }
+.sch__name { font-weight: 600; font-size: 15px; line-height: 1.35; color: var(--c-ink); }
+.sch__name b { font-family: var(--f-inter); font-weight: 500; font-size: 13px; color: var(--c-blue); white-space: nowrap; }
+.sch__note { font-family: var(--f-inter); font-size: 13px; line-height: 1.45; color: var(--c-muted); }
+
+/* текст + большое фото */
+.dz-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: 56px; align-items: stretch; }
+.dz-split--rev .dz-split__media { order: -1; }
+.dz-split__text { display: flex; flex-direction: column; gap: 16px; justify-content: center; }
+.dz-split__media { min-height: 520px; border-radius: 16px; overflow: hidden; }
+.dz-split__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.dz-benefits { display: flex; flex-direction: column; gap: 20px; margin: 12px 0 0; padding: 0; list-style: none; }
+.dz-benefits li { display: flex; gap: 16px; align-items: flex-start; }
+.dz-benefits b { font-weight: 600; font-size: 17px; color: var(--c-ink); }
+.dz-benefits p { margin-top: 4px; font-family: var(--f-inter); font-size: 14px; line-height: 1.55; color: var(--c-muted); }
+
+/* авторские покрытия SteelLak */
+.dz-finishes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.dz-finish { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 24px; padding: 24px; border-radius: 16px; border: 0.5px solid rgba(6, 31, 59, 0.18); background: #fff; }
+.dz-finish__media { border-radius: 10px; background: #f2f4f7; overflow: hidden; }
+.dz-finish__media img { display: block; width: 100%; height: 100%; object-fit: contain; padding: 12px; aspect-ratio: 1 / 2; }
+.dz-finish__body { display: flex; flex-direction: column; gap: 10px; }
+.dz-finish__title { font-weight: 500; font-size: 28px; line-height: 1.15; color: var(--c-ink); }
+.dz-finish__body > p:not(.dz-kicker) { font-family: var(--f-inter); font-size: 14px; line-height: 1.55; color: var(--c-muted); }
+.dz-swatches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 6px 0 0; padding: 0; list-style: none; }
+.dz-swatches--6 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.dz-swatches li { display: flex; flex-direction: column; gap: 6px; }
+.dz-swatches img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 8px; }
+.dz-swatches span { font-family: var(--f-inter); font-size: 12px; line-height: 1.3; color: var(--c-muted); }
+.dz-macro { margin-top: 6px; border-radius: 10px; overflow: hidden; }
+.dz-macro img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+
+/* панели из дерева */
+.dz-panels { display: flex; flex-direction: column; gap: 20px; margin-top: 56px; }
+.dz-panel { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 32px; padding: 28px; border-radius: 16px; border: 0.5px solid rgba(6, 31, 59, 0.18); background: #fff; }
+.dz-panel__door { border-radius: 10px; background: #f2f4f7; }
+.dz-panel__door img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 2; object-fit: contain; padding: 14px; }
+.dz-panel__body { display: flex; flex-direction: column; gap: 10px; }
+.dz-panel__title { font-weight: 500; font-size: 28px; line-height: 1.15; color: var(--c-ink); }
+.dz-panel__origin { font-family: var(--f-inter); font-weight: 500; font-size: 13px; color: var(--c-blue); }
+.dz-panel__body > p:not(.dz-panel__origin):not(.dz-note) { max-width: 720px; font-family: var(--f-inter); font-size: 15px; line-height: 1.55; color: var(--c-muted); }
+.dz-chips { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin: 10px 0 0; padding: 0; list-style: none; }
+.dz-chips li { display: flex; flex-direction: column; gap: 6px; }
+.dz-chips img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; }
+.dz-chips span { font-family: var(--f-inter); font-size: 12px; line-height: 1.3; color: var(--c-ink); }
+
+/* финальный призыв */
+.dz-cta { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 0; margin-top: 96px; padding: 0; border-radius: 20px; overflow: hidden;
+  background: radial-gradient(120% 140% at 100% 0%, #eef5ff 0%, #f6f8fb 60%); border: 0.5px solid rgba(6, 31, 59, 0.1); }
+.dz-cta.wrap { padding: 0; margin-left: var(--wrap-x); margin-right: var(--wrap-x); }
+.dz-cta__media { position: relative; min-height: 440px; }
+.dz-cta__media img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: 72% 50%; }
+.dz-cta__body { display: flex; flex-direction: column; justify-content: center; gap: 16px; padding: 48px; }
+
+@media (max-width: 1199px) {
+  .dz-hero__title { font-size: 42px; }
+  .dz-finishes { grid-template-columns: 1fr; }
+  .dz-figs--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dz-sch-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .dz { padding-bottom: 64px; }
+  .dz-title { font-size: 26px; }
+  .dz-sub { font-size: 19px; }
+  .dz-sub--gap { margin: 44px 0 18px; }
+  .dz-text { font-size: 15px; }
+  .dz-sec { padding-top: 64px; }
+  .dz-head { flex-direction: column; gap: 12px; margin-bottom: 24px; }
+  .dz-head__lead { flex: none; font-size: 15px; }
+  .dz-hero { grid-template-columns: 1fr; gap: 28px; padding-top: 24px; }
+  .dz-hero__title { font-size: 32px; }
+  .dz-hero__lead { font-size: 16px; }
+  .dz-hero__actions .btn { flex: 1 1 100%; justify-content: center; }
+  .dz-hero__media { aspect-ratio: 4 / 3; border-radius: 14px; }
+  .dz-terms { grid-template-columns: 1fr; gap: 12px; }
+  .dz-term { padding: 22px; }
+  .dz-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dz-stats li { padding: 18px 12px 18px 0; }
+  .dz-stats b { font-size: 28px; }
+  .dz-stats span { font-size: 13px; }
+  .dz-awards { grid-template-columns: 1fr; gap: 28px; margin-top: 40px; }
+  .dz-awards__media { aspect-ratio: 4 / 3; }
+  .dz-figs--3 { grid-template-columns: 1fr; }
+  .dz-figs--3 .dz-fig img { aspect-ratio: 4 / 3; }
+  .dz-figs--2, .dz-figs--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .dz-fig img { padding: 10px; }
+  .dz-figs--photo .dz-fig img { padding: 0; }
+  .dz-fig figcaption { font-size: 12px; }
+  .dz-schemes { margin-top: 40px; padding: 20px 16px; }
+  .dz-sch-list { gap: 20px 12px; }
+  .dz-switch .cat-tab span { display: none; }
+  .sch__pic { height: 130px; }
+  .sch__pic svg { width: 72px; }
+  .sch__name { font-size: 14px; }
+  .dz-split { grid-template-columns: 1fr; gap: 24px; }
+  .dz-split--rev .dz-split__media { order: 0; }
+  .dz-split__media { min-height: 0; aspect-ratio: 4 / 3; }
+  .dz-finish { grid-template-columns: 110px minmax(0, 1fr); gap: 14px; padding: 16px; }
+  .dz-finish__title { font-size: 22px; }
+  .dz-swatches--6 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dz-panels { margin-top: 40px; }
+  .dz-panel { grid-template-columns: 1fr; gap: 16px; padding: 18px; }
+  .dz-panel__door { max-width: 160px; }
+  .dz-panel__title { font-size: 22px; }
+  .dz-chips { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .dz-cta { grid-template-columns: 1fr; margin-top: 64px; }
+  .dz-cta.wrap { margin-left: var(--page-x); margin-right: var(--page-x); }
+  .dz-cta__media { min-height: 0; aspect-ratio: 4 / 3; }
+  .dz-cta__body { padding: 28px 22px; }
+}

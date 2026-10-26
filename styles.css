@@ -1899,6 +1899,23 @@ body.has-modal .callback-fab { display: none; }
 .lead__form.is-contact .lead__steps,
 .lead__form.is-contact .field--photo,
 .lead__form.is-contact .field--email { display: none; }
+/* заявка на партнёрство: без фото проёма, с полями «Вы» и «Студия или компания»; почта необязательна */
+.lead__form .field--partner { display: none; }
+.lead__form.is-partner .field--partner { display: block; }
+.lead__form.is-partner .lead__steps,
+.lead__form.is-partner .field--photo { display: none; }
+fieldset.field--partner { margin: 0; padding: 0; border: 0; min-width: 0; }
+fieldset.field--partner legend { padding: 0; }
+.role-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.role-chip { position: relative; cursor: pointer; }
+.role-chip input { position: absolute; opacity: 0; pointer-events: none; }
+.role-chip span {
+  display: inline-flex; align-items: center; padding: 9px 16px; border: 1px solid rgba(6, 31, 59, 0.16); border-radius: 100px;
+  font-weight: 600; font-size: 14px; color: var(--c-navy); transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+}
+.role-chip:hover span { border-color: var(--c-navy); }
+.role-chip input:checked + span { background: var(--c-navy); border-color: var(--c-navy); color: #fff; }
+.role-chip input:focus-visible + span { outline: 2px solid var(--c-blue); outline-offset: 2px; }
 
 /* «Скидка 20% за заявку» в формах — в фирменных цветах */
 .form-bonus {

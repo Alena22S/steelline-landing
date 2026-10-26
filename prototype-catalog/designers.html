@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Дизайнерам и архитекторам — Стальная линия</title>
+  <meta name="description" content="Входные двери «Стальная линия» — эксклюзивно на Урале. Индивидуальный дизайн, двери с терморазрывом, нестандартные входные группы. Екатеринбург, ИЦ Аструм.">
+  <link rel="icon" href="../favicon.ico" sizes="16x16">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../assets/icons/favicon-96.png">
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=89">
+  <script>
+    /* ---------- Яндекс Метрика и пиксель VK Ads: подключаются сразу (уведомление о cookie — информационное).
+       Не подключаются, только если посетитель нажал «Отказаться» (в хранилище — 'necessary'). ---------- */
+    (function () {
+      var ID = 113661573;      // Яндекс Метрика
+      // отдельный счётчик «межком на сайте СЛ» — только на страницах межкомнатных дверей (раздел каталога и модели Aurum)
+      var ID_INTERIOR = 113740896;
+      var isInteriorPage = /\/prototype-catalog\/catalog\.html$/.test(location.pathname) && /[?&]cat=mezhkom(%2F|\/|&|$)/.test(location.search) ||
+        /\/prototype-catalog\/model\.html$/.test(location.pathname) && /[?&]id=au-/.test(location.search);
+      window.siteIsInterior = isInteriorPage; // формам: на межкомнатных скидку 20% не обещаем
+      var VK_ID = '3805477';   // пиксель VK Ads (Top.Mail.Ru)
+      var VK_ID_INTERIOR = '3807732'; // отдельный пиксель VK — только на страницах межкомнатных дверей
+      var loaded = false;
+      var vkLoaded = false;
+
+      // Цели: window.siteGoal('lead_success') — безопасно вызывать всегда; после отказа ничего не отправляется
+      window.siteGoal = function (name, params) {
+        if (loaded && typeof window.ym === 'function') {
+          window.ym(ID, 'reachGoal', name, params || {});
+          if (isInteriorPage) window.ym(ID_INTERIOR, 'reachGoal', name, params || {});
+        }
+        if (vkLoaded) {
+          window._tmr.push({ type: 'reachGoal', id: VK_ID, goal: name });
+          if (isInteriorPage) window._tmr.push({ type: 'reachGoal', id: VK_ID_INTERIOR, goal: name });
+        }
+      };
+
+      function loadVk() {
+        if (vkLoaded) return;
+        vkLoaded = true;
+        var _tmr = window._tmr || (window._tmr = []);
+        _tmr.push({ id: VK_ID, type: 'pageView', start: Date.now() });
+        if (isInteriorPage) _tmr.push({ id: VK_ID_INTERIOR, type: 'pageView', start: Date.now() });
+        if (document.getElementById('tmr-code')) return;
+        var ts = document.createElement('script');
+        ts.async = true; ts.id = 'tmr-code'; ts.src = 'https://top-fwz1.mail.ru/js/code.js';
+        var first = document.getElementsByTagName('script')[0];
+        first.parentNode.insertBefore(ts, first);
+      }
+
+      function load() {
+        if (loaded) return;
+        loaded = true;
+        (function (m, e, t, r, i, k, a) {
+          m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
+          m[i].l = 1 * new Date();
+          k = e.createElement(t); a = e.getElementsByTagName(t)[0];
+          k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + ID, 'ym');
+        // Вебвизор (запись действий на странице) — только после «Хорошо»; до этого Метрика считает визиты, источники и цели без записи
+        var opts = { webvisor: saved === 'all' || inMetrika, clickmap: true, accurateTrackBounce: true, trackLinks: true };
+        window.ym(ID, 'init', opts);
+        if (isInteriorPage) window.ym(ID_INTERIOR, 'init', opts);
+      }
+
+      var saved = null;
+      try { saved = localStorage.getItem('cookie-consent'); } catch (e) {}
+
+      // Сайт открыт внутри инструментов самой Метрики (карта кликов, аналитика форм, Вебвизор) —
+      // это смотрит владелец сайта, а не посетитель: подключаем счётчик и не показываем уведомление о cookie
+      var inMetrika = false;
+      try {
+        var anc = location.ancestorOrigins;
+        inMetrika = window.self !== window.top && (
+          /metrika\.yandex|webvisor\.com|metrica\.yandex/.test(document.referrer) ||
+          (anc && anc.length && /metrika\.yandex|webvisor\.com|metrica\.yandex/.test(anc[anc.length - 1]))
+        );
+      } catch (e) {}
+      if (inMetrika) {
+        document.documentElement.classList.add('in-metrika');
+        load();
+      } else if (saved !== 'necessary') {
+        load();
+        loadVk();
+      }
+      // «Отказаться»: дальше не считаем, удаляем cookie Метрики; со следующей страницы счётчики не подключаются
+      document.addEventListener('cookie-consent', function (e) {
+        if (e.detail !== 'necessary') return;
+        loaded = false; vkLoaded = false;
+        document.cookie.split(';').forEach(function (c) {
+          var name = c.split('=')[0].trim();
+          if (/^_ym|^yandexuid|^tmr_/.test(name)) {
+            document.cookie = name + '=; Max-Age=0; path=/';
+            document.cookie = name + '=; Max-Age=0; path=/; domain=.' + location.hostname.replace(/^www\./, '');
+          }
+        });
+      });
+
+      // Клики-цели по всему сайту
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href');
+        if (href.indexOf('tel:') === 0) window.siteGoal('phone_click');
+        else if (href.indexOf('mailto:') === 0) window.siteGoal('email_click');
+        else if (href.indexOf('yandex.ru/maps') !== -1) window.siteGoal('route_click');
+        else if (href.indexOf('steelline.store/catalog') !== -1) window.siteGoal('catalog_click');
+      });
+
+      // Вовлечённость: 30 и 60 секунд на странице (только пока вкладка открыта перед глазами) и прокрутка до середины.
+      // Без Вебвизора Метрика видит лишь первые 15 секунд — каждая цель добавляет сигнал, и время визита ближе к реальному;
+      // для рекламы VK это частое «качественное» событие, на которое можно оптимизировать кампанию, пока заявок мало.
+      var active = 0, last = Date.now(), sent = {};
+      function once(name) { if (!sent[name]) { sent[name] = 1; window.siteGoal(name); } }
+      setInterval(function () {
+        var now = Date.now();
+        if (document.visibilityState === 'visible') active += now - last;
+        last = now;
+        if (active >= 30000) once('engaged_30s');
+        if (active >= 60000) once('engaged_60s');
+      }, 1000);
+      // вернулся на вкладку — время, пока она была скрыта, не считаем
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') last = Date.now();
+      });
+      window.addEventListener('scroll', function () {
+        var d = document.documentElement;
+        if (d.scrollHeight > window.innerHeight * 1.5 && window.scrollY + window.innerHeight >= d.scrollHeight / 2) once('scroll_50');
+      }, { passive: true });
+    })();
+  </script>
+  <link rel="stylesheet" href="catalog.css?v=84">
+</head>
+<body class="page-designers">
+
+  <header class="header" id="top">
+    <div class="header__main">
+      <a class="header__logo" href="../" aria-label="Стальная линия — на главную">
+        <img class="header__logo-desktop" src="../assets/icons/logo.svg" width="246.5" height="43.2242" alt="Стальная линия — двери в квартиру и дом">
+        <img class="header__logo-mobile" src="../assets/icons/logo-mobile.svg" width="179.273" height="31.4358" alt="Стальная линия — двери в квартиру и дом">
+      </a>
+      <nav class="header__nav" id="site-nav" aria-label="Основная навигация">
+        <div class="nav-dd">
+          <a class="nav-dd__toggle" href="catalog.html" aria-haspopup="true">Каталог</a>
+          <div class="nav-dd__menu">
+            <div class="nav-dd__list">
+              <a href="catalog.html">Входные двери</a>
+              <a href="catalog.html?cat=mezhkom">Межкомнатные двери</a>
+              <a href="portfolio.html">Наши работы</a>
+              <a href="gid.html">Гид по продукту</a>
+            </div>
+          </div>
+        </div>
+        <a href="../#reviews">Обзор дверей</a>
+        <a href="../#custom">Двери на заказ</a>
+        <a href="../#tech">Технологии</a>
+        <div class="nav-dd">
+          <a class="nav-dd__toggle" href="#footer" aria-haspopup="true">Контакты</a>
+          <div class="nav-dd__menu">
+            <div class="nav-dd__list">
+              <a href="stores.html">Наши магазины</a>
+              <a href="designers.html">Дизайнерам и архитекторам</a>
+              <a href="#footer">Контакты</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <a class="header__address" href="stores.html" title="Наши магазины">
+        <img src="../assets/icons/map-pin.svg" width="16" height="16" alt="">
+        <span>Екатеринбург, ИЦ Аструм</span>
+      </a>
+      <a class="btn btn--gradient header__cta" href="../#contacts" data-open-form="header">Подобрать дверь</a>
+      <button class="header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-nav">
+        <img src="../assets/icons/menu.svg" width="25" height="24" alt="">
+      </button>
+    </div>
+    <div class="header__facts">
+      <div class="fact"><img src="../assets/icons/badge-30.svg" width="24" height="24" alt="30"><span>Лет производства</span></div>
+      <div class="fact"><img src="../assets/icons/badge-2.svg" width="24" height="24" alt="2"><span>Года гарантии</span></div>
+      <div class="fact"><img src="../assets/icons/badge-20.svg" width="24" height="24" alt="20"><span>стран присутствия</span></div>
+    </div>
+  </header>
+
+  <main class="dz" id="designers">
+    <section class="dz-hero wrap">
+      <div class="dz-hero__text">
+        <nav class="crumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>/</span><span>Дизайнерам и&nbsp;архитекторам</span></nav>
+        <p class="dz-kicker">Exclusive · для профессионалов</p>
+        <h1 class="dz-hero__title">Дизайнерам и&nbsp;архитекторам</h1>
+        <p class="dz-hero__lead">Любой проект&nbsp;— это история с&nbsp;индивидуальными желаниями и&nbsp;особенностями. Мы вдохновляемся концепциями дизайнеров и&nbsp;архитекторов и&nbsp;воплощаем самые смелые идеи: двери любого размера, цвета и&nbsp;отделки для проектов любого уровня.</p>
+        <p class="dz-hero__who">Приглашаем к&nbsp;сотрудничеству дизайнеров, архитекторов, застройщиков и&nbsp;строительно-ремонтные организации.</p>
+        <div class="dz-hero__actions">
+          <a class="btn btn--gradient btn--lg" href="#" data-open-form="designers">Стать партнёром <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+          <a class="btn btn--outline btn--outline-soft btn--lg" href="#size">Возможности фабрики</a>
+        </div>
+      </div>
+      <div class="dz-hero__media"><img src="img/diz/hero-wood.webp?v=6" alt="Входная дверь «Стальная линия» с отделкой под дерево и фрезеровкой в светлой прихожей" fetchpriority="high"></div>
+    </section>
+
+    <section class="dz-sec wrap" aria-labelledby="dz-terms">
+      <h2 class="dz-title" id="dz-terms">Условия сотрудничества</h2>
+      <div class="dz-terms">
+        <article class="dz-term"><span class="dz-term__icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><path d="M6 16v-3M10 16V9M14 16v-5M18 16V6"/><path d="M14 4h4v4"/></svg></span><h3>Повышенный коэффициент прибыли</h3><p>Выстраиваем индивидуальные условия с&nbsp;каждым специалистом и&nbsp;повышаем процент от&nbsp;сделок для лояльных партнёров.</p></article>
+        <article class="dz-term"><span class="dz-term__icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/><path d="m12 15 1.5 3-1.5 3-1.5-3z"/></svg></span><h3>Персональное сопровождение</h3><p>Отдел по&nbsp;работе с&nbsp;дизайнерами ведёт заказ от&nbsp;заявки и&nbsp;подбора дверей до&nbsp;сдачи на&nbsp;объекте, включая логистику и&nbsp;подъём на&nbsp;этаж.</p></article>
+        <article class="dz-term"><span class="dz-term__icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 6a4 4 0 0 0-5 5l-6 6 2 2 6-6a4 4 0 0 0 5-5l-3 3-2-2z"/></svg></span><h3>Аккредитованные монтажники</h3><p>Устанавливают специалисты с&nbsp;большим стажем, на&nbsp;их&nbsp;работу&nbsp;— юридически закреплённая гарантия.</p></article>
+      </div>
+    </section>
+
+    <section class="dz-sec wrap" aria-labelledby="dz-facts">
+      <h2 class="dz-title" id="dz-facts">«Стальная линия» в&nbsp;цифрах</h2>
+      <ul class="dz-stats">
+        <li><b>30</b><span>лет производим входные двери: от&nbsp;простых конструктивов до&nbsp;нестандартных моделей</span></li>
+        <li><b>30&nbsp;000 м²</b><span>площадь производства, мощность&nbsp;— свыше 54&nbsp;000 дверей в&nbsp;год</span></li>
+        <li><b>20</b><span>стран, где представлена продукция: от&nbsp;Крайнего Севера России до&nbsp;США</span></li>
+        <li><b>350+</b><span>точек продаж</span></li>
+        <li><b>3&nbsp;млн+</b><span>вариантов дверей</span></li>
+        <li><b>25</b><span>конструктивов дверей</span></li>
+        <li><b>2&nbsp;000+</b><span>цветов и&nbsp;вариантов отделки</span></li>
+        <li><b>251</b><span>фрезеровка</span></li>
+      </ul>
+      <div class="dz-awards">
+        <div class="dz-awards__list">
+          <h3 class="dz-sub">Награды</h3>
+          <ul>
+            <li><b>Производитель №1 входных дверей в&nbsp;Беларуси*</b><span>2017, 2019, 2020, 2021</span></li>
+            <li><b>«Лучшие товары Беларуси»**</b><span>2015–2021</span></li>
+            <li><b>«Лучший строительный продукт года»</b><span>2014</span></li>
+          </ul>
+          <p class="dz-note">* по&nbsp;уведомлению о&nbsp;победе бренда «Стальная линия» в&nbsp;номинации «Белорусский производитель входных металлических дверей» конкурса «Выбор года».<br>** по&nbsp;результатам конкурса «Лучшие товары Республики Беларусь» в&nbsp;номинации «Промышленные товары».</p>
+        </div>
+        <div class="dz-awards__media"><img src="img/diz/awards.webp?v=6" alt="Вручение премии «Выбор года» бренду «Стальная линия»" loading="lazy" decoding="async"></div>
+      </div>
+    </section>
+
+    <section class="dz-sec wrap" id="size" aria-labelledby="dz-size">
+      <div class="dz-head">
+        <div><p class="dz-kicker">Более 7&nbsp;000 размеров</p><h2 class="dz-title" id="dz-size">Двери любого размера</h2></div>
+        <p class="dz-head__lead">Обустроим проём любой входной группы от&nbsp;800×1800 до&nbsp;3000×3500&nbsp;мм. Боковые доборы, верхние фрамуги и&nbsp;двупольные двери позволяют вписать дверь в&nbsp;проём практически любой ширины и&nbsp;высоты. Создавайте своё решение&nbsp;— мы&nbsp;воплотим его.</p>
+      </div>
+      <div class="dz-figs dz-figs--3 dz-figs--photo">
+        <figure class="dz-fig "><span class="dz-fig__media"><img src="img/diz/size-1.webp?v=5" alt="" loading="lazy" decoding="async"></span><figcaption><b>С боковым и верхним добором.</b> 1380×2460 мм, фрезеровка КЛ-4, Oak Panel «Белый», патина золото</figcaption></figure>
+        <figure class="dz-fig "><span class="dz-fig__media"><img src="img/diz/size-2.webp?v=5" alt="" loading="lazy" decoding="async"></span><figcaption><b>С верхним и боковыми доборами.</b> 1760×2500 мм, фрезеровка заказчика, SteelLak® NCS S 1020-R60B, структурный</figcaption></figure>
+        <figure class="dz-fig "><span class="dz-fig__media"><img src="img/diz/size-3.webp?v=5" alt="" loading="lazy" decoding="async"></span><figcaption><b>Двупольная с фрамугой.</b> 1580×2900 мм, фрезеровка заказчика, Bjork Panel «Либерика», патина чёрная</figcaption></figure>
+      </div>
+      <div class="dz-schemes">
+        <div class="dz-schemes__head">
+          <h3 class="dz-sub">Варианты для нестандартных проёмов</h3>
+          <div class="dz-switch" role="tablist" aria-label="Тип двери">
+            <button type="button" class="cat-tab is-active" role="tab" aria-selected="true" data-sch="1">Однопольные <span>от 800×1800</span></button>
+            <button type="button" class="cat-tab" role="tab" aria-selected="false" data-sch="2">Двупольные <span>до 3000×3500</span></button>
+          </div>
+        </div>
+        <ul class="dz-sch-list" data-sch-list="1"><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="3.0" y="3" width="114.0" height="147" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M110.0 69.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">Однопольная <b>1П</b></span><span class="sch__note">max высота 2380 мм, ширина 1080 мм (серия 100)</span></li><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="100" y="0" width="20" height="150" class="sch-fill"/><rect x="3.0" y="3" width="94.0" height="147" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M90.0 69.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">С правым боковым добором <b>1П+ПД</b></span><span class="sch__note">Серии 60, 60-ВН, 70, 100</span></li><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="0" y="0" width="20" height="150" class="sch-fill"/><rect x="23.0" y="3" width="94.0" height="147" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M110.0 69.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">С левым боковым добором <b>1П+ЛД</b></span><span class="sch__note">Серии 60, 60-ВН, 70, 100, 100-ВН</span></li><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="0" y="0" width="20" height="150" class="sch-fill"/><rect x="100" y="0" width="20" height="150" class="sch-fill"/><rect x="23.0" y="3" width="74.0" height="147" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M90.0 69.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">С двумя боковыми доборами <b>1П+2Д</b></span><span class="sch__note">Серии 100, 100-ВН</span></li><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="0" y="0" width="120" height="20" class="sch-fill"/><rect x="3.0" y="23" width="114.0" height="127" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M110.0 79.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">С верхней фрамугой <b>1П+Ф</b></span><span class="sch__note">Серии 60, 60-ВН, 70, 100, 100-ВН</span></li><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="0" y="0" width="120" height="20" class="sch-fill"/><rect x="100" y="20" width="20" height="130" class="sch-fill"/><rect x="3.0" y="23" width="94.0" height="127" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M90.0 79.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">С правым добором и фрамугой <b>1П+ПД+Ф</b></span><span class="sch__note">Серии 100, 100-ВН</span></li><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="0" y="0" width="120" height="20" class="sch-fill"/><rect x="0" y="20" width="20" height="130" class="sch-fill"/><rect x="23.0" y="23" width="94.0" height="127" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M110.0 79.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">С левым добором и фрамугой <b>1П+ЛД+Ф</b></span><span class="sch__note">Серии 100, 100-ВН</span></li><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="0" y="0" width="120" height="20" class="sch-fill"/><rect x="0" y="20" width="20" height="130" class="sch-fill"/><rect x="100" y="20" width="20" height="130" class="sch-fill"/><rect x="23.0" y="23" width="74.0" height="127" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M90.0 79.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">С двумя доборами и фрамугой <b>1П+2Д+Ф</b></span><span class="sch__note">Серии 100, 100-ВН</span></li></ul>
+        <ul class="dz-sch-list" data-sch-list="2" hidden><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="3.0" y="3" width="54.0" height="147" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M51.0 69.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="63.0" y="3" width="54.0" height="147" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M69.0 69.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">Двупольная <b>2П</b></span><span class="sch__note">Серии 70, 80, 100, 100-ВН</span></li><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="0" y="0" width="20" height="150" class="sch-fill"/><rect x="23.0" y="3" width="44.0" height="147" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M61.0 69.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="73.0" y="3" width="44.0" height="147" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M79.0 69.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">С левым боковым добором <b>2П+ЛД</b></span><span class="sch__note">Серии 100, 100-ВН</span></li><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="100" y="0" width="20" height="150" class="sch-fill"/><rect x="3.0" y="3" width="44.0" height="147" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M41.0 69.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="53.0" y="3" width="44.0" height="147" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M59.0 69.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">С правым боковым добором <b>2П+ПД</b></span><span class="sch__note">Серии 100, 100-ВН</span></li><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="0" y="0" width="20" height="150" class="sch-fill"/><rect x="100" y="0" width="20" height="150" class="sch-fill"/><rect x="23.0" y="3" width="34.0" height="147" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M51.0 69.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="63.0" y="3" width="34.0" height="147" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M69.0 69.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">С двумя боковыми доборами <b>2П+2Д</b></span><span class="sch__note">Серии 100, 100-ВН</span></li><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="0" y="0" width="120" height="20" class="sch-fill"/><rect x="3.0" y="23" width="54.0" height="127" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M51.0 79.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="63.0" y="23" width="54.0" height="127" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M69.0 79.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">С верхней фрамугой <b>2П+Ф</b></span><span class="sch__note">Серии 100, 100-ВН</span></li><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="0" y="0" width="120" height="20" class="sch-fill"/><rect x="0" y="20" width="20" height="130" class="sch-fill"/><rect x="23.0" y="23" width="44.0" height="127" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M61.0 79.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="73.0" y="23" width="44.0" height="127" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M79.0 79.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">С левым добором и фрамугой <b>2П+ЛД+Ф</b></span><span class="sch__note">Серии 100, 100-ВН</span></li><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="0" y="0" width="120" height="20" class="sch-fill"/><rect x="100" y="20" width="20" height="130" class="sch-fill"/><rect x="3.0" y="23" width="44.0" height="127" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M41.0 79.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="53.0" y="23" width="44.0" height="127" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M59.0 79.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">С правым добором и фрамугой <b>2П+ПД+Ф</b></span><span class="sch__note">Серии 100, 100-ВН</span></li><li class="sch"><span class="sch__pic"><svg viewBox="-2 -2 124 154" width="120" height="150" aria-hidden="true"><rect x="0" y="0" width="120" height="150" fill="none" stroke="currentColor" stroke-width="2"/><rect x="0" y="0" width="120" height="20" class="sch-fill"/><rect x="0" y="20" width="20" height="130" class="sch-fill"/><rect x="100" y="20" width="20" height="130" class="sch-fill"/><rect x="23.0" y="23" width="34.0" height="127" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M51.0 79.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="63.0" y="23" width="34.0" height="127" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M69.0 79.0v12" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span class="sch__name">С двумя доборами и фрамугой <b>2П+2Д+Ф</b></span><span class="sch__note">Серии 100, 100-ВН</span></li></ul>
+        <p class="dz-note">Тёмным показаны боковые доборы и&nbsp;верхняя фрамуга. Максимальные размеры однопольной двери указаны для серии 100, у&nbsp;других серий они отличаются.</p>
+      </div>
+    </section>
+
+    <section class="dz-sec wrap" aria-labelledby="dz-false">
+      <div class="dz-split">
+        <div class="dz-split__text">
+          <h2 class="dz-title" id="dz-false">Фальш-панели</h2>
+          <p class="dz-text">Стандартный проём, но&nbsp;хочется необычного решения или нужно поддержать стилистику интерьера? Фальш-панели могут быть практически любых размеров*: входная группа становится частью интерьера без дополнительных строительных работ.</p>
+          <div class="dz-figs dz-figs--2">
+            <figure class="dz-fig "><span class="dz-fig__media"><img src="img/diz/false-1.webp?v=5" alt="" loading="lazy" decoding="async"></span><figcaption>Фальш-панели 1335×2670 мм, полотно 960×2060 мм. Фрезеровка CV2.01, SteelLak® «Нефрит» RAL 6036, гладкий с эффектом металлик, вставка&nbsp;— чёрный молдинг</figcaption></figure>
+            <figure class="dz-fig "><span class="dz-fig__media"><img src="img/diz/false-2.webp?v=5" alt="" loading="lazy" decoding="async"></span><figcaption>Фальш-панели 1540×2445 мм, полотно 950×2050 мм. Фрезеровка CL1.04, SteelLak® «Антрацит» RAL 7016, гладкий</figcaption></figure>
+          </div>
+          <p class="dz-note">* по&nbsp;согласованию с&nbsp;производственно-техническим отделом</p>
+        </div>
+        <div class="dz-split__media"><img src="img/diz/false-room.webp?v=2" alt="Дверь с фальш-панелями под дерево в шоуруме" loading="lazy" decoding="async"></div>
+      </div>
+    </section>
+
+    <section class="dz-sec wrap" id="color" aria-labelledby="dz-color">
+      <div class="dz-head">
+        <div><p class="dz-kicker">Более 2&nbsp;000 цветовых решений</p><h2 class="dz-title" id="dz-color">Двери любого цвета</h2></div>
+        <p class="dz-head__lead">Цвет первым формирует образ пространства, поэтому мы&nbsp;точно воспроизводим выбранные решения: любой цвет из&nbsp;палитр RAL Classic и&nbsp;NCS. Фирменная технология окраски SteelLak® делает покрытие прочным, защищает от&nbsp;стирания и&nbsp;царапин&nbsp;— дверь сохраняет вид весь срок службы.</p>
+      </div>
+      <div class="dz-figs dz-figs--4">
+        <figure class="dz-fig "><span class="dz-fig__media"><img src="img/diz/color-1.webp?v=5" alt="" loading="lazy" decoding="async"></span><figcaption>Внутреннее открывание, 1380×2060 мм, фрезеровка Н-76, SteelLak® Brilliant «Рубиновый»</figcaption></figure>
+        <figure class="dz-fig "><span class="dz-fig__media"><img src="img/diz/color-2.webp?v=5" alt="" loading="lazy" decoding="async"></span><figcaption>1010×2080 мм, SteelLak® RAL 4006, гладкий, фрезеровка П-36</figcaption></figure>
+        <figure class="dz-fig "><span class="dz-fig__media"><img src="img/diz/color-3.webp?v=5" alt="" loading="lazy" decoding="async"></span><figcaption>1020×2140 мм, SteelLak® RAL 6036, гладкий, фрезеровка КЛ-2</figcaption></figure>
+        <figure class="dz-fig "><span class="dz-fig__media"><img src="img/diz/color-4.webp?v=5" alt="" loading="lazy" decoding="async"></span><figcaption>860×2050 мм, фрезеровка CFД-18, SteelLak® «Небесно-голубой» NCS S 3030-R90B, структурный</figcaption></figure>
+      </div>
+      <h3 class="dz-sub dz-sub--gap">Авторские покрытия, которым нет аналогов на&nbsp;рынке</h3>
+      <div class="dz-finishes">
+        <article class="dz-finish" id="brilliant"><div class="dz-finish__media"><img src="img/diz/brilliant.webp?v=6" alt="" loading="lazy" decoding="async"></div><div class="dz-finish__body"><p class="dz-kicker">SteelLak®</p><h3 class="dz-finish__title">Brilliant</h3><p>Металлическая блёстка создаёт эффект звёздного неба и&nbsp;выгодно подчёркивает порталы, наличники и&nbsp;витражи. Дверь становится акцентом интерьера.</p><ul class="dz-swatches"><li><img src="img/diz/brilliant-ruby.webp?v=6" alt="" loading="lazy"><span>«Рубиновый»</span></li><li><img src="img/diz/brilliant-violet.webp?v=6" alt="" loading="lazy"><span>«Фиолетовый»</span></li></ul></div></article>
+        <article class="dz-finish" id="pearl"><div class="dz-finish__media"><img src="img/diz/pearl.webp?v=6" alt="" loading="lazy" decoding="async"></div><div class="dz-finish__body"><p class="dz-kicker">SteelLak®</p><h3 class="dz-finish__title">Перламутр</h3><p>Глубокие переливы цвета: благодаря 3D-эффекту фактура играет на&nbsp;свету и&nbsp;дополняет современный интерьер. Цвета&nbsp;— «Чёрный оникс» и&nbsp;«Изумруд».</p><div class="dz-macro"><img src="img/diz/pearl-macro.webp?v=6" alt="" loading="lazy"></div></div></article>
+        <article class="dz-finish" id="chameleon"><div class="dz-finish__media"><img src="img/diz/chameleon.webp?v=6" alt="" loading="lazy" decoding="async"></div><div class="dz-finish__body"><p class="dz-kicker">SteelLak®</p><h3 class="dz-finish__title">Хамелеон</h3><p>Голографический эффект: оттенок двери меняется в&nbsp;зависимости от&nbsp;освещения.</p><ul class="dz-swatches dz-swatches--6"><li><img src="img/diz/ch-1.webp?v=6" alt="" loading="lazy"><span>«Жемчужно-розовый»</span></li><li><img src="img/diz/ch-2.webp?v=6" alt="" loading="lazy"><span>«Жемчужно-голубой»</span></li><li><img src="img/diz/ch-3.webp?v=6" alt="" loading="lazy"><span>«Розовый»</span></li><li><img src="img/diz/ch-4.webp?v=6" alt="" loading="lazy"><span>«Голубой»</span></li><li><img src="img/diz/ch-5.webp?v=6" alt="" loading="lazy"><span>«Фиолетовый»</span></li><li><img src="img/diz/ch-6.webp?v=6" alt="" loading="lazy"><span>«Фиолетовый металлик»</span></li></ul></div></article>
+        <article class="dz-finish" id="metallic"><div class="dz-finish__media"><img src="img/diz/metallic.webp?v=6" alt="" loading="lazy" decoding="async"></div><div class="dz-finish__body"><p class="dz-kicker">SteelLak®</p><h3 class="dz-finish__title">Metallic</h3><p>Наносится на&nbsp;любой цвет и&nbsp;покрывается лаком: поверхность переливается металлическими искрами в&nbsp;лучах солнца. В&nbsp;палитре 20 базовых цветов, но&nbsp;мерцающий эффект можно придать любому цвету RAL Classic и&nbsp;NCS.</p><div class="dz-macro"><img src="img/diz/metallic-macro.webp?v=6" alt="" loading="lazy"></div></div></article>
+      </div>
+    </section>
+
+    <section class="dz-sec wrap" id="wood" aria-labelledby="dz-wood">
+      <div class="dz-split dz-split--rev">
+        <div class="dz-split__text">
+          <h2 class="dz-title" id="dz-wood">Отделка из&nbsp;дерева</h2>
+          <p class="dz-text">Натуральный материал даёт простор фантазии: каждый интерьер получает уникальную фактуру и&nbsp;гамму оттенков. У&nbsp;нас три отделки из&nbsp;дерева&nbsp;— Oak Panel, Bjork Panel и&nbsp;Concord Panel. Они различаются фактурой, палитрой и&nbsp;ценой, но&nbsp;в&nbsp;главном схожи:</p>
+          <ul class="dz-benefits">
+            <li><span class="dz-term__icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3s-6 7-6 11a6 6 0 0 0 12 0c0-4-6-11-6-11z"/></svg></span><div><b>Атмосферостойкость</b><p>Устойчивы к&nbsp;влаге и&nbsp;перепадам температур, защищены от&nbsp;выгорания специальными лаками.</p></div></li>
+            <li><span class="dz-term__icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span><div><b>Защита от&nbsp;выгорания</b><p>Колористы разработали окраску полупрозрачными красителями и&nbsp;плотными эмалями&nbsp;— отделка сохраняет яркость и&nbsp;глубину цвета.</p></div></li>
+            <li><span class="dz-term__icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="2"/></svg></span><div><b>Неповторимый рисунок</b><p>Верхний слой передаёт рисунок натурального дерева; тон&nbsp;— от&nbsp;спокойных древесных оттенков до&nbsp;акцентных.</p></div></li>
+          </ul>
+        </div>
+        <div class="dz-split__media"><img src="img/diz/wood-house.webp?v=6" alt="Дверь с отделкой из дерева на фасаде дома" loading="lazy" decoding="async"></div>
+      </div>
+      <div class="dz-panels">
+        <article class="dz-panel" id="oak"><div class="dz-panel__door"><img src="img/diz/oak.webp?v=6" alt="" loading="lazy" decoding="async"></div><div class="dz-panel__body"><h3 class="dz-panel__title">Oak Panel</h3><p class="dz-panel__origin">Италия · шпон дуба на основе из африканского дерева сейба</p><p>Многослойная панель прошла испытания 360 часами под водой и&nbsp;доказала высокую атмосферостойкость. Для неё разработаны фрезеровки с&nbsp;багетными рамками из&nbsp;массива дуба&nbsp;— они придают двери аристократичный вид.</p><ul class="dz-chips"><li><img src="img/diz/oak-1.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Тёмный»</span></li><li><img src="img/diz/oak-2.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Мокка»</span></li><li><img src="img/diz/oak-3.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Коньячный»</span></li><li><img src="img/diz/oak-4.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Натуральный»</span></li><li><img src="img/diz/oak-5.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Слоновая кость»</span></li><li><img src="img/diz/oak-6.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Белый»</span></li><li><img src="img/diz/oak-7.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Серый»</span></li><li><img src="img/diz/oak-8.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Натуральный зелёный»</span></li><li><img src="img/diz/oak-9.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Ультрамарин»</span></li><li><img src="img/diz/oak-10.webp?v=6" alt="" loading="lazy" decoding="async"><span>Любой цвет RAL</span></li></ul></div></article>
+        <article class="dz-panel" id="concord"><div class="dz-panel__door"><img src="img/diz/concord.webp?v=6" alt="" loading="lazy" decoding="async"></div><div class="dz-panel__body"><h3 class="dz-panel__title">Concord Panel</h3><p class="dz-panel__origin">Россия · многослойная панель с дубовым шпоном</p><p>В&nbsp;мельчайших деталях передаёт фактурный рисунок дуба.</p><ul class="dz-chips"><li><img src="img/diz/cc-1.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Янтарь»</span></li><li><img src="img/diz/cc-2.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Маджента»</span></li><li><img src="img/diz/cc-3.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Эбен»</span></li><li><img src="img/diz/cc-4.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Шабо»</span></li><li><img src="img/diz/cc-5.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Аметист»</span></li><li><img src="img/diz/cc-6.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Калабрия»</span></li><li><img src="img/diz/cc-7.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Терра»</span></li><li><img src="img/diz/cc-8.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Либерика»</span></li><li><img src="img/diz/cc-9.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Верде»</span></li><li><img src="img/diz/cc-10.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Браун»</span></li></ul><p class="dz-note">Все цвета&nbsp;— с&nbsp;чёрной патиной.</p></div></article>
+        <article class="dz-panel" id="bjork"><div class="dz-panel__door"><img src="img/diz/bjork.webp?v=6" alt="" loading="lazy" decoding="async"></div><div class="dz-panel__body"><h3 class="dz-panel__title">Bjork Panel</h3><p class="dz-panel__origin">Россия · многослойная панель с берёзовым шпоном</p><p>Гладкая поверхность и&nbsp;волнообразный, немного хаотичный рисунок дерева.</p><ul class="dz-chips"><li><img src="img/diz/bj-1.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Изумруд»</span></li><li><img src="img/diz/bj-2.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Аметист»</span></li><li><img src="img/diz/bj-3.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Индиго»</span></li><li><img src="img/diz/bj-4.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Либерика»</span></li><li><img src="img/diz/bj-5.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Терра»</span></li><li><img src="img/diz/bj-6.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Калабрия»</span></li><li><img src="img/diz/bj-7.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Маджента»</span></li><li><img src="img/diz/bj-8.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Эбен»</span></li><li><img src="img/diz/bj-9.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Янтарь»</span></li><li><img src="img/diz/bj-10.webp?v=6" alt="" loading="lazy" decoding="async"><span>«Шабо»</span></li></ul><p class="dz-note">Все цвета&nbsp;— с&nbsp;чёрной патиной.</p></div></article>
+      </div>
+    </section>
+
+    <section class="dz-cta wrap">
+      <div class="dz-cta__media"><img src="img/diz/cta-green.webp?v=6" alt="Зелёная входная дверь «Стальная линия» с арочной фрезеровкой и стеклом в светлой прихожей" loading="lazy" decoding="async"></div>
+      <div class="dz-cta__body">
+        <h2 class="dz-title">Обсудим ваш проект</h2>
+        <p class="dz-text">Расскажите о&nbsp;проекте&nbsp;— персональный менеджер подберёт решения, рассчитает стоимость и&nbsp;расскажет об&nbsp;условиях партнёрства. Образцы отделок можно посмотреть вживую в&nbsp;шоуруме в&nbsp;ИЦ ASTROOM.</p>
+        <div class="dz-hero__actions">
+          <a class="btn btn--gradient btn--lg" href="#" data-open-form="designers-cta">Стать партнёром <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+          <a class="btn btn--outline btn--outline-soft btn--lg" href="stores.html">Адреса салонов</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="cookie" id="cookie" role="region" aria-label="Уведомление о cookie" hidden>
+    <div class="cookie__copy">
+      <p class="cookie__text">Мы используем файлы cookie, чтобы сайтом было удобно пользоваться. <a href="../privacy.html#cookie" target="_blank">Подробнее</a></p>
+    </div>
+    <div class="cookie__actions">
+      <button class="btn btn--gradient btn--lg cookie__btn" type="button" data-cookie="all">Хорошо</button>
+      <button class="btn btn--outline btn--lg cookie__btn" type="button" data-cookie="necessary">Отказаться</button>
+    </div>
+  </div>
+
+  <a class="btn btn--gradient sticky-cta" href="#" data-open-form="sticky">Получить подбор двери <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+
+  <div class="bonus-fab js-bonus-fab" hidden>
+    <button class="bonus-fab__open" type="button" data-open-callback="bonus">
+      <span class="bonus-fab__pct">−20%</span>
+      <span class="bonus-fab__text"><b>Вам доступна скидка 20%</b><span>Нажмите, чтобы получить персональный купон</span></span>
+    </button>
+    <button class="bonus-fab__close js-bonus-close" type="button" aria-label="Скрыть предложение"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  </div>
+
+  <button class="callback-fab" type="button" data-open-callback aria-label="Заказать обратный звонок">
+    <span class="callback-fab__label">Заказать звонок</span>
+    <span class="callback-fab__icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5.1 3.5h3.1l1.6 4-2 1.3a10.6 10.6 0 0 0 7.4 7.4l1.3-2 4 1.6v3.1a2 2 0 0 1-2.1 2A16.6 16.6 0 0 1 3.1 5.6a2 2 0 0 1 2-2.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+  </button>
+
+  <dialog class="lead callback" id="callback" aria-labelledby="callback-title">
+    <button class="lead__close" type="button" aria-label="Закрыть" data-close-callback>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <form class="callback__form" id="callback-form" action="../send.php" method="post" novalidate>
+      <div class="lead__head">
+        <span class="callback__icon" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M5.1 3.5h3.1l1.6 4-2 1.3a10.6 10.6 0 0 0 7.4 7.4l1.3-2 4 1.6v3.1a2 2 0 0 1-2.1 2A16.6 16.6 0 0 1 3.1 5.6a2 2 0 0 1 2-2.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+        <h2 class="lead__title callback__title" id="callback-title">Перезвоним в&nbsp;течение часа</h2>
+        <p class="lead__lead callback__lead">Оставьте номер — менеджер салона свяжется с&nbsp;вами в&nbsp;рабочее время, ежедневно с&nbsp;10:00 до&nbsp;20:00.</p>
+        <details class="bonus-terms js-bonus-only" hidden>
+          <summary>Условия акции</summary>
+          <ul>
+            <li>Скидка 20% на&nbsp;входные двери «Стальная линия» по&nbsp;персональному купону.</li>
+            <li>Купон действует 7&nbsp;дней с&nbsp;момента получения.</li>
+            <li>Один купон&nbsp;— на&nbsp;один заказ: назовите код менеджеру при оформлении.</li>
+            <li>Скидка не&nbsp;суммируется с&nbsp;другими акциями и&nbsp;не&nbsp;действует на&nbsp;межкомнатные двери.</li>
+          </ul>
+        </details>
+        <p class="form-bonus js-form-bonus"><b>−20%</b><span><strong>Забронируем скидку за&nbsp;вами</strong>Оставьте контакты, чтобы её&nbsp;получить</span></p>
+      </div>
+      <div class="field js-bonus-only" hidden>
+        <label class="field__label" for="callback-email">Электронная почта</label>
+        <input class="input ym-disable-keys ym-hide-content" id="callback-email" name="email" type="email" autocomplete="email" maxlength="120" placeholder="name@mail.ru">
+        <p class="field__error"></p>
+      </div>
+      <div class="field js-bonus-hide">
+        <label class="field__label" for="callback-name">Имя</label>
+        <input class="input ym-disable-keys ym-hide-content" id="callback-name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="Как к вам обращаться">
+        <p class="field__error"></p>
+      </div>
+      <div class="field js-bonus-hide">
+        <label class="field__label" for="callback-phone">Телефон</label>
+        <input class="input ym-disable-keys ym-hide-content" id="callback-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+7 (___) ___-__-__">
+        <p class="field__error"></p>
+      </div>
+      <input class="lead__trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="source" value="callback">
+      <input type="hidden" name="comment" value="">
+      <div class="field">
+        <label class="check">
+          <input type="checkbox" name="consent" value="1" required>
+          <span>Даю <a href="../consent.html" target="_blank">согласие на&nbsp;обработку персональных данных</a> и&nbsp;принимаю <a href="../privacy.html" target="_blank">политику конфиденциальности</a></span>
+        </label>
+        <p class="field__error"></p>
+      </div>
+      <button class="btn btn--gradient btn--lg lead__submit callback__submit" type="submit"><span class="callback__submit-text">Жду звонка</span></button>
+      <p class="lead__status callback__status" role="alert"></p>
+    </form>
+    <div class="lead__done callback__done" hidden>
+      <span class="lead__done-icon" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 32 32" fill="none"><path d="M8 16.5l5.5 5.5L24 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h2 class="lead__title">Заявка принята</h2>
+      <p class="lead__lead callback__done-lead">Перезвоним в&nbsp;течение часа в&nbsp;рабочее время. Если звонок нужен срочно — <a href="tel:+79222077552">+7&nbsp;(922)&nbsp;207-75-52</a>.</p>
+      <p class="form-bonus-done js-form-bonus">Скидка 20% забронирована за&nbsp;вами</p>
+      <div class="callback__done-actions">
+        <a class="btn btn--gradient btn--lg callback__catalog js-bonus-only" href="catalog.html" hidden>Перейти в каталог</a>
+        <button class="btn btn--outline btn--outline-soft btn--lg" type="button" data-close-callback>Вернуться на сайт</button>
+      </div>
+    </div>
+  </dialog>
+
+  <footer class="footer" id="footer">
+    <div class="footer__top">
+      <div class="footer__rep">
+        <span class="footer__logo" role="img" aria-label="Дверной Молл — больше, чем двери"></span>
+        <p class="footer__rep-text">Эксклюзивный представитель «Стальной линии» <br>на Урале — «Дверной Молл».</p>
+      </div>
+      <nav class="footer__nav" aria-label="Навигация в подвале">
+        <a href="catalog.html">Каталог</a>
+        <a href="../">Бренды</a>
+        <a href="portfolio.html">Наши работы</a>
+        <a href="../#contacts">Салон</a>
+        <a href="designers.html">Для дизайнеров</a>
+        <a href="../#contacts">Контакты</a>
+      </nav>
+    </div>
+    <div class="footer__salons">
+      <address class="footer-salon">
+        <p class="footer-salon__name">Интерьерный центр «ASTROOM»</p>
+        <p>Екатеринбург, ул. Цвиллинга, 1<br>6 этаж, Галерея А</p>
+        <p class="footer-salon__muted">Пн–Вс 10:00–20:00</p>
+        <p class="footer-salon__links">
+          <a class="footer__phone" href="tel:+79222077552">+7 (922) 207-75-52</a>
+          <a class="footer__phone" href="tel:+79826056229">+7 (982) 605-62-29</a>
+          <a href="mailto:astroom@steelline.store">astroom@steelline.store</a>
+        </p>
+      </address>
+      <address class="footer-salon">
+        <p class="footer-salon__name">Салон «Дверная лавка»</p>
+        <p>Арамиль, ул. Гарнизон, 5</p>
+        <p class="footer-salon__muted">Пн–Пт 09:00–18:00</p>
+        <p class="footer-salon__links">
+          <a class="footer__phone" href="tel:+79193977317">+7 (919) 397-73-17</a>
+          <a href="mailto:zakazdver@bk.ru">zakazdver@bk.ru</a>
+        </p>
+      </address>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 Дверной Молл. ООО «Прогресс», ИНН&nbsp;6685206681, ОГРН&nbsp;1226600080321</p>
+      <div class="footer__legal">
+        <a href="../privacy.html">Политика конфиденциальности</a>
+        <a href="../consent.html">Согласие на обработку данных</a>
+      </div>
+    </div>
+  </footer>
+
+  <dialog class="lead" id="lead" aria-labelledby="lead-title">
+    <button class="lead__close" type="button" aria-label="Закрыть" data-close-form>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+
+    <!-- Заявки уходят в send.php. Для тестового режима (без отправки) добавить атрибут data-test-mode -->
+    <form class="lead__form" id="lead-form" action="../send.php" method="post" enctype="multipart/form-data" novalidate>
+      <div class="lead__head">
+        <h2 class="lead__title" id="lead-title" data-title-photo="Бесплатно подберём дверь по фото проёма" data-title-contact="Запись на подбор" data-title-partner="Станьте партнёром «Стальной линии»">Бесплатно подберём дверь по фото проёма</h2>
+        <p class="lead__lead" data-lead-photo="Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире." data-lead-contact="Оставьте имя и телефон — перезвоним, ответим на вопросы и запишем на подбор в салоне или замер." data-lead-partner="Для дизайнеров, архитекторов, застройщиков и ремонтных компаний. Менеджер по работе с партнёрами свяжется с вами и расскажет об условиях.">Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире.</p>
+        
+      </div>
+      <div class="field field--photo">
+        <span class="field__label" id="photos-label">Фото проёма <span class="field__hint">до 5 фото, JPG, PNG или HEIC</span></span>
+        <label class="dropzone" for="lead-photos">
+          <input class="dropzone__input" id="lead-photos" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" multiple aria-labelledby="photos-label" aria-describedby="photos-error">
+          <svg class="dropzone__icon" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="3" y="7" width="26" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M11 7l2-3h6l2 3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="16" cy="17" r="5" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span class="dropzone__text"><b>Загрузите фото</b><span class="dropzone__drag"> или перетащите сюда</span></span>
+          <span class="dropzone__sub">Снимите проём целиком, вместе с откосами и полом</span>
+        </label>
+        <ul class="previews" id="lead-previews" aria-live="polite"></ul>
+        <p class="field__error" id="photos-error"></p>
+      </div>
+
+      <!-- Только в заявке на партнёрство (страница «Дизайнерам и архитекторам») -->
+      <fieldset class="field field--partner">
+        <legend class="field__label">Вы</legend>
+        <div class="role-chips">
+          <label class="role-chip"><input type="radio" name="role" value="Дизайнер интерьера" checked><span>Дизайнер</span></label>
+          <label class="role-chip"><input type="radio" name="role" value="Архитектор"><span>Архитектор</span></label>
+          <label class="role-chip"><input type="radio" name="role" value="Застройщик"><span>Застройщик</span></label>
+          <label class="role-chip"><input type="radio" name="role" value="Ремонтная компания"><span>Ремонтная компания</span></label>
+        </div>
+      </fieldset>
+      <div class="field field--partner">
+        <label class="field__label" for="lead-company">Студия или компания <span class="field__hint">необязательно</span></label>
+        <input class="input ym-disable-keys ym-hide-content" id="lead-company" name="company" type="text" autocomplete="organization" maxlength="120" placeholder="Название или ссылка на портфолио">
+      </div>
+
+      <div class="lead__grid">
+        <div class="field">
+          <label class="field__label" for="lead-name">Имя</label>
+          <input class="input ym-disable-keys ym-hide-content" id="lead-name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="Как к вам обращаться">
+          <p class="field__error"></p>
+        </div>
+        <div class="field">
+          <label class="field__label" for="lead-phone">Телефон</label>
+          <input class="input ym-disable-keys ym-hide-content" id="lead-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+7 (___) ___-__-__">
+          <p class="field__error"></p>
+        </div>
+      </div>
+      <div class="field field--email">
+        <label class="field__label" for="lead-email">Почта <span class="field__hint" data-hint-photo="пришлём подборку сюда" data-hint-partner="необязательно — пришлём каталог для специалистов">пришлём подборку сюда</span></label>
+        <input class="input ym-disable-keys ym-hide-content" id="lead-email" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="name@mail.ru">
+        <p class="field__error"></p>
+      </div>
+      <div class="field">
+        <label class="field__label" for="lead-comment">Комментарий <span class="field__hint">необязательно</span></label>
+        <textarea class="input input--area ym-disable-keys ym-hide-content" id="lead-comment" name="comment" rows="3" maxlength="1000" placeholder="Размеры проёма, квартира или дом, пожелания по цвету"></textarea>
+      </div>
+
+      <!-- Ловушка для спам-ботов: люди это поле не видят -->
+      <input class="lead__trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="source" value="">
+
+      <div class="field">
+        <label class="check">
+          <input type="checkbox" name="consent" value="1" required>
+          <span>Даю <a href="../consent.html" target="_blank">согласие на&nbsp;обработку персональных данных</a> и&nbsp;принимаю <a href="../privacy.html" target="_blank">политику конфиденциальности</a></span>
+        </label>
+        <p class="field__error"></p>
+      </div>
+
+      <button class="btn btn--gradient btn--lg lead__submit" type="submit">
+        <span class="lead__submit-text">Получить подбор двери</span>
+        <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt="">
+      </button>
+      <p class="lead__status" role="alert"></p>
+    </form>
+
+    <div class="lead__done" hidden>
+      <span class="lead__done-icon" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 32 32" fill="none"><path d="M8 16.5l5.5 5.5L24 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h2 class="lead__title">Заявка отправлена</h2>
+      <p class="lead__lead lead__done-lead" data-done-contact="Спасибо! Перезвоним в&nbsp;рабочее время и&nbsp;договоримся о&nbsp;подборе." data-done-partner="Спасибо! Менеджер по&nbsp;работе с&nbsp;партнёрами свяжется с&nbsp;вами в&nbsp;рабочее время и&nbsp;расскажет об&nbsp;условиях сотрудничества.">Спасибо! Мы посмотрим фото и пришлём подборку на почту. Если появятся вопросы — позвоним.</p>
+      
+      <button class="btn btn--outline btn--outline-soft btn--lg" type="button" data-close-form>Вернуться на сайт</button>
+    </div>
+  </dialog>
+
+  <script src="../script.js?v=62"></script>
+  <script src="designers.js?v=1"></script>
+</body>
+</html>

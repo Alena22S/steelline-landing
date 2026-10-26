@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=88">
+  <link rel="stylesheet" href="../styles.css?v=89">
   <script>
     /* ---------- Яндекс Метрика и пиксель VK Ads: подключаются сразу (уведомление о cookie — информационное).
        Не подключаются, только если посетитель нажал «Отказаться» (в хранилище — 'necessary'). ---------- */
@@ -135,7 +135,7 @@
       }, { passive: true });
     })();
   </script>
-  <link rel="stylesheet" href="catalog.css?v=71">
+  <link rel="stylesheet" href="catalog.css?v=84">
 </head>
 <body class="page-catalog">
 
@@ -165,6 +165,7 @@
           <div class="nav-dd__menu">
             <div class="nav-dd__list">
               <a href="stores.html">Наши магазины</a>
+              <a href="designers.html">Дизайнерам и архитекторам</a>
               <a href="#footer">Контакты</a>
             </div>
           </div>
@@ -359,7 +360,7 @@
         <a href="../">Бренды</a>
         <a href="portfolio.html">Наши работы</a>
         <a href="../#contacts">Салон</a>
-        <a href="../#contacts">Для дизайнеров</a>
+        <a href="designers.html">Для дизайнеров</a>
         <a href="../#contacts">Контакты</a>
       </nav>
     </div>
@@ -401,8 +402,8 @@
     <!-- Заявки уходят в send.php. Для тестового режима (без отправки) добавить атрибут data-test-mode -->
     <form class="lead__form" id="lead-form" action="../send.php" method="post" enctype="multipart/form-data" novalidate>
       <div class="lead__head">
-        <h2 class="lead__title" id="lead-title" data-title-photo="Бесплатно подберём дверь по фото проёма" data-title-contact="Запись на подбор">Бесплатно подберём дверь по фото проёма</h2>
-        <p class="lead__lead" data-lead-photo="Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире." data-lead-contact="Оставьте имя и телефон — перезвоним, ответим на вопросы и запишем на подбор в салоне или замер.">Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире.</p>
+        <h2 class="lead__title" id="lead-title" data-title-photo="Бесплатно подберём дверь по фото проёма" data-title-contact="Запись на подбор" data-title-partner="Станьте партнёром «Стальной линии»">Бесплатно подберём дверь по фото проёма</h2>
+        <p class="lead__lead" data-lead-photo="Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире." data-lead-contact="Оставьте имя и телефон — перезвоним, ответим на вопросы и запишем на подбор в салоне или замер." data-lead-partner="Для дизайнеров, архитекторов, застройщиков и ремонтных компаний. Менеджер по работе с партнёрами свяжется с вами и расскажет об условиях.">Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире.</p>
         
       </div>
       <div class="field field--photo">
@@ -415,6 +416,21 @@
         </label>
         <ul class="previews" id="lead-previews" aria-live="polite"></ul>
         <p class="field__error" id="photos-error"></p>
+      </div>
+
+      <!-- Только в заявке на партнёрство (страница «Дизайнерам и архитекторам») -->
+      <fieldset class="field field--partner">
+        <legend class="field__label">Вы</legend>
+        <div class="role-chips">
+          <label class="role-chip"><input type="radio" name="role" value="Дизайнер интерьера" checked><span>Дизайнер</span></label>
+          <label class="role-chip"><input type="radio" name="role" value="Архитектор"><span>Архитектор</span></label>
+          <label class="role-chip"><input type="radio" name="role" value="Застройщик"><span>Застройщик</span></label>
+          <label class="role-chip"><input type="radio" name="role" value="Ремонтная компания"><span>Ремонтная компания</span></label>
+        </div>
+      </fieldset>
+      <div class="field field--partner">
+        <label class="field__label" for="lead-company">Студия или компания <span class="field__hint">необязательно</span></label>
+        <input class="input ym-disable-keys ym-hide-content" id="lead-company" name="company" type="text" autocomplete="organization" maxlength="120" placeholder="Название или ссылка на портфолио">
       </div>
 
       <div class="lead__grid">
@@ -430,7 +446,7 @@
         </div>
       </div>
       <div class="field field--email">
-        <label class="field__label" for="lead-email">Почта <span class="field__hint">пришлём подборку сюда</span></label>
+        <label class="field__label" for="lead-email">Почта <span class="field__hint" data-hint-photo="пришлём подборку сюда" data-hint-partner="необязательно — пришлём каталог для специалистов">пришлём подборку сюда</span></label>
         <input class="input ym-disable-keys ym-hide-content" id="lead-email" name="email" type="email" autocomplete="email" required maxlength="120" placeholder="name@mail.ru">
         <p class="field__error"></p>
       </div>
@@ -461,13 +477,13 @@
     <div class="lead__done" hidden>
       <span class="lead__done-icon" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 32 32" fill="none"><path d="M8 16.5l5.5 5.5L24 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <h2 class="lead__title">Заявка отправлена</h2>
-      <p class="lead__lead lead__done-lead" data-done-contact="Спасибо! Перезвоним в&nbsp;рабочее время и&nbsp;договоримся о&nbsp;подборе.">Спасибо! Мы посмотрим фото и пришлём подборку на почту. Если появятся вопросы — позвоним.</p>
+      <p class="lead__lead lead__done-lead" data-done-contact="Спасибо! Перезвоним в&nbsp;рабочее время и&nbsp;договоримся о&nbsp;подборе." data-done-partner="Спасибо! Менеджер по&nbsp;работе с&nbsp;партнёрами свяжется с&nbsp;вами в&nbsp;рабочее время и&nbsp;расскажет об&nbsp;условиях сотрудничества.">Спасибо! Мы посмотрим фото и пришлём подборку на почту. Если появятся вопросы — позвоним.</p>
       
       <button class="btn btn--outline btn--outline-soft btn--lg" type="button" data-close-form>Вернуться на сайт</button>
     </div>
   </dialog>
 
-  <script src="../script.js?v=61"></script>
+  <script src="../script.js?v=62"></script>
   <script src="catalog.js?v=56"></script>
 </body>
 </html>

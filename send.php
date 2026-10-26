@@ -78,6 +78,9 @@ $isSale     = ($source === 'sale');     // заявка на скидку (ра�
 $isBonus    = ($source === 'bonus');    // карточка «Вам доступна скидка 20%»
 $isCallback = ($source === 'callback' || $isSale || $isBonus); // короткая форма: только имя и телефон
 $isContact  = ($source === 'contact');  // «Записаться на подбор»: имя, телефон, комментарий — почта и фото необязательны
+$isPartner  = in_array($source, ['designers', 'designers-cta'], true); // «Стать партнёром»: дизайнеры и архитекторы, почта необязательна
+$role    = line('role', 40);
+$company = line('company', 120);
 
 if ($isBonus) {
     // купон 20%: нужна только почта — на неё уходит купон
@@ -86,7 +89,7 @@ if ($isBonus) {
     if (mb_strlen($name) < 2) reply(false, 'Укажите имя.', 422);
     if (strlen(preg_replace('/\D/', '', $phone)) !== 11) reply(false, 'Укажите телефон полностью.', 422);
 }
-if ($isCallback || $isContact) {
+if ($isCallback || $isContact || $isPartner) {
     if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) $email = '';
 } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     reply(false, 'Проверьте адрес почты.', 422);
@@ -171,6 +174,8 @@ $sources = [
     'callback'      => 'кнопка «Заказать звонок»',
     'sale'          => 'межкомнатные: форма «Получите скидку 40%»',
     'bonus'         => 'карточка «Вам доступна скидка 20%»',
+    'designers'     => 'страница «Дизайнерам и архитекторам»: первый экран',
+    'designers-cta' => 'страница «Дизайнерам и архитекторам»: блок «Обсудим ваш проект»',
 ];
 $trackNames = [
     'utm_source' => 'utm_source', 'utm_medium' => 'utm_medium', 'utm_campaign' => 'utm_campaign',
@@ -179,14 +184,16 @@ $trackNames = [
 ];
 $h = function ($s) { return htmlspecialchars($s, ENT_QUOTES, 'UTF-8'); };
 
-$html  = '<h2 style="font-family:Arial,sans-serif;color:#061f3b">' . ($isSale ? 'Заявка на скидку −40% (межкомнатные Aurum, распродажа склада)' : ($isBonus ? 'Заявка на скидку 20% — перезвонить и закрепить скидку' : ($isCallback ? 'Заказ обратного звонка — перезвонить в течение часа' : ($isContact ? 'Запись на подбор' : 'Новая заявка с сайта')))) . '</h2>';
+$html  = '<h2 style="font-family:Arial,sans-serif;color:#061f3b">' . ($isSale ? 'Заявка на скидку −40% (межкомнатные Aurum, распродажа склада)' : ($isBonus ? 'Заявка на скидку 20% — перезвонить и закрепить скидку' : ($isCallback ? 'Заказ обратного звонка — перезвонить в течение часа' : ($isContact ? 'Запись на подбор' : ($isPartner ? 'Заявка на партнёрство — дизайнер / архитектор' : 'Новая заявка с сайта'))))) . '</h2>';
 $html .= '<table cellpadding="6" style="font-family:Arial,sans-serif;font-size:14px;color:#061f3b">';
 if ($name !== '') $html .= '<tr><td><b>Имя</b></td><td>' . $h($name) . '</td></tr>';
+if ($isPartner && $role !== '') $html .= '<tr><td><b>Кто</b></td><td>' . $h($role) . '</td></tr>';
+if ($isPartner && $company !== '') $html .= '<tr><td><b>Студия / компания</b></td><td>' . $h($company) . '</td></tr>';
 if ($phone !== '') $html .= '<tr><td><b>Телефон</b></td><td><a href="tel:+' . preg_replace('/\D/', '', $phone) . '">' . $h($phone) . '</a></td></tr>';
 if ($coupon !== '') $html .= '<tr><td><b>Купон</b></td><td><b>' . $coupon . '</b> — скидка 20% на входную дверь, действует до ' . $couponUntil . ' включительно. Отправлен клиенту на почту.</td></tr>';
 if ($email !== '') $html .= '<tr><td><b>Почта</b></td><td><a href="mailto:' . $h($email) . '">' . $h($email) . '</a></td></tr>';
 if ($comment !== '') $html .= '<tr><td valign="top"><b>Комментарий</b></td><td>' . nl2br($h($comment)) . '</td></tr>';
-if (!$isCallback && !$isContact) $html .= '<tr><td><b>Фото проёма</b></td><td>' . (count($attachments) ? count($attachments) . ' во вложении' : 'не приложены') . '</td></tr>';
+if (!$isCallback && !$isContact && !$isPartner) $html .= '<tr><td><b>Фото проёма</b></td><td>' . (count($attachments) ? count($attachments) . ' во вложении' : 'не приложены') . '</td></tr>';
 if ($bonus) $html .= '<tr><td><b>Скидка</b></td><td><b>20% — обещана на сайте при заявке</b></td></tr>';
 if ($page !== '') $html .= '<tr><td><b>Страница</b></td><td>' . $h($page) . '</td></tr>';
 if (isset($sources[$source])) $html .= '<tr><td><b>Откуда</b></td><td>' . $sources[$source] . '</td></tr>';
@@ -200,7 +207,7 @@ $toList   = ($isCallback && !empty($cfg['to_callback'])) ? $cfg['to_callback'] :
 $to       = array_values(array_filter((array) $toList, function ($a) { return filter_var($a, FILTER_VALIDATE_EMAIL); }));
 $from     = $cfg['from_email'];
 $fromName = $cfg['from_name'] ?? 'Сайт «Стальная линия»';
-$subject  = ($isSale ? 'Заявка на скидку −40% (межкомнатные Aurum) — ' : ($isBonus ? 'Купон 20% ' . $coupon . ' — ' . $email . ' ' : ($isCallback ? 'Заказ обратного звонка — ' : ($isContact ? 'Запись на подбор с сайта — ' : 'Заявка на подбор двери с сайта — ')))) . $name;
+$subject  = ($isSale ? 'Заявка на скидку −40% (межкомнатные Aurum) — ' : ($isBonus ? 'Купон 20% ' . $coupon . ' — ' . $email . ' ' : ($isCallback ? 'Заказ обратного звонка — ' : ($isContact ? 'Запись на подбор с сайта — ' : ($isPartner ? 'Заявка на партнёрство (дизайнеры) — ' : 'Заявка на подбор двери с сайта — '))))) . $name;
 $enc      = function ($s) { return '=?UTF-8?B?' . base64_encode($s) . '?='; };
 
 $boundary = '=_' . bin2hex(random_bytes(12));

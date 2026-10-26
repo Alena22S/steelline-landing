@@ -720,7 +720,8 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
   var submitText = form.querySelector('.lead__submit-text');
   var doneLead = dialog.querySelector('.lead__done-lead') || document.createElement('p');
   function isContact() { return form.classList.contains('is-contact'); }
-  function submitLabel() { return isContact() ? 'Записаться на подбор' : 'Получить подбор двери'; }
+  function isPartner() { return form.classList.contains('is-partner'); }
+  function submitLabel() { return isPartner() ? 'Отправить заявку' : isContact() ? 'Записаться на подбор' : 'Получить подбор двери'; }
   var status = form.querySelector('.lead__status');
   var files = [];
   var lastTrigger = null;
@@ -742,15 +743,25 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
     try { sessionStorage.setItem('lead-track', JSON.stringify(leadTrack)); } catch (e) {}
   })();
 
+  var emailHint = form.querySelector('[data-hint-partner]');
+  var commentField = document.getElementById('lead-comment');
+  if (commentField) commentField.dataset.phPhoto = commentField.placeholder;
+
   function openForm(source) {
     var contact = source === 'contact';
+    // «Стать партнёром» (страница «Дизайнерам и архитекторам»): кто вы, студия, контакты, о проекте — без фото проёма
+    var partner = /^designers/.test(source || '');
     // «Записаться на подбор» — короткая форма: имя, телефон, комментарий (без фото и почты)
     form.classList.toggle('is-contact', contact);
+    form.classList.toggle('is-partner', partner);
+    var mode = partner ? 'Partner' : contact ? 'Contact' : 'Photo';
     if (!doneLead.dataset.donePhoto) doneLead.dataset.donePhoto = doneLead.innerHTML;
-    doneLead.innerHTML = contact ? doneLead.dataset.doneContact : doneLead.dataset.donePhoto;
+    doneLead.innerHTML = doneLead.dataset['done' + mode];
     submitText.textContent = submitLabel();
-    title.textContent = contact ? title.dataset.titleContact : title.dataset.titlePhoto;
-    lead.textContent = contact ? lead.dataset.leadContact : lead.dataset.leadPhoto;
+    title.textContent = title.dataset['title' + mode];
+    lead.textContent = lead.dataset['lead' + mode];
+    if (emailHint) emailHint.textContent = partner ? emailHint.dataset.hintPartner : emailHint.dataset.hintPhoto;
+    if (commentField) commentField.placeholder = partner ? 'Над каким проектом работаете, сроки, какие двери нужны' : commentField.dataset.phPhoto;
     form.elements.source.value = source || '';
     openedAt = Date.now();
     window.siteGoal('form_open', { source: source || '' });
@@ -930,7 +941,9 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
 
     if (name.value.trim().length < 2) { setError(name, 'Укажите имя'); ok = false; } else setError(name, '');
     if (phoneDigits(phone.value).length !== 11) { setError(phone, 'Укажите телефон полностью'); ok = false; } else setError(phone, '');
-    if (!isContact() && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())) { setError(email, 'Проверьте адрес почты'); ok = false; } else setError(email, '');
+    // у партнёра почта необязательна, но если указана — проверяем
+    var emailOptional = isContact() || (isPartner() && !email.value.trim());
+    if (!emailOptional && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())) { setError(email, 'Проверьте адрес почты'); ok = false; } else setError(email, '');
     if (!consent.checked) { setError(consent, 'Нужно ваше согласие, чтобы отправить заявку'); ok = false; } else setError(consent, '');
 
     if (!ok) {
