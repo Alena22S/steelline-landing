@@ -155,7 +155,7 @@
   background: rgba(255, 255, 255, 0.92); font-weight: 600; font-size: 11px; line-height: 14px; letter-spacing: 0.2px; color: var(--c-navy);
   box-shadow: 0 1px 4px rgba(6, 31, 59, 0.08);
 }
-.pcard__warm svg { flex: none; color: #c2412f; }
+.pcard__warm svg { flex: none; color: var(--c-blue); }
 .pcard__warm--husky { background: var(--c-navy); color: #fff; }
 .pcard__warm--husky svg { color: #9fd0ff; }
 .pcard__go { position: absolute; right: 16px; bottom: 16px; z-index: 1; display: grid; place-items: center; transition: transform 0.3s ease; }

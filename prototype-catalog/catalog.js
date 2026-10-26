@@ -80,12 +80,11 @@
     if (p.coating[0]) bits.push(p.coating[0]);
     return bits.join(' · ');
   }
-  // Тёплая дверь: «Хаски» — со снежинкой, остальные с терморазрывом — отметка «Терморазрыв» (внизу слева на фото)
+  // Тёплая дверь (внизу слева на фото): «Хаски» — тёмная плашка, остальные с терморазрывом — белая «Терморазрыв»; у обеих снежинка
   var ICON_SNOW = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M4.2 6.5l15.6 11M4.2 17.5l15.6-11M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5M3 10.2l3.6.8-1 3.6M21 13.8l-3.6-.8 1-3.6M3 13.8l3.6-.8-1-3.6M21 10.2l-3.6.8 1 3.6"/></svg>';
-  var ICON_THERMO = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 14.8V4a2 2 0 1 0-4 0v10.8a4 4 0 1 0 4 0Z"/><path d="M12 9v7"/></svg>';
   function warmBadge(p) {
     if (p.cats.indexOf('dom/husky') !== -1) return '<span class="pcard__warm pcard__warm--husky" title="Тёплая серия «Хаски»">' + ICON_SNOW + 'Хаски</span>';
-    if (p.thermo) return '<span class="pcard__warm" title="Дверь с терморазрывом — не промерзает">' + ICON_THERMO + 'Терморазрыв</span>';
+    if (p.thermo) return '<span class="pcard__warm" title="Дверь с терморазрывом — не промерзает">' + ICON_SNOW + 'Терморазрыв</span>';
     return '';
   }
   function card(p) {
