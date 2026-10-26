@@ -107,6 +107,8 @@ with open(os.path.join(HERE, 'redirects.csv'), 'w', encoding='utf-8', newline=''
 conf = ['# Фрагмент для server { … } сайта steelline.store (nginx). Сгенерирован catalog-source/redirects.py — не править вручную.',
         '#',
         '# 1) Адреса страниц без «/» на конце, как на старом сайте: /catalog/dom/svarnie/agios → файл …/agios/index.html',
+        '#    absolute_redirect off — переадресации внутри сайта без схемы и порта: иначе за прокси они уходят на http:// и не открываются',
+        'absolute_redirect off;',
         'location / {',
         '    try_files $uri $uri/index.html $uri/ =404;',
         '}',

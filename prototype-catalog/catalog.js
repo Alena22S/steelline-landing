@@ -29,8 +29,8 @@
   function isInterior(p) { return p.kind === 'interior'; }
   // Адреса страниц: у каждой модели и раздела — статичная страница (собирает build.py): входные — по адресам старого сайта
   // (/catalog/dom/svarnie/agios), межкомнатные — /catalog/mezhkom/kobalt/co6; без адреса в данных — прежний model.html?id=
-  function modelHref(p) { return p.url || 'model.html?id=' + p.id; }
-  function catHref(slug) { return '/catalog' + (slug ? '/' + slug : ''); }
+  function modelHref(p) { return p.url ? p.url + '/' : 'model.html?id=' + p.id; }
+  function catHref(slug) { return '/catalog/' + (slug ? slug + '/' : ''); }
   var ABOUT_AURUM = 'Фабрика Aurum Doors — один из крупнейших производителей межкомнатных дверей. Полотна делают на оборудовании Barberan (Испания), Weinig (Германия) и Plasmek (Турция) из материалов Egger, Kronostar, Kastamonu, Renolit и Kleiberit.';
   // новые блоки страниц: если браузер показал старую страницу из кэша, их нет — работаем с пустышкой, а не падаем
   function q(sel) { return document.querySelector(sel) || document.createElement('div'); }

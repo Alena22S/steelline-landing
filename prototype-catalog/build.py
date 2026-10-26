@@ -38,7 +38,16 @@ def fix(html):
     return html
 
 
-def page(title, body_class, main, scripts=('catalog.js?v=60',)):
+_SLASH_RE = re.compile(r'href="(/(?:catalog|magazines|gid|port|diz|blog|sert|st\d+)(?:/[^"#?]*?)?)(?<!/)(#[^"]*)?"')
+
+
+def _slash(html):
+    """внутренние ссылки на статичные страницы — со «/» на конце: сервер отдаёт папку …/index.html без переадресации.
+    canonical (rel="canonical") остаётся без «/» — как адреса старого сайта."""
+    return _SLASH_RE.sub(lambda m: 'href="%s/%s"' % (m.group(1), m.group(2) or ''), html)
+
+
+def page(title, body_class, main, scripts=('catalog.js?v=61',)):
     h = fix(head)
     h = re.sub(r'<title>.*?</title>', '<title>%s</title>' % title, h)
     # прототип каталога не индексируем до переноса на Astro (дубли steelline.store)
@@ -49,7 +58,7 @@ def page(title, body_class, main, scripts=('catalog.js?v=60',)):
                   '<meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="robots" content="noindex, nofollow">', 1)
     h += '  <link rel="stylesheet" href="catalog.css?v=85">\n</head>\n'
     nav_header = fix(header)
-    return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
+    return _slash(h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(bonus) + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
             fix(lead) + '\n\n  ' + fix(script) + ''.join('\n  <script src="%s"></script>' % x for x in scripts) + '\n</body>\n</html>\n')
 
@@ -278,7 +287,7 @@ portfolio_main = '''  <main class="port" id="port">
     </dialog>
   </main>'''
 
-open(os.path.join(OUT, 'portfolio.html'), 'w', encoding='utf-8').write(page('Наши работы — Стальная линия', 'page-portfolio', portfolio_main, ('portfolio.js?v=13',)))
+open(os.path.join(OUT, 'portfolio.html'), 'w', encoding='utf-8').write(page('Наши работы — Стальная линия', 'page-portfolio', portfolio_main, ('portfolio.js?v=14',)))
 
 print('ok')
 
@@ -825,7 +834,8 @@ def _static_page(path, title, desc, body_class, body_attrs, main, scripts, ld=()
         html = html.replace('\n  <meta name="robots" content="noindex, nofollow">', '')
     html = html.replace('<body class="%s">' % body_class, '<body class="%s"%s>' % (body_class, body_attrs), 1)
     # якоря на этой же странице: из-за <base> «#footer» вёл бы в папку прототипа
-    html = re.sub(r'href="#([^"]+)"', lambda m: 'href="%s#%s"' % (path, m.group(1)), html)
+    html = re.sub(r'href="#([^"]+)"', lambda m: 'href="%s/#%s"' % (path.rstrip('/'), m.group(1)), html)
+    html = _slash(html).replace('<link rel="canonical" href="%s/">' % url, '<link rel="canonical" href="%s">' % url)
     out = os.path.join(STATIC_ROOT, path.strip('/'), 'index.html')
     os.makedirs(os.path.dirname(out), exist_ok=True)
     open(out, 'w', encoding='utf-8').write(html)
@@ -888,7 +898,7 @@ for p in _entry['products']:
                   'image': [SITE_URL + '/prototype-catalog/' + s for s in p['photos']],
                   'offers': {'@type': 'Offer', 'priceCurrency': 'RUB', 'price': int(round(p['price'])), 'availability': 'https://schema.org/InStock',
                              'url': SITE_URL + p['url'], 'seller': {'@type': 'Organization', 'name': 'Стальная линия'}}}
-    _sitemap.append(_static_page(p['url'], title, desc, 'page-model', ' data-model-id="%s"' % p['id'], main, ('catalog.js?v=60',),
+    _sitemap.append(_static_page(p['url'], title, desc, 'page-model', ' data-model-id="%s"' % p['id'], main, ('catalog.js?v=61',),
                                  ld=(product_ld, _crumbs_ld(crumbs)), image=photo))
 
 # ---- страницы разделов ----
@@ -922,7 +932,7 @@ for slug, name, lead in _cat_pages:
         main = main.replace(grid_m.group(0), grid_m.group(0)[:-6] + ''.join(map(_card, items[:24])) + '</div>', 1)
     list_ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': name,
                'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': SITE_URL + p['url'], 'name': p['title']} for i, p in enumerate(items)]}
-    _sitemap.append(_static_page(path, title, desc, 'page-catalog', ' data-cat="%s"' % slug, main, ('catalog.js?v=60',),
+    _sitemap.append(_static_page(path, title, desc, 'page-catalog', ' data-cat="%s"' % slug, main, ('catalog.js?v=61',),
                                  ld=(list_ld, _crumbs_ld(crumbs)), image=items[0]['photos'][0] if items[0]['photos'] else ''))
 
 # ---- межкомнатные двери Aurum: страницы моделей и разделов ----
@@ -1025,7 +1035,7 @@ for p in _aurum['products']:
     if offer_price:
         product_ld['offers'] = {'@type': 'Offer', 'priceCurrency': 'RUB', 'price': int(offer_price), 'availability': 'https://schema.org/InStock',
                                 'url': SITE_URL + p['url'], 'seller': {'@type': 'Organization', 'name': 'Стальная линия'}}
-    _sitemap.append(_static_page(p['url'], title, desc, 'page-model', ' data-model-id="%s"' % p['id'], main, ('catalog.js?v=60',),
+    _sitemap.append(_static_page(p['url'], title, desc, 'page-model', ' data-model-id="%s"' % p['id'], main, ('catalog.js?v=61',),
                                  ld=(product_ld, _crumbs_ld(crumbs)), image=photo))
 
 json.dump(_aurum, open(os.path.join(OUT, 'data', 'aurum.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
@@ -1058,7 +1068,7 @@ for slug, name, lead in _icats:
         main = main.replace(grid_m.group(0), grid_m.group(0)[:-6] + ''.join(map(_card_in, items[:24])) + '</div>', 1)
     list_ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': name,
                'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': SITE_URL + p['url'], 'name': p['title']} for i, p in enumerate(items)]}
-    _sitemap.append(_static_page(path, title, desc, 'page-catalog', ' data-cat="%s"' % slug, main, ('catalog.js?v=60',),
+    _sitemap.append(_static_page(path, title, desc, 'page-catalog', ' data-cat="%s"' % slug, main, ('catalog.js?v=61',),
                                  ld=(list_ld, _crumbs_ld(crumbs)), image=items[0]['photos'][0] if items[0]['photos'] else ''))
 
 
@@ -1206,7 +1216,7 @@ _SECTIONS = [
     ('/gid', 'Гид по продукту — обзоры моделей, ответы на вопросы и технологии | Стальная линия', 'Всё, что стоит знать перед выбором входной двери: видеообзоры моделей, ответы на частые вопросы, покрытия SteelLak и SteelTex, панели из дерева, витражи и двери любого размера.',
      'page-portfolio page-gid', gid_main + '\n\n  ', ('gid.js?v=2',), 'img/gid/rt-1.webp'),
     ('/port', 'Наши работы — установленные входные двери «Стальная линия»', 'Фото установленных входных дверей «Стальная линия» в домах и квартирах Екатеринбурга, Свердловской области, Тюмени и других городов.',
-     'page-portfolio', portfolio_main, ('portfolio.js?v=13',), ''),
+     'page-portfolio', portfolio_main, ('portfolio.js?v=14',), ''),
     ('/diz', 'Дизайнерам и архитекторам — сотрудничество со «Стальной линией»', 'Партнёрство для дизайнеров, архитекторов и застройщиков: двери любого размера и цвета, фальш-панели, авторские покрытия SteelLak и отделка из дерева. Повышенный процент и персональное сопровождение заказа.',
      'page-designers', designers_main, ('designers.js?v=1',), 'img/diz/hero-wood.webp'),
 ]
