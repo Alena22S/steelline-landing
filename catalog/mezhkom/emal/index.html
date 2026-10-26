@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <base href="/prototype-catalog/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Межкомнатные двери Эмаль (Aurum) в Екатеринбурге — 71 модель от 28 395 ₽ | Стальная линия</title>
+  <meta name="description" content="Двери в эмали: современные, неоклассические и классические модели с покраской в любой цвет по RAL. Цены от 28 395 ₽, салон в Екатеринбурге — ИЦ ASTROOM.">
+  <link rel="icon" href="../favicon.ico" sizes="16x16">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../assets/icons/favicon-96.png">
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=89">
+  <script>
+    /* ---------- Яндекс Метрика и пиксель VK Ads: подключаются сразу (уведомление о cookie — информационное).
+       Не подключаются, только если посетитель нажал «Отказаться» (в хранилище — 'necessary'). ---------- */
+    (function () {
+      var ID = 113661573;      // Яндекс Метрика
+      // отдельный счётчик «межком на сайте СЛ» — только на страницах межкомнатных дверей (/catalog/mezhkom/…, а также прототипы catalog.html?cat=mezhkom… и model.html?id=au-…)
+      var ID_INTERIOR = 113740896;
+      var isInteriorPage = /^\/catalog\/mezhkom(\/|$)/.test(location.pathname) || /\/prototype-catalog\/catalog\.html$/.test(location.pathname) && /[?&]cat=mezhkom(%2F|\/|&|$)/.test(location.search) ||
+        /\/prototype-catalog\/model\.html$/.test(location.pathname) && /[?&]id=au-/.test(location.search);
+      window.siteIsInterior = isInteriorPage; // формам: на межкомнатных скидку 20% не обещаем
+      var VK_ID = '3805477';   // пиксель VK Ads (Top.Mail.Ru)
+      var VK_ID_INTERIOR = '3807732'; // отдельный пиксель VK — только на страницах межкомнатных дверей
+      var loaded = false;
+      var vkLoaded = false;
+
+      // Цели: window.siteGoal('lead_success') — безопасно вызывать всегда; после отказа ничего не отправляется
+      window.siteGoal = function (name, params) {
+        if (loaded && typeof window.ym === 'function') {
+          window.ym(ID, 'reachGoal', name, params || {});
+          if (isInteriorPage) window.ym(ID_INTERIOR, 'reachGoal', name, params || {});
+        }
+        if (vkLoaded) {
+          window._tmr.push({ type: 'reachGoal', id: VK_ID, goal: name });
+          if (isInteriorPage) window._tmr.push({ type: 'reachGoal', id: VK_ID_INTERIOR, goal: name });
+        }
+      };
+
+      function loadVk() {
+        if (vkLoaded) return;
+        vkLoaded = true;
+        var _tmr = window._tmr || (window._tmr = []);
+        _tmr.push({ id: VK_ID, type: 'pageView', start: Date.now() });
+        if (isInteriorPage) _tmr.push({ id: VK_ID_INTERIOR, type: 'pageView', start: Date.now() });
+        if (document.getElementById('tmr-code')) return;
+        var ts = document.createElement('script');
+        ts.async = true; ts.id = 'tmr-code'; ts.src = 'https://top-fwz1.mail.ru/js/code.js';
+        var first = document.getElementsByTagName('script')[0];
+        first.parentNode.insertBefore(ts, first);
+      }
+
+      function load() {
+        if (loaded) return;
+        loaded = true;
+        (function (m, e, t, r, i, k, a) {
+          m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
+          m[i].l = 1 * new Date();
+          k = e.createElement(t); a = e.getElementsByTagName(t)[0];
+          k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + ID, 'ym');
+        // Вебвизор (запись действий на странице) — только после «Хорошо»; до этого Метрика считает визиты, источники и цели без записи
+        var opts = { webvisor: saved === 'all' || inMetrika, clickmap: true, accurateTrackBounce: true, trackLinks: true };
+        window.ym(ID, 'init', opts);
+        if (isInteriorPage) window.ym(ID_INTERIOR, 'init', opts);
+      }
+
+      var saved = null;
+      try { saved = localStorage.getItem('cookie-consent'); } catch (e) {}
+
+      // Сайт открыт внутри инструментов самой Метрики (карта кликов, аналитика форм, Вебвизор) —
+      // это смотрит владелец сайта, а не посетитель: подключаем счётчик и не показываем уведомление о cookie
+      var inMetrika = false;
+      try {
+        var anc = location.ancestorOrigins;
+        inMetrika = window.self !== window.top && (
+          /metrika\.yandex|webvisor\.com|metrica\.yandex/.test(document.referrer) ||
+          (anc && anc.length && /metrika\.yandex|webvisor\.com|metrica\.yandex/.test(anc[anc.length - 1]))
+        );
+      } catch (e) {}
+      if (inMetrika) {
+        document.documentElement.classList.add('in-metrika');
+        load();
+      } else if (saved !== 'necessary') {
+        load();
+        loadVk();
+      }
+      // «Отказаться»: дальше не считаем, удаляем cookie Метрики; со следующей страницы счётчики не подключаются
+      document.addEventListener('cookie-consent', function (e) {
+        if (e.detail !== 'necessary') return;
+        loaded = false; vkLoaded = false;
+        document.cookie.split(';').forEach(function (c) {
+          var name = c.split('=')[0].trim();
+          if (/^_ym|^yandexuid|^tmr_/.test(name)) {
+            document.cookie = name + '=; Max-Age=0; path=/';
+            document.cookie = name + '=; Max-Age=0; path=/; domain=.' + location.hostname.replace(/^www\./, '');
+          }
+        });
+      });
+
+      // Клики-цели по всему сайту
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href');
+        if (href.indexOf('tel:') === 0) window.siteGoal('phone_click');
+        else if (href.indexOf('mailto:') === 0) window.siteGoal('email_click');
+        else if (href.indexOf('yandex.ru/maps') !== -1) window.siteGoal('route_click');
+        else if (href.indexOf('steelline.store/catalog') !== -1) window.siteGoal('catalog_click');
+      });
+
+      // Вовлечённость: 30 и 60 секунд на странице (только пока вкладка открыта перед глазами) и прокрутка до середины.
+      // Без Вебвизора Метрика видит лишь первые 15 секунд — каждая цель добавляет сигнал, и время визита ближе к реальному;
+      // для рекламы VK это частое «качественное» событие, на которое можно оптимизировать кампанию, пока заявок мало.
+      var active = 0, last = Date.now(), sent = {};
+      function once(name) { if (!sent[name]) { sent[name] = 1; window.siteGoal(name); } }
+      setInterval(function () {
+        var now = Date.now();
+        if (document.visibilityState === 'visible') active += now - last;
+        last = now;
+        if (active >= 30000) once('engaged_30s');
+        if (active >= 60000) once('engaged_60s');
+      }, 1000);
+      // вернулся на вкладку — время, пока она была скрыта, не считаем
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') last = Date.now();
+      });
+      window.addEventListener('scroll', function () {
+        var d = document.documentElement;
+        if (d.scrollHeight > window.innerHeight * 1.5 && window.scrollY + window.innerHeight >= d.scrollHeight / 2) once('scroll_50');
+      }, { passive: true });
+    })();
+  </script>
+  <link rel="stylesheet" href="catalog.css?v=85">
+
+  <link rel="canonical" href="https://promo.steelline.store/catalog/mezhkom/emal">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Стальная линия">
+  <meta property="og:title" content="Межкомнатные двери Эмаль (Aurum) в Екатеринбурге — 71 модель от 28 395 ₽ | Стальная линия">
+  <meta property="og:description" content="Двери в эмали: современные, неоклассические и классические модели с покраской в любой цвет по RAL. Цены от 28 395 ₽, салон в Екатеринбурге — ИЦ ASTROOM.">
+  <meta property="og:url" content="https://promo.steelline.store/catalog/mezhkom/emal">
+  <meta property="og:image" content="https://promo.steelline.store/prototype-catalog/img/aurum/ph/4a8af549f3b5.webp">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Эмаль", "itemListElement": [{"@type": "ListItem", "position": 1, "url": "https://promo.steelline.store/catalog/mezhkom/emal/assol1", "name": "Assol 1"}, {"@type": "ListItem", "position": 2, "url": "https://promo.steelline.store/catalog/mezhkom/emal/assol2", "name": "Assol 2"}, {"@type": "ListItem", "position": 3, "url": "https://promo.steelline.store/catalog/mezhkom/emal/assol3", "name": "Assol 3"}, {"@type": "ListItem", "position": 4, "url": "https://promo.steelline.store/catalog/mezhkom/emal/assol4", "name": "Assol 4"}, {"@type": "ListItem", "position": 5, "url": "https://promo.steelline.store/catalog/mezhkom/emal/assol5", "name": "Assol 5"}, {"@type": "ListItem", "position": 6, "url": "https://promo.steelline.store/catalog/mezhkom/emal/assol6", "name": "Assol 6"}, {"@type": "ListItem", "position": 7, "url": "https://promo.steelline.store/catalog/mezhkom/emal/assol7", "name": "Assol 7"}, {"@type": "ListItem", "position": 8, "url": "https://promo.steelline.store/catalog/mezhkom/emal/barbara1", "name": "Barbara 1"}, {"@type": "ListItem", "position": 9, "url": "https://promo.steelline.store/catalog/mezhkom/emal/barbara2", "name": "Barbara 2"}, {"@type": "ListItem", "position": 10, "url": "https://promo.steelline.store/catalog/mezhkom/emal/barbara3", "name": "Barbara 3"}, {"@type": "ListItem", "position": 11, "url": "https://promo.steelline.store/catalog/mezhkom/emal/barbara4", "name": "Barbara 4"}, {"@type": "ListItem", "position": 12, "url": "https://promo.steelline.store/catalog/mezhkom/emal/barbara6", "name": "Barbara 6"}, {"@type": "ListItem", "position": 13, "url": "https://promo.steelline.store/catalog/mezhkom/emal/barbara7", "name": "Barbara 7"}, {"@type": "ListItem", "position": 14, "url": "https://promo.steelline.store/catalog/mezhkom/emal/barbara8", "name": "Barbara 8"}, {"@type": "ListItem", "position": 15, "url": "https://promo.steelline.store/catalog/mezhkom/emal/base1", "name": "Base 1"}, {"@type": "ListItem", "position": 16, "url": "https://promo.steelline.store/catalog/mezhkom/emal/base2", "name": "Base 2"}, {"@type": "ListItem", "position": 17, "url": "https://promo.steelline.store/catalog/mezhkom/emal/base3", "name": "Base 3"}, {"@type": "ListItem", "position": 18, "url": "https://promo.steelline.store/catalog/mezhkom/emal/base4", "name": "Base 4"}, {"@type": "ListItem", "position": 19, "url": "https://promo.steelline.store/catalog/mezhkom/emal/base5", "name": "Base 5"}, {"@type": "ListItem", "position": 20, "url": "https://promo.steelline.store/catalog/mezhkom/emal/base6", "name": "Base 6"}, {"@type": "ListItem", "position": 21, "url": "https://promo.steelline.store/catalog/mezhkom/emal/belezza1", "name": "Belezza 1"}, {"@type": "ListItem", "position": 22, "url": "https://promo.steelline.store/catalog/mezhkom/emal/belezza2", "name": "Belezza 2"}, {"@type": "ListItem", "position": 23, "url": "https://promo.steelline.store/catalog/mezhkom/emal/belezza3", "name": "Belezza 3"}, {"@type": "ListItem", "position": 24, "url": "https://promo.steelline.store/catalog/mezhkom/emal/belezza4", "name": "Belezza 4"}, {"@type": "ListItem", "position": 25, "url": "https://promo.steelline.store/catalog/mezhkom/emal/belezza5", "name": "Belezza 5"}, {"@type": "ListItem", "position": 26, "url": "https://promo.steelline.store/catalog/mezhkom/emal/elegante1", "name": "Elegante 1"}, {"@type": "ListItem", "position": 27, "url": "https://promo.steelline.store/catalog/mezhkom/emal/elegante2", "name": "Elegante 2"}, {"@type": "ListItem", "position": 28, "url": "https://promo.steelline.store/catalog/mezhkom/emal/elegante3", "name": "Elegante 3"}, {"@type": "ListItem", "position": 29, "url": "https://promo.steelline.store/catalog/mezhkom/emal/elegante4", "name": "Elegante 4"}, {"@type": "ListItem", "position": 30, "url": "https://promo.steelline.store/catalog/mezhkom/emal/elegante5", "name": "Elegante 5"}, {"@type": "ListItem", "position": 31, "url": "https://promo.steelline.store/catalog/mezhkom/emal/gusto1", "name": "Gusto 1"}, {"@type": "ListItem", "position": 32, "url": "https://promo.steelline.store/catalog/mezhkom/emal/gusto2", "name": "Gusto 2"}, {"@type": "ListItem", "position": 33, "url": "https://promo.steelline.store/catalog/mezhkom/emal/gusto3", "name": "Gusto 3"}, {"@type": "ListItem", "position": 34, "url": "https://promo.steelline.store/catalog/mezhkom/emal/gusto4", "name": "Gusto 4"}, {"@type": "ListItem", "position": 35, "url": "https://promo.steelline.store/catalog/mezhkom/emal/line1", "name": "Line 1"}, {"@type": "ListItem", "position": 36, "url": "https://promo.steelline.store/catalog/mezhkom/emal/line2", "name": "Line 2"}, {"@type": "ListItem", "position": 37, "url": "https://promo.steelline.store/catalog/mezhkom/emal/line3", "name": "Line 3"}, {"@type": "ListItem", "position": 38, "url": "https://promo.steelline.store/catalog/mezhkom/emal/line4", "name": "Line 4"}, {"@type": "ListItem", "position": 39, "url": "https://promo.steelline.store/catalog/mezhkom/emal/line5", "name": "Line 5"}, {"@type": "ListItem", "position": 40, "url": "https://promo.steelline.store/catalog/mezhkom/emal/line6", "name": "Line 6"}, {"@type": "ListItem", "position": 41, "url": "https://promo.steelline.store/catalog/mezhkom/emal/magnifico1", "name": "Magnifico 1"}, {"@type": "ListItem", "position": 42, "url": "https://promo.steelline.store/catalog/mezhkom/emal/magnifico2", "name": "Magnifico 2"}, {"@type": "ListItem", "position": 43, "url": "https://promo.steelline.store/catalog/mezhkom/emal/magnifico3", "name": "Magnifico 3"}, {"@type": "ListItem", "position": 44, "url": "https://promo.steelline.store/catalog/mezhkom/emal/magnifico4", "name": "Magnifico 4"}, {"@type": "ListItem", "position": 45, "url": "https://promo.steelline.store/catalog/mezhkom/emal/nobile1", "name": "Nobile 1"}, {"@type": "ListItem", "position": 46, "url": "https://promo.steelline.store/catalog/mezhkom/emal/nobile2", "name": "Nobile 2"}, {"@type": "ListItem", "position": 47, "url": "https://promo.steelline.store/catalog/mezhkom/emal/nobile3", "name": "Nobile 3"}, {"@type": "ListItem", "position": 48, "url": "https://promo.steelline.store/catalog/mezhkom/emal/nobile4", "name": "Nobile 4"}, {"@type": "ListItem", "position": 49, "url": "https://promo.steelline.store/catalog/mezhkom/emal/nobile5", "name": "Nobile 5"}, {"@type": "ListItem", "position": 50, "url": "https://promo.steelline.store/catalog/mezhkom/emal/nobile6", "name": "Nobile 6"}, {"@type": "ListItem", "position": 51, "url": "https://promo.steelline.store/catalog/mezhkom/emal/road1", "name": "Road 1"}, {"@type": "ListItem", "position": 52, "url": "https://promo.steelline.store/catalog/mezhkom/emal/road2", "name": "Road 2"}, {"@type": "ListItem", "position": 53, "url": "https://promo.steelline.store/catalog/mezhkom/emal/road3", "name": "Road 3"}, {"@type": "ListItem", "position": 54, "url": "https://promo.steelline.store/catalog/mezhkom/emal/road4", "name": "Road 4"}, {"@type": "ListItem", "position": 55, "url": "https://promo.steelline.store/catalog/mezhkom/emal/road5", "name": "Road 5"}, {"@type": "ListItem", "position": 56, "url": "https://promo.steelline.store/catalog/mezhkom/emal/road6", "name": "Road 6"}, {"@type": "ListItem", "position": 57, "url": "https://promo.steelline.store/catalog/mezhkom/emal/road7", "name": "Road 7"}, {"@type": "ListItem", "position": 58, "url": "https://promo.steelline.store/catalog/mezhkom/emal/road8", "name": "Road 8"}, {"@type": "ListItem", "position": 59, "url": "https://promo.steelline.store/catalog/mezhkom/emal/serenata1", "name": "Serenata 1"}, {"@type": "ListItem", "position": 60, "url": "https://promo.steelline.store/catalog/mezhkom/emal/serenata2", "name": "Serenata 2"}, {"@type": "ListItem", "position": 61, "url": "https://promo.steelline.store/catalog/mezhkom/emal/serenata3", "name": "Serenata 3"}, {"@type": "ListItem", "position": 62, "url": "https://promo.steelline.store/catalog/mezhkom/emal/stile1", "name": "Stile 1"}, {"@type": "ListItem", "position": 63, "url": "https://promo.steelline.store/catalog/mezhkom/emal/stile2", "name": "Stile 2"}, {"@type": "ListItem", "position": 64, "url": "https://promo.steelline.store/catalog/mezhkom/emal/stile3", "name": "Stile 3"}, {"@type": "ListItem", "position": 65, "url": "https://promo.steelline.store/catalog/mezhkom/emal/stile4", "name": "Stile 4"}, {"@type": "ListItem", "position": 66, "url": "https://promo.steelline.store/catalog/mezhkom/emal/stile5", "name": "Stile 5"}, {"@type": "ListItem", "position": 67, "url": "https://promo.steelline.store/catalog/mezhkom/emal/stile6", "name": "Stile 6"}, {"@type": "ListItem", "position": 68, "url": "https://promo.steelline.store/catalog/mezhkom/emal/stile7", "name": "Stile 7"}, {"@type": "ListItem", "position": 69, "url": "https://promo.steelline.store/catalog/mezhkom/emal/trio1", "name": "Trio 1"}, {"@type": "ListItem", "position": 70, "url": "https://promo.steelline.store/catalog/mezhkom/emal/trio2", "name": "Trio 2"}, {"@type": "ListItem", "position": 71, "url": "https://promo.steelline.store/catalog/mezhkom/emal/trio3", "name": "Trio 3"}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://promo.steelline.store/"}, {"@type": "ListItem", "position": 2, "name": "Межкомнатные двери", "item": "https://promo.steelline.store/catalog/mezhkom"}, {"@type": "ListItem", "position": 3, "name": "Эмаль", "item": "https://promo.steelline.store/catalog/mezhkom/emal"}]}</script>
+</head>
+<body class="page-catalog" data-cat="mezhkom/emal">
+
+  <header class="header" id="top">
+    <div class="header__main">
+      <a class="header__logo" href="../" aria-label="Стальная линия — на главную">
+        <img class="header__logo-desktop" src="../assets/icons/logo.svg" width="246.5" height="43.2242" alt="Стальная линия — двери в квартиру и дом">
+        <img class="header__logo-mobile" src="../assets/icons/logo-mobile.svg" width="179.273" height="31.4358" alt="Стальная линия — двери в квартиру и дом">
+      </a>
+      <nav class="header__nav" id="site-nav" aria-label="Основная навигация">
+        <div class="nav-dd">
+          <a class="nav-dd__toggle" href="/catalog" aria-haspopup="true">Каталог</a>
+          <div class="nav-dd__menu">
+            <div class="nav-dd__list">
+              <a href="/catalog">Входные двери</a>
+              <a href="/catalog/mezhkom">Межкомнатные двери</a>
+              <a href="/port">Наши работы</a>
+              <a href="/gid">Гид по продукту</a>
+              <a href="/blog">Статьи</a>
+            </div>
+          </div>
+        </div>
+        <a href="../#reviews">Обзор дверей</a>
+        <a href="../#custom">Двери на заказ</a>
+        <a href="../#tech">Технологии</a>
+        <div class="nav-dd">
+          <a class="nav-dd__toggle" href="/catalog/mezhkom/emal#footer" aria-haspopup="true">Контакты</a>
+          <div class="nav-dd__menu">
+            <div class="nav-dd__list">
+              <a href="/magazines">Наши магазины</a>
+              <a href="/diz">Дизайнерам и архитекторам</a>
+              <a href="/catalog/mezhkom/emal#footer">Контакты</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <a class="header__address" href="/magazines" title="Наши магазины">
+        <img src="../assets/icons/map-pin.svg" width="16" height="16" alt="">
+        <span>Екатеринбург, ИЦ Аструм</span>
+      </a>
+      <a class="btn btn--gradient header__cta" href="../#contacts" data-open-form="header">Подобрать дверь</a>
+      <button class="header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-nav">
+        <img src="../assets/icons/menu.svg" width="25" height="24" alt="">
+      </button>
+    </div>
+    <div class="header__facts">
+      <div class="fact"><img src="../assets/icons/badge-30.svg" width="24" height="24" alt="30"><span>Лет производства</span></div>
+      <div class="fact"><img src="../assets/icons/badge-2.svg" width="24" height="24" alt="2"><span>Года гарантии</span></div>
+      <div class="fact"><img src="../assets/icons/badge-20.svg" width="24" height="24" alt="20"><span>стран присутствия</span></div>
+    </div>
+  </header>
+
+  <main class="cat" id="cat">
+    <div class="cat__head wrap">
+      <nav class="crumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><span>/</span><a href="/catalog/mezhkom">Межкомнатные двери</a><span class="js-crumb-cat">/</span><span class="js-crumb-cat-name">Эмаль</span></nav>
+      <p class="cat__kicker js-cat-kicker">Межкомнатные двери Aurum Doors</p>
+      <h1 class="cat__title js-cat-title">Эмаль</h1>
+      <p class="cat__lead js-cat-lead">Двери в эмали: современные, неоклассические и классические модели с покраской в любой цвет по RAL.</p>
+    </div>
+
+    <nav class="cat-kinds wrap js-kinds" aria-label="Вид дверей"></nav>
+    <nav class="cat-tabs wrap js-tabs" aria-label="Разделы каталога"></nav>
+
+    <section class="sale-banner wrap js-sale" hidden aria-label="Распродажа склада">
+      <div class="sale-banner__inner">
+        <div class="sale-banner__badge"><span>скидка на&nbsp;полотна</span><b>−40%</b></div>
+        <div class="sale-banner__text">
+          <p class="sale-banner__kicker">Aurum doors</p>
+          <h2 class="sale-banner__title">Распродажа склада в&nbsp;Екатеринбурге</h2>
+          <p class="sale-banner__lead">Скидка 40% на&nbsp;полотна коллекции Кобальт. 400 полотен в&nbsp;наличии — забрать можно сразу.</p>
+          <a class="btn sale-banner__btn" href="/catalog/mezhkom/kobalt">Смотреть двери Кобальт <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+        </div>
+        <div class="sale-banner__doors js-sale-doors" aria-hidden="true"></div>
+      </div>
+      <!-- на телефоне вместо баннера — готовая картинка распродажи -->
+      <a class="sale-banner__photo" href="/catalog/mezhkom/kobalt">
+        <picture>
+          <source media="(max-width: 767px)" srcset="img/aurum/sale-mobile.webp">
+          <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width="1200" height="800" fetchpriority="high" alt="Распродажа склада межкомнатных дверей Aurum Doors: скидка 40%. Екатеринбург, ИЦ Аструм, 6 уровень, галерея А">
+        </picture>
+      </a>
+    </section>
+
+    <div class="cat__body wrap">
+      <aside class="cat-filters js-filters" aria-label="Фильтры">
+        <div class="cat-filters__head">
+          <span class="cat-filters__title">Фильтры</span>
+          <button class="cat-filters__reset js-reset" type="button">Сбросить</button>
+          <button class="cat-filters__close js-filters-close" type="button" aria-label="Закрыть фильтры"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        </div>
+        <div class="js-filter-groups"></div>
+        <button class="btn btn--gradient btn--lg cat-filters__apply js-filters-close" type="button">Показать модели</button>
+      </aside>
+
+      <section class="cat__list">
+        <div class="cat-toolbar">
+          <p class="cat-toolbar__count js-count"></p>
+          <button class="btn btn--outline cat-toolbar__filters js-filters-open" type="button"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="16" cy="7" r="2" stroke="currentColor" stroke-width="1.6"/><circle cx="10" cy="17" r="2" stroke="currentColor" stroke-width="1.6"/></svg>Фильтры<span class="cat-toolbar__badge js-active-count" hidden></span></button>
+          <label class="cat-sort"><span class="cat-sort__label">Сортировка</span>
+            <select class="cat-sort__select js-sort">
+              <option value="popular">Сначала популярные</option>
+              <option value="price-asc">Сначала дешевле</option>
+              <option value="price-desc">Сначала дороже</option>
+              <option value="name">По названию</option>
+            </select>
+          </label>
+        </div>
+        <div class="cat-grid js-grid"><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/assol1"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/4a8af549f3b5.webp" alt="Межкомнатная дверь Assol 1" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Assol 1</h3><p class="pcard__meta">Коллекция Эмаль Assol · Неоклассика</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 36 809 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/assol2"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/6f5e63280601.webp" alt="Межкомнатная дверь Assol 2" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Assol 2</h3><p class="pcard__meta">Коллекция Эмаль Assol · Неоклассика</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 36 809 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/assol3"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/6dde51b77bcd.webp" alt="Межкомнатная дверь Assol 3" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Assol 3</h3><p class="pcard__meta">Коллекция Эмаль Assol · Неоклассика</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 36 809 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/assol4"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/c54d315ba576.webp" alt="Межкомнатная дверь Assol 4" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Assol 4</h3><p class="pcard__meta">Коллекция Эмаль Assol · Неоклассика</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 36 809 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/assol5"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/6ef46e9dc7b5.webp" alt="Межкомнатная дверь Assol 5" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Assol 5</h3><p class="pcard__meta">Коллекция Эмаль Assol · Неоклассика</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 42 066 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/assol6"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/794e53c9151d.webp" alt="Межкомнатная дверь Assol 6" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Assol 6</h3><p class="pcard__meta">Коллекция Эмаль Assol · Неоклассика</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 42 066 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/assol7"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/a7104a12216d.webp" alt="Межкомнатная дверь Assol 7" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Assol 7</h3><p class="pcard__meta">Коллекция Эмаль Assol · Неоклассика</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 47 325 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/barbara1"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/be5359bb2ccf.webp" alt="Межкомнатная дверь Barbara 1" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Barbara 1</h3><p class="pcard__meta">Коллекция Эмаль Barbara · Современный</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 36 809 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/barbara2"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/ffc4a13ff3c7.webp" alt="Межкомнатная дверь Barbara 2" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Barbara 2</h3><p class="pcard__meta">Коллекция Эмаль Barbara · Современный</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 36 809 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/barbara3"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/07a1a33dd5de.webp" alt="Межкомнатная дверь Barbara 3" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Barbara 3</h3><p class="pcard__meta">Коллекция Эмаль Barbara · Современный</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 37 860 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/barbara4"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/26e2173c2b1f.webp" alt="Межкомнатная дверь Barbara 4" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Barbara 4</h3><p class="pcard__meta">Коллекция Эмаль Barbara · Современный</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 37 860 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/barbara6"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/6da5dd9c9a03.webp" alt="Межкомнатная дверь Barbara 6" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Barbara 6</h3><p class="pcard__meta">Коллекция Эмаль Barbara · Современный</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 36 809 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/barbara7"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/a91ce36c525b.webp" alt="Межкомнатная дверь Barbara 7" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Barbara 7</h3><p class="pcard__meta">Коллекция Эмаль Barbara · Современный</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 37 860 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/barbara8"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/0fb304d75598.webp" alt="Межкомнатная дверь Barbara 8" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Barbara 8</h3><p class="pcard__meta">Коллекция Эмаль Barbara · Современный</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 38 912 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/base1"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/234c520a4478.webp" alt="Межкомнатная дверь Base 1" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Base 1</h3><p class="pcard__meta">Коллекция Эмаль Base · Современный</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 28 395 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/base2"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/36b0b28ea8ac.webp" alt="Межкомнатная дверь Base 2" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Base 2</h3><p class="pcard__meta">Коллекция Эмаль Base · Современный</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 32 601 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/base3"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/2a1a6ac6a935.webp" alt="Межкомнатная дверь Base 3" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Base 3</h3><p class="pcard__meta">Коллекция Эмаль Base · Современный</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 33 653 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/base4"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/2ddbf69e5c18.webp" alt="Межкомнатная дверь Base 4" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Base 4</h3><p class="pcard__meta">Коллекция Эмаль Base · Современный</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 32 601 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/base5"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/981600142495.webp" alt="Межкомнатная дверь Base 5" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Base 5</h3><p class="pcard__meta">Коллекция Эмаль Base · Современный</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 33 653 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/base6"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/1fe351d0877c.webp" alt="Межкомнатная дверь Base 6" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Base 6</h3><p class="pcard__meta">Коллекция Эмаль Base · Современный</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 32 601 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/belezza1"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/d2616c955cee.webp" alt="Межкомнатная дверь Belezza 1" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Belezza 1</h3><p class="pcard__meta">Коллекция Эмаль Belezza · Неоклассика</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 41 015 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/belezza2"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/ae591543fbb2.webp" alt="Межкомнатная дверь Belezza 2" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Belezza 2</h3><p class="pcard__meta">Коллекция Эмаль Belezza · Неоклассика</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 41 015 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/belezza3"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/ca13da04790a.webp" alt="Межкомнатная дверь Belezza 3" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Belezza 3</h3><p class="pcard__meta">Коллекция Эмаль Belezza · Неоклассика</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 41 015 ₽<small> за полотно</small></p></div></a><a class="pcard pcard--interior" href="/catalog/mezhkom/emal/belezza4"><div class="pcard__media"><img class="pcard__photo" src="img/aurum/ph/9013477dc204.webp" alt="Межкомнатная дверь Belezza 4" loading="lazy"><span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></div><div class="pcard__body"><h3 class="pcard__title">Belezza 4</h3><p class="pcard__meta">Коллекция Эмаль Belezza · Неоклассика</p><p class="pcard__ral">Любой цвет по RAL</p><p class="pcard__price">от 46 274 ₽<small> за полотно</small></p></div></a></div>
+        <div class="cat-empty js-empty" hidden>
+          <p class="cat-empty__title">Таких моделей не нашлось</p>
+          <p class="cat-empty__text">Попробуйте убрать часть фильтров — или пришлите фото проёма, и мы подберём дверь сами.</p>
+          <div class="cat-empty__actions">
+            <button class="btn btn--outline btn--lg js-reset" type="button">Сбросить фильтры</button>
+            <a class="btn btn--gradient btn--lg" href="#" data-open-form="catalog-empty">Подобрать дверь</a>
+          </div>
+        </div>
+        <button class="btn btn--outline btn--lg cat-more js-more" type="button" hidden>Показать ещё</button>
+      </section>
+    </div>
+
+    <section class="cat-cta wrap">
+      <div class="cat-cta__text">
+        <h2 class="cat-cta__title">Не нашли подходящую модель?</h2>
+        <p class="cat-cta__lead">Пришлите фото проёма — подберём дверь под ваш дом, стиль и&nbsp;бюджет. Бесплатно.</p>
+      </div>
+      <a class="btn btn--gradient btn--lg" href="#" data-open-form="catalog-cta">Получить подбор двери <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+    </section>
+  </main>
+
+  <div class="cookie" id="cookie" role="region" aria-label="Уведомление о cookie" hidden>
+    <div class="cookie__copy">
+      <p class="cookie__text">Мы используем файлы cookie, чтобы сайтом было удобно пользоваться. <a href="../privacy.html#cookie" target="_blank">Подробнее</a></p>
+    </div>
+    <div class="cookie__actions">
+      <button class="btn btn--gradient btn--lg cookie__btn" type="button" data-cookie="all">Хорошо</button>
+      <button class="btn btn--outline btn--lg cookie__btn" type="button" data-cookie="necessary">Отказаться</button>
+    </div>
+  </div>
+
+  <a class="btn btn--gradient sticky-cta" href="#" data-open-form="sticky">Получить подбор двери <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+
+  <div class="bonus-fab js-bonus-fab" hidden>
+    <button class="bonus-fab__open" type="button" data-open-callback="bonus">
+      <span class="bonus-fab__pct">−20%</span>
+      <span class="bonus-fab__text"><b>Вам доступна скидка 20%</b><span>Нажмите, чтобы получить персональный купон</span></span>
+    </button>
+    <button class="bonus-fab__close js-bonus-close" type="button" aria-label="Скрыть предложение"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  </div>
+
+  <button class="callback-fab" type="button" data-open-callback aria-label="Заказать обратный звонок">
+    <span class="callback-fab__label">Заказать звонок</span>
+    <span class="callback-fab__icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5.1 3.5h3.1l1.6 4-2 1.3a10.6 10.6 0 0 0 7.4 7.4l1.3-2 4 1.6v3.1a2 2 0 0 1-2.1 2A16.6 16.6 0 0 1 3.1 5.6a2 2 0 0 1 2-2.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+  </button>
+
+  <dialog class="lead callback" id="callback" aria-labelledby="callback-title">
+    <button class="lead__close" type="button" aria-label="Закрыть" data-close-callback>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <form class="callback__form" id="callback-form" action="../send.php" method="post" novalidate>
+      <div class="lead__head">
+        <span class="callback__icon" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M5.1 3.5h3.1l1.6 4-2 1.3a10.6 10.6 0 0 0 7.4 7.4l1.3-2 4 1.6v3.1a2 2 0 0 1-2.1 2A16.6 16.6 0 0 1 3.1 5.6a2 2 0 0 1 2-2.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+        <h2 class="lead__title callback__title" id="callback-title">Перезвоним в&nbsp;течение часа</h2>
+        <p class="lead__lead callback__lead">Оставьте номер — менеджер салона свяжется с&nbsp;вами в&nbsp;рабочее время, ежедневно с&nbsp;10:00 до&nbsp;20:00.</p>
+        <details class="bonus-terms js-bonus-only" hidden>
+          <summary>Условия акции</summary>
+          <ul>
+            <li>Скидка 20% на&nbsp;входные двери «Стальная линия» по&nbsp;персональному купону.</li>
+            <li>Купон действует 7&nbsp;дней с&nbsp;момента получения.</li>
+            <li>Один купон&nbsp;— на&nbsp;один заказ: назовите код менеджеру при оформлении.</li>
+            <li>Скидка не&nbsp;суммируется с&nbsp;другими акциями и&nbsp;не&nbsp;действует на&nbsp;межкомнатные двери.</li>
+          </ul>
+        </details>
+        <p class="form-bonus js-form-bonus"><b>−20%</b><span><strong>Забронируем скидку за&nbsp;вами</strong>Оставьте контакты, чтобы её&nbsp;получить</span></p>
+      </div>
+      <div class="field js-bonus-only" hidden>
+        <label class="field__label" for="callback-email">Электронная почта</label>
+        <input class="input ym-disable-keys ym-hide-content" id="callback-email" name="email" type="email" autocomplete="email" maxlength="120" placeholder="name@mail.ru">
+        <p class="field__error"></p>
+      </div>
+      <div class="field js-bonus-hide">
+        <label class="field__label" for="callback-name">Имя</label>
+        <input class="input ym-disable-keys ym-hide-content" id="callback-name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="Как к вам обращаться">
+        <p class="field__error"></p>
+      </div>
+      <div class="field js-bonus-hide">
+        <label class="field__label" for="callback-phone">Телефон</label>
+        <input class="input ym-disable-keys ym-hide-content" id="callback-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+7 (___) ___-__-__">
+        <p class="field__error"></p>
+      </div>
+      <input class="lead__trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="source" value="callback">
+      <input type="hidden" name="comment" value="">
+      <div class="field">
+        <label class="check">
+          <input type="checkbox" name="consent" value="1" required>
+          <span>Даю <a href="../consent.html" target="_blank">согласие на&nbsp;обработку персональных данных</a> и&nbsp;принимаю <a href="../privacy.html" target="_blank">политику конфиденциальности</a></span>
+        </label>
+        <p class="field__error"></p>
+      </div>
+      <button class="btn btn--gradient btn--lg lead__submit callback__submit" type="submit"><span class="callback__submit-text">Жду звонка</span></button>
+      <p class="lead__status callback__status" role="alert"></p>
+    </form>
+    <div class="lead__done callback__done" hidden>
+      <span class="lead__done-icon" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 32 32" fill="none"><path d="M8 16.5l5.5 5.5L24 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h2 class="lead__title">Заявка принята</h2>
+      <p class="lead__lead callback__done-lead">Перезвоним в&nbsp;течение часа в&nbsp;рабочее время. Если звонок нужен срочно — <a href="tel:+79222077552">+7&nbsp;(922)&nbsp;207-75-52</a>.</p>
+      <p class="form-bonus-done js-form-bonus">Скидка 20% забронирована за&nbsp;вами</p>
+      <div class="callback__done-actions">
+        <a class="btn btn--gradient btn--lg callback__catalog js-bonus-only" href="/catalog" hidden>Перейти в каталог</a>
+        <button class="btn btn--outline btn--outline-soft btn--lg" type="button" data-close-callback>Вернуться на сайт</button>
+      </div>
+    </div>
+  </dialog>
+
+  <footer class="footer" id="footer">
+    <div class="footer__top">
+      <div class="footer__rep">
+        <span class="footer__logo" role="img" aria-label="Дверной Молл — больше, чем двери"></span>
+        <p class="footer__rep-text">Эксклюзивный представитель «Стальной линии» <br>на Урале — «Дверной Молл».</p>
+      </div>
+      <nav class="footer__nav" aria-label="Навигация в подвале">
+        <a href="/catalog">Каталог</a>
+        <a href="../">Бренды</a>
+        <a href="/port">Наши работы</a>
+        <a href="../#contacts">Салон</a>
+        <a href="/diz">Для дизайнеров</a>
+        <a href="../#contacts">Контакты</a>
+      </nav>
+    </div>
+    <div class="footer__salons">
+      <address class="footer-salon">
+        <p class="footer-salon__name">Интерьерный центр «ASTROOM»</p>
+        <p>Екатеринбург, ул. Цвиллинга, 1<br>6 этаж, Галерея А</p>
+        <p class="footer-salon__muted">Пн–Вс 10:00–20:00</p>
+        <p class="footer-salon__links">
+          <a class="footer__phone" href="tel:+79222077552">+7 (922) 207-75-52</a>
+          <a class="footer__phone" href="tel:+79826056229">+7 (982) 605-62-29</a>
+          <a href="mailto:astroom@steelline.store">astroom@steelline.store</a>
+        </p>
+      </address>
+      <address class="footer-salon">
+        <p class="footer-salon__name">Салон «Дверная лавка»</p>
+        <p>Арамиль, ул. Гарнизон, 5</p>
+        <p class="footer-salon__muted">Пн–Пт 09:00–18:00</p>
+        <p class="footer-salon__links">
+          <a class="footer__phone" href="tel:+79193977317">+7 (919) 397-73-17</a>
+          <a href="mailto:zakazdver@bk.ru">zakazdver@bk.ru</a>
+        </p>
+      </address>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 Дверной Молл. ООО «Прогресс», ИНН&nbsp;6685206681, ОГРН&nbsp;1226600080321</p>
+      <div class="footer__legal">
+        <a href="../privacy.html">Политика конфиденциальности</a>
+        <a href="../consent.html">Согласие на обработку данных</a>
+      </div>
+    </div>
+  </footer>
+
+  Двери в эмали: современные, неоклассические и классические модели с покраской в любой цвет по RAL.
+
+  <script src="../script.js?v=63"></script>
+  <script src="catalog.js?v=60"></script>
+</body>
+</html>

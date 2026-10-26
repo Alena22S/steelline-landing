@@ -6,7 +6,7 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
   var KEY = 'bonus-fab-closed';
   try { if (sessionStorage.getItem(KEY)) return; } catch (e) {}
   // в каталоге и на страницах моделей — сразу; на остальных страницах — когда прокрутили на один экран
-  var instant = /\/prototype-catalog\/(catalog|model)\.html$/.test(location.pathname);
+  var instant = /\/prototype-catalog\/(catalog|model)\.html$/.test(location.pathname) || /^\/catalog(\/|$)/.test(location.pathname);
   function onScroll() {
     if (!instant && window.scrollY < window.innerHeight) return;
     window.removeEventListener('scroll', onScroll);

@@ -27,6 +27,10 @@
     { key: 'window', title: 'Остекление' }
   ];
   function isInterior(p) { return p.kind === 'interior'; }
+  // Адреса страниц: у каждой модели и раздела — статичная страница (собирает build.py): входные — по адресам старого сайта
+  // (/catalog/dom/svarnie/agios), межкомнатные — /catalog/mezhkom/kobalt/co6; без адреса в данных — прежний model.html?id=
+  function modelHref(p) { return p.url || 'model.html?id=' + p.id; }
+  function catHref(slug) { return '/catalog' + (slug ? '/' + slug : ''); }
   var ABOUT_AURUM = 'Фабрика Aurum Doors — один из крупнейших производителей межкомнатных дверей. Полотна делают на оборудовании Barberan (Испания), Weinig (Германия) и Plasmek (Турция) из материалов Egger, Kronostar, Kastamonu, Renolit и Kleiberit.';
   // новые блоки страниц: если браузер показал старую страницу из кэша, их нет — работаем с пустышкой, а не падаем
   function q(sel) { return document.querySelector(sel) || document.createElement('div'); }
@@ -92,7 +96,7 @@
     var photos = p.photos.slice(0, 2).map(function (src, i) {
       return '<img class="pcard__photo" src="' + esc(src) + '" alt="' + (i ? '' : 'Входная дверь ' + esc(p.title)) + '" loading="lazy">';
     }).join('');
-    return '<a class="pcard" href="model.html?id=' + p.id + '">' +
+    return '<a class="pcard" href="' + esc(modelHref(p)) + '">' +
       '<div class="pcard__media">' + photos +
       (p.special.length ? '<span class="pcard__badge">Спецпредложение</span>' : '') + warmBadge(p) +
       '<span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span>' +
@@ -105,7 +109,7 @@
     var sw = p.colors.slice(0, 7).map(function (c) {
       return '<span class="pcard__swatch" style="background-image:url(' + esc(c.swatch) + ')" title="' + esc(c.name) + '"></span>';
     }).join('') + (p.colors.length > 7 ? '<span class="pcard__swatch-more">+' + (p.colors.length - 7) + '</span>' : '');
-    return '<a class="pcard pcard--interior' + (p.scene ? ' pcard--scene' : '') + '" href="model.html?id=' + p.id + '">' +
+    return '<a class="pcard pcard--interior' + (p.scene ? ' pcard--scene' : '') + '" href="' + esc(modelHref(p)) + '">' +
       '<div class="pcard__media">' +
       (p.photos[0] ? '<img class="pcard__photo" src="' + esc(p.photos[0]) + '" alt="Межкомнатная дверь ' + esc(p.title) + '" loading="lazy">' : '') +
       (p.sale ? '<span class="pcard__badge pcard__badge--sale">Акция −40%</span>' : p.inStock ? '<span class="pcard__badge">В наличии</span>' : '') +
@@ -187,11 +191,16 @@
 
   // загружаем только нужные данные: входные — data/catalog.json; межкомнатные — лёгкий список для каталога
   // или полный data/aurum.json для страницы модели; счётчики переключателя — data/counts.json
-  var V = 10;
+  var V = 12;
   function load(name) { return fetch('data/' + name + '?v=' + V).then(function (r) { return r.json(); }); }
   var qs = new URLSearchParams(location.search);
+  var PAGE_CAT = qs.get('cat') || document.body.dataset.cat || '';
+  var PAGE_ID = qs.get('id') || document.body.dataset.modelId || '';
   var isCat = !!document.getElementById('cat');
-  var wantInterior = isCat ? /^mezhkom(\/|$)/.test(qs.get('cat') || '') : /^au-/.test(qs.get('id') || '');
+  // на статичной странице заголовок вкладки уже подробный (для поисковиков) — не заменяем коротким
+  var STATIC_PAGE = 'modelId' in document.body.dataset || 'cat' in document.body.dataset;
+  function setTitle(t) { if (!STATIC_PAGE) document.title = t; }
+  var wantInterior = isCat ? /^mezhkom(\/|$)/.test(PAGE_CAT) : /^au-/.test(PAGE_ID);
   Promise.all([
     load(wantInterior ? (isCat ? 'aurum-list.json' : 'aurum.json') : 'catalog.json'),
     isCat ? load('counts.json').catch(function () { return null; }) : null
@@ -205,8 +214,7 @@
 
   /* ---------- Раздел каталога ---------- */
   function initCatalog(data) {
-    var params = new URLSearchParams(location.search);
-    var catSlug = params.get('cat') || '';
+    var catSlug = PAGE_CAT;
     // родительские разделы: все двери для дома / для квартиры
     var PARENTS = {
       dom: { slug: 'dom', name: 'Двери в дом', lead: 'Входные двери для частного дома и коттеджа: тёплые, с терморазрывом, для нестандартных проёмов и по спец цене.' },
@@ -229,18 +237,18 @@
       document.querySelector('.js-cat-lead').textContent = cat.lead;
       document.querySelector('.js-crumb-cat').hidden = false;
       document.querySelector('.js-crumb-cat-name').textContent = cat.name;
-      document.title = cat.name + ' — Стальная линия';
+      setTitle(cat.name + ' — Стальная линия');
     }
     // межкомнатные: бренд в заголовке — «Межкомнатные двери Aurum Doors», у коллекций — строкой над названием
     if (interior) {
       var BRAND = 'Межкомнатные двери Aurum Doors';
       if (cat.slug === 'mezhkom') {
         document.querySelector('.js-cat-title').textContent = BRAND;
-        document.title = BRAND + ' — Стальная линия';
+        setTitle(BRAND + ' — Стальная линия');
       } else {
         var kicker = q('.js-cat-kicker');
         kicker.textContent = BRAND; kicker.hidden = false;
-        document.title = cat.name + ' — межкомнатные двери Aurum Doors — Стальная линия';
+        setTitle(cat.name + ' — межкомнатные двери Aurum Doors — Стальная линия');
       }
     }
     // входные / межкомнатные
@@ -248,8 +256,8 @@
     var nEntry = interior ? counts.entry : kindProducts.length;
     var nInterior = interior ? kindProducts.length : counts.interior;
     q('.js-kinds').innerHTML =
-      '<a class="cat-kind' + (interior ? '' : ' is-active') + '" href="catalog.html"' + (interior ? '' : ' aria-current="page"') + '>Входные двери' + (nEntry ? ' <span>' + nEntry + '</span>' : '') + '</a>' +
-      '<a class="cat-kind' + (interior ? ' is-active' : '') + '" href="catalog.html?cat=mezhkom"' + (interior ? ' aria-current="page"' : '') + '>Межкомнатные двери' + (nInterior ? ' <span>' + nInterior + '</span>' : '') + '</a>';
+      '<a class="cat-kind' + (interior ? '' : ' is-active') + '" href="' + catHref('') + '"' + (interior ? '' : ' aria-current="page"') + '>Входные двери' + (nEntry ? ' <span>' + nEntry + '</span>' : '') + '</a>' +
+      '<a class="cat-kind' + (interior ? ' is-active' : '') + '" href="' + catHref('mezhkom') + '"' + (interior ? ' aria-current="page"' : '') + '>Межкомнатные двери' + (nInterior ? ' <span>' + nInterior + '</span>' : '') + '</a>';
     if (interior) {
       saleSticky();
       // баннер распродажи склада: три двери Кобальт в разных цветах
@@ -273,17 +281,17 @@
     // разделы
     var tabs = '';
     if (interior) {
-      tabs = '<a class="cat-tab' + (cat.slug === 'mezhkom' ? ' is-active' : '') + '" href="catalog.html?cat=mezhkom">Все межкомнатные <span>' + kindProducts.length + '</span></a>';
+      tabs = '<a class="cat-tab' + (cat.slug === 'mezhkom' ? ' is-active' : '') + '" href="' + catHref('mezhkom') + '">Все межкомнатные <span>' + kindProducts.length + '</span></a>';
     } else {
-      tabs = '<a class="cat-tab' + (cat ? '' : ' is-active') + '" href="catalog.html">Все входные <span>' + kindProducts.length + '</span></a>';
+      tabs = '<a class="cat-tab' + (cat ? '' : ' is-active') + '" href="' + catHref('') + '">Все входные <span>' + kindProducts.length + '</span></a>';
       ['dom', 'kvartira'].forEach(function (k) {
         var n = kindProducts.filter(function (p) { return p.cats.some(function (c) { return c.indexOf(k + '/') === 0; }); }).length;
-        tabs += '<a class="cat-tab' + (cat && cat.slug === k ? ' is-active' : '') + '" href="catalog.html?cat=' + k + '">' + PARENTS[k].name + ' <span>' + n + '</span></a>';
+        tabs += '<a class="cat-tab' + (cat && cat.slug === k ? ' is-active' : '') + '" href="' + catHref(k) + '">' + PARENTS[k].name + ' <span>' + n + '</span></a>';
       });
     }
     data.categories.forEach(function (c) {
       if ((c.slug.indexOf('mezhkom/') === 0) !== interior) return;
-      tabs += '<a class="cat-tab' + (cat && cat.slug === c.slug ? ' is-active' : '') + '" href="catalog.html?cat=' + c.slug + '">' + esc(c.name) + ' <span>' + c.count + '</span></a>';
+      tabs += '<a class="cat-tab' + (cat && cat.slug === c.slug ? ' is-active' : '') + '" href="' + catHref(c.slug) + '">' + esc(c.name) + ' <span>' + c.count + '</span></a>';
     });
     document.querySelector('.js-tabs').innerHTML = tabs;
 
@@ -517,14 +525,14 @@
 
   /* ---------- Страница модели ---------- */
   function initModel(data) {
-    var id = new URLSearchParams(location.search).get('id');
+    var id = PAGE_ID;
     var p = data.products.filter(function (x) { return x.id === id; })[0] || data.products[0];
     if (isInterior(p)) return initInterior(p, data);
     var cat = data.categories.filter(function (c) { return c.slug === p.cats[0]; })[0];
-    document.title = 'Входная дверь ' + p.title + ' — Стальная линия';
+    setTitle('Входная дверь ' + p.title + ' — Стальная линия');
 
-    document.querySelector('.js-crumbs').innerHTML = '<a href="../">Главная</a><span>/</span><a href="catalog.html">Каталог</a><span>/</span>' +
-      (cat ? '<a href="catalog.html?cat=' + cat.slug + '">' + esc(cat.name) + '</a><span>/</span>' : '') + '<span>' + esc(p.title) + '</span>';
+    document.querySelector('.js-crumbs').innerHTML = '<a href="/">Главная</a><span>/</span><a href="' + catHref('') + '">Каталог</a><span>/</span>' +
+      (cat ? '<a href="' + catHref(cat.slug) + '">' + esc(cat.name) + '</a><span>/</span>' : '') + '<span>' + esc(p.title) + '</span>';
     document.querySelector('.js-title').textContent = p.title;
 
     var tags = '';
@@ -608,7 +616,7 @@
       .sort(function (a, b) { return (b.style[0] === p.style[0]) - (a.style[0] === p.style[0]); }).slice(0, 12);
     document.querySelector('.js-similar').innerHTML = similar.map(card).join('');
     similarArrows();
-    if (cat) document.querySelector('.js-similar-all').href = 'catalog.html?cat=' + cat.slug;
+    if (cat) document.querySelector('.js-similar-all').href = catHref(cat.slug);
   }
 
   /* ---------- Страница межкомнатной двери (Aurum) ---------- */
@@ -618,11 +626,11 @@
       toSaleButton(document.querySelector('.model__actions [data-open-form="model"]'), 'Получить скидку 40%', p.title);
     }
     var cat = data.categories.filter(function (c) { return c.slug === p.cats[0]; })[0];
-    document.title = 'Межкомнатная дверь Aurum Doors ' + p.title + ' — Стальная линия';
+    setTitle('Межкомнатная дверь Aurum Doors ' + p.title + ' — Стальная линия');
     var kicker = q('.js-kicker');
     kicker.textContent = 'Межкомнатная дверь Aurum Doors'; kicker.hidden = false;
-    document.querySelector('.js-crumbs').innerHTML = '<a href="../">Главная</a><span>/</span><a href="catalog.html?cat=mezhkom">Межкомнатные двери</a><span>/</span>' +
-      (cat ? '<a href="catalog.html?cat=' + cat.slug + '">' + esc(cat.name) + '</a><span>/</span>' : '') + '<span>' + esc(p.title) + '</span>';
+    document.querySelector('.js-crumbs').innerHTML = '<a href="/">Главная</a><span>/</span><a href="' + catHref('mezhkom') + '">Межкомнатные двери</a><span>/</span>' +
+      (cat ? '<a href="' + catHref(cat.slug) + '">' + esc(cat.name) + '</a><span>/</span>' : '') + '<span>' + esc(p.title) + '</span>';
     document.querySelector('.js-title').textContent = p.title;
     document.querySelector('.js-tags').innerHTML = '<span class="tag tag--blue">Коллекция ' + esc(p.collectionName) + '</span>' +
       (p.sale ? '<span class="tag tag--sale">Акция −40%</span>' : '') + (p.inStock ? '<span class="tag tag--blue">В наличии</span>' : '');
@@ -696,7 +704,7 @@
     // характеристики
     var list = p.specs.filter(function (s) { return s.title !== 'Стиль'; });
     document.querySelector('.js-specs').innerHTML = list.length
-      ? (p.desc ? '<p class="specs-lead">' + esc(p.desc) + '</p>' : '') + '<dl class="specs specs--text">' + list.map(function (s) { return '<div class="specs__row"><dt>' + esc(s.title) + '</dt><dd>' + esc(s.value) + '</dd></div>'; }).join('') + '</dl>'
+      ? (p.intro ? '<p class="specs-lead">' + esc(p.intro) + '</p>' : '') + (p.desc ? '<p class="specs-lead">' + esc(p.desc) + '</p>' : '') + '<dl class="specs specs--text">' + list.map(function (s) { return '<div class="specs__row"><dt>' + esc(s.title) + '</dt><dd>' + esc(s.value) + '</dd></div>'; }).join('') + '</dl>'
       : (p.desc ? '<p class="specs-lead">' + esc(p.desc) + '</p>' : '<div class="specs-empty"><b>Характеристики уточняйте у&nbsp;менеджера</b>Подскажем размеры, стекло и&nbsp;фурнитуру — оставьте заявку или позвоните.</div>');
 
     // о фабрике — после характеристик
@@ -721,6 +729,6 @@
     if (similar.length < 8) similar = similar.concat(data.products.filter(function (x) { return isInterior(x) && x.id !== p.id && x.collection !== p.collection; }).slice(0, 8 - similar.length));
     document.querySelector('.js-similar').innerHTML = similar.map(card).join('');
     similarArrows();
-    document.querySelector('.js-similar-all').href = 'catalog.html?cat=' + (cat ? cat.slug : 'mezhkom');
+    document.querySelector('.js-similar-all').href = catHref(cat ? cat.slug : 'mezhkom');
   }
 })();

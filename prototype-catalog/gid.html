@@ -19,9 +19,9 @@
        Не подключаются, только если посетитель нажал «Отказаться» (в хранилище — 'necessary'). ---------- */
     (function () {
       var ID = 113661573;      // Яндекс Метрика
-      // отдельный счётчик «межком на сайте СЛ» — только на страницах межкомнатных дверей (раздел каталога и модели Aurum)
+      // отдельный счётчик «межком на сайте СЛ» — только на страницах межкомнатных дверей (/catalog/mezhkom/…, а также прототипы catalog.html?cat=mezhkom… и model.html?id=au-…)
       var ID_INTERIOR = 113740896;
-      var isInteriorPage = /\/prototype-catalog\/catalog\.html$/.test(location.pathname) && /[?&]cat=mezhkom(%2F|\/|&|$)/.test(location.search) ||
+      var isInteriorPage = /^\/catalog\/mezhkom(\/|$)/.test(location.pathname) || /\/prototype-catalog\/catalog\.html$/.test(location.pathname) && /[?&]cat=mezhkom(%2F|\/|&|$)/.test(location.search) ||
         /\/prototype-catalog\/model\.html$/.test(location.pathname) && /[?&]id=au-/.test(location.search);
       window.siteIsInterior = isInteriorPage; // формам: на межкомнатных скидку 20% не обещаем
       var VK_ID = '3805477';   // пиксель VK Ads (Top.Mail.Ru)
@@ -135,7 +135,7 @@
       }, { passive: true });
     })();
   </script>
-  <link rel="stylesheet" href="catalog.css?v=84">
+  <link rel="stylesheet" href="catalog.css?v=85">
 </head>
 <body class="page-portfolio page-gid">
 
@@ -147,13 +147,14 @@
       </a>
       <nav class="header__nav" id="site-nav" aria-label="Основная навигация">
         <div class="nav-dd">
-          <a class="nav-dd__toggle" href="catalog.html" aria-haspopup="true">Каталог</a>
+          <a class="nav-dd__toggle" href="/catalog" aria-haspopup="true">Каталог</a>
           <div class="nav-dd__menu">
             <div class="nav-dd__list">
-              <a href="catalog.html">Входные двери</a>
-              <a href="catalog.html?cat=mezhkom">Межкомнатные двери</a>
-              <a href="portfolio.html">Наши работы</a>
-              <a href="gid.html">Гид по продукту</a>
+              <a href="/catalog">Входные двери</a>
+              <a href="/catalog/mezhkom">Межкомнатные двери</a>
+              <a href="/port">Наши работы</a>
+              <a href="/gid">Гид по продукту</a>
+              <a href="/blog">Статьи</a>
             </div>
           </div>
         </div>
@@ -164,14 +165,14 @@
           <a class="nav-dd__toggle" href="#footer" aria-haspopup="true">Контакты</a>
           <div class="nav-dd__menu">
             <div class="nav-dd__list">
-              <a href="stores.html">Наши магазины</a>
-              <a href="designers.html">Дизайнерам и архитекторам</a>
+              <a href="/magazines">Наши магазины</a>
+              <a href="/diz">Дизайнерам и архитекторам</a>
               <a href="#footer">Контакты</a>
             </div>
           </div>
         </div>
       </nav>
-      <a class="header__address" href="stores.html" title="Наши магазины">
+      <a class="header__address" href="/magazines" title="Наши магазины">
         <img src="../assets/icons/map-pin.svg" width="16" height="16" alt="">
         <span>Екатеринбург, ИЦ Аструм</span>
       </a>
@@ -226,7 +227,7 @@
               <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:27</span>
             </button>
             <h3 class="video-card__title">Дверь для дома «Рапсодия»</h3>
-            <a class="gid-reel__link" href="model.html?id=669247072982">Модель в каталоге</a>
+            <a class="gid-reel__link" href="/catalog/dom/svarnie/rapsodia">Модель в каталоге</a>
           </article>
           <article class="video-card">
             <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-2.mp4" aria-label="Смотреть видео: Дверь для дома «Лира»">
@@ -234,7 +235,7 @@
               <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:44</span>
             </button>
             <h3 class="video-card__title">Дверь для дома «Лира»</h3>
-            <a class="gid-reel__link" href="model.html?id=690857140514">Модель в каталоге</a>
+            <a class="gid-reel__link" href="/catalog/dom/svarnie/lira">Модель в каталоге</a>
           </article>
           <article class="video-card">
             <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-3.mp4" aria-label="Смотреть видео: Дверь для дома «Сага»">
@@ -242,7 +243,7 @@
               <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:28</span>
             </button>
             <h3 class="video-card__title">Дверь для дома «Сага»</h3>
-            <a class="gid-reel__link" href="model.html?id=715888846891">Модель в каталоге</a>
+            <a class="gid-reel__link" href="/catalog/dom/svarnie/saga">Модель в каталоге</a>
           </article>
           <article class="video-card">
             <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-4.mp4" aria-label="Смотреть видео: Дверь для дома «Монарх»">
@@ -250,7 +251,7 @@
               <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:10</span>
             </button>
             <h3 class="video-card__title">Дверь для дома «Монарх»</h3>
-            <a class="gid-reel__link" href="model.html?id=885997904470">Модель в каталоге</a>
+            <a class="gid-reel__link" href="/catalog/dom/nestandart/monarhdvup">Модель в каталоге</a>
           </article>
           <article class="video-card">
             <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-5.mp4" aria-label="Смотреть видео: Дверь для дома «Лаврик»">
@@ -258,7 +259,7 @@
               <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:42</span>
             </button>
             <h3 class="video-card__title">Дверь для дома «Лаврик»</h3>
-            <a class="gid-reel__link" href="model.html?id=111308003601">Модель в каталоге</a>
+            <a class="gid-reel__link" href="/catalog/dom/husky/lavrik">Модель в каталоге</a>
           </article>
           <article class="video-card">
             <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-6.mp4" aria-label="Смотреть видео: Дверь для дома «Инта»">
@@ -266,7 +267,7 @@
               <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:15</span>
             </button>
             <h3 class="video-card__title">Дверь для дома «Инта»</h3>
-            <a class="gid-reel__link" href="model.html?id=719720071801">Модель в каталоге</a>
+            <a class="gid-reel__link" href="/catalog/dom/husky/inta">Модель в каталоге</a>
           </article>
           <article class="video-card">
             <button class="video-card__thumb" type="button" data-video="../assets/video/review-3.mp4" aria-label="Смотреть видео: Дверь для дома «Бремен»">
@@ -274,7 +275,7 @@
               <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:24</span>
             </button>
             <h3 class="video-card__title">Дверь для дома «Бремен»</h3>
-            <a class="gid-reel__link" href="model.html?id=693236489831">Модель в каталоге</a>
+            <a class="gid-reel__link" href="/catalog/dom/nestandart/bremendvup">Модель в каталоге</a>
           </article>
           <article class="video-card">
             <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-8.mp4" aria-label="Смотреть видео: Дверь в квартиру «Бореалис»">
@@ -282,7 +283,7 @@
               <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:22</span>
             </button>
             <h3 class="video-card__title">Дверь в квартиру «Бореалис»</h3>
-            <a class="gid-reel__link" href="model.html?id=569161028601">Модель в каталоге</a>
+            <a class="gid-reel__link" href="/catalog/dom/svarnie/borealis">Модель в каталоге</a>
           </article>
           <article class="video-card">
             <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-9.mp4" aria-label="Смотреть видео: Дверь для дома «Сага»">
@@ -290,7 +291,7 @@
               <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:40</span>
             </button>
             <h3 class="video-card__title">Дверь для дома «Сага»</h3>
-            <a class="gid-reel__link" href="model.html?id=715888846891">Модель в каталоге</a>
+            <a class="gid-reel__link" href="/catalog/dom/svarnie/saga">Модель в каталоге</a>
           </article>
           <article class="video-card">
             <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-10.mp4" aria-label="Смотреть видео: Дверь для дома «Астар»">
@@ -298,7 +299,7 @@
               <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:18</span>
             </button>
             <h3 class="video-card__title">Дверь для дома «Астар»</h3>
-            <a class="gid-reel__link" href="model.html?id=373826863851">Модель в каталоге</a>
+            <a class="gid-reel__link" href="/catalog/dom/svarnie/astar">Модель в каталоге</a>
           </article>
           <article class="video-card">
             <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-11.mp4" aria-label="Смотреть видео: Дверь для дома «Пиктор»">
@@ -306,7 +307,7 @@
               <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:07</span>
             </button>
             <h3 class="video-card__title">Дверь для дома «Пиктор»</h3>
-            <a class="gid-reel__link" href="model.html?id=365283486141">Модель в каталоге</a>
+            <a class="gid-reel__link" href="/catalog/dom/svarnie/piktor">Модель в каталоге</a>
           </article>
           <article class="video-card">
             <button class="video-card__thumb" type="button" data-video="../assets/video/obzor-12.mp4" aria-label="Смотреть видео: Дверь для дома «Мельбурн»">
@@ -314,7 +315,7 @@
               <span class="video-card__badge"><img src="../assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:04</span>
             </button>
             <h3 class="video-card__title">Дверь для дома «Мельбурн»</h3>
-            <a class="gid-reel__link" href="model.html?id=644465989481">Модель в каталоге</a>
+            <a class="gid-reel__link" href="/catalog/dom/husky/melburn">Модель в каталоге</a>
           </article>
         </div>
         <button class="similar-arrow similar-arrow--next gid-arrow gid-arrow--next" type="button" aria-label="Дальше"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
@@ -533,7 +534,7 @@
       <p class="lead__lead callback__done-lead">Перезвоним в&nbsp;течение часа в&nbsp;рабочее время. Если звонок нужен срочно — <a href="tel:+79222077552">+7&nbsp;(922)&nbsp;207-75-52</a>.</p>
       <p class="form-bonus-done js-form-bonus">Скидка 20% забронирована за&nbsp;вами</p>
       <div class="callback__done-actions">
-        <a class="btn btn--gradient btn--lg callback__catalog js-bonus-only" href="catalog.html" hidden>Перейти в каталог</a>
+        <a class="btn btn--gradient btn--lg callback__catalog js-bonus-only" href="/catalog" hidden>Перейти в каталог</a>
         <button class="btn btn--outline btn--outline-soft btn--lg" type="button" data-close-callback>Вернуться на сайт</button>
       </div>
     </div>
@@ -546,11 +547,11 @@
         <p class="footer__rep-text">Эксклюзивный представитель «Стальной линии» <br>на Урале — «Дверной Молл».</p>
       </div>
       <nav class="footer__nav" aria-label="Навигация в подвале">
-        <a href="catalog.html">Каталог</a>
+        <a href="/catalog">Каталог</a>
         <a href="../">Бренды</a>
-        <a href="portfolio.html">Наши работы</a>
+        <a href="/port">Наши работы</a>
         <a href="../#contacts">Салон</a>
-        <a href="designers.html">Для дизайнеров</a>
+        <a href="/diz">Для дизайнеров</a>
         <a href="../#contacts">Контакты</a>
       </nav>
     </div>
@@ -673,7 +674,7 @@
     </div>
   </dialog>
 
-  <script src="../script.js?v=62"></script>
+  <script src="../script.js?v=63"></script>
   <script src="gid.js?v=2"></script>
 </body>
 </html>

@@ -38,15 +38,16 @@ def fix(html):
     return html
 
 
-def page(title, body_class, main, scripts=('catalog.js?v=56',)):
+def page(title, body_class, main, scripts=('catalog.js?v=60',)):
     h = fix(head)
     h = re.sub(r'<title>.*?</title>', '<title>%s</title>' % title, h)
     # прототип каталога не индексируем до переноса на Astro (дубли steelline.store)
     h = re.sub(r'\s*<link rel="canonical"[^>]*>', '', h)
     h = re.sub(r'\s*<meta name="yandex-verification"[^>]*>', '', h)
+    h = re.sub(r'\s*<meta property="og:[^>]*>', '', h)  # превью главной; у статичных страниц — свои
     h = h.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
                   '<meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="robots" content="noindex, nofollow">', 1)
-    h += '  <link rel="stylesheet" href="catalog.css?v=84">\n</head>\n'
+    h += '  <link rel="stylesheet" href="catalog.css?v=85">\n</head>\n'
     nav_header = fix(header)
     return (h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(bonus) + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
@@ -71,12 +72,12 @@ catalog_main = '''  <main class="cat" id="cat">
           <p class="sale-banner__kicker">Aurum doors</p>
           <h2 class="sale-banner__title">Распродажа склада в&nbsp;Екатеринбурге</h2>
           <p class="sale-banner__lead">Скидка 40% на&nbsp;полотна коллекции Кобальт. 400 полотен в&nbsp;наличии — забрать можно сразу.</p>
-          <a class="btn sale-banner__btn" href="catalog.html?cat=mezhkom/kobalt">Смотреть двери Кобальт <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+          <a class="btn sale-banner__btn" href="/catalog/mezhkom/kobalt">Смотреть двери Кобальт <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
         </div>
         <div class="sale-banner__doors js-sale-doors" aria-hidden="true"></div>
       </div>
       <!-- на телефоне вместо баннера — готовая картинка распродажи -->
-      <a class="sale-banner__photo" href="catalog.html?cat=mezhkom/kobalt">
+      <a class="sale-banner__photo" href="/catalog/mezhkom/kobalt">
         <picture>
           <source media="(max-width: 767px)" srcset="img/aurum/sale-mobile.webp">
           <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width="1200" height="800" fetchpriority="high" alt="Распродажа склада межкомнатных дверей Aurum Doors: скидка 40%. Екатеринбург, ИЦ Аструм, 6 уровень, галерея А">
@@ -211,7 +212,11 @@ model_main = '''  <main class="model-page" id="model">
 def _json(name):
     return json.load(open(os.path.join(OUT, 'data', name), encoding='utf-8'))
 _aurum, _entry = _json('aurum.json'), _json('catalog.json')
-_keep = ['id', 'kind', 'title', 'collection', 'collectionName', 'cats', 'price', 'priceKit', 'photos', 'colorNames',
+# адреса страниц межкомнатных дверей: /catalog/mezhkom/<коллекция>/<модель>
+for _p in _aurum['products']:
+    _p['url'] = '/catalog/%s/%s' % (_p['cats'][0], _p['slug'])
+json.dump(_aurum, open(os.path.join(OUT, 'data', 'aurum.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+_keep = ['id', 'kind', 'title', 'url', 'collection', 'collectionName', 'cats', 'price', 'priceKit', 'photos', 'colorNames',
          'style', 'window', 'inStock', 'sale', 'scene', 'colorNote']
 _list = [dict({k: p[k] for k in _keep if k in p}, colors=[{'name': c['name'], 'swatch': c['swatch']} for c in p['colors']])
          for p in _aurum['products']]
@@ -273,7 +278,7 @@ portfolio_main = '''  <main class="port" id="port">
     </dialog>
   </main>'''
 
-open(os.path.join(OUT, 'portfolio.html'), 'w', encoding='utf-8').write(page('Наши работы — Стальная линия', 'page-portfolio', portfolio_main, ('portfolio.js?v=12',)))
+open(os.path.join(OUT, 'portfolio.html'), 'w', encoding='utf-8').write(page('Наши работы — Стальная линия', 'page-portfolio', portfolio_main, ('portfolio.js?v=13',)))
 
 print('ok')
 
@@ -315,11 +320,51 @@ stores_main = '''  <main class="port shops" id="shops">
 open(os.path.join(OUT, 'stores.html'), 'w', encoding='utf-8').write(page('Наши магазины — Стальная линия', 'page-portfolio page-stores', stores_main, ('stores.js?v=13',)))
 
 
+# ---------- Адреса страниц моделей (статичные страницы — в конце файла) ----------
+from urllib.parse import urlparse
+
+
+def _translit(s):
+    t = {'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'e', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y', 'к': 'k',
+         'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o', 'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c',
+         'ч': 'ch', 'ш': 'sh', 'щ': 'sch', 'ъ': '', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu', 'я': 'ya'}
+    return re.sub(r'[^a-z0-9]+', '-', ''.join(t.get(c, c) for c in s.lower())).strip('-')
+
+
+# адреса моделей: путь со старого сайта; опечатка «caralog» исправлена; если адрес у двух моделей совпал
+# (ошибка старого сайта) — вторая получает свой адрес по названию
+# у «Мадрида» на старом сайте в данных ошибочно стоит адрес «Бремена»; настоящий адрес найден в карте старого сайта
+_URL_FIX = {'605064485219': '/catalog/dom/nestandart/madriddvup'}
+_seen = set()
+for _p in _entry['products']:
+    path = _URL_FIX.get(_p['id']) or urlparse(_p['oldUrl']).path.rstrip('/').replace('/caralog/', '/catalog/')
+    if path in _seen:
+        path = path.rsplit('/', 1)[0] + '/' + _translit(_p['title'])
+        while path in _seen:
+            path += '-2'
+    _seen.add(path)
+    _p['url'] = path
+json.dump(_entry, open(os.path.join(OUT, 'data', 'catalog.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+_url_by_id = {p['id']: p['url'] for p in _entry['products']}
+
+
+def _model_href(pid):
+    return _url_by_id.get(pid, 'model.html?id=' + pid)
+
+
+# в портфолио — ссылка «Модель в каталоге» на страницу модели
+_port = _json('portfolio.json')
+for _pr in _port.get('projects', []):
+    if _pr.get('model') and _pr['model'].get('id') in _url_by_id:
+        _pr['model']['url'] = _url_by_id[_pr['model']['id']]
+json.dump(_port, open(os.path.join(OUT, 'data', 'portfolio.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+
+
 # ---------- Гид по продукту (перенос steelline.store/gid) ----------
 # Ролики и обложки — те же, что в окне «Видеообзоры» на главной; видео о фабрике и технологии — data/gid.json (catalog-source/gid.py)
 import html as _html
 _gid = _json('gid.json')
-_ids = {p['title']: p['id'] for p in _entry['products'] if p.get('cats') and p['cats'][0].startswith('dom/')}
+_ids = {p['title']: p['id'] for p in _entry['products'] if p.get('cats') and p['cats'][0].startswith('dom/')}  # заменяются на адреса страниц ниже
 player = part('<dialog class="player" id="player"', '</dialog>')
 
 
@@ -333,7 +378,7 @@ def _reels(group_title):
         m = re.search(r'«([^»]+)»', c)
         # «Модель в каталоге» — для обзоров моделей; второй ролик «Сага» на старом сайте подписан так же, ссылку даём обоим
         if m and m.group(1) in _ids:
-            c = c.replace('</article>', '  <a class="gid-reel__link" href="model.html?id=%s">Модель в каталоге</a>\n          </article>' % _ids[m.group(1)])
+            c = c.replace('</article>', '  <a class="gid-reel__link" href="%s">Модель в каталоге</a>\n          </article>' % _model_href(_ids[m.group(1)]))
         out.append(c)
     # пути лендинга → из папки прототипа (у роликов ещё и data-video)
     return fix('\n          '.join(out)).replace('data-video="assets/', 'data-video="../assets/')
@@ -693,7 +738,7 @@ designers_main = '''  <main class="dz" id="designers">
         <p class="dz-text">Расскажите о&nbsp;проекте&nbsp;— персональный менеджер подберёт решения, рассчитает стоимость и&nbsp;расскажет об&nbsp;условиях партнёрства. Образцы отделок можно посмотреть вживую в&nbsp;шоуруме в&nbsp;ИЦ ASTROOM.</p>
         <div class="dz-hero__actions">
           <a class="btn btn--gradient btn--lg" href="#" data-open-form="designers-cta">Стать партнёром <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
-          <a class="btn btn--outline btn--outline-soft btn--lg" href="stores.html">Адреса салонов</a>
+          <a class="btn btn--outline btn--outline-soft btn--lg" href="/magazines">Адреса салонов</a>
         </div>
       </div>
     </section>
@@ -702,3 +747,470 @@ designers_main = '''  <main class="dz" id="designers">
 # версия картинок: при перерезке/повышении резкости образцов браузер должен взять новые файлы
 designers_main = re.sub(r'(img/diz/[a-z0-9-]+\.webp)"', r'\1?v=6"', designers_main)
 open(os.path.join(OUT, 'designers.html'), 'w', encoding='utf-8').write(page('Дизайнерам и архитекторам — Стальная линия', 'page-designers', designers_main, ('designers.js?v=1',)))
+
+
+# ================= Статичные страницы для поисковиков =================
+# Каждая модель входной двери и каждый раздел — отдельная готовая HTML-страница по адресу старого сайта
+# (steelline.store/catalog/dom/svarnie/agios → /catalog/dom/svarnie/agios/index.html), с заголовком, описанием,
+# хлебными крошками, фото, ценой, характеристиками, похожими моделями и микроразметкой прямо в коде.
+# Скрипт каталога на этих страницах работает как обычно (берёт модель/раздел из data-атрибута <body>).
+# Ресурсы прототипа подключаются через <base href="/prototype-catalog/">.
+# Переезд: SITE_URL=https://steelline.store INDEX=1 python3 build.py — снимает noindex и пишет sitemap.xml.
+SITE_URL = os.environ.get('SITE_URL', 'https://promo.steelline.store').rstrip('/')
+INDEX = os.environ.get('INDEX') == '1'
+STATIC_ROOT = ROOT  # /catalog/... в корне сайта
+
+
+def _rub(n):
+    return '{:,}'.format(int(round(n))).replace(',', ' ') + ' ₽'
+
+
+_cats = {c['slug']: c for c in _entry['categories']}
+_PARENTS = {'dom': ('Двери в дом', 'Входные двери для частного дома и коттеджа: тёплые, с терморазрывом, для нестандартных проёмов и по спец цене.'),
+            'kvartira': ('Двери в квартиру', 'Надёжные входные двери для квартиры: классика и современный дизайн, умные замки.')}
+_SNOW = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M4.2 6.5l15.6 11M4.2 17.5l15.6-11M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5M3 10.2l3.6.8-1 3.6M21 13.8l-3.6-.8 1-3.6M3 13.8l3.6-.8-1-3.6M21 10.2l-3.6.8 1 3.6"/></svg>'
+
+
+def _cat_url(slug=''):
+    return '/catalog' + ('/' + slug if slug else '')
+
+
+def _meta_line(p):
+    bits = []
+    if p.get('series'): bits.append('Серия ' + ' / '.join(p['series']))
+    if p.get('style'): bits.append(p['style'][0])
+    if p.get('coating'): bits.append(p['coating'][0])
+    return ' · '.join(bits)
+
+
+def _card(p):
+    """Карточка модели — та же разметка, что строит catalog.js"""
+    photos = ''.join('<img class="pcard__photo" src="%s" alt="%s" loading="lazy">' % (_e(src), '' if i else 'Входная дверь ' + _e(p['title']))
+                     for i, src in enumerate(p['photos'][:2]))
+    warm = ('<span class="pcard__warm pcard__warm--husky" title="Тёплая серия «Хаски»">' + _SNOW + 'Хаски</span>') if 'dom/husky' in p['cats'] else \
+           ('<span class="pcard__warm" title="Дверь с терморазрывом — не промерзает">' + _SNOW + 'Терморазрыв</span>') if p.get('thermo') else ''
+    return ('<a class="pcard" href="%s"><div class="pcard__media">%s%s%s'
+            '<span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span>'
+            '</div><div class="pcard__body"><h3 class="pcard__title">%s</h3><p class="pcard__meta">%s</p><p class="pcard__price">от %s</p></div></a>'
+            % (p['url'], photos, '<span class="pcard__badge">Спецпредложение</span>' if p.get('special') else '', warm,
+               _e(p['title']), _e(_meta_line(p)), _rub(p['price'])))
+
+
+def _ld(obj):
+    return '<script type="application/ld+json">' + json.dumps(obj, ensure_ascii=False).replace('</', '<\\/') + '</script>'
+
+
+def _crumbs_ld(items):
+    return {'@context': 'https://schema.org', '@type': 'BreadcrumbList',
+            'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'name': n, 'item': SITE_URL + u} for i, (n, u) in enumerate(items)]}
+
+
+def _static_page(path, title, desc, body_class, body_attrs, main, scripts, ld=(), image=''):
+    """Готовая страница на основе шаблона прототипа: свой title/description/canonical/og, base на ресурсы прототипа"""
+    html = page(title, body_class, main, scripts)
+    url = SITE_URL + path
+    head_extra = ('\n  <base href="/prototype-catalog/">'
+                  '\n  <link rel="canonical" href="%s">'
+                  '\n  <meta property="og:type" content="website">\n  <meta property="og:site_name" content="Стальная линия">'
+                  '\n  <meta property="og:title" content="%s">\n  <meta property="og:description" content="%s">\n  <meta property="og:url" content="%s">'
+                  % (url, _e(title), _e(desc), url))
+    if image:
+        head_extra += '\n  <meta property="og:image" content="%s">' % (SITE_URL + '/prototype-catalog/' + image)
+    head_extra += ''.join('\n  ' + _ld(x) for x in ld)
+    # base — сразу после <meta charset>, до любых относительных адресов
+    html = html.replace('<meta charset="utf-8">', '<meta charset="utf-8">' + head_extra.split('\n  <link rel="canonical"')[0], 1)
+    html = html.replace('</head>', '\n  <link rel="canonical"' + head_extra.split('\n  <link rel="canonical"', 1)[1] + '\n</head>', 1)
+    html = re.sub(r'<meta name="description" content="[^"]*">', '<meta name="description" content="%s">' % _e(desc), html, count=1)
+    if INDEX:
+        html = html.replace('\n  <meta name="robots" content="noindex, nofollow">', '')
+    html = html.replace('<body class="%s">' % body_class, '<body class="%s"%s>' % (body_class, body_attrs), 1)
+    # якоря на этой же странице: из-за <base> «#footer» вёл бы в папку прототипа
+    html = re.sub(r'href="#([^"]+)"', lambda m: 'href="%s#%s"' % (path, m.group(1)), html)
+    out = os.path.join(STATIC_ROOT, path.strip('/'), 'index.html')
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    open(out, 'w', encoding='utf-8').write(html)
+    return path
+
+
+_sitemap = []
+# каталог статичных страниц собирается заново целиком — чтобы не оставались страницы удалённых моделей
+import shutil
+shutil.rmtree(os.path.join(STATIC_ROOT, 'catalog'), ignore_errors=True)
+
+# ---- страницы моделей ----
+for p in _entry['products']:
+    cat = _cats.get(p['cats'][0])
+    parent = p['cats'][0].split('/')[0]
+    crumbs = [('Главная', '/'), ('Каталог', _cat_url())] + ([(cat['name'], _cat_url(cat['slug']))] if cat else []) + [(p['title'], p['url'])]
+    crumbs_html = '<span>/</span>'.join('<a href="%s">%s</a>' % (u, _e(n)) for n, u in crumbs[:-1]) + '<span>/</span><span>%s</span>' % _e(p['title'])
+    kind = 'в квартиру' if parent == 'kvartira' else 'в дом'
+    feats = []
+    if 'dom/husky' in p['cats']: feats.append('тёплая серия «Хаски»')
+    elif p.get('thermo'): feats.append('с терморазрывом')
+    if p.get('style'): feats.append({'Классика': 'классический стиль', 'Современный': 'современный дизайн', 'Неоклассика': 'неоклассика'}.get(p['style'][0], p['style'][0].lower()))
+    if p.get('coating'): feats.append('отделка ' + p['coating'][0])
+    if p.get('series'): feats.append('серия ' + ' / '.join(p['series']))
+    title = 'Входная дверь %s %s — купить в Екатеринбурге, цена от %s | Стальная линия' % (kind, p['title'], _rub(p['price']).replace(' ', ' '))
+    desc = ('Входная дверь «%s» %s фабрики «Стальная линия»: %s. Цена от %s. Изготовление и установка в Екатеринбурге, гарантия 2 года.'
+            % (p['title'], kind, ', '.join(feats) or 'стальная дверь', _rub(p['price']).replace(' ', ' '))).replace(':, ', ': ')
+    # содержимое — как после работы catalog.js
+    tags = ('<span class="tag tag--blue">%s</span>' % _e(cat['name']) if cat else '') + ('<span class="tag tag--blue">Спецпредложение</span>' if p.get('special') else '')
+    photo = p['photos'][0] if p['photos'] else ''
+    thumbs = ''.join('<button class="model__thumb%s" type="button" aria-label="Фото %d"><img src="%s" alt=""></button>' % (' is-active' if i == 0 else '', i + 1, _e(s))
+                     for i, s in enumerate(p['photos'])) if len(p['photos']) > 1 else ''
+    rows = [('Внешняя панель', (p.get('panels') or {}).get('outer')), ('Внутренняя панель', (p.get('panels') or {}).get('inner')),
+            ('Стиль', ', '.join(p.get('style', []))), ('Покрытие', ', '.join(p.get('coating', []))), ('Окно', ', '.join(p.get('window', []))),
+            ('Серия', ' / '.join(p.get('series', [])))]
+    params = ''.join('<dt>%s</dt><dd>%s</dd>' % (a, _e(b)) for a, b in rows if b)
+    keys = [k for k in (p.get('specSeries') or []) if k in _entry.get('seriesSpecs', {})]
+    own = {s['title']: s for s in p.get('specs', [])}
+    base_rows = _entry['seriesSpecs'][keys[0]]['rows'] if keys else []
+    spec_list = [own.pop(s['title'], s) for s in base_rows] + [s for s in p.get('specs', []) if s['title'] in own]
+    specs = (('<p class="specs-note">Серия %s</p>' % keys[0] if keys else '') + '<dl class="specs">' +
+             ''.join('<div class="specs__row"><dt>%s</dt><dd>%s</dd></div>' % (_e(s['title']), _e(s['value'])) for s in spec_list) + '</dl>') if spec_list else \
+        '<div class="specs-empty"><b>Характеристики уточняйте у&nbsp;менеджера</b>Подскажем толщину полотна, утепление, замки и&nbsp;фурнитуру для этой модели — оставьте заявку или позвоните.</div>'
+    similar = sorted([x for x in _entry['products'] if x['id'] != p['id'] and p['cats'][0] in x['cats']],
+                     key=lambda x: -(x.get('style', [None])[:1] == p.get('style', [None])[:1]))[:12]
+    main = model_main
+    main = main.replace('<nav class="crumbs js-crumbs" aria-label="Хлебные крошки"></nav>', '<nav class="crumbs js-crumbs" aria-label="Хлебные крошки">%s</nav>' % crumbs_html)
+    main = main.replace('<img class="js-photo-img" alt="">', '<img class="js-photo-img" src="%s" alt="Входная дверь %s">' % (_e(photo), _e(p['title'])))
+    main = main.replace('<div class="model__thumbs js-thumbs"></div>', '<div class="model__thumbs js-thumbs">%s</div>' % thumbs)
+    main = main.replace('<div class="model__tags js-tags"></div>', '<div class="model__tags js-tags">%s</div>' % tags)
+    main = main.replace('<h1 class="model__title js-title"></h1>', '<h1 class="model__title js-title">%s</h1>' % _e(p['title']))
+    main = main.replace('<span class="js-price"></span>', '<span class="js-price">от %s</span>' % _rub(p['price']))
+    main = main.replace('<dl class="model__params js-params"></dl>', '<dl class="model__params js-params">%s</dl>' % params)
+    main = main.replace('<div class="js-specs"></div>', '<div class="js-specs">%s</div>' % specs)
+    main = main.replace('<div class="similar-track scroller js-similar" data-drag></div>', '<div class="similar-track scroller js-similar" data-drag>%s</div>' % ''.join(map(_card, similar)))
+    if cat:
+        main = main.replace('<a class="btn btn--outline js-similar-all" href="catalog.html">', '<a class="btn btn--outline js-similar-all" href="%s">' % _cat_url(cat['slug']))
+    product_ld = {'@context': 'https://schema.org', '@type': 'Product', 'name': 'Входная дверь ' + p['title'], 'description': desc,
+                  'brand': {'@type': 'Brand', 'name': 'Стальная линия'}, 'sku': p['id'],
+                  'image': [SITE_URL + '/prototype-catalog/' + s for s in p['photos']],
+                  'offers': {'@type': 'Offer', 'priceCurrency': 'RUB', 'price': int(round(p['price'])), 'availability': 'https://schema.org/InStock',
+                             'url': SITE_URL + p['url'], 'seller': {'@type': 'Organization', 'name': 'Стальная линия'}}}
+    _sitemap.append(_static_page(p['url'], title, desc, 'page-model', ' data-model-id="%s"' % p['id'], main, ('catalog.js?v=60',),
+                                 ld=(product_ld, _crumbs_ld(crumbs)), image=photo))
+
+# ---- страницы разделов ----
+_cat_pages = [('', 'Каталог входных дверей', 'Двери для дома и квартиры собственного производства «Стальной линии». Выберите раздел или настройте фильтры — а если сложно определиться, подберём дверь по фото проёма.')]
+_cat_pages += [(k, v[0], v[1]) for k, v in _PARENTS.items()]
+_cat_pages += [(c['slug'], c['name'], c['lead']) for c in _entry['categories']]
+for slug, name, lead in _cat_pages:
+    items = [p for p in _entry['products'] if not slug or any(c == slug or c.startswith(slug + '/') for c in p['cats'])]
+    if not items:
+        continue
+    path = _cat_url(slug)
+    crumbs = [('Главная', '/'), ('Каталог', _cat_url())] + ([(name, path)] if slug else [])
+    if slug and '/' in slug:
+        par = slug.split('/')[0]
+        crumbs = crumbs[:2] + [(_PARENTS[par][0], _cat_url(par))] + crumbs[2:]
+    prices = [p['price'] for p in items if p['price']]
+    title = '%s в Екатеринбурге — %d %s от %s | Стальная линия' % (name if slug else 'Входные двери', len(items),
+            'модель' if len(items) % 10 == 1 and len(items) % 100 != 11 else 'модели' if 2 <= len(items) % 10 <= 4 and not 12 <= len(items) % 100 <= 14 else 'моделей',
+            _rub(min(prices)).replace(' ', ' '))
+    desc = lead + ' Цены от %s. Изготовление и установка в Екатеринбурге, гарантия 2 года.' % _rub(min(prices)).replace(' ', ' ')
+    main = catalog_main
+    main = main.replace('<h1 class="cat__title js-cat-title">Каталог входных дверей</h1>', '<h1 class="cat__title js-cat-title">%s</h1>' % _e(name))
+    main = re.sub(r'<p class="cat__lead js-cat-lead">.*?</p>', '<p class="cat__lead js-cat-lead">%s</p>' % _e(lead), main, count=1, flags=re.S)
+    if slug:
+        main = main.replace('<span class="js-crumb-cat" hidden>/</span><span class="js-crumb-cat-name"></span>',
+                            '<span class="js-crumb-cat">/</span><span class="js-crumb-cat-name">%s</span>' % _e(name))
+    main = main.replace('<a href="../">Главная</a><span>/</span><a href="catalog.html">Каталог</a>', '<a href="/">Главная</a><span>/</span><a href="/catalog">Каталог</a>', 1)
+    # первые 24 карточки (дальше — «Показать ещё» скриптом); у раздела — список всех моделей в микроразметке
+    grid_m = re.search(r'<div class="cat-grid js-grid"[^>]*></div>', main)
+    if grid_m:
+        main = main.replace(grid_m.group(0), grid_m.group(0)[:-6] + ''.join(map(_card, items[:24])) + '</div>', 1)
+    list_ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': name,
+               'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': SITE_URL + p['url'], 'name': p['title']} for i, p in enumerate(items)]}
+    _sitemap.append(_static_page(path, title, desc, 'page-catalog', ' data-cat="%s"' % slug, main, ('catalog.js?v=60',),
+                                 ld=(list_ld, _crumbs_ld(crumbs)), image=items[0]['photos'][0] if items[0]['photos'] else ''))
+
+# ---- межкомнатные двери Aurum: страницы моделей и разделов ----
+_ABOUT_AURUM = 'Фабрика Aurum Doors — один из крупнейших производителей межкомнатных дверей. Полотна делают на оборудовании Barberan (Испания), Weinig (Германия) и Plasmek (Турция) из материалов Egger, Kronostar, Kastamonu, Renolit и Kleiberit.'
+_acats = {c['slug']: c for c in _aurum['categories']}
+
+
+def _plural(n, a, b, c):
+    return a if n % 10 == 1 and n % 100 != 11 else b if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14 else c
+
+
+def _sale_price(p):
+    return round(p['price'] * 0.6) if p.get('sale') and p.get('price') else p.get('price')
+
+
+def _price_html(p):
+    if p.get('price'):
+        return 'от %s%s<small> за полотно</small>' % (_rub(_sale_price(p)), ' <s>%s</s>' % _rub(p['price']) if p.get('sale') else '')
+    return 'от %s<small> за комплект</small>' % _rub(p['priceKit']) if p.get('priceKit') else 'Цена по запросу'
+
+
+def _card_in(p):
+    sw = ''.join('<span class="pcard__swatch" style="background-image:url(%s)" title="%s"></span>' % (_e(c['swatch']), _e(c['name'])) for c in p['colors'][:7])
+    if len(p['colors']) > 7:
+        sw += '<span class="pcard__swatch-more">+%d</span>' % (len(p['colors']) - 7)
+    badge = '<span class="pcard__badge pcard__badge--sale">Акция −40%</span>' if p.get('sale') else '<span class="pcard__badge">В наличии</span>' if p.get('inStock') else ''
+    return ('<a class="pcard pcard--interior%s" href="%s"><div class="pcard__media">%s%s'
+            '<span class="pcard__go" aria-hidden="true"><img src="../assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="corner" src="../assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span>'
+            '</div><div class="pcard__body"><h3 class="pcard__title">%s</h3><p class="pcard__meta">Коллекция %s%s</p>%s<p class="pcard__price">%s</p></div></a>'
+            % (' pcard--scene' if p.get('scene') else '', p['url'],
+               '<img class="pcard__photo" src="%s" alt="Межкомнатная дверь %s" loading="lazy">' % (_e(p['photos'][0]), _e(p['title'])) if p['photos'] else '', badge,
+               _e(p['title']), _e(p['collectionName']), ' · ' + _e(p['style'][0]) if p.get('style') else '',
+               ('<div class="pcard__swatches" aria-label="%d %s">%s</div>' % (len(p['colors']), _plural(len(p['colors']), 'цвет', 'цвета', 'цветов'), sw)) if sw else
+               ('<p class="pcard__ral">Любой цвет по RAL</p>' if p.get('colorNote') else ''), _price_html(p).replace(' <s>', ' <s>')))
+
+
+def _intro_in(p):
+    """своё вступление у каждой модели — из её данных (цвета, остекление, стиль, цена)"""
+    style = {'Современный': ' в современном стиле', 'Неоклассика': ' в стиле неоклассика', 'Классика': ' в классическом стиле',
+             'Минимализм': ' в стиле минимализм'}.get((p.get('style') or [''])[0], '')
+    glass = ', со стеклом' if 'Со стеклом' in p.get('window', []) else ', глухое полотно'
+    parts = ['%s — межкомнатная дверь%s%s. Коллекция %s фабрики Aurum Doors.' % (p['title'], style, glass, p['collectionName'])]
+    if p['colors']:
+        names = [c['name'] for c in p['colors']]
+        parts.append('%d %s на выбор: %s%s.' % (len(names), _plural(len(names), 'цвет', 'цвета', 'цветов'), ', '.join(names[:4]), ' и другие' if len(names) > 4 else ''))
+    elif p.get('colorNote'):
+        parts.append('Окрашивается в любой цвет по палитре RAL.')
+    if p.get('glass'):
+        parts.append('Варианты стекла: %s.' % ', '.join(p['glass'][:4]).lower())
+    if p.get('price'):
+        parts.append('Полотно — от %s%s%s.' % (_rub(_sale_price(p)).replace(' ', ' '), ' (со скидкой 40%)' if p.get('sale') else '',
+                                              ', комплект с коробкой и наличниками — от %s' % _rub(round(p['priceKit'] - p['price'] * 0.4) if p.get('sale') else p['priceKit']).replace(' ', ' ') if p.get('priceKit') else ''))
+    parts.append('Посмотреть и заказать в Екатеринбурге можно в салоне «Стальной линии» в ИЦ ASTROOM' + (' — модель есть на складе.' if p.get('inStock') else '.'))
+    return ' '.join(parts)
+
+
+for p in _aurum['products']:
+    cat = _acats.get(p['cats'][0])
+    crumbs = [('Главная', '/'), ('Межкомнатные двери', _cat_url('mezhkom'))] + ([(cat['name'], _cat_url(cat['slug']))] if cat else []) + [(p['title'], p['url'])]
+    crumbs_html = '<span>/</span>'.join('<a href="%s">%s</a>' % (u, _e(n)) for n, u in crumbs[:-1]) + '<span>/</span><span>%s</span>' % _e(p['title'])
+    price_txt = (_rub(_sale_price(p)) if p.get('price') else _rub(p['priceKit']) if p.get('priceKit') else '').replace(' ', ' ')
+    title = 'Межкомнатная дверь %s (коллекция %s) — купить в Екатеринбурге%s | Стальная линия' % (p['title'], p['collectionName'], ', цена от ' + price_txt if price_txt else '')
+    intro = p['intro'] = _intro_in(p)  # сохраняется и в aurum.json — его показывает и catalog.js
+    desc = intro[:240].rsplit(' ', 1)[0] + '…' if len(intro) > 250 else intro
+    first = next((c for c in p['colors'] if c.get('photo')), None)
+    photo = (first or {}).get('photo') or (p['photos'][0] if p['photos'] else '')
+    tags = '<span class="tag tag--blue">Коллекция %s</span>' % _e(p['collectionName']) + ('<span class="tag tag--sale">Акция −40%</span>' if p.get('sale') else '') + ('<span class="tag tag--blue">В наличии</span>' if p.get('inStock') else '')
+    spec = lambda t: next((s['value'] for s in p['specs'] if s['title'] == t), '')
+    rows = [('Коллекция', p['collectionName']), ('Стиль', ', '.join(p.get('style', []))), ('Толщина полотна', spec('Толщина полотна')),
+            ('Стекло и вставки', ', '.join(p.get('glass', []))), ('Размеры', p.get('sizes', ''))]
+    params = ''.join('<dt>%s</dt><dd>%s</dd>' % (a, _e(b)) for a, b in rows if b)
+    lst = [x for x in p['specs'] if x['title'] != 'Стиль']
+    specs = ('<p class="specs-lead">%s</p>' % _e(intro) + ('<p class="specs-lead">%s</p>' % _e(p['desc']) if p.get('desc') else '') +
+             ('<dl class="specs specs--text">%s</dl>' % ''.join('<div class="specs__row"><dt>%s</dt><dd>%s</dd></div>' % (_e(x['title']), _e(x['value'])) for x in lst) if lst else '') +
+             '<div class="about-maker"><b>О фабрике</b><p>%s</p></div>' % _ABOUT_AURUM)
+    swatches = ''.join('<button type="button" role="radio" aria-checked="%s" data-i="%d" title="%s" aria-label="%s" style="background-image:url(%s)"%s></button>'
+                       % ('true' if c is first else 'false', i, _e(c['name']), _e(c['name']), _e(c['swatch']), ' class="is-active"' if c is first else '') for i, c in enumerate(p['colors']))
+    similar = [x for x in _aurum['products'] if x['id'] != p['id'] and x['collection'] == p['collection']][:12]
+    if len(similar) < 8:
+        similar += [x for x in _aurum['products'] if x['id'] != p['id'] and x['collection'] != p['collection']][:8 - len(similar)]
+    main = model_main
+    main = main.replace('<nav class="crumbs js-crumbs" aria-label="Хлебные крошки"></nav>', '<nav class="crumbs js-crumbs" aria-label="Хлебные крошки">%s</nav>' % crumbs_html)
+    main = main.replace('<img class="js-photo-img" alt="">', '<img class="js-photo-img" src="%s" alt="Межкомнатная дверь %s">' % (_e(photo), _e(p['title'])))
+    main = main.replace('<div class="model__tags js-tags"></div>', '<div class="model__tags js-tags">%s</div>' % tags)
+    main = main.replace('<p class="model__kicker js-kicker" hidden></p>', '<p class="model__kicker js-kicker">Межкомнатная дверь Aurum Doors</p>')
+    main = main.replace('<h1 class="model__title js-title"></h1>', '<h1 class="model__title js-title">%s</h1>' % _e(p['title']))
+    main = main.replace('<span class="js-price"></span>', '<span class="js-price">%s</span>' % _price_html(p))
+    if p['colors']:
+        main = main.replace('<div class="model__colors js-colors-wrap" hidden>', '<div class="model__colors js-colors-wrap">')
+        main = main.replace('<b class="js-color-name"></b>', '<b class="js-color-name">%s</b>' % _e(first['name'] if first else p['colors'][0]['name']))
+        main = main.replace('<div class="model__swatches js-colors" role="radiogroup" aria-label="Цвет двери"></div>', '<div class="model__swatches js-colors" role="radiogroup" aria-label="Цвет двери">%s</div>' % swatches)
+    main = main.replace('<dl class="model__params js-params"></dl>', '<dl class="model__params js-params">%s</dl>' % params)
+    main = main.replace('<div class="js-specs"></div>', '<div class="js-specs">%s</div>' % specs)
+    main = main.replace('<div class="similar-track scroller js-similar" data-drag></div>', '<div class="similar-track scroller js-similar" data-drag>%s</div>' % ''.join(map(_card_in, similar)))
+    main = main.replace('<a class="btn btn--outline js-similar-all" href="catalog.html">', '<a class="btn btn--outline js-similar-all" href="%s">' % _cat_url(cat['slug'] if cat else 'mezhkom'))
+    offer_price = _sale_price(p) or p.get('priceKit')
+    product_ld = {'@context': 'https://schema.org', '@type': 'Product', 'name': 'Межкомнатная дверь ' + p['title'], 'description': intro,
+                  'brand': {'@type': 'Brand', 'name': 'Aurum Doors'}, 'sku': p['id'],
+                  'image': [SITE_URL + '/prototype-catalog/' + x for x in ([photo] if photo else [])]}
+    if offer_price:
+        product_ld['offers'] = {'@type': 'Offer', 'priceCurrency': 'RUB', 'price': int(offer_price), 'availability': 'https://schema.org/InStock',
+                                'url': SITE_URL + p['url'], 'seller': {'@type': 'Organization', 'name': 'Стальная линия'}}
+    _sitemap.append(_static_page(p['url'], title, desc, 'page-model', ' data-model-id="%s"' % p['id'], main, ('catalog.js?v=60',),
+                                 ld=(product_ld, _crumbs_ld(crumbs)), image=photo))
+
+json.dump(_aurum, open(os.path.join(OUT, 'data', 'aurum.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
+
+_icats = [('mezhkom', 'Межкомнатные двери Aurum Doors', _ABOUT_AURUM + ' В каталоге — царговые и каркасно-щитовые коллекции, двери в эмали и скрытые двери под покраску.')]
+_icats += [(c['slug'], c['name'], c['lead']) for c in _aurum['categories']]
+for slug, name, lead in _icats:
+    items = [p for p in _aurum['products'] if slug == 'mezhkom' or slug in p['cats']]
+    if not items:
+        continue
+    # распродажа первой (как в каталоге по умолчанию)
+    items = sorted(items, key=lambda p: (not p.get('sale'), (_sale_price(p) or 0) if p.get('sale') else 0))
+    path = _cat_url(slug)
+    crumbs = [('Главная', '/'), ('Межкомнатные двери', _cat_url('mezhkom'))] + ([(name, path)] if slug != 'mezhkom' else [])
+    prices = [(_sale_price(p) or p.get('priceKit')) for p in items if (_sale_price(p) or p.get('priceKit'))]
+    h1 = name if slug == 'mezhkom' else name
+    title = ('%s в Екатеринбурге — %d %s от %s | Стальная линия' % ('Межкомнатные двери Aurum' if slug == 'mezhkom' else 'Межкомнатные двери ' + name + ' (Aurum)',
+             len(items), _plural(len(items), 'модель', 'модели', 'моделей'), _rub(min(prices)).replace(' ', ' ')))
+    desc = lead + ' Цены от %s, салон в Екатеринбурге — ИЦ ASTROOM.' % _rub(min(prices)).replace(' ', ' ')
+    main = catalog_main
+    main = main.replace('<h1 class="cat__title js-cat-title">Каталог входных дверей</h1>', '<h1 class="cat__title js-cat-title">%s</h1>' % _e(h1))
+    if slug != 'mezhkom':
+        main = main.replace('<p class="cat__kicker js-cat-kicker" hidden></p>', '<p class="cat__kicker js-cat-kicker">Межкомнатные двери Aurum Doors</p>')
+        main = main.replace('<span class="js-crumb-cat" hidden>/</span><span class="js-crumb-cat-name"></span>',
+                            '<span class="js-crumb-cat">/</span><span class="js-crumb-cat-name">%s</span>' % _e(name))
+    main = re.sub(r'<p class="cat__lead js-cat-lead">.*?</p>', '<p class="cat__lead js-cat-lead">%s</p>' % _e(lead), main, count=1, flags=re.S)
+    main = main.replace('<a href="../">Главная</a><span>/</span><a href="catalog.html">Каталог</a>', '<a href="/">Главная</a><span>/</span><a href="/catalog/mezhkom">Межкомнатные двери</a>', 1)
+    grid_m = re.search(r'<div class="cat-grid js-grid"[^>]*></div>', main)
+    if grid_m:
+        main = main.replace(grid_m.group(0), grid_m.group(0)[:-6] + ''.join(map(_card_in, items[:24])) + '</div>', 1)
+    list_ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': name,
+               'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': SITE_URL + p['url'], 'name': p['title']} for i, p in enumerate(items)]}
+    _sitemap.append(_static_page(path, title, desc, 'page-catalog', ' data-cat="%s"' % slug, main, ('catalog.js?v=60',),
+                                 ld=(list_ld, _crumbs_ld(crumbs)), image=items[0]['photos'][0] if items[0]['photos'] else ''))
+
+
+# ---- статьи (/blog, /st1 …) и сертификаты (/sert) — данные catalog-source/blog.py ----
+_blog = _json('blog.json')
+_ARROW = '<img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt="">'
+
+
+def _art_card(a):
+    return ('<a class="art-card" href="/%s"><span class="art-card__media"><img src="%s" alt="" loading="lazy" decoding="async"></span>'
+            '<span class="art-card__cat">%s</span><span class="art-card__title">%s</span><span class="art-card__lead">%s</span></a>'
+            % (a['slug'], a['cover'], _e(a['cat']), _e(a['title']), _e(a['lead'])))
+
+
+def _art_body(a):
+    out = []
+    for b in a['body']:
+        if b[0] == 'p':
+            out.append('<p>%s</p>' % _e(b[1]))
+        elif b[0] == 'h':
+            out.append('<h2>%s</h2>' % _e(b[1]))
+        elif b[0] == 'ul':
+            out.append('<ul>%s</ul>' % ''.join('<li>%s</li>' % _e(x) for x in b[1]))
+        elif b[0] == 'quote':
+            out.append('<blockquote>%s</blockquote>' % _e(b[1]))
+        elif b[0] == 'img':
+            out.append('<figure><img src="%s" alt="%s" loading="lazy" decoding="async"><figcaption>%s</figcaption></figure>' % (b[1], _e(b[2]), _e(b[2])))
+    return '\n        '.join(out)
+
+
+_cats_order = []
+for _a in _blog['articles']:
+    if _a['cat'] not in _cats_order:
+        _cats_order.append(_a['cat'])
+
+_sections = ''.join(
+    '    <section class="blog-sec wrap">\n      <h2 class="gid-sec__title">%s</h2>\n      <div class="art-grid">%s</div>\n    </section>\n'
+    % (_e(c), ''.join(_art_card(a) for a in _blog['articles'] if a['cat'] == c)) for c in _cats_order)
+blog_main = (
+    '  <main class="port blog" id="blog">\n'
+    '    <div class="wrap">\n'
+    '      <nav class="crumbs port-crumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><span>/</span><span>Статьи</span></nav>\n'
+    '      <h1 class="cat__title port-title blog-title">Полезные статьи</h1>\n'
+    '      <p class="cat__lead port-lead">Как выбрать надёжную входную дверь, чем отличаются отделки и&nbsp;как подготовиться к&nbsp;доставке и&nbsp;установке.</p>\n'
+    '    </div>\n' + _sections +
+    '    <section class="cat-cta wrap blog-cta">\n'
+    '      <div class="cat-cta__text">\n'
+    '        <h2 class="cat-cta__title">Остались вопросы?</h2>\n'
+    '        <p class="cat-cta__lead">Расскажем о&nbsp;моделях, отделках и&nbsp;монтаже, подберём дверь под ваш дом или квартиру.</p>\n'
+    '      </div>\n'
+    '      <a class="btn btn--gradient btn--lg" href="#" data-open-form="blog">Записаться на подбор ' + _ARROW + '</a>\n'
+    '    </section>\n'
+    '  </main>')
+
+_sitemap.append(_static_page('/blog', 'Статьи о входных дверях — как выбрать, отделки, доставка | Стальная линия',
+                             'Полезные статьи «Стальной линии»: как выбрать входную дверь в квартиру и в частный дом, панели OakPanel, экошпон, витражи, доборы и доставка.',
+                             'page-portfolio page-blog', '', blog_main, (), image=_blog['articles'][0]['cover']))
+
+for a in _blog['articles']:
+    path = '/' + a['slug']
+    more = [x for x in _blog['articles'] if x['slug'] != a['slug']]
+    more = [x for x in more if x['cat'] == a['cat']] + [x for x in more if x['cat'] != a['cat']]
+    cta_href, cta_attr = (a['cta'][1], '') if not a['cta'][1].startswith('#') else ('#', ' data-open-form="article"')
+    main = (
+        '  <main class="article-page" id="article">\n'
+        '    <div class="wrap">\n'
+        '      <nav class="crumbs port-crumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><span>/</span><a href="/blog">Статьи</a><span>/</span><span>%s</span></nav>\n'
+        '    </div>\n'
+        '    <article class="article wrap">\n'
+        '      <header class="article__head">\n'
+        '        <p class="article__cat">%s</p>\n'
+        '        <h1 class="article__title">%s</h1>\n'
+        '        <p class="article__lead">%s</p>\n'
+        '      </header>\n'
+        '      <figure class="article__cover"><img src="%s" alt="%s" fetchpriority="high"></figure>\n'
+        '      <div class="article__body">\n        %s\n      </div>\n'
+        '      <div class="article__cta">\n'
+        '        <a class="btn btn--gradient btn--lg" href="%s"%s>%s %s</a>\n'
+        '        <a class="btn btn--outline btn--lg" href="#" data-open-form="contact">Задать вопрос</a>\n'
+        '      </div>\n'
+        '    </article>\n'
+        '    <section class="blog-sec wrap">\n'
+        '      <h2 class="gid-sec__title">Другие статьи</h2>\n'
+        '      <div class="art-grid">%s</div>\n'
+        '    </section>\n'
+        '  </main>') % (_e(a['title']), _e(a['cat']), _e(a['title']), _e(a['lead']), a['cover'], _e(a['title']), _art_body(a),
+                        cta_href, cta_attr, _e(a['cta'][0]), _ARROW, ''.join(map(_art_card, more[:3])))
+    crumbs = [('Главная', '/'), ('Статьи', '/blog'), (a['title'], path)]
+    art_ld = {'@context': 'https://schema.org', '@type': 'Article', 'headline': a['title'], 'description': a['lead'],
+              'image': SITE_URL + '/prototype-catalog/' + a['cover'], 'author': {'@type': 'Organization', 'name': 'Стальная линия'},
+              'publisher': {'@type': 'Organization', 'name': 'Стальная линия'}, 'mainEntityOfPage': SITE_URL + path}
+    _sitemap.append(_static_page(path, a['title'] + ' — статья | Стальная линия', a['lead'], 'page-article', '', main, (),
+                                 ld=(art_ld, _crumbs_ld(crumbs)), image=a['cover']))
+
+_cert_cards = ''.join(
+    '<button type="button" class="cert" data-cert="%d"><span class="cert__media"><img src="%s" alt="%s" loading="lazy" decoding="async"></span>'
+    '<span class="cert__title">%s</span><span class="cert__num">№ %s · действует до %s</span></button>'
+    % (i, c['thumb'], _e(c['title']), _e(c['title']), _e(c['num']), c['until']) for i, c in enumerate(_blog['certs']))
+_cert_data = json.dumps([{'img': c['img'], 'cap': c['title'] + ' · № ' + c['num']} for c in _blog['certs']], ensure_ascii=False)
+_ICON_X = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>'
+_ICON_L = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+_ICON_R = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+cert_main = (
+    '  <main class="port certs" id="certs">\n'
+    '    <div class="wrap">\n'
+    '      <nav class="crumbs port-crumbs" aria-label="Хлебные крошки"><a href="/">Главная</a><span>/</span><span>Сертификаты</span></nav>\n'
+    '      <h1 class="cat__title port-title blog-title">Сертификаты</h1>\n'
+    '      <p class="cat__lead port-lead">Входные двери «Стальная линия» сертифицированы: продукция соответствует техническим регламентам, система менеджмента качества — стандарту ISO&nbsp;9001.</p>\n'
+    '    </div>\n'
+    '    <section class="blog-sec wrap">\n      <div class="cert-grid">' + _cert_cards + '</div>\n    </section>\n'
+    '    <dialog class="shop-view js-cert-view" aria-label="Сертификат">\n'
+    '      <button class="port-view__close js-cv-close" type="button" aria-label="Закрыть">' + _ICON_X + '</button>\n'
+    '      <button class="port-view__nav port-view__nav--prev js-cv-prev" type="button" aria-label="Предыдущий">' + _ICON_L + '</button>\n'
+    '      <button class="port-view__nav shop-view__next js-cv-next" type="button" aria-label="Следующий">' + _ICON_R + '</button>\n'
+    '      <img class="shop-view__img cert-view__img js-cv-img" alt="">\n'
+    '      <p class="shop-view__cap js-cv-cap"></p>\n'
+    '    </dialog>\n'
+    '    <script type="application/json" id="cert-data">' + _cert_data + '</script>\n'
+    '    <script>\n'
+    '    (function () {\n'
+    "      var data = JSON.parse(document.getElementById('cert-data').textContent), view = document.querySelector('.js-cert-view');\n"
+    "      var img = view.querySelector('.js-cv-img'), cap = view.querySelector('.js-cv-cap'), cur = 0;\n"
+    "      function show(i) { cur = (i + data.length) % data.length; img.src = data[cur].img; cap.textContent = data[cur].cap + ' · ' + (cur + 1) + ' из ' + data.length; }\n"
+    "      document.querySelectorAll('[data-cert]').forEach(function (b) { b.addEventListener('click', function () { show(+b.dataset.cert); view.showModal(); }); });\n"
+    "      view.querySelector('.js-cv-close').onclick = function () { view.close(); };\n"
+    "      view.querySelector('.js-cv-prev').onclick = function () { show(cur - 1); };\n"
+    "      view.querySelector('.js-cv-next').onclick = function () { show(cur + 1); };\n"
+    "      view.addEventListener('click', function (e) { if (e.target === view) view.close(); });\n"
+    "      view.addEventListener('keydown', function (e) { if (e.key === 'ArrowLeft') show(cur - 1); if (e.key === 'ArrowRight') show(cur + 1); });\n"
+    '    })();\n'
+    '    </script>\n'
+    '  </main>')
+# Сертификаты со старого сайта просрочены — страница не собирается, пока не будут загружены действующие (CERTS_READY=1)
+shutil.rmtree(os.path.join(STATIC_ROOT, 'sert'), ignore_errors=True)
+if os.environ.get('CERTS_READY') == '1':
+  _sitemap.append(_static_page('/sert', 'Сертификаты на входные двери «Стальная линия»',
+                             'Сертификаты соответствия на входные двери «Стальная линия» и сертификат системы менеджмента качества ISO 9001.',
+                             'page-portfolio page-certs', '', cert_main, (), image=_blog['certs'][0]['thumb']))
+
+
+# ---- разделы сайта по адресам старого сайта: /magazines, /gid, /port, /diz ----
+_SECTIONS = [
+    ('/magazines', 'Наши магазины — салоны «Стальной линии» в Екатеринбурге и 15 городах', 'Салоны входных дверей «Стальная линия»: интерьерный центр ASTROOM в Екатеринбурге, Арамиль, Тюмень, Сургут, Челябинск, Пермь и другие города. Адреса, телефоны, часы работы и фото салонов.',
+     'page-portfolio page-stores', stores_main, ('stores.js?v=13',), 'img/stores/astroom.jpg'),
+    ('/gid', 'Гид по продукту — обзоры моделей, ответы на вопросы и технологии | Стальная линия', 'Всё, что стоит знать перед выбором входной двери: видеообзоры моделей, ответы на частые вопросы, покрытия SteelLak и SteelTex, панели из дерева, витражи и двери любого размера.',
+     'page-portfolio page-gid', gid_main + '\n\n  ', ('gid.js?v=2',), 'img/gid/rt-1.webp'),
+    ('/port', 'Наши работы — установленные входные двери «Стальная линия»', 'Фото установленных входных дверей «Стальная линия» в домах и квартирах Екатеринбурга, Свердловской области, Тюмени и других городов.',
+     'page-portfolio', portfolio_main, ('portfolio.js?v=13',), ''),
+    ('/diz', 'Дизайнерам и архитекторам — сотрудничество со «Стальной линией»', 'Партнёрство для дизайнеров, архитекторов и застройщиков: двери любого размера и цвета, фальш-панели, авторские покрытия SteelLak и отделка из дерева. Повышенный процент и персональное сопровождение заказа.',
+     'page-designers', designers_main, ('designers.js?v=1',), 'img/diz/hero-wood.webp'),
+]
+for _path, _title, _desc, _cls, _main, _scripts, _img in _SECTIONS:
+    _sitemap.append(_static_page(_path, _title, _desc, _cls, '', _main, _scripts, image=_img))
+
+print('статичных страниц:', len(_sitemap))

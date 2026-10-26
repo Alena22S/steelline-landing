@@ -4,6 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://promo.steelline.store/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Стальная линия">
+  <meta property="og:title" content="Стальная линия — входные двери в Екатеринбурге">
+  <meta property="og:description" content="Входные двери «Стальная линия» — эксклюзивно на Урале: индивидуальный дизайн, двери с терморазрывом, нестандартные входные группы. Салон в ИЦ ASTROOM.">
+  <meta property="og:url" content="https://promo.steelline.store/">
+  <meta property="og:image" content="https://promo.steelline.store/assets/img/slide-1.jpg">
   <meta name="yandex-verification" content="440a23a6b5409aa9">
   <title>Стальная линия — входные двери в Екатеринбурге</title>
   <meta name="description" content="Входные двери «Стальная линия» — эксклюзивно на Урале. Индивидуальный дизайн, двери с терморазрывом, нестандартные входные группы. Екатеринбург, ИЦ Аструм.">
@@ -20,9 +26,9 @@
        Не подключаются, только если посетитель нажал «Отказаться» (в хранилище — 'necessary'). ---------- */
     (function () {
       var ID = 113661573;      // Яндекс Метрика
-      // отдельный счётчик «межком на сайте СЛ» — только на страницах межкомнатных дверей (раздел каталога и модели Aurum)
+      // отдельный счётчик «межком на сайте СЛ» — только на страницах межкомнатных дверей (/catalog/mezhkom/…, а также прототипы catalog.html?cat=mezhkom… и model.html?id=au-…)
       var ID_INTERIOR = 113740896;
-      var isInteriorPage = /\/prototype-catalog\/catalog\.html$/.test(location.pathname) && /[?&]cat=mezhkom(%2F|\/|&|$)/.test(location.search) ||
+      var isInteriorPage = /^\/catalog\/mezhkom(\/|$)/.test(location.pathname) || /\/prototype-catalog\/catalog\.html$/.test(location.pathname) && /[?&]cat=mezhkom(%2F|\/|&|$)/.test(location.search) ||
         /\/prototype-catalog\/model\.html$/.test(location.pathname) && /[?&]id=au-/.test(location.search);
       window.siteIsInterior = isInteriorPage; // формам: на межкомнатных скидку 20% не обещаем
       var VK_ID = '3805477';   // пиксель VK Ads (Top.Mail.Ru)
@@ -148,13 +154,14 @@
       </a>
       <nav class="header__nav" id="site-nav" aria-label="Основная навигация">
         <div class="nav-dd">
-          <a class="nav-dd__toggle" href="prototype-catalog/catalog.html" aria-haspopup="true">Каталог</a>
+          <a class="nav-dd__toggle" href="/catalog" aria-haspopup="true">Каталог</a>
           <div class="nav-dd__menu">
             <div class="nav-dd__list">
-              <a href="prototype-catalog/catalog.html">Входные двери</a>
-              <a href="prototype-catalog/catalog.html?cat=mezhkom">Межкомнатные двери</a>
-              <a href="prototype-catalog/portfolio.html">Наши работы</a>
-              <a href="prototype-catalog/gid.html">Гид по продукту</a>
+              <a href="/catalog">Входные двери</a>
+              <a href="/catalog/mezhkom">Межкомнатные двери</a>
+              <a href="/port">Наши работы</a>
+              <a href="/gid">Гид по продукту</a>
+              <a href="/blog">Статьи</a>
             </div>
           </div>
         </div>
@@ -165,14 +172,14 @@
           <a class="nav-dd__toggle" href="#footer" aria-haspopup="true">Контакты</a>
           <div class="nav-dd__menu">
             <div class="nav-dd__list">
-              <a href="prototype-catalog/stores.html">Наши магазины</a>
-              <a href="prototype-catalog/designers.html">Дизайнерам и архитекторам</a>
+              <a href="/magazines">Наши магазины</a>
+              <a href="/diz">Дизайнерам и архитекторам</a>
               <a href="#footer">Контакты</a>
             </div>
           </div>
         </div>
       </nav>
-      <a class="header__address" href="prototype-catalog/stores.html" title="Наши магазины">
+      <a class="header__address" href="/magazines" title="Наши магазины">
         <img src="assets/icons/map-pin.svg" width="16" height="16" alt="">
         <span>Екатеринбург, ИЦ Аструм</span>
       </a>
@@ -248,7 +255,7 @@
           </div>
           <div class="hero__actions">
             <a class="btn btn--glass" href="#contacts" data-open-form="hero">Получить подбор двери <img src="assets/icons/arrow-right.svg" width="24" height="24" alt=""></a>
-            <a class="btn btn--outline-light" href="prototype-catalog/catalog.html">Смотреть каталог <img src="assets/icons/arrow-right.svg" width="24" height="24" alt=""></a>
+            <a class="btn btn--outline-light" href="/catalog">Смотреть каталог <img src="assets/icons/arrow-right.svg" width="24" height="24" alt=""></a>
           </div>
         </div>
         <div class="hero__steps" role="tablist" aria-label="Слайды"></div>
@@ -314,7 +321,7 @@
       </div>
       <div class="actions">
         <a class="btn btn--gradient btn--lg reviews__more" href="https://steelline.store/gid#rec113510665" target="_blank" rel="noopener" data-open-reels>Смотреть обзоры <img class="arrow-light" src="assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""><img class="arrow-dark" src="assets/icons/arrow-right-dark.svg?v=2" width="24" height="24" alt=""></a>
-        <a class="btn btn--outline btn--lg" href="prototype-catalog/catalog.html">Перейти в каталог <img src="assets/icons/arrow-right-dark.svg?v=2" width="24" height="24" alt=""></a>
+        <a class="btn btn--outline btn--lg" href="/catalog">Перейти в каталог <img src="assets/icons/arrow-right-dark.svg?v=2" width="24" height="24" alt=""></a>
       </div>
     </section>
 
@@ -575,7 +582,7 @@
         <button class="slider-nav__btn slider-nav__btn--prev" type="button" data-dir="-1" aria-controls="beyond-track" aria-label="Предыдущая карточка"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12.013L20.789 12M14.013 19L21 12L14.012 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <button class="slider-nav__btn" type="button" data-dir="1" aria-controls="beyond-track" aria-label="Следующая карточка"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12.013L20.789 12M14.013 19L21 12L14.012 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
-      <a class="btn btn--mobile" href="prototype-catalog/catalog.html">Смотреть каталог <img src="assets/icons/arrow-right-dark-20.svg" width="20.2904" height="20.2904" alt=""></a>
+      <a class="btn btn--mobile" href="/catalog">Смотреть каталог <img src="assets/icons/arrow-right-dark-20.svg" width="20.2904" height="20.2904" alt=""></a>
     </section>
 
     <hr class="divider">
@@ -630,13 +637,13 @@
               <h3 class="eng-card__title">Двери с терморазрывом.<br>Тепло дома — под защитой</h3>
               <p class="eng-card__text">Серия «Хаски» — для суровых условий. Усиленная теплоизоляция и терморазрыв помогают сохранять тепло при уличной установке и низких температурах.</p>
             </div>
-            <a class="btn btn--solid eng-card__btn--husky" href="prototype-catalog/catalog.html?cat=dom/husky">Смотреть двери Хаски <img src="assets/icons/arrow-right-white-3.svg?v=2" width="24" height="24" alt=""></a>
+            <a class="btn btn--solid eng-card__btn--husky" href="/catalog/dom/husky">Смотреть двери Хаски <img src="assets/icons/arrow-right-white-3.svg?v=2" width="24" height="24" alt=""></a>
           </div>
           <div class="eng-card__media eng-card__media--2">
             <!-- всё фото — ссылка в раздел Хаски -->
-            <a class="eng-card__photo-link" href="prototype-catalog/catalog.html?cat=dom/husky" aria-label="Двери Хаски — смотреть в каталоге" tabindex="-1"></a>
+            <a class="eng-card__photo-link" href="/catalog/dom/husky" aria-label="Двери Хаски — смотреть в каталоге" tabindex="-1"></a>
             <!-- на телефоне вместо широкой кнопки — круглая стрелка в углу фото -->
-            <a class="eng-card__go" href="prototype-catalog/catalog.html?cat=dom/husky" aria-label="Двери Хаски — смотреть в каталоге"><img src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></a>
+            <a class="eng-card__go" href="/catalog/dom/husky" aria-label="Двери Хаски — смотреть в каталоге"><img src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></a>
             <div class="zoom">
               <div class="eng-crop eng-crop--r8" style="left:-143.98px;top:-4px;width:703px;height:510px">
                 <img src="assets/img/exp-husky.jpg?v=12" alt="Дом зимой: входная дверь «Хаски» и собака хаски на крыльце" loading="lazy" style="left:-20.32%;top:-7.45%;width:166.09%;height:134.9%">
@@ -664,7 +671,7 @@
         <button class="slider-nav__btn slider-nav__btn--prev" type="button" data-dir="-1" aria-controls="eng-track" aria-label="Предыдущая карточка"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12.013L20.789 12M14.013 19L21 12L14.012 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         <button class="slider-nav__btn" type="button" data-dir="1" aria-controls="eng-track" aria-label="Следующая карточка"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12.013L20.789 12M14.013 19L21 12L14.012 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
-      <a class="btn btn--mobile" href="prototype-catalog/catalog.html">Смотреть каталог <img src="assets/icons/arrow-right-dark-20.svg" width="20.2904" height="20.2904" alt=""></a>
+      <a class="btn btn--mobile" href="/catalog">Смотреть каталог <img src="assets/icons/arrow-right-dark-20.svg" width="20.2904" height="20.2904" alt=""></a>
     </section>
 
     <hr class="divider">
@@ -679,7 +686,7 @@
         <article class="feature">
           <div class="feature__media doors__media">
             <div class="zoom"><img src="assets/img/doors-1.jpg?v=10" alt="Тёмно-зелёная классическая дверь в коттедж" loading="lazy" style="inset:0;width:100%;height:100%;object-fit:cover"></div>
-            <a class="doors__link" href="prototype-catalog/catalog.html?cat=dom" aria-label="Двери в коттедж — смотреть в каталоге"><span class="doors__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="doors__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></a>
+            <a class="doors__link" href="/catalog/dom" aria-label="Двери в коттедж — смотреть в каталоге"><span class="doors__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="doors__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></a>
           </div>
           <h3 class="feature__title">Двери в коттедж</h3>
           <p class="feature__text">Терморазрыв в полотне и коробе. Двери для парадного входа. Гарантия 2 года</p>
@@ -687,7 +694,7 @@
         <article class="feature">
           <div class="feature__media doors__media">
             <div class="zoom"><img src="assets/img/doors-2.jpg?v=10" alt="Тёмно-зелёная дверь в квартиру с подсветкой" loading="lazy" style="inset:0;width:100%;height:100%;object-fit:cover"></div>
-            <a class="doors__link" href="prototype-catalog/catalog.html?cat=kvartira" aria-label="Двери в квартиру — смотреть в каталоге"><span class="doors__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="doors__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></a>
+            <a class="doors__link" href="/catalog/kvartira" aria-label="Двери в квартиру — смотреть в каталоге"><span class="doors__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="doors__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></a>
           </div>
           <h3 class="feature__title">Двери в квартиру</h3>
           <p class="feature__text">Двери с повышенной шумоизоляцией. 4 класс защиты от взлома. Гарантия 2 года</p>
@@ -695,7 +702,7 @@
         <article class="feature">
           <div class="feature__media doors__media">
             <div class="zoom"><img src="assets/img/doors-3.jpg?v=10" alt="Тёмная дверь «Хаски» со стеклянной вставкой у заснеженного входа" loading="lazy" style="inset:0;width:100%;height:100%;object-fit:cover"></div>
-            <a class="doors__link" href="prototype-catalog/catalog.html?cat=dom/husky" aria-label="Двери «Хаски» — смотреть в каталоге"><span class="doors__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="doors__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></a>
+            <a class="doors__link" href="/catalog/dom/husky" aria-label="Двери «Хаски» — смотреть в каталоге"><span class="doors__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="doors__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></a>
           </div>
           <h3 class="feature__title">Двери «Хаски»</h3>
           <p class="feature__text">Энергосберегающие двери для суровых погодных условий</p>
@@ -703,7 +710,7 @@
         <article class="feature">
           <div class="feature__media doors__media">
             <div class="zoom"><img src="assets/img/doors-4.jpg?v=10" alt="Бордовая дверь для дома с терморазрывом" loading="lazy" style="inset:0;width:100%;height:100%;object-fit:cover"></div>
-            <a class="doors__link" href="prototype-catalog/catalog.html?cat=dom/svarnie" aria-label="Двери для дома с терморазрывом — смотреть в каталоге"><span class="doors__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="doors__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></a>
+            <a class="doors__link" href="/catalog/dom/svarnie" aria-label="Двери для дома с терморазрывом — смотреть в каталоге"><span class="doors__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="doors__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></a>
           </div>
           <h3 class="feature__title">Двери для дома с терморазрывом</h3>
           <p class="feature__text">Лучшая комплектация для сурового климата.<br>По выгодной цене. Гарантия 2 года</p>
@@ -711,7 +718,7 @@
         <article class="feature doors__wide">
           <div class="feature__media doors__media doors__media--wide">
             <div class="zoom"><img src="assets/img/doors-5.jpg?v=10" alt="Входная группа: мятная дверь с боковыми стёклами" loading="lazy" style="inset:0;width:100%;height:100%;object-fit:cover"></div>
-            <a class="doors__link" href="prototype-catalog/catalog.html?cat=dom/nestandart" aria-label="Индивидуальные входные группы — смотреть в каталоге"><span class="doors__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="doors__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></a>
+            <a class="doors__link" href="/catalog/dom/nestandart" aria-label="Индивидуальные входные группы — смотреть в каталоге"><span class="doors__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="doors__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></a>
           </div>
           <h3 class="feature__title">Индивидуальные входные группы</h3>
           <p class="feature__text">Нестандартные размеры и композиции для выразительного входа</p>
@@ -719,7 +726,7 @@
       </div>
       <div class="actions">
         <a class="btn btn--gradient btn--lg doors__cta" href="#contacts" data-open-form="doors">Подобрать дверь <img src="assets/icons/arrow-right-white-4.svg" width="24" height="24" alt=""></a>
-        <a class="btn btn--outline btn--outline-soft btn--lg" href="prototype-catalog/catalog.html">Перейти в каталог <img src="assets/icons/arrow-right-dark-2.svg" width="24" height="24" alt=""></a>
+        <a class="btn btn--outline btn--outline-soft btn--lg" href="/catalog">Перейти в каталог <img src="assets/icons/arrow-right-dark-2.svg" width="24" height="24" alt=""></a>
       </div>
     </section>
 
@@ -836,7 +843,7 @@
       <p class="lead__lead callback__done-lead">Перезвоним в&nbsp;течение часа в&nbsp;рабочее время. Если звонок нужен срочно — <a href="tel:+79222077552">+7&nbsp;(922)&nbsp;207-75-52</a>.</p>
       <p class="form-bonus-done js-form-bonus">Скидка 20% забронирована за&nbsp;вами</p>
       <div class="callback__done-actions">
-        <a class="btn btn--gradient btn--lg callback__catalog js-bonus-only" href="prototype-catalog/catalog.html" hidden>Перейти в каталог</a>
+        <a class="btn btn--gradient btn--lg callback__catalog js-bonus-only" href="/catalog" hidden>Перейти в каталог</a>
         <button class="btn btn--outline btn--outline-soft btn--lg" type="button" data-close-callback>Вернуться на сайт</button>
       </div>
     </div>
@@ -852,11 +859,11 @@
         <p class="footer__rep-text">Эксклюзивный представитель «Стальной линии» <br>на Урале — «Дверной Молл».</p>
       </div>
       <nav class="footer__nav" aria-label="Навигация в подвале">
-        <a href="prototype-catalog/catalog.html">Каталог</a>
+        <a href="/catalog">Каталог</a>
         <a href="#top">Бренды</a>
-        <a href="prototype-catalog/portfolio.html">Наши работы</a>
+        <a href="/port">Наши работы</a>
         <a href="#contacts">Салон</a>
-        <a href="prototype-catalog/designers.html">Для дизайнеров</a>
+        <a href="/diz">Для дизайнеров</a>
         <a href="#contacts">Контакты</a>
       </nav>
     </div>
@@ -1175,6 +1182,6 @@
     </div>
   </dialog>
 
-  <script src="script.js?v=62"></script>
+  <script src="script.js?v=63"></script>
 </body>
 </html>

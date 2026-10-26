@@ -50,7 +50,7 @@ for page in ('index.html', 'privacy.html', 'consent.html'):
 pages = ['/']
 for dirpath, _, files in os.walk(ROOT):
     rel = os.path.relpath(dirpath, ROOT).replace(os.sep, '/')
-    if rel.split('/')[0] not in ('catalog', 'magazines', 'gid', 'port', 'diz') or 'index.html' not in files:
+    if rel.split('/')[0] not in ('catalog', 'magazines', 'gid', 'port', 'diz', 'blog', 'sert') and not re.match(r'^st\d+$', rel) or 'index.html' not in files:
         continue
     html = open(os.path.join(dirpath, 'index.html'), encoding='utf-8').read()
     if 'name="robots" content="noindex' in html and not CHECK:
@@ -61,7 +61,8 @@ pages += ['/privacy.html', '/consent.html']
 
 def prio(p):
     if p == '/': return '1.0'
-    if p in ('/catalog', '/catalog/dom', '/catalog/kvartira', '/magazines', '/gid', '/port', '/diz'): return '0.9'
+    if p in ('/catalog', '/catalog/dom', '/catalog/kvartira', '/catalog/mezhkom', '/magazines', '/gid', '/port', '/diz'): return '0.9'
+    if p in ('/blog', '/sert') or re.match(r'^/st\d+$', p): return '0.6'
     if p.count('/') == 3 and p.startswith('/catalog/'): return '0.8'  # разделы /catalog/dom/svarnie
     if p.startswith('/catalog/'): return '0.7'                         # модели
     return '0.3'

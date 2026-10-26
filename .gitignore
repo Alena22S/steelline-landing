@@ -37,3 +37,6 @@ catalog-source/diz-photos/
 catalog-source/spec*.png
 catalog-source/aurum/receive.html
 catalog-source/convert_server.py
+
+# Просроченные сертификаты со старого сайта — не публикуем, пока не заменены действующими
+prototype-catalog/img/blog/sert-*

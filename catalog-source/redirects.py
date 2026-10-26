@@ -16,10 +16,10 @@ products = cat['products']
 ours = {p['url'] for p in products}
 old = [urlparse(u).path.rstrip('/') or '/' for u in re.findall(r'<loc>([^<]*)', open(os.path.join(HERE, 'sitemap.xml'), encoding='utf-8').read())]
 # разделы из меню старого сайта (в карте их нет, но на них ведут ссылки)
-old += ['/100u', '/nalichie', '/zakaz', '/husky', '/dvupol', '/100', '/smartkv', '/70']
+old += ['/st3', '/100u', '/nalichie', '/zakaz', '/husky', '/dvupol', '/100', '/smartkv', '/70']
 
 # страницы, которые есть на новом сайте по тем же адресам (переадресация не нужна)
-SAME = {'/', '/catalog', '/magazines', '/gid', '/port', '/diz'} | {'/catalog/' + c['slug'] for c in cat['categories']} | {'/catalog/dom', '/catalog/kvartira'} | ours
+SAME = {'/', '/catalog', '/magazines', '/gid', '/port', '/diz', '/blog', '/st1', '/st2', '/st4', '/st7', '/st8', '/st9', '/st10'} | {'/catalog/' + c['slug'] for c in cat['categories']} | {'/catalog/dom', '/catalog/kvartira'} | ours
 
 # разделы и служебные страницы старого сайта
 FIXED = {
@@ -31,8 +31,9 @@ FIXED = {
     '/personal': '/privacy.html', '/cookie': '/privacy.html', '/soglashenie': '/consent.html',
     '/teh92': '/gid', '/teh100': '/gid', '/sunteh': '/gid', '/tehno15b': '/gid',
     # пока не перенесены — ведём на ближайший раздел (см. «Что осталось» в отчёте)
-    '/acz': '/catalog', '/news1': '/gid', '/blog': '/gid', '/otzyv': '/port', '/sert': '/', '/land': '/',
-    '/st1': '/gid', '/st2': '/gid', '/st4': '/gid', '/st7': '/gid', '/st8': '/gid', '/st9': '/gid', '/st10': '/gid',
+    # /sert — пока нет действующих сертификатов, ведём на главную; когда страница соберётся, убрать строку
+    **({} if os.path.isdir(os.path.join(ROOT, 'sert')) else {'/sert': '/'}),
+    '/acz': '/catalog', '/news1': '/blog', '/otzyv': '/port', '/land': '/', '/st3': '/st10',
     '/vk': 'https://vk.com/steellinerussia', '/inst': 'https://instagram.com/steelline_ru',
     '/dvery_mall': '/', '/goodzon': '/', '/kp2': '/catalog', '/page23376484.html': '/', '/page30979446.html': '/',
     '/page106020236.html': '/', '/page125724526.html': '/',

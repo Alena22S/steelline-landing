@@ -12,7 +12,7 @@
     return many;
   }
 
-  fetch('data/portfolio.json?v=1').then(function (r) { return r.json(); }).then(init);
+  fetch('data/portfolio.json?v=2').then(function (r) { return r.json(); }).then(init);
 
   function init(data) {
     var all = data.projects;
@@ -155,7 +155,7 @@
         return '<button type="button" class="' + (j === (k || 0) ? 'is-active' : '') + '" data-k="' + j + '"><img src="' + esc(src) + '" alt=""></button>';
       }).join('') : '';
       modelLink.hidden = !p.model;
-      if (p.model) { modelLink.href = 'model.html?id=' + p.model.id; modelLink.textContent = 'Модель «' + p.model.title + '» в каталоге'; }
+      if (p.model) { modelLink.href = p.model.url || 'model.html?id=' + p.model.id; modelLink.textContent = 'Модель «' + p.model.title + '» в каталоге'; }
       document.querySelector('.js-pv-count').textContent = (cur + 1) + ' из ' + list.length;
     }
     grid.addEventListener('click', function (e) {

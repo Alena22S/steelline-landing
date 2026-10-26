@@ -16,7 +16,6 @@
 /bilbao,/catalog,старый лендинг → каталог
 /bleik,/catalog,старый лендинг → каталог
 /bler,/catalog,старый лендинг → каталог
-/blog,/gid,раздел / служебная
 /bosphor,/catalog,старый лендинг → каталог
 /bredford,/catalog,старый лендинг → каталог
 /brissak,/catalog,старый лендинг → каталог
@@ -91,7 +90,7 @@
 /mildred,/catalog,старый лендинг → каталог
 /morandy,/catalog,старый лендинг → каталог
 /nalichie,/catalog/dom,раздел / служебная
-/news1,/gid,раздел / служебная
+/news1,/blog,раздел / служебная
 /nicca,/catalog,старый лендинг → каталог
 /nikolb,/catalog/dom/svarnie/nikol2,модель (по названию)
 /nova100,/catalog/dom/svarnie/nova3,модель (по названию)
@@ -115,13 +114,7 @@
 /slant,/catalog,старый лендинг → каталог
 /smartkv,/catalog/kvartira/smart,раздел / служебная
 /soglashenie,/consent.html,раздел / служебная
-/st1,/gid,раздел / служебная
-/st10,/gid,раздел / служебная
-/st2,/gid,раздел / служебная
-/st4,/gid,раздел / служебная
-/st7,/gid,раздел / служебная
-/st8,/gid,раздел / служебная
-/st9,/gid,раздел / служебная
+/st3,/st10,раздел / служебная
 /step,/catalog/dom/svarnie/step2,модель (по названию)
 /sunteh,/gid,раздел / служебная
 /teh100,/gid,раздел / служебная

@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <base href="/prototype-catalog/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Наши магазины — салоны «Стальной линии» в Екатеринбурге и 15 городах</title>
+  <meta name="description" content="Салоны входных дверей «Стальная линия»: интерьерный центр ASTROOM в Екатеринбурге, Арамиль, Тюмень, Сургут, Челябинск, Пермь и другие города. Адреса, телефоны, часы работы и фото салонов.">
+  <link rel="icon" href="../favicon.ico" sizes="16x16">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../assets/icons/favicon-96.png">
+  <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=89">
+  <script>
+    /* ---------- Яндекс Метрика и пиксель VK Ads: подключаются сразу (уведомление о cookie — информационное).
+       Не подключаются, только если посетитель нажал «Отказаться» (в хранилище — 'necessary'). ---------- */
+    (function () {
+      var ID = 113661573;      // Яндекс Метрика
+      // отдельный счётчик «межком на сайте СЛ» — только на страницах межкомнатных дверей (/catalog/mezhkom/…, а также прототипы catalog.html?cat=mezhkom… и model.html?id=au-…)
+      var ID_INTERIOR = 113740896;
+      var isInteriorPage = /^\/catalog\/mezhkom(\/|$)/.test(location.pathname) || /\/prototype-catalog\/catalog\.html$/.test(location.pathname) && /[?&]cat=mezhkom(%2F|\/|&|$)/.test(location.search) ||
+        /\/prototype-catalog\/model\.html$/.test(location.pathname) && /[?&]id=au-/.test(location.search);
+      window.siteIsInterior = isInteriorPage; // формам: на межкомнатных скидку 20% не обещаем
+      var VK_ID = '3805477';   // пиксель VK Ads (Top.Mail.Ru)
+      var VK_ID_INTERIOR = '3807732'; // отдельный пиксель VK — только на страницах межкомнатных дверей
+      var loaded = false;
+      var vkLoaded = false;
+
+      // Цели: window.siteGoal('lead_success') — безопасно вызывать всегда; после отказа ничего не отправляется
+      window.siteGoal = function (name, params) {
+        if (loaded && typeof window.ym === 'function') {
+          window.ym(ID, 'reachGoal', name, params || {});
+          if (isInteriorPage) window.ym(ID_INTERIOR, 'reachGoal', name, params || {});
+        }
+        if (vkLoaded) {
+          window._tmr.push({ type: 'reachGoal', id: VK_ID, goal: name });
+          if (isInteriorPage) window._tmr.push({ type: 'reachGoal', id: VK_ID_INTERIOR, goal: name });
+        }
+      };
+
+      function loadVk() {
+        if (vkLoaded) return;
+        vkLoaded = true;
+        var _tmr = window._tmr || (window._tmr = []);
+        _tmr.push({ id: VK_ID, type: 'pageView', start: Date.now() });
+        if (isInteriorPage) _tmr.push({ id: VK_ID_INTERIOR, type: 'pageView', start: Date.now() });
+        if (document.getElementById('tmr-code')) return;
+        var ts = document.createElement('script');
+        ts.async = true; ts.id = 'tmr-code'; ts.src = 'https://top-fwz1.mail.ru/js/code.js';
+        var first = document.getElementsByTagName('script')[0];
+        first.parentNode.insertBefore(ts, first);
+      }
+
+      function load() {
+        if (loaded) return;
+        loaded = true;
+        (function (m, e, t, r, i, k, a) {
+          m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
+          m[i].l = 1 * new Date();
+          k = e.createElement(t); a = e.getElementsByTagName(t)[0];
+          k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + ID, 'ym');
+        // Вебвизор (запись действий на странице) — только после «Хорошо»; до этого Метрика считает визиты, источники и цели без записи
+        var opts = { webvisor: saved === 'all' || inMetrika, clickmap: true, accurateTrackBounce: true, trackLinks: true };
+        window.ym(ID, 'init', opts);
+        if (isInteriorPage) window.ym(ID_INTERIOR, 'init', opts);
+      }
+
+      var saved = null;
+      try { saved = localStorage.getItem('cookie-consent'); } catch (e) {}
+
+      // Сайт открыт внутри инструментов самой Метрики (карта кликов, аналитика форм, Вебвизор) —
+      // это смотрит владелец сайта, а не посетитель: подключаем счётчик и не показываем уведомление о cookie
+      var inMetrika = false;
+      try {
+        var anc = location.ancestorOrigins;
+        inMetrika = window.self !== window.top && (
+          /metrika\.yandex|webvisor\.com|metrica\.yandex/.test(document.referrer) ||
+          (anc && anc.length && /metrika\.yandex|webvisor\.com|metrica\.yandex/.test(anc[anc.length - 1]))
+        );
+      } catch (e) {}
+      if (inMetrika) {
+        document.documentElement.classList.add('in-metrika');
+        load();
+      } else if (saved !== 'necessary') {
+        load();
+        loadVk();
+      }
+      // «Отказаться»: дальше не считаем, удаляем cookie Метрики; со следующей страницы счётчики не подключаются
+      document.addEventListener('cookie-consent', function (e) {
+        if (e.detail !== 'necessary') return;
+        loaded = false; vkLoaded = false;
+        document.cookie.split(';').forEach(function (c) {
+          var name = c.split('=')[0].trim();
+          if (/^_ym|^yandexuid|^tmr_/.test(name)) {
+            document.cookie = name + '=; Max-Age=0; path=/';
+            document.cookie = name + '=; Max-Age=0; path=/; domain=.' + location.hostname.replace(/^www\./, '');
+          }
+        });
+      });
+
+      // Клики-цели по всему сайту
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href');
+        if (href.indexOf('tel:') === 0) window.siteGoal('phone_click');
+        else if (href.indexOf('mailto:') === 0) window.siteGoal('email_click');
+        else if (href.indexOf('yandex.ru/maps') !== -1) window.siteGoal('route_click');
+        else if (href.indexOf('steelline.store/catalog') !== -1) window.siteGoal('catalog_click');
+      });
+
+      // Вовлечённость: 30 и 60 секунд на странице (только пока вкладка открыта перед глазами) и прокрутка до середины.
+      // Без Вебвизора Метрика видит лишь первые 15 секунд — каждая цель добавляет сигнал, и время визита ближе к реальному;
+      // для рекламы VK это частое «качественное» событие, на которое можно оптимизировать кампанию, пока заявок мало.
+      var active = 0, last = Date.now(), sent = {};
+      function once(name) { if (!sent[name]) { sent[name] = 1; window.siteGoal(name); } }
+      setInterval(function () {
+        var now = Date.now();
+        if (document.visibilityState === 'visible') active += now - last;
+        last = now;
+        if (active >= 30000) once('engaged_30s');
+        if (active >= 60000) once('engaged_60s');
+      }, 1000);
+      // вернулся на вкладку — время, пока она была скрыта, не считаем
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') last = Date.now();
+      });
+      window.addEventListener('scroll', function () {
+        var d = document.documentElement;
+        if (d.scrollHeight > window.innerHeight * 1.5 && window.scrollY + window.innerHeight >= d.scrollHeight / 2) once('scroll_50');
+      }, { passive: true });
+    })();
+  </script>
+  <link rel="stylesheet" href="catalog.css?v=85">
+
+  <link rel="canonical" href="https://promo.steelline.store/magazines">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Стальная линия">
+  <meta property="og:title" content="Наши магазины — салоны «Стальной линии» в Екатеринбурге и 15 городах">
+  <meta property="og:description" content="Салоны входных дверей «Стальная линия»: интерьерный центр ASTROOM в Екатеринбурге, Арамиль, Тюмень, Сургут, Челябинск, Пермь и другие города. Адреса, телефоны, часы работы и фото салонов.">
+  <meta property="og:url" content="https://promo.steelline.store/magazines">
+  <meta property="og:image" content="https://promo.steelline.store/prototype-catalog/img/stores/astroom.jpg">
+</head>
+<body class="page-portfolio page-stores">
+
+  <header class="header" id="top">
+    <div class="header__main">
+      <a class="header__logo" href="../" aria-label="Стальная линия — на главную">
+        <img class="header__logo-desktop" src="../assets/icons/logo.svg" width="246.5" height="43.2242" alt="Стальная линия — двери в квартиру и дом">
+        <img class="header__logo-mobile" src="../assets/icons/logo-mobile.svg" width="179.273" height="31.4358" alt="Стальная линия — двери в квартиру и дом">
+      </a>
+      <nav class="header__nav" id="site-nav" aria-label="Основная навигация">
+        <div class="nav-dd">
+          <a class="nav-dd__toggle" href="/catalog" aria-haspopup="true">Каталог</a>
+          <div class="nav-dd__menu">
+            <div class="nav-dd__list">
+              <a href="/catalog">Входные двери</a>
+              <a href="/catalog/mezhkom">Межкомнатные двери</a>
+              <a href="/port">Наши работы</a>
+              <a href="/gid">Гид по продукту</a>
+              <a href="/blog">Статьи</a>
+            </div>
+          </div>
+        </div>
+        <a href="../#reviews">Обзор дверей</a>
+        <a href="../#custom">Двери на заказ</a>
+        <a href="../#tech">Технологии</a>
+        <div class="nav-dd">
+          <a class="nav-dd__toggle" href="/magazines#footer" aria-haspopup="true">Контакты</a>
+          <div class="nav-dd__menu">
+            <div class="nav-dd__list">
+              <a href="/magazines">Наши магазины</a>
+              <a href="/diz">Дизайнерам и архитекторам</a>
+              <a href="/magazines#footer">Контакты</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <a class="header__address" href="/magazines" title="Наши магазины">
+        <img src="../assets/icons/map-pin.svg" width="16" height="16" alt="">
+        <span>Екатеринбург, ИЦ Аструм</span>
+      </a>
+      <a class="btn btn--gradient header__cta" href="../#contacts" data-open-form="header">Подобрать дверь</a>
+      <button class="header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-nav">
+        <img src="../assets/icons/menu.svg" width="25" height="24" alt="">
+      </button>
+    </div>
+    <div class="header__facts">
+      <div class="fact"><img src="../assets/icons/badge-30.svg" width="24" height="24" alt="30"><span>Лет производства</span></div>
+      <div class="fact"><img src="../assets/icons/badge-2.svg" width="24" height="24" alt="2"><span>Года гарантии</span></div>
+      <div class="fact"><img src="../assets/icons/badge-20.svg" width="24" height="24" alt="20"><span>стран присутствия</span></div>
+    </div>
+  </header>
+
+  <main class="port shops" id="shops">
+    <div class="wrap">
+      <nav class="crumbs port-crumbs" aria-label="Хлебные крошки"><a href="../">Главная</a><span>/</span><span>Наши магазины</span></nav>
+      <div class="port-headline">
+        <h1 class="cat__title port-title">Наши магазины</h1>
+        <ul class="port-badges js-shops-badges"></ul>
+      </div>
+      <p class="cat__lead port-lead">Приходите посмотреть двери вживую: образцы отделок, фурнитура и&nbsp;замки. Главный салон в&nbsp;Екатеринбурге&nbsp;— в&nbsp;интерьерном центре ASTROOM.</p>
+
+      <div class="port-bar">
+        <div class="port-tabs js-shops-regions" role="group" aria-label="Регион"></div>
+      </div>
+    </div>
+
+    <section class="shops__body wrap">
+      <div class="shops-list js-shops-list"></div>
+    </section>
+
+    <section class="cat-cta wrap">
+      <div class="cat-cta__text">
+        <h2 class="cat-cta__title">Нет салона в&nbsp;вашем городе?</h2>
+        <p class="cat-cta__lead">Пришлите фото проёма&nbsp;— подберём дверь дистанционно, рассчитаем стоимость и&nbsp;расскажем, как заказать в&nbsp;вашем городе.</p>
+      </div>
+      <a class="btn btn--gradient btn--lg" href="#" data-open-form="stores-cta">Получить подбор двери <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+    </section>
+
+    <dialog class="shop-view js-shop-view" aria-label="Фото салона">
+      <button class="port-view__close js-sv-close" type="button" aria-label="Закрыть"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      <button class="port-view__nav port-view__nav--prev js-sv-prev" type="button" aria-label="Предыдущее фото"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <button class="port-view__nav shop-view__next js-sv-next" type="button" aria-label="Следующее фото"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      <img class="shop-view__img js-sv-img" alt="">
+      <p class="shop-view__cap js-sv-cap"></p>
+    </dialog>
+  </main>
+
+  <div class="cookie" id="cookie" role="region" aria-label="Уведомление о cookie" hidden>
+    <div class="cookie__copy">
+      <p class="cookie__text">Мы используем файлы cookie, чтобы сайтом было удобно пользоваться. <a href="../privacy.html#cookie" target="_blank">Подробнее</a></p>
+    </div>
+    <div class="cookie__actions">
+      <button class="btn btn--gradient btn--lg cookie__btn" type="button" data-cookie="all">Хорошо</button>
+      <button class="btn btn--outline btn--lg cookie__btn" type="button" data-cookie="necessary">Отказаться</button>
+    </div>
+  </div>
+
+  <a class="btn btn--gradient sticky-cta" href="#" data-open-form="sticky">Получить подбор двери <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+
+  <div class="bonus-fab js-bonus-fab" hidden>
+    <button class="bonus-fab__open" type="button" data-open-callback="bonus">
+      <span class="bonus-fab__pct">−20%</span>
+      <span class="bonus-fab__text"><b>Вам доступна скидка 20%</b><span>Нажмите, чтобы получить персональный купон</span></span>
+    </button>
+    <button class="bonus-fab__close js-bonus-close" type="button" aria-label="Скрыть предложение"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  </div>
+
+  <button class="callback-fab" type="button" data-open-callback aria-label="Заказать обратный звонок">
+    <span class="callback-fab__label">Заказать звонок</span>
+    <span class="callback-fab__icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5.1 3.5h3.1l1.6 4-2 1.3a10.6 10.6 0 0 0 7.4 7.4l1.3-2 4 1.6v3.1a2 2 0 0 1-2.1 2A16.6 16.6 0 0 1 3.1 5.6a2 2 0 0 1 2-2.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+  </button>
+
+  <dialog class="lead callback" id="callback" aria-labelledby="callback-title">
+    <button class="lead__close" type="button" aria-label="Закрыть" data-close-callback>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <form class="callback__form" id="callback-form" action="../send.php" method="post" novalidate>
+      <div class="lead__head">
+        <span class="callback__icon" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M5.1 3.5h3.1l1.6 4-2 1.3a10.6 10.6 0 0 0 7.4 7.4l1.3-2 4 1.6v3.1a2 2 0 0 1-2.1 2A16.6 16.6 0 0 1 3.1 5.6a2 2 0 0 1 2-2.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+        <h2 class="lead__title callback__title" id="callback-title">Перезвоним в&nbsp;течение часа</h2>
+        <p class="lead__lead callback__lead">Оставьте номер — менеджер салона свяжется с&nbsp;вами в&nbsp;рабочее время, ежедневно с&nbsp;10:00 до&nbsp;20:00.</p>
+        <details class="bonus-terms js-bonus-only" hidden>
+          <summary>Условия акции</summary>
+          <ul>
+            <li>Скидка 20% на&nbsp;входные двери «Стальная линия» по&nbsp;персональному купону.</li>
+            <li>Купон действует 7&nbsp;дней с&nbsp;момента получения.</li>
+            <li>Один купон&nbsp;— на&nbsp;один заказ: назовите код менеджеру при оформлении.</li>
+            <li>Скидка не&nbsp;суммируется с&nbsp;другими акциями и&nbsp;не&nbsp;действует на&nbsp;межкомнатные двери.</li>
+          </ul>
+        </details>
+        <p class="form-bonus js-form-bonus"><b>−20%</b><span><strong>Забронируем скидку за&nbsp;вами</strong>Оставьте контакты, чтобы её&nbsp;получить</span></p>
+      </div>
+      <div class="field js-bonus-only" hidden>
+        <label class="field__label" for="callback-email">Электронная почта</label>
+        <input class="input ym-disable-keys ym-hide-content" id="callback-email" name="email" type="email" autocomplete="email" maxlength="120" placeholder="name@mail.ru">
+        <p class="field__error"></p>
+      </div>
+      <div class="field js-bonus-hide">
+        <label class="field__label" for="callback-name">Имя</label>
+        <input class="input ym-disable-keys ym-hide-content" id="callback-name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="Как к вам обращаться">
+        <p class="field__error"></p>
+      </div>
+      <div class="field js-bonus-hide">
+        <label class="field__label" for="callback-phone">Телефон</label>
+        <input class="input ym-disable-keys ym-hide-content" id="callback-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+7 (___) ___-__-__">
+        <p class="field__error"></p>
+      </div>
+      <input class="lead__trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="source" value="callback">
+      <input type="hidden" name="comment" value="">
+      <div class="field">
+        <label class="check">
+          <input type="checkbox" name="consent" value="1" required>
+          <span>Даю <a href="../consent.html" target="_blank">согласие на&nbsp;обработку персональных данных</a> и&nbsp;принимаю <a href="../privacy.html" target="_blank">политику конфиденциальности</a></span>
+        </label>
+        <p class="field__error"></p>
+      </div>
+      <button class="btn btn--gradient btn--lg lead__submit callback__submit" type="submit"><span class="callback__submit-text">Жду звонка</span></button>
+      <p class="lead__status callback__status" role="alert"></p>
+    </form>
+    <div class="lead__done callback__done" hidden>
+      <span class="lead__done-icon" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 32 32" fill="none"><path d="M8 16.5l5.5 5.5L24 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h2 class="lead__title">Заявка принята</h2>
+      <p class="lead__lead callback__done-lead">Перезвоним в&nbsp;течение часа в&nbsp;рабочее время. Если звонок нужен срочно — <a href="tel:+79222077552">+7&nbsp;(922)&nbsp;207-75-52</a>.</p>
+      <p class="form-bonus-done js-form-bonus">Скидка 20% забронирована за&nbsp;вами</p>
+      <div class="callback__done-actions">
+        <a class="btn btn--gradient btn--lg callback__catalog js-bonus-only" href="/catalog" hidden>Перейти в каталог</a>
+        <button class="btn btn--outline btn--outline-soft btn--lg" type="button" data-close-callback>Вернуться на сайт</button>
+      </div>
+    </div>
+  </dialog>
+
+  <footer class="footer" id="footer">
+    <div class="footer__top">
+      <div class="footer__rep">
+        <span class="footer__logo" role="img" aria-label="Дверной Молл — больше, чем двери"></span>
+        <p class="footer__rep-text">Эксклюзивный представитель «Стальной линии» <br>на Урале — «Дверной Молл».</p>
+      </div>
+      <nav class="footer__nav" aria-label="Навигация в подвале">
+        <a href="/catalog">Каталог</a>
+        <a href="../">Бренды</a>
+        <a href="/port">Наши работы</a>
+        <a href="../#contacts">Салон</a>
+        <a href="/diz">Для дизайнеров</a>
+        <a href="../#contacts">Контакты</a>
+      </nav>
+    </div>
+    <div class="footer__salons">
+      <address class="footer-salon">
+        <p class="footer-salon__name">Интерьерный центр «ASTROOM»</p>
+        <p>Екатеринбург, ул. Цвиллинга, 1<br>6 этаж, Галерея А</p>
+        <p class="footer-salon__muted">Пн–Вс 10:00–20:00</p>
+        <p class="footer-salon__links">
+          <a class="footer__phone" href="tel:+79222077552">+7 (922) 207-75-52</a>
+          <a class="footer__phone" href="tel:+79826056229">+7 (982) 605-62-29</a>
+          <a href="mailto:astroom@steelline.store">astroom@steelline.store</a>
+        </p>
+      </address>
+      <address class="footer-salon">
+        <p class="footer-salon__name">Салон «Дверная лавка»</p>
+        <p>Арамиль, ул. Гарнизон, 5</p>
+        <p class="footer-salon__muted">Пн–Пт 09:00–18:00</p>
+        <p class="footer-salon__links">
+          <a class="footer__phone" href="tel:+79193977317">+7 (919) 397-73-17</a>
+          <a href="mailto:zakazdver@bk.ru">zakazdver@bk.ru</a>
+        </p>
+      </address>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 Дверной Молл. ООО «Прогресс», ИНН&nbsp;6685206681, ОГРН&nbsp;1226600080321</p>
+      <div class="footer__legal">
+        <a href="../privacy.html">Политика конфиденциальности</a>
+        <a href="../consent.html">Согласие на обработку данных</a>
+      </div>
+    </div>
+  </footer>
+
+  Межкомнатные двери Aurum, которые есть на складе в Екатеринбурге: забрать можно без ожидания производства.
+
+  <script src="../script.js?v=63"></script>
+  <script src="stores.js?v=13"></script>
+</body>
+</html>
