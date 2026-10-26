@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Шапка — варианты меню</title>
+<link rel="stylesheet" href="../styles.css?v=71">
+<style>
+  body { background: #e9ebef; padding: 0 0 80px; }
+  .mock { margin: 48px auto 0; max-width: 1440px; background: #fff; box-shadow: 0 1px 0 rgba(0,0,0,.06); }
+  .mock .header { position: relative; }
+  .mock__label { max-width: 1440px; margin: 48px auto 12px; padding: 0 var(--wrap-x); font: 600 13px/1.4 var(--f-inter, Inter, sans-serif); letter-spacing: .4px; text-transform: uppercase; color: var(--c-muted); }
+  .mock__label b { color: var(--c-navy); }
+  .mock__page { height: 220px; background: linear-gradient(180deg, #f4f6f9, #fff); }
+
+  /* ---- Вариант А: «Каталог» с выпадашкой ---- */
+  .mock .header__main { position: relative; z-index: 2; }
+  .nav-dd { position: relative; display: flex; align-items: center; }
+  .nav-dd > a { display: inline-flex; align-items: center; gap: 6px; }
+  .nav-dd > a::after { content: ""; width: 10px; height: 6px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23061f3b' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center; transition: transform .25s; }
+  .nav-dd.is-open > a::after { transform: rotate(180deg); }
+  .nav-dd__menu {
+    position: absolute; z-index: 60; top: calc(100% + 22px); left: -24px; display: grid; grid-template-columns: 250px 250px; gap: 0;
+    padding: 8px; border-radius: 12px; background: #fff; white-space: normal;
+    box-shadow: 0 16px 40px rgba(6,31,59,.14), 0 0 0 .5px rgba(6,31,59,.08);
+  }
+  .nav-dd:not(.is-open) .nav-dd__menu { display: none; }
+  .nav-dd__col { display: flex; flex-direction: column; padding: 8px; }
+  .nav-dd__col + .nav-dd__col { border-left: .5px solid rgba(6,31,59,.1); }
+  .nav-dd__title { padding: 6px 10px 8px; font: 500 12px/1 var(--f-inter, Inter, sans-serif); letter-spacing: .3px; text-transform: uppercase; color: var(--c-muted); }
+  .nav-dd__col a { padding: 9px 10px; border-radius: 8px; font-weight: 600; font-size: 14px; color: var(--c-navy); }
+  .nav-dd__col a:hover { background: var(--c-chip-bg); color: var(--c-blue); }
+  .nav-dd__work { display: flex !important; gap: 12px; align-items: center; }
+  .nav-dd__work img { width: 56px; height: 56px; flex: none; border-radius: 8px; object-fit: cover; }
+  .nav-dd__work small { display: block; margin-top: 2px; font: 400 12px/1.35 var(--f-inter, Inter, sans-serif); color: var(--c-muted); }
+
+  /* ---- Вариант Б: вторая строка — разделы слева, факты справа ---- */
+  .header__sub { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 10px var(--wrap-x); background: linear-gradient(rgba(0,0,0,.04), rgba(0,0,0,.04)), #fff; }
+  .header__sub nav { display: flex; gap: 28px; font-weight: 600; font-size: 14px; color: var(--c-navy); white-space: nowrap; }
+  .header__sub nav a:hover, .header__sub nav a.is-active { color: var(--c-blue); }
+  .header__sub nav a.is-active { position: relative; }
+  .header__sub nav a.is-active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -11px; height: 2px; border-radius: 2px; background: var(--c-blue); }
+  .header__sub .header__facts { padding: 0; background: none; gap: 24px; }
+  .header__sub .fact { font-size: 13px; }
+  .header__sub .fact img { width: 20px; height: 20px; }
+  .nav-dd--more .nav-dd__menu { left: auto; right: -24px; grid-template-columns: 240px; }
+  .ext::after { content: " ↗"; color: var(--c-muted); }
+  .header__sub .header__address { font-size: 13px; }
+  .note { max-width: 1440px; margin: 10px auto 0; padding: 0 var(--wrap-x); font: 400 14px/1.5 var(--f-inter, Inter, sans-serif); color: var(--c-muted); }
+  .mock--g .header__nav { gap: 24px; }
+</style>
+</head>
+<body>
+
+<p class="mock__label"><b>Вариант В</b> — главные разделы в шапке, второстепенные во второй строке</p>
+<div class="mock">
+  <header class="header">
+    <div class="header__main">
+      <a class="header__logo" href="#"><img class="header__logo-desktop" src="../assets/icons/logo.svg" width="246.5" height="43.2242" alt="Стальная линия"></a>
+      <nav class="header__nav">
+        <div class="nav-dd is-open">
+          <a href="#" class="js-dd">Каталог</a>
+          <div class="nav-dd__menu">
+            <div class="nav-dd__col">
+              <span class="nav-dd__title">Для дома</span>
+              <a href="#">Все двери для дома</a>
+              <a href="#">С терморазрывом</a>
+              <a href="#">Хаски</a>
+              <a href="#">Нестандартные проёмы</a>
+              <a href="#">По спец цене</a>
+            </div>
+            <div class="nav-dd__col">
+              <span class="nav-dd__title">Для квартиры</span>
+              <a href="#">Все двери для квартиры</a>
+              <a href="#">С умным замком</a>
+              <a href="#">В наличии</a>
+              <a href="#">По спец цене</a>
+            </div>
+          </div>
+        </div>
+        <a href="#">Наши работы</a>
+        <a href="#">Гид по продукту</a>
+        <a href="#">Дизайнерам и архитекторам</a>
+        <a href="#">Акции</a>
+        <a href="#">Магазины</a>
+      </nav>
+      <a class="btn btn--gradient header__cta" href="#">Подобрать дверь</a>
+    </div>
+    <div class="header__sub">
+      <nav aria-label="Ещё разделы">
+        <a href="#">Сертификаты</a>
+        <a href="#" class="ext">Межкомнатные двери</a>
+      </nav>
+      <div class="header__address"><img src="../assets/icons/map-pin.svg" width="16" height="16" alt=""><span>Екатеринбург, ИЦ Аструм</span></div>
+    </div>
+  </header>
+  <div class="mock__page" style="height: 300px"></div>
+</div>
+<p class="note">Факты «30 лет / 2 года / 20 стран» уходят из шапки — они есть на главной. Адрес переезжает во вторую строку.</p>
+
+<p class="mock__label"><b>Вариант Г</b> — одна строка меню + «Ещё», полоса с фактами остаётся</p>
+<div class="mock mock--g">
+  <header class="header">
+    <div class="header__main">
+      <a class="header__logo" href="#"><img class="header__logo-desktop" src="../assets/icons/logo.svg" width="246.5" height="43.2242" alt="Стальная линия"></a>
+      <nav class="header__nav">
+        <div class="nav-dd">
+          <a href="#" class="js-dd">Каталог</a>
+          <div class="nav-dd__menu">
+            <div class="nav-dd__col">
+              <span class="nav-dd__title">Для дома</span>
+              <a href="#">Все двери для дома</a>
+              <a href="#">С терморазрывом</a>
+              <a href="#">Хаски</a>
+              <a href="#">Нестандартные проёмы</a>
+              <a href="#">По спец цене</a>
+            </div>
+            <div class="nav-dd__col">
+              <span class="nav-dd__title">Для квартиры</span>
+              <a href="#">Все двери для квартиры</a>
+              <a href="#">С умным замком</a>
+              <a href="#">В наличии</a>
+              <a href="#">По спец цене</a>
+            </div>
+          </div>
+        </div>
+        <a href="#">Наши работы</a>
+        <a href="#">Гид по продукту</a>
+        <a href="#">Дизайнерам и архитекторам</a>
+        <div class="nav-dd nav-dd--more is-open">
+          <a href="#" class="js-dd">Ещё</a>
+          <div class="nav-dd__menu">
+            <div class="nav-dd__col">
+              <a href="#">Акции</a>
+              <a href="#">Наши магазины</a>
+              <a href="#">Сертификаты</a>
+              <a href="#" class="ext">Межкомнатные двери</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="header__address"><img src="../assets/icons/map-pin.svg" width="16" height="16" alt=""><span>Екатеринбург, ИЦ Аструм</span></div>
+      <a class="btn btn--gradient header__cta" href="#">Подобрать дверь</a>
+    </div>
+    <div class="header__facts">
+      <div class="fact"><img src="../assets/icons/badge-30.svg" width="24" height="24" alt="30"><span>Лет производства</span></div>
+      <div class="fact"><img src="../assets/icons/badge-2.svg" width="24" height="24" alt="2"><span>Года гарантии</span></div>
+      <div class="fact"><img src="../assets/icons/badge-20.svg" width="24" height="24" alt="20"><span>стран присутствия</span></div>
+    </div>
+  </header>
+  <div class="mock__page" style="height: 320px"></div>
+</div>
+
+<script>
+  document.querySelectorAll('.js-dd').forEach(function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); a.parentNode.classList.toggle('is-open'); });
+  });
+</script>
+</body>
+</html>

@@ -29,3 +29,11 @@ logs/
 # Настройки почты с паролем — только на сервере
 mail.php
 !server/mail.example.php
+
+# Исходники переноса со старого сайта: сохранённые страницы и временные файлы — большие, в репозиторий не кладём
+catalog-source/sl-html/
+catalog-source/aurum/html/
+catalog-source/diz-photos/
+catalog-source/spec*.png
+catalog-source/aurum/receive.html
+catalog-source/convert_server.py
