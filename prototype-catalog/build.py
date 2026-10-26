@@ -765,8 +765,10 @@ open(os.path.join(OUT, 'designers.html'), 'w', encoding='utf-8').write(page('Д�
 # Скрипт каталога на этих страницах работает как обычно (берёт модель/раздел из data-атрибута <body>).
 # Ресурсы прототипа подключаются через <base href="/prototype-catalog/">.
 # Переезд: SITE_URL=https://steelline.store INDEX=1 python3 build.py — снимает noindex и пишет sitemap.xml.
-SITE_URL = os.environ.get('SITE_URL', 'https://promo.steelline.store').rstrip('/')
-INDEX = os.environ.get('INDEX') == '1'
+# сайт уже на основном домене: по умолчанию сборка для steelline.store с открытой индексацией
+# (для тестовой копии: SITE_URL=https://promo.steelline.store INDEX=0 python3 build.py)
+SITE_URL = os.environ.get('SITE_URL', 'https://steelline.store').rstrip('/')
+INDEX = os.environ.get('INDEX', '1') == '1'
 STATIC_ROOT = ROOT  # /catalog/... в корне сайта
 
 
