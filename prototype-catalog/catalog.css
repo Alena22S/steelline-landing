@@ -42,6 +42,7 @@
 .sale-banner__kicker { font-family: var(--f-inter); font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--c-muted); }
 .sale-banner__title { font-weight: 500; font-size: 34px; line-height: 1.15; letter-spacing: -0.3px; color: var(--c-ink); }
 .sale-banner__lead { font-family: var(--f-inter); font-size: 16px; line-height: 1.5; color: var(--c-muted); }
+@media (max-width: 1099px) { .sale-banner__lead .br-desktop { display: none; } }
 /* кнопка — тот же тёплый серо-бежевый, что фон баннера, только тёмный */
 .sale-banner__btn { margin-top: 8px; background: #6b6157; color: #fff; transition: background-color 0.2s; }
 .sale-banner__btn:hover { background: #585047; }
@@ -156,7 +157,7 @@
   box-shadow: 0 1px 4px rgba(6, 31, 59, 0.08);
 }
 .pcard__warm svg { flex: none; color: var(--c-blue); }
-.pcard__warm--husky { background: var(--c-navy); color: #fff; }
+.pcard__warm--husky { background: var(--c-navy); color: #fff; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.25), 0 1px 4px rgba(6, 31, 59, 0.08); }  /* тонкая светлая обводка — не сливается с тёмными дверями */
 .pcard__warm--husky svg { color: #9fd0ff; }
 .pcard__go { position: absolute; right: 16px; bottom: 16px; z-index: 1; display: grid; place-items: center; transition: transform 0.3s ease; }
 .pcard__go > img { grid-area: 1 / 1; position: static; }

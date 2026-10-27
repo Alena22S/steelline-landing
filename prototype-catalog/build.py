@@ -56,7 +56,7 @@ def page(title, body_class, main, scripts=('catalog.js?v=61',)):
     h = re.sub(r'\s*<meta property="og:[^>]*>', '', h)  # превью главной; у статичных страниц — свои
     h = h.replace('<meta name="viewport" content="width=device-width, initial-scale=1">',
                   '<meta name="viewport" content="width=device-width, initial-scale=1">\n  <meta name="robots" content="noindex, nofollow">', 1)
-    h += '  <link rel="stylesheet" href="catalog.css?v=85">\n</head>\n'
+    h += '  <link rel="stylesheet" href="catalog.css?v=87">\n</head>\n'
     nav_header = fix(header)
     return _slash(h + '<body class="%s">\n\n  ' % body_class + nav_header + '\n\n' + main + '\n\n  ' + fix(cookie) +
             '\n\n  ' + fix(sticky).replace('href="../#contacts"', 'href="#"') + '\n\n  ' + fix(bonus) + '\n\n  ' + fix(callback) + '\n\n  ' + fix(footer) + '\n\n  ' +
@@ -80,7 +80,7 @@ catalog_main = '''  <main class="cat" id="cat">
         <div class="sale-banner__text">
           <p class="sale-banner__kicker">Aurum doors</p>
           <h2 class="sale-banner__title">Распродажа склада в&nbsp;Екатеринбурге</h2>
-          <p class="sale-banner__lead">Скидка 40% на&nbsp;полотна коллекции Кобальт. 400 полотен в&nbsp;наличии — забрать можно сразу.</p>
+          <p class="sale-banner__lead">Скидка 40% на&nbsp;полотна коллекции Кобальт.<br class="br-desktop"> 400 полотен в&nbsp;наличии — забрать можно сразу.</p>
           <a class="btn sale-banner__btn" href="/catalog/mezhkom/kobalt">Смотреть двери Кобальт <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
         </div>
         <div class="sale-banner__doors js-sale-doors" aria-hidden="true"></div>
