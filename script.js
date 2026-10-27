@@ -754,9 +754,9 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
     // «Записаться на подбор» — короткая форма: имя, телефон, комментарий (без фото и почты)
     form.classList.toggle('is-contact', contact);
     form.classList.toggle('is-partner', partner);
-    var mode = partner ? 'Partner' : contact ? 'Contact' : 'Photo';
+    var mode = partner ? 'Partner' : contact ? 'Contact' : source === 'sale20' && title.dataset.titleSale20 ? 'Sale20' : 'Photo';
     if (!doneLead.dataset.donePhoto) doneLead.dataset.donePhoto = doneLead.innerHTML;
-    doneLead.innerHTML = doneLead.dataset['done' + mode];
+    doneLead.innerHTML = doneLead.dataset['done' + mode] || doneLead.dataset.donePhoto;
     submitText.textContent = submitLabel();
     title.textContent = title.dataset['title' + mode];
     lead.textContent = lead.dataset['lead' + mode];
@@ -1084,6 +1084,13 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
 /* ---------- Закреплённая кнопка заявки (телефон): появляется после первого экрана ---------- */
 (function () {
   var cta = document.querySelector('.sticky-cta');
+  // на телефоне — одна закреплённая кнопка «Подбор двери со скидкой 20%», видна сразу (без прокрутки);
+  // на межкомнатных скидку 20% не обещаем — там обычная кнопка (или «Заказать дверь со скидкой» у распродажи)
+  if (cta && window.siteIsInterior && cta.dataset.openForm === 'sale20') {
+    cta.dataset.openForm = 'sticky';
+    cta.firstChild.nodeValue = 'Получить подбор двери ';
+  }
+  if (cta) { cta.classList.add('is-visible'); return; }
   var edge = document.querySelector('.ticker') || document.querySelector('.hero');
   if (!cta || !edge || !('IntersectionObserver' in window)) {
     if (cta) cta.classList.add('is-visible');
@@ -1280,6 +1287,7 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
         form.hidden = true; done.hidden = false;
         var src = form.elements.source.value;
         window.siteGoal && window.siteGoal(src === 'sale' ? 'sale_success' : src === 'bonus' ? 'bonus_success' : 'callback_success');
+        window.siteGoal && window.siteGoal('lead_success', { source: src }); // реклама VK обучается на этом событии — шлём из всех форм
         window.siteGoal && window.siteGoal('lead_any', { source: src }); // любая отправленная заявка — цель для оптимизации рекламы
       })
       .catch(function (err) {

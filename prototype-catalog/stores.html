@@ -13,14 +13,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=89">
+  <link rel="stylesheet" href="../styles.css?v=90">
   <script>
     /* ---------- Яндекс Метрика и пиксель VK Ads: подключаются сразу (уведомление о cookie — информационное).
        Не подключаются, только если посетитель нажал «Отказаться» (в хранилище — 'necessary'). ---------- */
     (function () {
       var ID = 113661573;      // Яндекс Метрика
-      // отдельный счётчик «межком на сайте СЛ» — только на страницах межкомнатных дверей (/catalog/mezhkom/…, а также прототипы catalog.html?cat=mezhkom… и model.html?id=au-…)
-      var ID_INTERIOR = 113740896;
+      // страницы межкомнатных дверей (/catalog/mezhkom/…, прототипы catalog.html?cat=mezhkom… и model.html?id=au-…): свой пиксель VK, без 20%
       var isInteriorPage = /^\/catalog\/mezhkom(\/|$)/.test(location.pathname) || /\/prototype-catalog\/catalog\.html$/.test(location.pathname) && /[?&]cat=mezhkom(%2F|\/|&|$)/.test(location.search) ||
         /\/prototype-catalog\/model\.html$/.test(location.pathname) && /[?&]id=au-/.test(location.search);
       window.siteIsInterior = isInteriorPage; // формам: на межкомнатных скидку 20% не обещаем
@@ -33,7 +32,6 @@
       window.siteGoal = function (name, params) {
         if (loaded && typeof window.ym === 'function') {
           window.ym(ID, 'reachGoal', name, params || {});
-          if (isInteriorPage) window.ym(ID_INTERIOR, 'reachGoal', name, params || {});
         }
         if (vkLoaded) {
           window._tmr.push({ type: 'reachGoal', id: VK_ID, goal: name });
@@ -66,7 +64,6 @@
         // Вебвизор (запись действий на странице) — только после «Хорошо»; до этого Метрика считает визиты, источники и цели без записи
         var opts = { webvisor: saved === 'all' || inMetrika, clickmap: true, accurateTrackBounce: true, trackLinks: true };
         window.ym(ID, 'init', opts);
-        if (isInteriorPage) window.ym(ID_INTERIOR, 'init', opts);
       }
 
       var saved = null;
@@ -239,7 +236,7 @@
     </div>
   </div>
 
-  <a class="btn btn--gradient sticky-cta" href="#" data-open-form="sticky">Получить подбор двери <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+  <a class="btn btn--gradient sticky-cta" href="#" data-open-form="sale20">Подбор двери со скидкой 20% <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
 
   <div class="bonus-fab js-bonus-fab" hidden>
     <button class="bonus-fab__open" type="button" data-open-callback="bonus">
@@ -367,8 +364,8 @@
     <!-- Заявки уходят в send.php. Для тестового режима (без отправки) добавить атрибут data-test-mode -->
     <form class="lead__form" id="lead-form" action="../send.php" method="post" enctype="multipart/form-data" novalidate>
       <div class="lead__head">
-        <h2 class="lead__title" id="lead-title" data-title-photo="Бесплатно подберём дверь по фото проёма" data-title-contact="Запись на подбор" data-title-partner="Станьте партнёром «Стальной линии»">Бесплатно подберём дверь по фото проёма</h2>
-        <p class="lead__lead" data-lead-photo="Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире." data-lead-contact="Оставьте имя и телефон — перезвоним, ответим на вопросы и запишем на подбор в салоне или замер." data-lead-partner="Для дизайнеров, архитекторов, застройщиков и ремонтных компаний. Менеджер по работе с партнёрами свяжется с вами и расскажет об условиях.">Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире.</p>
+        <h2 class="lead__title" id="lead-title" data-title-photo="Бесплатно подберём дверь по фото проёма" data-title-contact="Запись на подбор" data-title-partner="Станьте партнёром «Стальной линии»" data-title-sale20="Подбор двери со скидкой 20%">Бесплатно подберём дверь по фото проёма</h2>
+        <p class="lead__lead" data-lead-photo="Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире." data-lead-contact="Оставьте имя и телефон — перезвоним, ответим на вопросы и запишем на подбор в салоне или замер." data-lead-partner="Для дизайнеров, архитекторов, застройщиков и ремонтных компаний. Менеджер по работе с партнёрами свяжется с вами и расскажет об условиях." data-lead-sale20="Пришлите фото проёма и оставьте контакты — подберём дверь и закрепим за вами скидку 20%.">Прикрепите фото проёма и оставьте контакты — пришлём вам подборку дверей, которые подойдут к вашему дому или квартире.</p>
         
       </div>
       <div class="field field--photo">
@@ -448,7 +445,7 @@
     </div>
   </dialog>
 
-  <script src="../script.js?v=64"></script>
+  <script src="../script.js?v=65"></script>
   <script src="stores.js?v=13"></script>
 </body>
 </html>

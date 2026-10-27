@@ -1983,7 +1983,8 @@ fieldset.field--partner legend { padding: 0; }
 .field[hidden] { display: none; }
 
 /* Телефон: закреплённую кнопку «Получить подбор двери» не показываем — остаётся только «Заказать дверь со скидкой» на межкомнатных */
-@media (max-width: 767px) { .sticky-cta:not(.is-sale) { display: none !important; } }
+/* на телефоне одна закреплённая кнопка — sticky-cta «Подбор двери со скидкой 20%»; карточку скидки не показываем */
+@media (max-width: 767px) { .bonus-fab { display: none !important; } }
 
 /* Карточка «Хаски» в блоке «Технологии»: на телефоне — круглая стрелка в углу фото вместо широкой кнопки */
 .eng-card__go { display: none; }
