@@ -51,8 +51,7 @@ $LEADS    = (is_array($cfg) && !empty($cfg['leads_dir'])) ? rtrim($cfg['leads_di
 
 // Ловушки для ботов: скрытое поле и слишком быстрая отправка. Боту отвечаем «успешно», ничего не делая
 if (!empty($_POST['website'])) {
-    if ($answered) exit;
-reply(true);
+    reply(true);
 }
 $started = isset($_POST['ts']) ? (int) $_POST['ts'] : 0;
 if ($started > 0 && (time() - (int) floor($started / 1000)) < $MIN_FILL) {
@@ -344,4 +343,5 @@ if ($isBonus && $coupon !== '') {
     }
 }
 
+if ($answered) exit;
 reply(true);
