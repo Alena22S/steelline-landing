@@ -47,7 +47,7 @@ def _slash(html):
     return _SLASH_RE.sub(lambda m: 'href="%s/%s"' % (m.group(1), m.group(2) or ''), html)
 
 
-def page(title, body_class, main, scripts=('catalog.js?v=61',)):
+def page(title, body_class, main, scripts=('catalog.js?v=62',)):
     h = fix(head)
     h = re.sub(r'<title>.*?</title>', '<title>%s</title>' % title, h)
     # прототип каталога не индексируем до переноса на Astro (дубли steelline.store)
@@ -342,6 +342,21 @@ def _translit(s):
 
 # адреса моделей: путь со старого сайта; опечатка «caralog» исправлена; если адрес у двух моделей совпал
 # (ошибка старого сайта) — вторая получает свой адрес по названию
+# у этих моделей на старом сайте ошибочно указано «Без окна», хотя на фото — стеклянная вставка или окно (проверено по фото, 27.10.2026)
+_GLASS_FIX = {'Агиос', 'Белладжо', 'Монтэ', 'Трентино', 'Эвора', 'Арабелла', 'Арабелла 2', 'Нарвик', 'Эльвина', 'Эльвина2'}
+for _p in _entry['products']:
+    if _p['title'] in _GLASS_FIX and _p.get('window') == ['Без окна']:
+        _p['window'] = ['С окном']
+        for _ed in _p.get('editions', []):
+            if _ed.get('window') == 'Без окна':
+                _ed['window'] = 'С окном'
+# и наоборот: у «Софико» указано «С окном», а на фото глухое полотно
+for _p in _entry['products']:
+    if _p['title'] == 'Софико' and _p.get('window') == ['С окном']:
+        _p['window'] = ['Без окна']
+        for _ed in _p.get('editions', []):
+            if _ed.get('window') == 'С окном':
+                _ed['window'] = 'Без окна'
 # у «Мадрида» на старом сайте в данных ошибочно стоит адрес «Бремена»; настоящий адрес найден в карте старого сайта
 _URL_FIX = {'605064485219': '/catalog/dom/nestandart/madriddvup'}
 _seen = set()
@@ -902,7 +917,7 @@ for p in _entry['products']:
                   'image': [SITE_URL + '/prototype-catalog/' + s for s in p['photos']],
                   'offers': {'@type': 'Offer', 'priceCurrency': 'RUB', 'price': int(round(p['price'])), 'availability': 'https://schema.org/InStock',
                              'url': SITE_URL + p['url'], 'seller': {'@type': 'Organization', 'name': 'Стальная линия'}}}
-    _sitemap.append(_static_page(p['url'], title, desc, 'page-model', ' data-model-id="%s"' % p['id'], main, ('catalog.js?v=61',),
+    _sitemap.append(_static_page(p['url'], title, desc, 'page-model', ' data-model-id="%s"' % p['id'], main, ('catalog.js?v=62',),
                                  ld=(product_ld, _crumbs_ld(crumbs)), image=photo))
 
 # ---- страницы разделов ----
@@ -936,7 +951,7 @@ for slug, name, lead in _cat_pages:
         main = main.replace(grid_m.group(0), grid_m.group(0)[:-6] + ''.join(map(_card, items[:24])) + '</div>', 1)
     list_ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': name,
                'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': SITE_URL + p['url'], 'name': p['title']} for i, p in enumerate(items)]}
-    _sitemap.append(_static_page(path, title, desc, 'page-catalog', ' data-cat="%s"' % slug, main, ('catalog.js?v=61',),
+    _sitemap.append(_static_page(path, title, desc, 'page-catalog', ' data-cat="%s"' % slug, main, ('catalog.js?v=62',),
                                  ld=(list_ld, _crumbs_ld(crumbs)), image=items[0]['photos'][0] if items[0]['photos'] else ''))
 
 # ---- межкомнатные двери Aurum: страницы моделей и разделов ----
@@ -1039,7 +1054,7 @@ for p in _aurum['products']:
     if offer_price:
         product_ld['offers'] = {'@type': 'Offer', 'priceCurrency': 'RUB', 'price': int(offer_price), 'availability': 'https://schema.org/InStock',
                                 'url': SITE_URL + p['url'], 'seller': {'@type': 'Organization', 'name': 'Стальная линия'}}
-    _sitemap.append(_static_page(p['url'], title, desc, 'page-model', ' data-model-id="%s"' % p['id'], main, ('catalog.js?v=61',),
+    _sitemap.append(_static_page(p['url'], title, desc, 'page-model', ' data-model-id="%s"' % p['id'], main, ('catalog.js?v=62',),
                                  ld=(product_ld, _crumbs_ld(crumbs)), image=photo))
 
 json.dump(_aurum, open(os.path.join(OUT, 'data', 'aurum.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
@@ -1072,7 +1087,7 @@ for slug, name, lead in _icats:
         main = main.replace(grid_m.group(0), grid_m.group(0)[:-6] + ''.join(map(_card_in, items[:24])) + '</div>', 1)
     list_ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': name,
                'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': SITE_URL + p['url'], 'name': p['title']} for i, p in enumerate(items)]}
-    _sitemap.append(_static_page(path, title, desc, 'page-catalog', ' data-cat="%s"' % slug, main, ('catalog.js?v=61',),
+    _sitemap.append(_static_page(path, title, desc, 'page-catalog', ' data-cat="%s"' % slug, main, ('catalog.js?v=62',),
                                  ld=(list_ld, _crumbs_ld(crumbs)), image=items[0]['photos'][0] if items[0]['photos'] else ''))
 
 

@@ -191,7 +191,7 @@
 
   // загружаем только нужные данные: входные — data/catalog.json; межкомнатные — лёгкий список для каталога
   // или полный data/aurum.json для страницы модели; счётчики переключателя — data/counts.json
-  var V = 12;
+  var V = 13;
   function load(name) { return fetch('data/' + name + '?v=' + V).then(function (r) { return r.json(); }); }
   var qs = new URLSearchParams(location.search);
   var PAGE_CAT = qs.get('cat') || document.body.dataset.cat || '';
