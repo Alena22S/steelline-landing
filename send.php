@@ -279,6 +279,12 @@ function smtp_send(array $cfg, $from, array $to, $msg) {
 }
 
 $error = $to ? smtp_send($cfg, $from, $to, $msg) : 'no recipients';
+// почтовый сервер может отказать из-за адреса клиента в Reply-To (опечатка, несуществующий домен) —
+// тогда отправляем ещё раз без Reply-To: почта клиента всё равно есть в тексте письма, заявка не теряется
+if ($error !== '' && $email !== '' && $to) {
+    error_log('steelline send.php: ' . $error . ' — повтор без Reply-To');
+    $error = smtp_send($cfg, $from, $to, str_replace("Reply-To: $email\r\n", '', $msg));
+}
 if ($error !== '') {
     error_log('steelline send.php: ' . $error);
     reply(false, $logged ? 'Заявка сохранена, но письмо не отправилось. Мы свяжемся с вами.' : 'Не получилось отправить заявку.', 500);
@@ -286,7 +292,7 @@ if ($error !== '') {
 
 // ---- Купон 20%: письмо клиенту ----
 if ($isBonus && $coupon !== '') {
-    $catalog = 'https://promo.steelline.store/prototype-catalog/catalog.html';
+    $catalog = 'https://steelline.store/catalog/';
     $ch  = '<div style="font-family:Arial,sans-serif;color:#061f3b;max-width:560px;margin:0 auto;padding:8px">';
     $ch .= '<h2 style="margin:0 0 12px;font-size:22px">Ваш купон на скидку 20%</h2>';
     $ch .= '<p style="margin:0 0 16px;font-size:15px;line-height:1.5;color:#5e6c66">Спасибо за интерес к входным дверям «Стальная линия». Назовите этот код менеджеру при оформлении заказа:</p>';
