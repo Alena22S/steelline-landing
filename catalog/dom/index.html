@@ -404,7 +404,89 @@
     </div>
   </footer>
 
-  Входные двери для частного дома и коттеджа: тёплые, с терморазрывом, для нестандартных проёмов и по спец цене.
+  <dialog class="lead" id="lead" aria-labelledby="lead-title">
+    <button class="lead__close" type="button" aria-label="Закрыть" data-close-form>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+
+    <!-- Заявки уходят в send.php. Для тестового режима (без отправки) добавить атрибут data-test-mode -->
+    <form class="lead__form" id="lead-form" action="../send.php" method="post" enctype="multipart/form-data" novalidate>
+      <div class="lead__head">
+        <h2 class="lead__title" id="lead-title" data-title-photo="Бесплатно подберём дверь по фото проёма" data-title-contact="Запись на подбор" data-title-partner="Станьте партнёром «Стальной линии»" data-title-sale20="Подбор двери со скидкой 20%">Бесплатно подберём дверь по фото проёма</h2>
+        <p class="lead__lead" data-lead-photo="Прикрепите фото проёма и оставьте контакты — подберём двери, которые подойдут к&nbsp;вашему дому или квартире, и&nbsp;перезвоним." data-lead-contact="Оставьте имя и телефон — перезвоним, ответим на вопросы и запишем на подбор в салоне или замер." data-lead-partner="Для дизайнеров, архитекторов, застройщиков и ремонтных компаний. Менеджер по работе с партнёрами свяжется с вами и расскажет об условиях." data-lead-sale20="Пришлите фото проёма и оставьте контакты — подберём дверь и закрепим за вами скидку 20%.">Прикрепите фото проёма и оставьте контакты — подберём двери, которые подойдут к&nbsp;вашему дому или квартире, и&nbsp;перезвоним.</p>
+        
+      </div>
+      <div class="field field--photo">
+        <span class="field__label" id="photos-label">Фото проёма <span class="field__hint">до 5 фото, JPG, PNG или HEIC</span></span>
+        <label class="dropzone" for="lead-photos">
+          <input class="dropzone__input" id="lead-photos" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" multiple aria-labelledby="photos-label" aria-describedby="photos-error">
+          <svg class="dropzone__icon" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="3" y="7" width="26" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M11 7l2-3h6l2 3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="16" cy="17" r="5" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span class="dropzone__text"><b>Загрузите фото</b><span class="dropzone__drag"> или перетащите сюда</span></span>
+          <span class="dropzone__sub">Снимите проём целиком, вместе с откосами и полом</span>
+        </label>
+        <ul class="previews" id="lead-previews" aria-live="polite"></ul>
+        <p class="field__error" id="photos-error"></p>
+      </div>
+
+      <!-- Только в заявке на партнёрство (страница «Дизайнерам и архитекторам») -->
+      <fieldset class="field field--partner">
+        <legend class="field__label">Вы</legend>
+        <div class="role-chips">
+          <label class="role-chip"><input type="radio" name="role" value="Дизайнер интерьера" checked><span>Дизайнер</span></label>
+          <label class="role-chip"><input type="radio" name="role" value="Архитектор"><span>Архитектор</span></label>
+          <label class="role-chip"><input type="radio" name="role" value="Застройщик"><span>Застройщик</span></label>
+          <label class="role-chip"><input type="radio" name="role" value="Ремонтная компания"><span>Ремонтная компания</span></label>
+        </div>
+      </fieldset>
+      <div class="field field--partner">
+        <label class="field__label" for="lead-company">Студия или компания <span class="field__hint">необязательно</span></label>
+        <input class="input ym-disable-keys ym-hide-content" id="lead-company" name="company" type="text" autocomplete="organization" maxlength="120" placeholder="Название или ссылка на портфолио">
+      </div>
+
+      <div class="lead__grid">
+        <div class="field">
+          <label class="field__label" for="lead-name">Имя</label>
+          <input class="input ym-disable-keys ym-hide-content" id="lead-name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="Как к вам обращаться">
+          <p class="field__error"></p>
+        </div>
+        <div class="field">
+          <label class="field__label" for="lead-phone">Телефон</label>
+          <input class="input ym-disable-keys ym-hide-content" id="lead-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+7 (___) ___-__-__">
+          <p class="field__error"></p>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field__label" for="lead-comment">Комментарий <span class="field__hint">необязательно</span></label>
+        <textarea class="input input--area ym-disable-keys ym-hide-content" id="lead-comment" name="comment" rows="3" maxlength="1000" placeholder="Размеры проёма, квартира или дом, пожелания по цвету"></textarea>
+      </div>
+
+      <!-- Ловушка для спам-ботов: люди это поле не видят -->
+      <input class="lead__trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="source" value="">
+
+      <div class="field">
+        <label class="check">
+          <input type="checkbox" name="consent" value="1" required>
+          <span>Даю <a href="../consent.html" target="_blank">согласие на&nbsp;обработку персональных данных</a> и&nbsp;принимаю <a href="../privacy.html" target="_blank">политику конфиденциальности</a></span>
+        </label>
+        <p class="field__error"></p>
+      </div>
+
+      <button class="btn btn--gradient btn--lg lead__submit" type="submit">
+        <span class="lead__submit-text">Получить подбор двери</span>
+        <img src="../assets/icons/arrow-right-white-2.svg" width="24" height="24" alt="">
+      </button>
+      <p class="lead__status" role="alert"></p>
+    </form>
+
+    <div class="lead__done" hidden>
+      <span class="lead__done-icon" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 32 32" fill="none"><path d="M8 16.5l5.5 5.5L24 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h2 class="lead__title">Заявка отправлена</h2>
+      <p class="lead__lead lead__done-lead" data-done-contact="Спасибо! Перезвоним в&nbsp;рабочее время и&nbsp;договоримся о&nbsp;подборе." data-done-partner="Спасибо! Менеджер по&nbsp;работе с&nbsp;партнёрами свяжется с&nbsp;вами в&nbsp;рабочее время и&nbsp;расскажет об&nbsp;условиях сотрудничества.">Спасибо! Мы посмотрим фото, подберём двери и&nbsp;перезвоним в&nbsp;рабочее время.</p>
+      
+      <button class="btn btn--outline btn--outline-soft btn--lg" type="button" data-close-form>Вернуться на сайт</button>
+    </div>
+  </dialog>
 
   <script src="../script.js?v=66"></script>
   <script src="catalog.js?v=62"></script>

@@ -924,7 +924,7 @@ for p in _entry['products']:
 _cat_pages = [('', 'Каталог входных дверей', 'Двери для дома и квартиры собственного производства «Стальной линии». Выберите раздел или настройте фильтры — а если сложно определиться, подберём дверь по фото проёма.')]
 _cat_pages += [(k, v[0], v[1]) for k, v in _PARENTS.items()]
 _cat_pages += [(c['slug'], c['name'], c['lead']) for c in _entry['categories']]
-for slug, name, lead in _cat_pages:
+for slug, name, cat_lead in _cat_pages:
     items = [p for p in _entry['products'] if not slug or any(c == slug or c.startswith(slug + '/') for c in p['cats'])]
     if not items:
         continue
@@ -937,10 +937,10 @@ for slug, name, lead in _cat_pages:
     title = '%s в Екатеринбурге — %d %s от %s | Стальная линия' % (name if slug else 'Входные двери', len(items),
             'модель' if len(items) % 10 == 1 and len(items) % 100 != 11 else 'модели' if 2 <= len(items) % 10 <= 4 and not 12 <= len(items) % 100 <= 14 else 'моделей',
             _rub(min(prices)).replace(' ', ' '))
-    desc = lead + ' Цены от %s. Изготовление и установка в Екатеринбурге, гарантия 2 года.' % _rub(min(prices)).replace(' ', ' ')
+    desc = cat_lead + ' Цены от %s. Изготовление и установка в Екатеринбурге, гарантия 2 года.' % _rub(min(prices)).replace(' ', ' ')
     main = catalog_main
     main = main.replace('<h1 class="cat__title js-cat-title">Каталог входных дверей</h1>', '<h1 class="cat__title js-cat-title">%s</h1>' % _e(name))
-    main = re.sub(r'<p class="cat__lead js-cat-lead">.*?</p>', '<p class="cat__lead js-cat-lead">%s</p>' % _e(lead), main, count=1, flags=re.S)
+    main = re.sub(r'<p class="cat__lead js-cat-lead">.*?</p>', '<p class="cat__lead js-cat-lead">%s</p>' % _e(cat_lead), main, count=1, flags=re.S)
     if slug:
         main = main.replace('<span class="js-crumb-cat" hidden>/</span><span class="js-crumb-cat-name"></span>',
                             '<span class="js-crumb-cat">/</span><span class="js-crumb-cat-name">%s</span>' % _e(name))
@@ -1061,7 +1061,7 @@ json.dump(_aurum, open(os.path.join(OUT, 'data', 'aurum.json'), 'w', encoding='u
 
 _icats = [('mezhkom', 'Межкомнатные двери Aurum Doors', _ABOUT_AURUM + ' В каталоге — царговые и каркасно-щитовые коллекции, двери в эмали и скрытые двери под покраску.')]
 _icats += [(c['slug'], c['name'], c['lead']) for c in _aurum['categories']]
-for slug, name, lead in _icats:
+for slug, name, cat_lead in _icats:
     items = [p for p in _aurum['products'] if slug == 'mezhkom' or slug in p['cats']]
     if not items:
         continue
@@ -1073,14 +1073,14 @@ for slug, name, lead in _icats:
     h1 = name if slug == 'mezhkom' else name
     title = ('%s в Екатеринбурге — %d %s от %s | Стальная линия' % ('Межкомнатные двери Aurum' if slug == 'mezhkom' else 'Межкомнатные двери ' + name + ' (Aurum)',
              len(items), _plural(len(items), 'модель', 'модели', 'моделей'), _rub(min(prices)).replace(' ', ' ')))
-    desc = lead + ' Цены от %s, салон в Екатеринбурге — ИЦ ASTROOM.' % _rub(min(prices)).replace(' ', ' ')
+    desc = cat_lead + ' Цены от %s, салон в Екатеринбурге — ИЦ ASTROOM.' % _rub(min(prices)).replace(' ', ' ')
     main = catalog_main
     main = main.replace('<h1 class="cat__title js-cat-title">Каталог входных дверей</h1>', '<h1 class="cat__title js-cat-title">%s</h1>' % _e(h1))
     if slug != 'mezhkom':
         main = main.replace('<p class="cat__kicker js-cat-kicker" hidden></p>', '<p class="cat__kicker js-cat-kicker">Межкомнатные двери Aurum Doors</p>')
         main = main.replace('<span class="js-crumb-cat" hidden>/</span><span class="js-crumb-cat-name"></span>',
                             '<span class="js-crumb-cat">/</span><span class="js-crumb-cat-name">%s</span>' % _e(name))
-    main = re.sub(r'<p class="cat__lead js-cat-lead">.*?</p>', '<p class="cat__lead js-cat-lead">%s</p>' % _e(lead), main, count=1, flags=re.S)
+    main = re.sub(r'<p class="cat__lead js-cat-lead">.*?</p>', '<p class="cat__lead js-cat-lead">%s</p>' % _e(cat_lead), main, count=1, flags=re.S)
     main = main.replace('<a href="../">Главная</a><span>/</span><a href="catalog.html">Каталог</a>', '<a href="/">Главная</a><span>/</span><a href="/catalog/mezhkom">Межкомнатные двери</a>', 1)
     grid_m = re.search(r'<div class="cat-grid js-grid"[^>]*></div>', main)
     if grid_m:
