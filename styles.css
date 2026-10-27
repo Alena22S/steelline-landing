@@ -17,10 +17,8 @@
   --c-cta-bg: #fbfbfb;
   --c-footer-bg: #f1f2f4;
 
-  /* Градиент основной кнопки (radial из макета, пересчитан в % от размеров кнопки) */
-  --grad-primary:
-    radial-gradient(35.56% 91.86% at 50% 118.6%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%),
-    radial-gradient(49.69% 49.69% at 52.16% 1.16%, #4996ea 0%, #347ed2 50%, #1e67b9 100%);
+  /* Основная кнопка — однотонная (раньше был градиент; имя переменной оставлено) */
+  --grad-primary: #1e67b9;
 
   /* Шрифты */
   --f-manrope: "Manrope", system-ui, sans-serif;
@@ -93,7 +91,6 @@ address { font-style: normal; }
 
 .btn--gradient { background: var(--grad-primary); color: #fff; }
 .btn--gradient.btn--lg { gap: 12px; }
-.btn--gradient:hover { filter: brightness(1.08); }
 
 .btn--solid { background: var(--c-blue); color: #fff; }
 .btn--solid:hover { filter: brightness(1.1); }
@@ -2009,3 +2006,6 @@ fieldset.field--partner legend { padding: 0; }
 .coupon-code__label { font-family: var(--f-inter); font-size: 13px; color: var(--c-muted); }
 .coupon-code__value { font-family: var(--f-manrope); font-size: 28px; letter-spacing: 2px; color: var(--c-navy); user-select: all; }
 .coupon-code__until { font-family: var(--f-inter); font-size: 13px; color: var(--c-muted); }
+
+/* Основная кнопка: при наведении — чуть темнее */
+.btn--gradient:hover, .callback__catalog:hover { filter: none; background: #18579e; }
