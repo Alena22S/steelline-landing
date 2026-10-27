@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=90">
+  <link rel="stylesheet" href="../styles.css?v=91">
   <script>
     /* ---------- Яндекс Метрика и пиксель VK Ads: подключаются сразу (уведомление о cookie — информационное).
        Не подключаются, только если посетитель нажал «Отказаться» (в хранилище — 'necessary'). ---------- */
@@ -279,17 +279,12 @@
         </details>
         <p class="form-bonus js-form-bonus"><b>−20%</b><span><strong>Забронируем скидку за&nbsp;вами</strong>Оставьте контакты, чтобы её&nbsp;получить</span></p>
       </div>
-      <div class="field js-bonus-only" hidden>
-        <label class="field__label" for="callback-email">Электронная почта</label>
-        <input class="input ym-disable-keys ym-hide-content" id="callback-email" name="email" type="email" autocomplete="email" maxlength="120" placeholder="name@mail.ru">
-        <p class="field__error"></p>
-      </div>
-      <div class="field js-bonus-hide">
+      <div class="field">
         <label class="field__label" for="callback-name">Имя</label>
         <input class="input ym-disable-keys ym-hide-content" id="callback-name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="Как к вам обращаться">
         <p class="field__error"></p>
       </div>
-      <div class="field js-bonus-hide">
+      <div class="field">
         <label class="field__label" for="callback-phone">Телефон</label>
         <input class="input ym-disable-keys ym-hide-content" id="callback-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+7 (___) ___-__-__">
         <p class="field__error"></p>
@@ -311,6 +306,7 @@
       <span class="lead__done-icon" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 32 32" fill="none"><path d="M8 16.5l5.5 5.5L24 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <h2 class="lead__title">Заявка принята</h2>
       <p class="lead__lead callback__done-lead">Перезвоним в&nbsp;течение часа в&nbsp;рабочее время. Если звонок нужен срочно — <a href="tel:+79222077552">+7&nbsp;(922)&nbsp;207-75-52</a>.</p>
+      <div class="coupon-code js-bonus-only" hidden><span class="coupon-code__label">Ваш купон</span><b class="coupon-code__value js-coupon"></b><span class="coupon-code__until js-coupon-until"></span></div>
       <p class="form-bonus-done js-form-bonus">Скидка 20% забронирована за&nbsp;вами</p>
       <div class="callback__done-actions">
         <a class="btn btn--gradient btn--lg callback__catalog js-bonus-only" href="/catalog/" hidden>Перейти в каталог</a>
@@ -366,7 +362,7 @@
 
   Межкомнатные двери Aurum, которые есть на складе в Екатеринбурге: забрать можно без ожидания производства.
 
-  <script src="../script.js?v=65"></script>
+  <script src="../script.js?v=66"></script>
   <script src="stores.js?v=13"></script>
 </body>
 </html>

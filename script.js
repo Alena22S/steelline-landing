@@ -743,7 +743,6 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
     try { sessionStorage.setItem('lead-track', JSON.stringify(leadTrack)); } catch (e) {}
   })();
 
-  var emailHint = form.querySelector('[data-hint-partner]');
   var commentField = document.getElementById('lead-comment');
   if (commentField) commentField.dataset.phPhoto = commentField.placeholder;
 
@@ -760,7 +759,6 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
     submitText.textContent = submitLabel();
     title.textContent = title.dataset['title' + mode];
     lead.textContent = lead.dataset['lead' + mode];
-    if (emailHint) emailHint.textContent = partner ? emailHint.dataset.hintPartner : emailHint.dataset.hintPhoto;
     if (commentField) commentField.placeholder = partner ? 'Над каким проектом работаете, сроки, какие двери нужны' : commentField.dataset.phPhoto;
     form.elements.source.value = source || '';
     openedAt = Date.now();
@@ -936,14 +934,10 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
   function validate() {
     var ok = true;
     var name = form.elements.name;
-    var email = form.elements.email;
     var consent = form.elements.consent;
 
     if (name.value.trim().length < 2) { setError(name, 'Укажите имя'); ok = false; } else setError(name, '');
     if (phoneDigits(phone.value).length !== 11) { setError(phone, 'Укажите телефон полностью'); ok = false; } else setError(phone, '');
-    // у партнёра почта необязательна, но если указана — проверяем
-    var emailOptional = isContact() || (isPartner() && !email.value.trim());
-    if (!emailOptional && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())) { setError(email, 'Проверьте адрес почты'); ok = false; } else setError(email, '');
     if (!consent.checked) { setError(consent, 'Нужно ваше согласие, чтобы отправить заявку'); ok = false; } else setError(consent, '');
 
     if (!ok) {
@@ -1175,8 +1169,8 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
   // режим «скидка 20%» — по закреплённой карточке «Вам доступна скидка 20%»
   var BONUS = {
     title: 'Получите скидку 20% на&nbsp;входную дверь',
-    lead: 'Оставьте электронную почту — мы&nbsp;отправим вам персональный купон на&nbsp;скидку 20%. Купон действует 7&nbsp;дней с&nbsp;момента получения.',
-    done: 'А&nbsp;пока посмотрите входные двери, на&nbsp;которые действует скидка. Купон пришёл на&nbsp;почту — если не&nbsp;видите письмо, проверьте папку «Спам».',
+    lead: 'Оставьте имя и&nbsp;телефон — сразу покажем ваш персональный купон на&nbsp;скидку 20%. Купон действует 7&nbsp;дней с&nbsp;момента получения.',
+    done: 'Назовите код менеджеру при оформлении заказа — мы&nbsp;также закрепили купон за&nbsp;вашим номером. А&nbsp;пока посмотрите входные двери, на&nbsp;которые действует скидка.',
     submit: 'Получить купон'
   };
   var iconEl = dialog.querySelector('.callback__icon');
@@ -1191,10 +1185,9 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
     var t = sale ? SALE : bonus ? BONUS : base;
     titleEl.innerHTML = t.title; leadEl.innerHTML = t.lead; doneLead.innerHTML = t.done;
     dialog.querySelectorAll('.js-form-bonus').forEach(function (el) { el.hidden = sale || bonus || !!window.siteIsInterior; });
-    // режим купона: только почта (+ условия акции), после отправки — ссылка в каталог
+    // режим купона: имя и телефон (+ условия акции), после отправки — код купона на экране и ссылка в каталог
     dialog.querySelectorAll('.js-bonus-only').forEach(function (el) { el.hidden = !bonus; });
-    dialog.querySelectorAll('.js-bonus-hide').forEach(function (el) { el.hidden = bonus; });
-    if (doneTitle) doneTitle.innerHTML = bonus ? 'Ваш купон отправлен!' : baseDoneTitle;
+    if (doneTitle) doneTitle.innerHTML = bonus ? 'Ваш купон готов!' : baseDoneTitle;
     if (iconEl) iconEl.innerHTML = bonus ? COUPON_ICON : baseIcon;
     submitText.textContent = label = t.submit;
     form.elements.source.value = sale ? 'sale' : bonus ? 'bonus' : 'callback';
@@ -1255,19 +1248,13 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
     e.preventDefault();
     status.textContent = '';
     var ok = true;
-    var isBonus = form.elements.source.value === 'bonus';
-    if (isBonus) {
-      var em = form.elements.email;
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em.value.trim())) { setError(em, 'Проверьте адрес почты'); ok = false; } else setError(em, '');
-    } else {
-      if (form.elements.name.value.trim().length < 2) { setError(form.elements.name, 'Укажите имя'); ok = false; } else setError(form.elements.name, '');
-      if (digits(phone.value).length !== 11) { setError(phone, 'Укажите телефон полностью'); ok = false; } else setError(phone, '');
-    }
+    if (form.elements.name.value.trim().length < 2) { setError(form.elements.name, 'Укажите имя'); ok = false; } else setError(form.elements.name, '');
+    if (digits(phone.value).length !== 11) { setError(phone, 'Укажите телефон полностью'); ok = false; } else setError(phone, '');
     if (!form.elements.consent.checked) { setError(form.elements.consent, 'Нужно ваше согласие'); ok = false; } else setError(form.elements.consent, '');
     if (!ok) { var first = form.querySelector('[aria-invalid="true"]'); if (first) first.focus(); return; }
 
     var data = new FormData(form);
-    if (form.elements.source.value !== 'bonus') data.set('phone', format(digits(phone.value)));
+    data.set('phone', format(digits(phone.value)));
     data.set('ts', String(openedAt));
     data.set('page', location.href.slice(0, 300));
     if (!window.siteIsInterior && form.elements.source.value !== 'sale') data.set('bonus', '20');
@@ -1281,9 +1268,16 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
       .then(function (res) {
         return res.json().catch(function () { return {}; }).then(function (json) {
           if (!res.ok || !json.ok) throw new Error(json.error || 'send_failed');
+          return json;
         });
       })
-      .then(function () {
+      .then(function (json) {
+        // купон 20%: код и срок присылает сервер — показываем на экране «спасибо»
+        var code = dialog.querySelector('.js-coupon'), until = dialog.querySelector('.js-coupon-until');
+        if (code) code.textContent = json.coupon || '';
+        if (until) until.textContent = json.until ? 'действует до ' + json.until + ' включительно' : '';
+        var box = dialog.querySelector('.coupon-code');
+        if (box && !json.coupon) box.hidden = true;
         form.hidden = true; done.hidden = false;
         var src = form.elements.source.value;
         window.siteGoal && window.siteGoal(src === 'sale' ? 'sale_success' : src === 'bonus' ? 'bonus_success' : 'callback_success');

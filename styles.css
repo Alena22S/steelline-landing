@@ -1978,7 +1978,7 @@ fieldset.field--partner legend { padding: 0; }
 .callback__done-actions { display: flex; justify-content: center; gap: 12px; width: 100%; }
 .callback__done-actions .btn { flex: 1 1 0; max-width: 240px; margin: 0; }
 .callback .lead__done .callback__catalog { border: 0; background: var(--grad-primary); color: #fff; }
-@media (max-width: 479px) { .callback__done-actions { flex-direction: column; align-items: stretch; } .callback__done-actions .btn { max-width: none; } }
+@media (max-width: 479px) { .callback__done-actions { flex-direction: column; align-items: stretch; } .callback__done-actions .btn { flex: none; max-width: none; } }
 .callback__catalog[hidden] { display: none; }
 .field[hidden] { display: none; }
 
@@ -2002,3 +2002,10 @@ fieldset.field--partner legend { padding: 0; }
   .eng-card__media .eng-card__go img { position: static; inset: auto; left: auto !important; top: auto !important; width: 11px !important; height: 11px !important; object-fit: contain; transform: rotate(90deg); }
   .eng-card__desc--cta .eng-card__btn--husky { display: none; }
 }
+
+/* Купон 20%: код на экране «спасибо» (почту больше не спрашиваем) */
+.coupon-code { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 100%; margin: 4px 0 8px; padding: 16px; border: 1px dashed var(--c-blue); border-radius: 12px; background: #eef4fc; }
+.coupon-code[hidden] { display: none; }
+.coupon-code__label { font-family: var(--f-inter); font-size: 13px; color: var(--c-muted); }
+.coupon-code__value { font-family: var(--f-manrope); font-size: 28px; letter-spacing: 2px; color: var(--c-navy); user-select: all; }
+.coupon-code__until { font-family: var(--f-inter); font-size: 13px; color: var(--c-muted); }

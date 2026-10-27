@@ -21,7 +21,7 @@ header('Content-Type: application/json; charset=utf-8');
 
 function reply($ok, $error = '', $code = 200) {
     http_response_code($code);
-    echo json_encode($ok ? ['ok' => true] : ['ok' => false, 'error' => $error], JSON_UNESCAPED_UNICODE);
+    echo json_encode($ok ? ['ok' => true] + ($GLOBALS['extra'] ?? []) : ['ok' => false, 'error' => $error], JSON_UNESCAPED_UNICODE);
     exit;
 }
 
@@ -32,7 +32,7 @@ function reply_early() {
     global $answered;
     if ($answered || !function_exists('fastcgi_finish_request')) return false;
     http_response_code(200);
-    echo json_encode(['ok' => true]);
+    echo json_encode(['ok' => true] + ($GLOBALS['extra'] ?? []), JSON_UNESCAPED_UNICODE);
     $answered = true;
     ignore_user_abort(true);
     @set_time_limit(180);
@@ -97,18 +97,10 @@ $isPartner  = in_array($source, ['designers', 'designers-cta'], true); // «Ст
 $role    = line('role', 40);
 $company = line('company', 120);
 
-if ($isBonus) {
-    // купон 20%: нужна только почта — на неё уходит купон
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) reply(false, 'Проверьте адрес почты.', 422);
-} else {
-    if (mb_strlen($name) < 2) reply(false, 'Укажите имя.', 422);
-    if (strlen(preg_replace('/\D/', '', $phone)) !== 11) reply(false, 'Укажите телефон полностью.', 422);
-}
-if ($isCallback || $isContact || $isPartner) {
-    if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) $email = '';
-} elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    reply(false, 'Проверьте адрес почты.', 422);
-}
+// во всех формах: имя и телефон; поля почты в формах нет — если пришла, принимаем только корректную
+if (mb_strlen($name) < 2) reply(false, 'Укажите имя.', 422);
+if (strlen(preg_replace('/\D/', '', $phone)) !== 11) reply(false, 'Укажите телефон полностью.', 422);
+if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) $email = '';
 if (!$consent) reply(false, 'Нужно согласие на обработку данных.', 422);
 
 // Купон 20%: код SL2026-ДДММ — день и месяц получения (по Екатеринбургу), срок — 7 дней с этой даты.
@@ -119,6 +111,7 @@ if ($isBonus) {
     $issued = new DateTime('now', $tz);
     $coupon = 'SL2026-' . $issued->format('dm');
     $couponUntil = (clone $issued)->modify('+7 days')->format('d.m.Y');
+    $extra = ['coupon' => $coupon, 'until' => $couponUntil]; // код показываем клиенту на сайте сразу после отправки
 }
 
 // Метки рекламы и откуда пришёл посетитель (собирает script.js)
@@ -206,7 +199,7 @@ if ($name !== '') $html .= '<tr><td><b>Имя</b></td><td>' . $h($name) . '</td>
 if ($isPartner && $role !== '') $html .= '<tr><td><b>Кто</b></td><td>' . $h($role) . '</td></tr>';
 if ($isPartner && $company !== '') $html .= '<tr><td><b>Студия / компания</b></td><td>' . $h($company) . '</td></tr>';
 if ($phone !== '') $html .= '<tr><td><b>Телефон</b></td><td><a href="tel:+' . preg_replace('/\D/', '', $phone) . '">' . $h($phone) . '</a></td></tr>';
-if ($coupon !== '') $html .= '<tr><td><b>Купон</b></td><td><b>' . $coupon . '</b> — скидка 20% на входную дверь, действует до ' . $couponUntil . ' включительно. Отправлен клиенту на почту.</td></tr>';
+if ($coupon !== '') $html .= '<tr><td><b>Купон</b></td><td><b>' . $coupon . '</b> — скидка 20% на входную дверь, действует до ' . $couponUntil . ' включительно. Показан клиенту на сайте после отправки.</td></tr>';
 if ($email !== '') $html .= '<tr><td><b>Почта</b></td><td><a href="mailto:' . $h($email) . '">' . $h($email) . '</a></td></tr>';
 if ($comment !== '') $html .= '<tr><td valign="top"><b>Комментарий</b></td><td>' . nl2br($h($comment)) . '</td></tr>';
 if (!$isCallback && !$isContact && !$isPartner) $html .= '<tr><td><b>Фото проёма</b></td><td>' . (count($attachments) ? count($attachments) . ' во вложении' : 'не приложены') . '</td></tr>';
@@ -223,7 +216,7 @@ $toList   = ($isCallback && !empty($cfg['to_callback'])) ? $cfg['to_callback'] :
 $to       = array_values(array_filter((array) $toList, function ($a) { return filter_var($a, FILTER_VALIDATE_EMAIL); }));
 $from     = $cfg['from_email'];
 $fromName = $cfg['from_name'] ?? 'Сайт «Стальная линия»';
-$subject  = ($isSale ? 'Заявка на скидку −40% (межкомнатные Aurum) — ' : ($isBonus ? 'Купон 20% ' . $coupon . ' — ' . $email . ' ' : ($isCallback ? 'Заказ обратного звонка — ' : ($isContact ? 'Запись на подбор с сайта — ' : ($isPartner ? 'Заявка на партнёрство (дизайнеры) — ' : 'Заявка на подбор двери с сайта — '))))) . $name;
+$subject  = ($isSale ? 'Заявка на скидку −40% (межкомнатные Aurum) — ' : ($isBonus ? 'Купон 20% ' . $coupon . ' — ' : ($isCallback ? 'Заказ обратного звонка — ' : ($isContact ? 'Запись на подбор с сайта — ' : ($isPartner ? 'Заявка на партнёрство (дизайнеры) — ' : 'Заявка на подбор двери с сайта — '))))) . $name;
 $enc      = function ($s) { return '=?UTF-8?B?' . base64_encode($s) . '?='; };
 
 $boundary = '=_' . bin2hex(random_bytes(12));
@@ -310,7 +303,7 @@ if ($error !== '') {
 }
 
 // ---- Купон 20%: письмо клиенту ----
-if ($isBonus && $coupon !== '') {
+if ($isBonus && $coupon !== '' && $email !== '') {
     $catalog = 'https://steelline.store/catalog/';
     $ch  = '<div style="font-family:Arial,sans-serif;color:#061f3b;max-width:560px;margin:0 auto;padding:8px">';
     $ch .= '<h2 style="margin:0 0 12px;font-size:22px">Ваш купон на скидку 20%</h2>';
