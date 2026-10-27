@@ -25,6 +25,21 @@ function reply($ok, $error = '', $code = 200) {
     exit;
 }
 
+/** Заявка сохранена в журнал — сразу отвечаем сайту «ок» и закрываем соединение; письма отправляются уже после,
+ *  клиент их не ждёт. Без PHP-FPM (fastcgi_finish_request) или без сохранённой копии — отвечаем после писем, как раньше. */
+$answered = false;
+function reply_early() {
+    global $answered;
+    if ($answered || !function_exists('fastcgi_finish_request')) return false;
+    http_response_code(200);
+    echo json_encode(['ok' => true]);
+    $answered = true;
+    ignore_user_abort(true);
+    @set_time_limit(180);
+    fastcgi_finish_request();
+    return true;
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     reply(false, 'Неверный запрос.', 405);
 }
@@ -36,7 +51,8 @@ $LEADS    = (is_array($cfg) && !empty($cfg['leads_dir'])) ? rtrim($cfg['leads_di
 
 // Ловушки для ботов: скрытое поле и слишком быстрая отправка. Боту отвечаем «успешно», ничего не делая
 if (!empty($_POST['website'])) {
-    reply(true);
+    if ($answered) exit;
+reply(true);
 }
 $started = isset($_POST['ts']) ? (int) $_POST['ts'] : 0;
 if ($started > 0 && (time() - (int) floor($started / 1000)) < $MIN_FILL) {
@@ -238,9 +254,9 @@ function smtp_send(array $cfg, $from, array $to, $msg) {
     $host = $cfg['smtp_host'];
     $port = (int) ($cfg['smtp_port'] ?? 465);
     $ctx  = stream_context_create(['ssl' => ['verify_peer' => true, 'verify_peer_name' => true]]);
-    $fp   = @stream_socket_client("ssl://$host:$port", $errno, $errstr, 20, STREAM_CLIENT_CONNECT, $ctx);
+    $fp   = @stream_socket_client("ssl://$host:$port", $errno, $errstr, 10, STREAM_CLIENT_CONNECT, $ctx);
     if (!$fp) return "connect: $errstr ($errno)";
-    stream_set_timeout($fp, 20);
+    stream_set_timeout($fp, 10);
 
     $read = function () use ($fp) {
         $data = '';
@@ -278,6 +294,9 @@ function smtp_send(array $cfg, $from, array $to, $msg) {
     return $err === '' ? '' : "data: $err";
 }
 
+// заявка уже в журнале — клиент сразу видит «Спасибо», письма уходят после ответа
+if ($logged && $to) reply_early();
+
 $error = $to ? smtp_send($cfg, $from, $to, $msg) : 'no recipients';
 // почтовый сервер может отказать из-за адреса клиента в Reply-To (опечатка, несуществующий домен) —
 // тогда отправляем ещё раз без Reply-To: почта клиента всё равно есть в тексте письма, заявка не теряется
@@ -287,6 +306,7 @@ if ($error !== '' && $email !== '' && $to) {
 }
 if ($error !== '') {
     error_log('steelline send.php: ' . $error);
+    if ($answered) exit; // клиент уже получил «Спасибо»; заявка — в журнале сервера, ошибка — в логе
     reply(false, $logged ? 'Заявка сохранена, но письмо не отправилось. Мы свяжемся с вами.' : 'Не получилось отправить заявку.', 500);
 }
 
@@ -319,6 +339,7 @@ if ($isBonus && $coupon !== '') {
     $cerr = smtp_send($cfg, $from, [$email], $cmsg);
     if ($cerr !== '') {
         error_log('steelline send.php coupon: ' . $cerr);
+        if ($answered) exit;
         reply(false, 'Заявка принята, но купон не отправился на почту — менеджер пришлёт его сам.', 500);
     }
 }
