@@ -721,7 +721,8 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
   var doneLead = dialog.querySelector('.lead__done-lead') || document.createElement('p');
   function isContact() { return form.classList.contains('is-contact'); }
   function isPartner() { return form.classList.contains('is-partner'); }
-  function submitLabel() { return isPartner() ? 'Отправить заявку' : isContact() ? 'Записаться на подбор' : 'Получить подбор двери'; }
+  function isZamer() { return form.classList.contains('is-zamer'); }
+  function submitLabel() { return isPartner() ? 'Отправить заявку' : isZamer() ? 'Заказать замер' : isContact() ? 'Записаться на подбор' : 'Получить подбор двери'; }
   var status = form.querySelector('.lead__status');
   var files = [];
   var lastTrigger = null;
@@ -750,16 +751,19 @@ if (window.siteIsInterior) document.querySelectorAll('.js-form-bonus').forEach(f
     var contact = source === 'contact';
     // «Стать партнёром» (страница «Дизайнерам и архитекторам»): кто вы, студия, контакты, о проекте — без фото проёма
     var partner = /^designers/.test(source || '');
+    // «Заказать бесплатный замер» (главная): как «Записаться на подбор» — короткая форма без фото и почты, но со своими текстами
+    var zamer = /^zamer/.test(source || '');
     // «Записаться на подбор» — короткая форма: имя, телефон, комментарий (без фото и почты)
-    form.classList.toggle('is-contact', contact);
+    form.classList.toggle('is-contact', contact || zamer);
     form.classList.toggle('is-partner', partner);
-    var mode = partner ? 'Partner' : contact ? 'Contact' : source === 'sale20' && title.dataset.titleSale20 ? 'Sale20' : 'Photo';
+    form.classList.toggle('is-zamer', zamer);
+    var mode = partner ? 'Partner' : zamer ? 'Zamer' : contact ? 'Contact' : source === 'sale20' && title.dataset.titleSale20 ? 'Sale20' : 'Photo';
     if (!doneLead.dataset.donePhoto) doneLead.dataset.donePhoto = doneLead.innerHTML;
     doneLead.innerHTML = doneLead.dataset['done' + mode] || doneLead.dataset.donePhoto;
     submitText.textContent = submitLabel();
     title.textContent = title.dataset['title' + mode];
     lead.textContent = lead.dataset['lead' + mode];
-    if (commentField) commentField.placeholder = partner ? 'Над каким проектом работаете, сроки, какие двери нужны' : commentField.dataset.phPhoto;
+    if (commentField) commentField.placeholder = partner ? 'Над каким проектом работаете, сроки, какие двери нужны' : zamer ? 'Адрес и удобное время замера' : commentField.dataset.phPhoto;
     form.elements.source.value = source || '';
     openedAt = Date.now();
     window.siteGoal('form_open', { source: source || '' });

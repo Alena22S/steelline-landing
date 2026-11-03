@@ -1,3 +1,8 @@
+# Служебные файлы локального предпросмотра — не коммитим и не публикуем
+package.json
+dev-server.mjs
+node_modules/
+
 # Системные файлы
 .DS_Store
 Thumbs.db
