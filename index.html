@@ -1,67 +1,1182 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>404 — страница не найдена</title>
-  <meta name="robots" content="noindex, nofollow">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      min-height: 100vh; display: flex; align-items: center; justify-content: center;
-      background: #F2F8FF; color: #061F3B; padding: 24px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-    }
-    .card {
-      max-width: 560px; width: 100%; text-align: center;
-      background: #fff; border-radius: 20px; padding: 56px 40px;
-      box-shadow: 0 12px 48px rgba(6, 31, 59, .08);
-    }
-    .logo { width: 220px; max-width: 70%; height: auto; margin-bottom: 36px; }
-    h1 { font-size: 56px; line-height: 1.1; margin-bottom: 16px; font-weight: 800; color: #1E67B9; }
-    p { font-size: 17px; line-height: 1.55; color: rgba(6, 31, 59, .65); }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://steelline.store/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Стальная линия">
+  <meta property="og:title" content="Стальная линия — входные двери в Екатеринбурге">
+  <meta property="og:description" content="Входные двери «Стальная линия» — эксклюзивно на Урале: индивидуальный дизайн, двери с терморазрывом, нестандартные входные группы. Салон в ИЦ ASTROOM.">
+  <meta property="og:url" content="https://steelline.store/">
+  <meta property="og:image" content="https://steelline.store/assets/img/slide-1.jpg">
+  <meta name="yandex-verification" content="440a23a6b5409aa9">
+  <meta name="yandex-verification" content="7745c00ef082f981">
+  <title>Стальная линия — входные двери в Екатеринбурге</title>
+  <meta name="description" content="Входные двери «Стальная линия» — эксклюзивно на Урале. Индивидуальный дизайн, двери с терморазрывом, нестандартные входные группы. Екатеринбург, ИЦ Аструм.">
+  <link rel="icon" href="favicon.ico" sizes="16x16">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="assets/icons/favicon-96.png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=93">
+  <script>
+    /* ---------- Яндекс Метрика и пиксель VK Ads: подключаются сразу (уведомление о cookie — информационное).
+       Не подключаются, только если посетитель нажал «Отказаться» (в хранилище — 'necessary'). ---------- */
+    (function () {
+      var ID = 113661573;      // Яндекс Метрика
+      // страницы межкомнатных дверей (/catalog/mezhkom/…, прототипы catalog.html?cat=mezhkom… и model.html?id=au-…): свой пиксель VK, без 20%
+      var isInteriorPage = /^\/catalog\/mezhkom(\/|$)/.test(location.pathname) || /\/prototype-catalog\/catalog\.html$/.test(location.pathname) && /[?&]cat=mezhkom(%2F|\/|&|$)/.test(location.search) ||
+        /\/prototype-catalog\/model\.html$/.test(location.pathname) && /[?&]id=au-/.test(location.search);
+      window.siteIsInterior = isInteriorPage; // формам: на межкомнатных скидку 20% не обещаем
+      var VK_ID = '3805477';   // пиксель VK Ads (Top.Mail.Ru)
+      var VK_ID_INTERIOR = '3807732'; // отдельный пиксель VK — только на страницах межкомнатных дверей
+      var loaded = false;
+      var vkLoaded = false;
+
+      // Цели: window.siteGoal('lead_success') — безопасно вызывать всегда; после отказа ничего не отправляется
+      window.siteGoal = function (name, params) {
+        if (loaded && typeof window.ym === 'function') {
+          window.ym(ID, 'reachGoal', name, params || {});
+        }
+        if (vkLoaded) {
+          window._tmr.push({ type: 'reachGoal', id: VK_ID, goal: name });
+          if (isInteriorPage) window._tmr.push({ type: 'reachGoal', id: VK_ID_INTERIOR, goal: name });
+        }
+      };
+
+      function loadVk() {
+        if (vkLoaded) return;
+        vkLoaded = true;
+        var _tmr = window._tmr || (window._tmr = []);
+        _tmr.push({ id: VK_ID, type: 'pageView', start: Date.now() });
+        if (isInteriorPage) _tmr.push({ id: VK_ID_INTERIOR, type: 'pageView', start: Date.now() });
+        if (document.getElementById('tmr-code')) return;
+        var ts = document.createElement('script');
+        ts.async = true; ts.id = 'tmr-code'; ts.src = 'https://top-fwz1.mail.ru/js/code.js';
+        var first = document.getElementsByTagName('script')[0];
+        first.parentNode.insertBefore(ts, first);
+      }
+
+      function load() {
+        if (loaded) return;
+        loaded = true;
+        (function (m, e, t, r, i, k, a) {
+          m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
+          m[i].l = 1 * new Date();
+          k = e.createElement(t); a = e.getElementsByTagName(t)[0];
+          k.async = 1; k.src = r; a.parentNode.insertBefore(k, a);
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id=' + ID, 'ym');
+        // Вебвизор (запись действий на странице) — только после «Хорошо»; до этого Метрика считает визиты, источники и цели без записи
+        var opts = { webvisor: saved === 'all' || inMetrika, clickmap: true, accurateTrackBounce: true, trackLinks: true };
+        window.ym(ID, 'init', opts);
+      }
+
+      var saved = null;
+      try { saved = localStorage.getItem('cookie-consent'); } catch (e) {}
+
+      // Сайт открыт внутри инструментов самой Метрики (карта кликов, аналитика форм, Вебвизор) —
+      // это смотрит владелец сайта, а не посетитель: подключаем счётчик и не показываем уведомление о cookie
+      var inMetrika = false;
+      try {
+        var anc = location.ancestorOrigins;
+        inMetrika = window.self !== window.top && (
+          /metrika\.yandex|webvisor\.com|metrica\.yandex/.test(document.referrer) ||
+          (anc && anc.length && /metrika\.yandex|webvisor\.com|metrica\.yandex/.test(anc[anc.length - 1]))
+        );
+      } catch (e) {}
+      if (inMetrika) {
+        document.documentElement.classList.add('in-metrika');
+        load();
+      } else if (saved !== 'necessary') {
+        load();
+        loadVk();
+      }
+      // «Отказаться»: дальше не считаем, удаляем cookie Метрики; со следующей страницы счётчики не подключаются
+      document.addEventListener('cookie-consent', function (e) {
+        if (e.detail !== 'necessary') return;
+        loaded = false; vkLoaded = false;
+        document.cookie.split(';').forEach(function (c) {
+          var name = c.split('=')[0].trim();
+          if (/^_ym|^yandexuid|^tmr_/.test(name)) {
+            document.cookie = name + '=; Max-Age=0; path=/';
+            document.cookie = name + '=; Max-Age=0; path=/; domain=.' + location.hostname.replace(/^www\./, '');
+          }
+        });
+      });
+
+      // Клики-цели по всему сайту
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest('a[href]');
+        if (!a) return;
+        var href = a.getAttribute('href');
+        if (href.indexOf('tel:') === 0) window.siteGoal('phone_click');
+        else if (href.indexOf('mailto:') === 0) window.siteGoal('email_click');
+        else if (href.indexOf('yandex.ru/maps') !== -1) window.siteGoal('route_click');
+        else if (href.indexOf('steelline.store/catalog') !== -1) window.siteGoal('catalog_click');
+      });
+
+      // Вовлечённость: 30 и 60 секунд на странице (только пока вкладка открыта перед глазами) и прокрутка до середины.
+      // Без Вебвизора Метрика видит лишь первые 15 секунд — каждая цель добавляет сигнал, и время визита ближе к реальному;
+      // для рекламы VK это частое «качественное» событие, на которое можно оптимизировать кампанию, пока заявок мало.
+      var active = 0, last = Date.now(), sent = {};
+      function once(name) { if (!sent[name]) { sent[name] = 1; window.siteGoal(name); } }
+      setInterval(function () {
+        var now = Date.now();
+        if (document.visibilityState === 'visible') active += now - last;
+        last = now;
+        if (active >= 30000) once('engaged_30s');
+        if (active >= 60000) once('engaged_60s');
+      }, 1000);
+      // вернулся на вкладку — время, пока она была скрыта, не считаем
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') last = Date.now();
+      });
+      window.addEventListener('scroll', function () {
+        var d = document.documentElement;
+        if (d.scrollHeight > window.innerHeight * 1.5 && window.scrollY + window.innerHeight >= d.scrollHeight / 2) once('scroll_50');
+      }, { passive: true });
+    })();
+  </script>
 </head>
 <body>
-  <main class="card">
-    <svg class="logo" role="img" aria-label="Стальная линия — двери в квартиру и дом" viewBox="0 0 246.5 43.2242" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="_2045582526896">
-<path id="Vector" fill-rule="evenodd" clip-rule="evenodd" d="M60.4984 39.2846V3.93835C60.4984 1.77207 58.7506 0 56.6138 0H3.8846C1.74775 0 0 1.77207 0 3.93835V39.2846C0 41.4522 1.74775 43.2242 3.8846 43.2242H56.6138C58.7506 43.2242 60.4984 41.4522 60.4984 39.2846ZM49.3769 11.0773V9.06822H50.2311C50.4466 9.06822 50.6025 9.08723 50.7001 9.12272C50.7977 9.15822 50.875 9.22286 50.9333 9.3154C50.9916 9.40793 51.022 9.51314 51.022 9.63229C51.022 9.78313 50.9776 9.90735 50.8889 10.005C50.8015 10.1038 50.6684 10.1647 50.4935 10.1913C50.5809 10.242 50.6519 10.2978 50.7089 10.3599C50.766 10.4207 50.8433 10.5297 50.9396 10.6856L51.1842 11.0773H50.6988L50.4086 10.6387C50.3046 10.4828 50.2324 10.3852 50.1931 10.3447C50.1551 10.3041 50.1145 10.2762 50.0714 10.261C50.0283 10.2458 49.9599 10.2382 49.8661 10.2382H49.7837V11.0773H49.3769ZM49.7837 9.91876H50.0841C50.2793 9.91876 50.3997 9.90989 50.4491 9.89341C50.4973 9.8782 50.5353 9.84904 50.5619 9.80848C50.5898 9.76919 50.6037 9.71848 50.6037 9.65764C50.6037 9.59046 50.5847 9.53595 50.5492 9.49412C50.5138 9.45229 50.4618 9.42567 50.3971 9.41553C50.3629 9.41046 50.2653 9.40793 50.1006 9.40793H49.7837V9.91876ZM50.1209 7.74234C48.8281 7.74234 47.78 8.79062 47.78 10.0835C47.78 11.3765 48.8281 12.4248 50.1209 12.4248C51.4136 12.4248 52.4618 11.3765 52.4618 10.0835C52.4618 8.79062 51.4136 7.74234 50.1209 7.74234ZM50.1209 12.17C48.9688 12.17 48.036 11.2358 48.036 10.0835C48.036 8.93132 48.9688 7.99712 50.1209 7.99712C51.2729 7.99712 52.2057 8.93132 52.2057 10.0835C52.2057 11.2358 51.2729 12.17 50.1209 12.17ZM36.4493 7.72332L26.7005 24.6099C25.0173 27.301 21.4394 28.0882 18.7766 26.3199C16.3191 24.6873 15.5359 21.299 17.0301 18.7537C18.6474 15.9968 22.2088 15.1348 24.902 16.8169H24.9033L25.7968 15.3871C22.2759 13.1878 17.6131 14.3375 15.5321 17.9755C13.6626 21.2445 14.6449 25.534 17.7526 27.6623C21.1809 30.0123 25.8209 29.0464 28.054 25.6113L36.4493 11.0963L50.5011 35.4388H52.4478L36.4493 7.72332ZM29.4913 26.4657L29.4279 26.5658C27.7638 29.1276 24.9552 30.617 21.8957 30.617C20.0783 30.617 18.3191 30.0656 16.8121 29.0338C12.9795 26.4074 11.7831 21.1837 14.0936 17.1503C15.693 14.3477 18.6879 12.6124 21.9122 12.6124C23.5953 12.6124 25.2417 13.0814 26.6789 13.9788L27.5572 12.5655C25.8576 11.5108 23.9058 10.9468 21.9122 10.9468C18.0973 10.9468 14.5448 13.0053 12.6513 16.3238C9.91365 21.1076 11.3319 27.2921 15.8755 30.4053C17.6626 31.631 19.7437 32.275 21.8957 32.275C25.1314 32.275 28.1377 30.8325 30.1541 28.3645L31.0274 27.14L31.6902 25.9903L36.4506 17.7422L46.6672 35.4413H48.5835L36.4506 14.4186L29.4913 26.4657ZM32.2517 28.078C28.5673 33.9748 20.6676 35.6366 14.8971 31.5968C9.84648 28.0603 8.24068 21.1089 11.228 15.7154C14.6423 9.55243 22.4711 7.58009 28.3696 11.2649C28.3709 11.2649 28.3709 11.2649 28.3709 11.2649L29.2644 9.8351C22.5117 5.61535 13.5359 7.91092 9.68552 15.022C6.38773 21.114 8.17857 28.8664 13.8122 32.8948C20.3875 37.595 29.4533 35.724 33.675 28.9805L36.4493 24.1954L42.9397 35.4388H44.8865L36.4493 20.8237L32.2517 28.078Z" fill="#1E67B9"/>
-<path id="Vector_2" d="M77.3626 9.83626C78.6858 9.83626 80.009 10.1151 81.1458 10.6564V13.9191C80.3448 13.2473 79.1509 12.8569 77.9583 12.8569C75.8886 12.8569 73.838 13.9939 73.838 16.8282C73.838 19.3633 75.8886 20.4078 77.9216 20.4078C79.2625 20.4078 80.4944 19.9971 81.2396 19.2695V22.6261C80.1028 23.1661 78.8164 23.4462 77.4361 23.4462C73.857 23.4462 70.2968 21.4891 70.2968 16.8282C70.2968 11.9049 73.838 9.83626 77.3626 9.83626Z" fill="#1E67B9"/>
-<path id="Vector_3" d="M92.9667 10.1156V13.192H89.2937V23.1665H85.8451V13.192H82.1544V10.1156H92.9667Z" fill="#1E67B9"/>
-<path id="Vector_4" d="M91.7186 23.1665L96.8452 10.1156H100.574L105.699 23.1665H102.158L101.413 21.1156H96.0062L95.261 23.1665H91.7186ZM97.0315 18.3193H100.386L99.0454 14.5533C98.9326 14.2364 98.8211 13.9195 98.7096 13.23C98.5968 13.9195 98.4852 14.2364 98.3737 14.5533L97.0315 18.3193Z" fill="#1E67B9"/>
-<path id="Vector_5" d="M118.825 10.1156V23.1665H115.376V13.192H112.562C112.151 18.5437 111.499 23.3161 107.751 23.3351C107.267 23.3351 106.727 23.2603 106.149 23.074V20.0723C106.391 20.1471 106.689 20.1839 107.044 20.1471C109.15 19.9228 109.112 14.0679 109.411 10.1156H118.825Z" fill="#1E67B9"/>
-<path id="Vector_6" d="M121.569 23.1665V10.1156H125.018V14.2174H126.733C129.957 14.2364 132.418 15.2619 132.418 18.692C132.418 22.1233 129.957 23.1665 126.733 23.1665H121.569ZM125.018 20.1839H126.9C127.944 20.1839 128.877 19.867 128.877 18.692C128.877 17.5182 127.944 17.2013 126.9 17.2013H125.018V20.1839Z" fill="#1E67B9"/>
-<path id="Vector_7" d="M145.786 10.1156V23.1665H142.336V18.1887H137.49V23.1665H134.041V10.1156H137.49V15.1123H142.336V10.1156H145.786Z" fill="#1E67B9"/>
-<path id="Vector_8" d="M147.035 23.1665L152.162 10.1156H155.891L161.016 23.1665H157.475L156.73 21.1156H151.323L150.578 23.1665H147.035ZM152.348 18.3193H155.703L154.361 14.5533C154.25 14.2364 154.138 13.9195 154.026 13.23C153.914 13.9195 153.802 14.2364 153.691 14.5533L152.348 18.3193Z" fill="#1E67B9"/>
-<path id="Vector_9" d="M161.206 23.1665L164.73 18.4499C163.163 17.8718 162.026 16.66 162.026 14.6091C162.026 11.3464 164.543 10.1156 167.377 10.1156H172.876V23.1665H169.428V18.9163H168.215L165.14 23.1665H161.206ZM167.414 16.1188H169.428V13.0994H167.414C166.239 13.0994 165.569 13.6027 165.569 14.6091C165.569 15.6156 166.239 16.1188 167.414 16.1188Z" fill="#1E67B9"/>
-<path id="Vector_10" d="M190.811 10.1156V23.1665H187.362V13.192H184.547C184.137 18.5437 183.484 23.3161 179.737 23.3351C179.252 23.3351 178.712 23.2603 178.134 23.074V20.0723C178.376 20.1471 178.674 20.1839 179.029 20.1471C181.135 19.9228 181.099 14.0679 181.396 10.1156H190.811Z" fill="#1E67B9"/>
-<path id="Vector_11" d="M201.569 23.1665V17.8351C201.569 17.1265 201.588 16.3064 201.643 15.6903L196.536 23.1665H193.273V10.1156H196.722V15.4482C196.722 16.1758 196.703 16.9959 196.647 17.6107L201.755 10.1156H205.017V23.1665H201.569Z" fill="#1E67B9"/>
-<path id="Vector_12" d="M219.224 10.1156V23.1665H215.775V18.1887H210.929V23.1665H207.48V10.1156H210.929V15.1123H215.775V10.1156H219.224Z" fill="#1E67B9"/>
-<path id="Vector_13" d="M229.983 23.1665V17.8351C229.983 17.1265 230.002 16.3064 230.058 15.6903L224.951 23.1665H221.688V10.1156H225.137V15.4482C225.137 16.1758 225.118 16.9959 225.061 17.6107L230.17 10.1156H233.432V23.1665H229.983Z" fill="#1E67B9"/>
-<path id="Vector_14" d="M234.83 23.1665L238.353 18.4499C236.786 17.8718 235.65 16.66 235.65 14.6091C235.65 11.3464 238.167 10.1156 241.001 10.1156H246.5V23.1665H243.051V18.9163H241.838L238.764 23.1665H234.83ZM241.037 16.1188H243.051V13.0994H241.037C239.862 13.0994 239.192 13.6027 239.192 14.6091C239.192 15.6156 239.862 16.1188 241.037 16.1188Z" fill="#1E67B9"/>
-<path id="Vector_15" d="M70.7319 34.7824V32.265H71.4581C72.2553 30.8377 72.4416 28.9591 72.4416 27.2314H76.6596V32.265H77.4492V34.7824H76.2793V33.4349H71.9005V34.7824H70.7319ZM72.8675 32.265H75.3301V28.4268H73.6824C73.5937 29.8008 73.3985 31.2459 72.8675 32.265Z" fill="#1E67B9"/>
-<path id="Vector_16" d="M81.0926 27.2314C82.412 27.2314 83.237 27.7359 83.237 28.7994C83.237 29.527 82.8467 29.9694 82.2979 30.1557C82.9088 30.3332 83.4842 30.7845 83.4842 31.6984C83.4842 33.1066 82.1293 33.4349 81.0482 33.4349H78.3803V27.2314H81.0926ZM81.1015 30.7591H79.701V32.3537H81.0305C81.6236 32.3537 82.1559 32.2295 82.1559 31.5564C82.1559 30.8998 81.6325 30.7591 81.1015 30.7591ZM80.9773 28.3216H79.7098V29.7387H81.0482C81.5527 29.7387 81.9164 29.5093 81.9164 29.0301C81.9164 28.5421 81.5615 28.3216 80.9773 28.3216Z" fill="#1E67B9"/>
-<path id="Vector_17" d="M88.8381 27.2314V28.4014H85.7989V29.721H88.572V30.8821H85.7989V32.265H88.8914V33.4349H84.4694V27.2314H88.8381Z" fill="#1E67B9"/>
-<path id="Vector_18" d="M92.2768 27.2314C93.7749 27.2314 94.9523 27.7093 94.9523 29.3141C94.9523 30.9188 93.7749 31.3967 92.2768 31.3967H91.2666V33.4349H89.9371V27.2314H92.2768ZM92.3389 28.4014H91.2666V30.2267H92.3389C93.0207 30.2267 93.5974 30.0404 93.5974 29.3141C93.5974 28.5776 93.0207 28.4014 92.3389 28.4014Z" fill="#1E67B9"/>
-<path id="Vector_19" d="M99.9586 33.4349V30.2356C99.9586 29.9517 99.9675 29.6424 99.9852 29.3851L97.0968 33.4349H95.8471V27.2314H97.1766V30.4308C97.1766 30.7135 97.1678 31.024 97.15 31.2813L100.038 27.2314H101.288V33.4349H99.9586Z" fill="#1E67B9"/>
-<path id="Vector_20" d="M107.298 27.2314C108.619 27.2314 109.443 27.7359 109.443 28.7994C109.443 29.527 109.054 29.9694 108.503 30.1557C109.114 30.3332 109.691 30.7845 109.691 31.6984C109.691 33.1066 108.335 33.4349 107.254 33.4349H104.586V27.2314H107.298ZM107.307 30.7591H105.907V32.3537H107.236C107.829 32.3537 108.362 32.2295 108.362 31.5564C108.362 30.8998 107.839 30.7591 107.307 30.7591ZM107.183 28.3216H105.915V29.7387H107.254C107.759 29.7387 108.122 29.5093 108.122 29.0301C108.122 28.5421 107.768 28.3216 107.183 28.3216Z" fill="#1E67B9"/>
-<path id="Vector_21" d="M112.641 33.4349V27.2314H113.97V29.6943H114.973L116.541 27.2314H118.021L116.01 30.2533L118.136 33.4349H116.665L114.973 30.8998H113.97V33.4349H112.641Z" fill="#1E67B9"/>
-<path id="Vector_22" d="M121.478 27.2314C122.798 27.2314 123.622 27.7359 123.622 28.7994C123.622 29.527 123.232 29.9694 122.683 30.1557C123.294 30.3332 123.871 30.7845 123.871 31.6984C123.871 33.1066 122.515 33.4349 121.433 33.4349H118.766V27.2314H121.478ZM121.487 30.7591H120.086V32.3537H121.416C122.009 32.3537 122.541 32.2295 122.541 31.5564C122.541 30.8998 122.018 30.7591 121.487 30.7591ZM121.363 28.3216H120.095V29.7387H121.433C121.938 29.7387 122.302 29.5093 122.302 29.0301C122.302 28.5421 121.947 28.3216 121.363 28.3216Z" fill="#1E67B9"/>
-<path id="Vector_23" d="M124.02 33.4349L126.554 27.2314H127.99L130.516 33.4349H129.142L128.691 32.2739H125.854L125.394 33.4349H124.02ZM126.271 31.1749H128.274L127.406 28.9503C127.361 28.8261 127.317 28.7018 127.272 28.4635C127.228 28.7018 127.184 28.8261 127.131 28.9503L126.271 31.1749Z" fill="#1E67B9"/>
-<path id="Vector_24" d="M133.548 27.2314C135.045 27.2314 136.224 27.7093 136.224 29.3141C136.224 30.9188 135.045 31.3967 133.548 31.3967H132.538V33.4349H131.209V27.2314H133.548ZM133.61 28.4014H132.538V30.2267H133.61C134.292 30.2267 134.868 30.0404 134.868 29.3141C134.868 28.5776 134.292 28.4014 133.61 28.4014Z" fill="#1E67B9"/>
-<path id="Vector_25" d="M141.701 27.2314V28.4268H139.796V33.4349H138.476V28.4268H136.571V27.2314H141.701Z" fill="#1E67B9"/>
-<path id="Vector_26" d="M146.592 33.4349V30.2356C146.592 29.9517 146.601 29.6424 146.619 29.3851L143.73 33.4349H142.481V27.2314H143.81V30.4308C143.81 30.7135 143.801 31.024 143.784 31.2813L146.672 27.2314H147.922V33.4349H146.592Z" fill="#1E67B9"/>
-<path id="Vector_27" d="M151.592 27.2314C153.09 27.2314 154.268 27.7093 154.268 29.3141C154.268 30.9188 153.09 31.3967 151.592 31.3967H150.581V33.4349H149.252V27.2314H151.592ZM151.654 28.4014H150.581V30.2267H151.654C152.337 30.2267 152.912 30.0404 152.912 29.3141C152.912 28.5776 152.337 28.4014 151.654 28.4014Z" fill="#1E67B9"/>
-<path id="Vector_28" d="M156.058 33.5592C155.757 33.5592 155.429 33.4971 155.119 33.4083V32.2827C155.332 32.3537 155.589 32.3981 155.837 32.3981C156.244 32.3981 156.572 32.3005 156.794 31.8391L156.901 31.6185L154.428 27.2314H155.899L157.529 30.4219L158.885 27.2314H160.348L158.097 32.0165C157.529 33.222 156.847 33.5592 156.058 33.5592Z" fill="#1E67B9"/>
-<path id="Vector_29" d="M167.066 33.4349V30.2356C167.066 29.9517 167.075 29.6424 167.093 29.3851L164.203 33.4349H162.954V27.2314H164.283V30.4308C164.283 30.7135 164.274 31.024 164.256 31.2813L167.146 27.2314H168.396V33.4349H167.066Z" fill="#1E67B9"/>
-<path id="Vector_30" d="M171.211 34.7824V32.265H171.938C172.735 30.8377 172.922 28.9591 172.922 27.2314H177.14V32.265H177.928V34.7824H176.758V33.4349H172.381V34.7824H171.211ZM173.346 32.265H175.81V28.4268H174.163C174.074 29.8008 173.879 31.2459 173.346 32.265Z" fill="#1E67B9"/>
-<path id="Vector_31" d="M181.678 27.1079C183.875 27.1079 184.974 28.6493 184.974 30.3339C184.974 32.0172 183.875 33.5599 181.678 33.5599C179.48 33.5599 178.381 32.0172 178.381 30.3339C178.381 28.6493 179.48 27.1079 181.678 27.1079ZM181.678 28.34C180.384 28.34 179.737 29.2438 179.737 30.3339C179.737 31.424 180.384 32.3278 181.678 32.3278C182.963 32.3278 183.609 31.424 183.609 30.3339C183.609 29.2438 182.963 28.34 181.678 28.34Z" fill="#1E67B9"/>
-<path id="Vector_32" d="M192.668 27.2314V33.4349H191.338V29.6145L189.698 32.1053H188.928L187.287 29.6069V33.4349H185.958V27.2314H187.19L189.318 30.4574L191.436 27.2314H192.668Z" fill="#1E67B9"/>
-</g>
-</svg>
-    <h1>Ошибка 404</h1>
-    <p>Страница не найдена. Возможно, она была удалена или адрес набран с ошибкой.</p>
+
+  <!-- Navbar -->
+  <header class="header" id="top">
+    <div class="header__main">
+      <a class="header__logo" href="#top" aria-label="Стальная линия — на главную">
+        <img class="header__logo-desktop" src="assets/icons/logo.svg" width="246.5" height="43.2242" alt="Стальная линия — двери в квартиру и дом">
+        <img class="header__logo-mobile" src="assets/icons/logo-mobile.svg" width="179.273" height="31.4358" alt="Стальная линия — двери в квартиру и дом">
+      </a>
+      <nav class="header__nav" id="site-nav" aria-label="Основная навигация">
+        <div class="nav-dd">
+          <a class="nav-dd__toggle" href="/catalog/" aria-haspopup="true">Каталог</a>
+          <div class="nav-dd__menu">
+            <div class="nav-dd__list">
+              <a href="/catalog/">Входные двери</a>
+              <a href="/catalog/mezhkom/">Межкомнатные двери</a>
+              <a href="/port/">Наши работы</a>
+            </div>
+          </div>
+        </div>
+        <div class="nav-dd">
+          <a class="nav-dd__toggle" href="/gid/" aria-haspopup="true">Обзор дверей</a>
+          <div class="nav-dd__menu">
+            <div class="nav-dd__list">
+              <a href="/gid/">Гид по продукту</a>
+              <a href="/blog/">Статьи</a>
+            </div>
+          </div>
+        </div>
+        <a href="#custom">Двери на заказ</a>
+        <a href="#tech">Технологии</a>
+        <div class="nav-dd">
+          <a class="nav-dd__toggle" href="#footer" aria-haspopup="true">Контакты</a>
+          <div class="nav-dd__menu">
+            <div class="nav-dd__list">
+              <a href="/magazines/">Наши магазины</a>
+              <a href="/diz/">Дизайнерам и архитекторам</a>
+              <a href="#footer">Контакты</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <a class="header__address" href="/magazines/" title="Наши магазины">
+        <img src="assets/icons/map-pin.svg" width="16" height="16" alt="">
+        <span>Екатеринбург, ИЦ Аструм</span>
+      </a>
+      <a class="btn btn--gradient header__cta" href="#contacts" data-open-form="zamer-header">Заказать бесплатный замер</a>
+      <button class="header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="site-nav">
+        <img src="assets/icons/menu.svg" width="25" height="24" alt="">
+      </button>
+    </div>
+    <div class="header__facts">
+      <div class="fact"><img src="assets/icons/badge-30.svg" width="24" height="24" alt="30"><span>Лет производства</span></div>
+      <div class="fact"><img src="assets/icons/badge-2.svg" width="24" height="24" alt="2"><span>Года гарантии</span></div>
+      <div class="fact"><img src="assets/icons/badge-20.svg" width="24" height="24" alt="20"><span>стран присутствия</span></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero">
+      <!-- Слайды: фреймы «1»–«10» из Figma, выгружены целиком (кадр и подложка под текстом уже в фото) -->
+      <div class="hero__slides">
+        <div class="hero__slide is-active">
+          <div class="hero__canvas">
+            <picture><source media="(max-width: 767px)" srcset="assets/img/slide-1-mobile.jpg"><img src="assets/img/slide-1.jpg?v=10" alt="Бордовая дверь с вертикальными рейками на фасаде дома" style="--x:1%;--xm:64%"></picture>
+          </div>
+        </div>
+        <div class="hero__slide">
+          <div class="hero__canvas">
+            <picture><source media="(max-width: 767px)" data-srcset="assets/img/slide-2-mobile.jpg?v=10"><img data-src="assets/img/slide-2.jpg?v=10" alt="Зелёная двустворчатая дверь со стеклянной вставкой" style="--x:74%;--xm:79%"></picture>
+          </div>
+        </div>
+        <div class="hero__slide">
+          <div class="hero__canvas">
+            <picture><source media="(max-width: 767px)" data-srcset="assets/img/slide-3-mobile.jpg?v=10"><img data-src="assets/img/slide-3.jpg?v=10" alt="Красная входная дверь в современном фасаде" style="--x:100%;--xm:85%"></picture>
+          </div>
+        </div>
+        <div class="hero__slide">
+          <div class="hero__canvas">
+            <picture><source media="(max-width: 767px)" data-srcset="assets/img/slide-4-mobile.jpg?v=10"><img data-src="assets/img/slide-4.jpg?v=10" alt="Чёрная дверь с боковыми стёклами и подсветкой ступеней" style="--x:100%;--xm:85%"></picture>
+          </div>
+        </div>
+        <div class="hero__slide">
+          <div class="hero__canvas">
+            <picture><source media="(max-width: 767px)" data-srcset="assets/img/slide-5-mobile.jpg"><img data-src="assets/img/slide-5.jpg?v=10" alt="Тёмная входная группа со стеклянными вставками" style="--x:100%;--xm:85%"></picture>
+          </div>
+        </div>
+        <div class="hero__slide">
+          <div class="hero__canvas">
+            <picture><source media="(max-width: 767px)" data-srcset="assets/img/slide-6-mobile.jpg?v=10"><img data-src="assets/img/slide-6.jpg?v=10" alt="Тёмно-серая двустворчатая дверь с витражами" style="--x:100%;--xm:85%"></picture>
+          </div>
+        </div>
+        <div class="hero__slide">
+          <div class="hero__canvas">
+            <picture><source media="(max-width: 767px)" data-srcset="assets/img/slide-7-mobile.jpg?v=10"><img data-src="assets/img/slide-7.jpg?v=10" alt="Изумрудная филёнчатая дверь под фонарём" style="--x:100%;--xm:85%"></picture>
+          </div>
+        </div>
+        <div class="hero__slide">
+          <div class="hero__canvas">
+            <picture><source media="(max-width: 767px)" data-srcset="assets/img/slide-8-mobile.jpg?v=10"><img data-src="assets/img/slide-8.jpg?v=10" alt="Бордовая дверь со стеклянной вставкой" style="--x:100%;--xm:85%"></picture>
+          </div>
+        </div>
+        <div class="hero__slide">
+          <div class="hero__canvas">
+            <picture><source media="(max-width: 767px)" data-srcset="assets/img/slide-9-mobile.jpg"><img data-src="assets/img/slide-9.jpg?v=10" alt="Белая двустворчатая дверь с витражами" style="--x:100%;--xm:85%"></picture>
+          </div>
+        </div>
+      </div>
+      <span class="hero__scrim"></span>
+      <div class="hero__inner">
+        <div class="hero__content">
+          <div class="hero__text">
+            <h1 class="hero__title"><span class="hero__kicker">Входные двери в&nbsp;Екатеринбурге</span>Вы даже<br class="br-mobile"> не представляете, какими бывают двери</h1>
+            <p class="hero__lead">Индивидуальный дизайн, широкие возможности<span class="desk-only"> исполнения</span> и инженерные решения для квартир и загородных домов.<span class="desk-only"> «Стальная линия» — эксклюзивно <br class="br-desktop">на Урале. Екатеринбург, ИЦ Аструм.</span></p>
+          </div>
+          <div class="hero__actions">
+            <a class="btn btn--glass" href="#contacts" data-open-form="hero">Получить подбор двери <img src="assets/icons/arrow-right.svg" width="24" height="24" alt=""></a>
+            <a class="btn btn--outline-light" href="/catalog/">Смотреть каталог <img src="assets/icons/arrow-right.svg" width="24" height="24" alt=""></a>
+          </div>
+        </div>
+        <div class="hero__steps" role="tablist" aria-label="Слайды"></div>
+      </div>
+    </section>
+
+    <!-- Ticker -->
+    <div class="ticker" aria-label="Направления">
+      <div class="ticker__track">
+        <ul class="ticker__list">
+          <li>Двери хаски</li>
+          <li>Двери с терморазрывом</li>
+          <li>Входные двери</li>
+          <li>Стальная линия</li>
+          <li>Теперь на Урале – Бренд №1 в Беларуси</li>
+          <li>Нестандартные решения</li>
+          <li>Любого цвета и размера</li>
+          <li>Двери любой сложности</li>
+          <li>Яркие цвета</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Видеообзоры -->
+    <section class="section reviews" id="reviews">
+      <div class="section__head section__head--center">
+        <h2 class="section__title">У каждой двери — свой характер</h2>
+        <p class="section__lead">Короткие видеообзоры реальных дверей в нашем салоне — без необходимости разбираться <br class="br-desktop">в десятках характеристик. Посмотрите, как выглядят отделки, как устроены детали <br class="br-desktop">и что отличает одну модель от другой</p>
+      </div>
+      <div class="reviews__grid scroller">
+        <article class="video-card">
+          <button class="video-card__thumb" type="button" data-video="assets/video/review-1.mp4" aria-label="Смотреть видео: Двери с рейлингами">
+            <img src="assets/img/video-1.jpg?v=10" alt="Видеообзор: двери с рейлингами" loading="lazy">
+            <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:45</span>
+          </button>
+          <h3 class="video-card__title">Двери с рейлингами</h3>
+          <p class="video-card__text">Надёжность и классика</p>
+        </article>
+        <article class="video-card">
+          <button class="video-card__thumb" type="button" data-video="assets/video/review-2.mp4" aria-label="Смотреть видео: Отличия входных и межкомнатных дверей">
+            <img src="assets/img/video-2.jpg?v=10" alt="Видеообзор: отличия входных и межкомнатных дверей" loading="lazy">
+            <span class="video-card__badge"><img src="assets/icons/play-circle-2.svg" width="16.0254" height="16.0254" alt="">0:28</span>
+          </button>
+          <h3 class="video-card__title">Отличия входных <br class="br-desktop">и межкомнатных дверей</h3>
+          <p class="video-card__text">Стиль в деталях</p>
+        </article>
+        <article class="video-card">
+          <button class="video-card__thumb" type="button" data-video="assets/video/review-3.mp4" aria-label="Смотреть видео: Бремен — для дома">
+            <img src="assets/img/video-3.jpg?v=10" alt="Видеообзор: дверь Бремен для дома" loading="lazy">
+            <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:24</span>
+          </button>
+          <h3 class="video-card__title">Бремен — для дома</h3>
+          <p class="video-card__text">Прочность и комфорт</p>
+        </article>
+        <article class="video-card">
+          <button class="video-card__thumb" type="button" data-video="assets/video/review-4.mp4" aria-label="Смотреть видео: Двери с фальш-панелями">
+            <img src="assets/img/video-4.jpg?v=10" alt="Видеообзор: двери с фальш-панелями" loading="lazy">
+            <span class="video-card__badge"><img src="assets/icons/play-circle-2.svg" width="16.0254" height="16.0254" alt="">0:18</span>
+          </button>
+          <h3 class="video-card__title">Двери с фальш-панелями</h3>
+          <p class="video-card__text">Современный дизайн</p>
+        </article>
+      </div>
+      <div class="actions">
+        <a class="btn btn--gradient btn--lg reviews__more" href="https://steelline.store/gid#rec113510665" target="_blank" rel="noopener" data-open-reels>Смотреть обзоры <img class="arrow-light" src="assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""><img class="arrow-dark" src="assets/icons/arrow-right-dark.svg?v=2" width="24" height="24" alt=""></a>
+        <a class="btn btn--outline btn--lg" href="/catalog/">Перейти в каталог <img src="assets/icons/arrow-right-dark.svg?v=2" width="24" height="24" alt=""></a>
+      </div>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Дверь под вашу идею -->
+    <!-- «Дверь под вашу идею» — вариант 1 (скрыт, оставлен для сравнения) -->
+    <section class="section idea" id="custom-v1" hidden>
+      <div class="idea__head">
+        <h2 class="section__title">Дверь под вашу идею. Не наоборот</h2>
+        <div class="idea__sub">
+          <p class="section__lead">«Стальная линия» позволяет выбрать не только модель, но и ее исполнение <br class="br-desktop">под архитектуру вашего дома. Сдержанная классика, современная геометрия, выразительные фактуры или нестандартная входная группа.</p>
+          <a class="btn btn--outline-sm" href="#contacts">Создать свою дверь <img src="assets/icons/arrow-right-black-16.svg" width="16" height="16" alt=""></a>
+        </div>
+      </div>
+      <div class="idea__grid scroller">
+        <article class="feature">
+          <div class="feature__media idea__media">
+            <div class="zoom"><img class="idea__img-1" src="assets/img/idea-1.jpg?v=10" alt="Бордовая входная дверь с вертикальными рейками" loading="lazy"></div>
+          </div>
+          <h3 class="feature__title">Любые цвета и размеры</h3>
+          <p class="feature__text">От спокойных оттенков до выразительных материалов и авторских покрытий</p>
+        </article>
+        <article class="feature">
+          <div class="feature__media idea__media">
+            <div class="zoom"><img class="idea__img-2" src="assets/img/idea-2.jpg?v=10" alt="Чёрная дверь на фасаде с деревянной отделкой" loading="lazy"></div>
+          </div>
+          <h3 class="feature__title">Индивидуальный дизайн</h3>
+          <p class="feature__text">Стандартные и индивидуальные входные группы с дополнительными элементами</p>
+        </article>
+        <article class="feature">
+          <div class="feature__media idea__media">
+            <div class="zoom"><img class="idea__img-3" src="assets/img/idea-3.jpg?v=10" alt="Деталь отделки двери: шпон и металлический молдинг" loading="lazy"></div>
+          </div>
+          <h3 class="feature__title">Детали</h3>
+          <p class="feature__text">Фурнитура, декоративные элементы <br class="br-desktop">и сочетания, которые завершают образ</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- «Дверь под вашу идею» — вариант 2 (Figma 193:1444): большая карточка + очередь, фото перетекают по стрелкам.
+         Вариант 1 выше скрыт атрибутом hidden: чтобы вернуть его, уберите hidden там и поставьте hidden здесь (id="custom" перенесите). -->
+    <section class="section idea idea2" id="custom" aria-roledescription="карусель" aria-label="Дверь под вашу идею">
+      <div class="idea__head">
+        <h2 class="section__title">Дверь под вашу идею. Не наоборот</h2>
+        <div class="idea__sub">
+          <p class="section__lead">«Стальная линия» позволяет выбрать не только модель, но и ее исполнение <br class="br-desktop">под архитектуру вашего дома. Сдержанная классика, современная геометрия, выразительные фактуры или нестандартная входная группа.</p>
+          <a class="btn btn--outline-sm" href="#contacts" data-open-form="zamer-idea">Заказать бесплатный замер <img src="assets/icons/arrow-right-black-16.svg" width="16" height="16" alt=""></a>
+        </div>
+      </div>
+      <!-- Все фото блока с подписями (тексты — Figma 195:366) -->
+      <script type="application/json" id="idea2-items">
+[
+  {
+    "src": "assets/img/idea2-photo-7.jpg?v=10",
+    "alt": "Красная, жёлтая и синяя входные двери",
+    "title": "Любой цвет и материалы",
+    "text": "От спокойных оттенков до выразительных материалов и авторских покрытий"
+  },
+  {
+    "src": "assets/img/idea2-photo-1.jpg?v=10",
+    "alt": "Входная группа со стеклянными вставками",
+    "title": "Нестандартные композиции",
+    "text": "Собственное производство позволяет работать с индивидуальными заказами <br class=\"br-desktop\">и контролировать качество исполнения"
+  },
+  {
+    "src": "assets/img/idea2-photo-2.jpg?v=10",
+    "alt": "Двери с резьбой, коваными элементами и узором",
+    "title": "Дизайн под проект",
+    "text": "Порталы, наличники, декоративные элементы и фурнитура — от классики <br class=\"br-desktop\">до современных акцентов"
+  },
+  {
+    "src": "assets/img/idea2-photo-3.jpg?v=10",
+    "alt": "Голубая входная группа с фрамугой и боковыми стёклами",
+    "title": "Архитектурные детали",
+    "text": "Цвет, материалы, рисунок и композиция могут быть адаптированы под архитектуру дома и ваш проект"
+  },
+  {
+    "src": "assets/img/idea2-photo-4.jpg?v=10",
+    "alt": "Чёрная дверь с золотой декоративной вставкой",
+    "title": "Свет и декор",
+    "text": "Фурнитура, декоративные элементы <br class=\"br-desktop\">и сочетания, которые завершают образ"
+  },
+  {
+    "src": "assets/img/idea2-photo-5.jpg?v=10",
+    "alt": "Синяя дверь с окном и кованой решёткой",
+    "title": "Индивидуальное остекление",
+    "text": "Форма, размер и расположение остекления подбираются под конкретную модель и архитектурную задачу"
+  },
+  {
+    "src": "assets/img/idea2-photo-6.jpg?v=10",
+    "alt": "Красная дверь с чёрными вставками",
+    "title": "Встроенная подсветка",
+    "text": "Встроенный свет может стать частью дизайна двери и подчеркнуть геометрию, фактуру и детали"
+  }
+]
+      </script>
+      <div class="idea2__stage" data-items="idea2-items">
+        <article class="idea2-card idea2-card--big" data-pos="0">
+          <button class="idea2-card__media" type="button" aria-label="Показать крупно: Любой цвет и материалы">
+            <span class="zoom"><img class="idea2-card__img" src="assets/img/idea2-photo-7.jpg?v=10" alt="Красная, жёлтая и синяя входные двери" loading="lazy" width="1399" height="1514"></span>
+            <span class="idea2-card__go" aria-hidden="true"><img src="assets/icons/idea2-circle-48.svg" width="48" height="48" alt=""><img class="idea2-card__corner" src="assets/icons/idea2-corner-12.svg" width="12" height="12" alt=""></span>
+          </button>
+          <div class="idea2-card__desc">
+            <h3 class="idea2-card__title">Любой цвет и материалы</h3>
+            <p class="idea2-card__text">От спокойных оттенков до выразительных материалов и авторских покрытий</p>
+          </div>
+        </article>
+        <article class="idea2-card" data-pos="1">
+          <button class="idea2-card__media" type="button" aria-label="Показать крупно: Нестандартные композиции">
+            <span class="zoom"><img class="idea2-card__img" src="assets/img/idea2-photo-1.jpg?v=10" alt="Входная группа со стеклянными вставками" loading="lazy" width="1399" height="1514"></span>
+            <span class="idea2-card__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="idea2-card__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span>
+          </button>
+          <div class="idea2-card__desc">
+            <h3 class="idea2-card__title">Нестандартные композиции</h3>
+            <p class="idea2-card__text">Собственное производство позволяет работать с индивидуальными заказами <br class="br-desktop">и контролировать качество исполнения</p>
+          </div>
+        </article>
+        <article class="idea2-card" data-pos="2">
+          <button class="idea2-card__media" type="button" aria-label="Показать крупно: Дизайн под проект">
+            <span class="zoom"><img class="idea2-card__img" src="assets/img/idea2-photo-2.jpg?v=10" alt="Двери с резьбой, коваными элементами и узором" loading="lazy" width="1399" height="1514"></span>
+            <span class="idea2-card__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="idea2-card__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span>
+          </button>
+          <div class="idea2-card__desc">
+            <h3 class="idea2-card__title">Дизайн под проект</h3>
+            <p class="idea2-card__text">Порталы, наличники, декоративные элементы и фурнитура — от классики <br class="br-desktop">до современных акцентов</p>
+          </div>
+        </article>
+        <div class="idea2__nav">
+          <button class="idea2__btn idea2__btn--prev" type="button" data-idea2-dir="-1" aria-label="Предыдущий вариант"><img src="assets/icons/idea2-nav-circle.svg" width="40" height="40" alt=""><span class="idea2__btn-arrow"><img src="assets/icons/idea2-nav-corner.svg" width="8.48528" height="8.48528" alt=""></span></button>
+          <button class="idea2__btn" type="button" data-idea2-dir="1" aria-label="Следующий вариант"><img src="assets/icons/idea2-nav-circle.svg" width="40" height="40" alt=""><span class="idea2__btn-arrow"><img src="assets/icons/idea2-nav-corner.svg" width="8.48528" height="8.48528" alt=""></span></button>
+        </div>
+      </div>
+      <div class="idea2__mobile scroller" id="idea2-mobile-track" data-items="idea2-items" aria-label="Варианты исполнения"></div>
+      <a class="btn btn--mobile idea2__mbtn" href="#contacts" data-open-form="zamer-idea">Заказать бесплатный замер <img src="assets/icons/arrow-right-dark-20.svg" width="20.2904" height="20.2904" alt=""></a>
+    </section>
+
+    <!-- «За рамками стандартных решений» скрыт: чтобы вернуть, уберите hidden у разделителя и у секции -->
+    <hr class="divider" hidden>
+
+    <!-- За рамками стандартных решений -->
+    <section class="section beyond" hidden>
+      <div class="section__head section__head--center">
+        <h2 class="section__title">За рамками стандартных решений</h2>
+        <p class="section__lead">Цвет, размеры, композиция и детали — возможности завода позволяют <br class="br-desktop">создавать дверь под конкретный проект</p>
+      </div>
+      <div class="beyond__track scroller" id="beyond-track" data-drag data-center="2" data-loop>
+        <!-- 1 -->
+        <article class="beyond-card beyond-card--1">
+          <div class="beyond-card__stage">
+            <picture>
+              <source media="(max-width: 767px)" srcset="assets/img/beyond-1-mobile.jpg?v=10">
+              <img class="beyond-card__img beyond-card__img--1" src="assets/img/beyond-1.jpg?v=10" alt="Синяя, жёлтая и красная входные двери" loading="lazy">
+            </picture>
+            <div class="beyond-card__shade"></div>
+            <div class="beyond-card__body">
+              <span class="tag tag--light">Возможности завода</span>
+              <div class="beyond-card__desc">
+                <h3 class="beyond-card__title">Любой цвет<br>и материалы</h3>
+                <p class="beyond-card__text">Собственное производство позволяет работать <br class="br-desktop">с индивидуальными заказами <br class="br-desktop">и контролировать качество исполнения</p>
+              </div>
+            </div>
+          </div>
+        </article>
+        <!-- 2 -->
+        <article class="beyond-card">
+          <div class="beyond-card__stage">
+            <div class="beyond-card__crop"><img class="beyond-card__img--2" src="assets/img/beyond-2.jpg?v=10" alt="Входная группа нестандартного размера" loading="lazy"></div>
+            <div class="beyond-card__shade"></div>
+            <div class="beyond-card__body beyond-card__body--445">
+              <span class="tag tag--light">Возможности завода</span>
+              <div class="beyond-card__desc">
+                <h3 class="beyond-card__title">Нестандартные размеры <br>и композиции</h3>
+                <p class="beyond-card__text">Собственное производство позволяет работать <br class="br-desktop">с индивидуальными заказами <br class="br-desktop">и контролировать качество исполнения</p>
+              </div>
+            </div>
+          </div>
+        </article>
+        <!-- 3 -->
+        <article class="beyond-card">
+          <div class="beyond-card__stage">
+            <div class="beyond-card__crop">
+              <img class="beyond-card__img--3" src="assets/img/beyond-3.jpg?v=10" alt="Дверь с индивидуальным рисунком и коваными элементами" loading="lazy">
+              <div class="callouts">
+                <p class="callout-label is-dim" style="left:755.62px;top:497px">Индивидуальный<br>рисунок</p>
+                <p class="callout-label" style="left:966.62px;top:497px">Кованые<br>элементы</p>
+                <img class="callout-dot" src="assets/icons/dot.svg" width="6" height="6" alt="" style="left:1010.62px;top:432px">
+                <span class="callout-line" style="left:952.06px;top:435px"><img src="assets/icons/line-16.svg" width="67.6215" height="39.9792" alt=""></span>
+                <div class="callout-group" style="left:1157.62px;top:432px">
+                  <p class="callout-label" style="left:15px;top:65px">Оригинальный<br>рисунок</p>
+                  <img src="assets/icons/callout-group.svg" width="77.624" height="66.6459" alt="" style="left:0;top:0">
+                </div>
+                <img class="callout-dot" src="assets/icons/dot.svg" width="6" height="6" alt="" style="left:799.18px;top:432px">
+                <span class="callout-line" style="left:740.62px;top:435px"><img src="assets/icons/line-16.svg" width="67.6215" height="39.9792" alt=""></span>
+                <img class="callout-dot" src="assets/icons/dot.svg" width="6" height="6" alt="" style="left:555.18px;top:56px">
+                <span class="callout-line" style="left:496.62px;top:59px"><img src="assets/icons/line-16.svg" width="67.6215" height="39.9792" alt=""></span>
+                <p class="callout-label is-dim" style="left:394.62px;top:123px">Объемные элементы<br>из дерева</p>
+              </div>
+            </div>
+            <div class="beyond-card__shade"></div>
+            <div class="beyond-card__body beyond-card__body--445">
+              <span class="tag tag--light">Возможности завода</span>
+              <div class="beyond-card__desc">
+                <h3 class="beyond-card__title">Любой дизайн <br>по вашему проекту</h3>
+                <p class="beyond-card__text">Собственное производство позволяет работать <br class="br-desktop">с индивидуальными заказами <br class="br-desktop">и контролировать качество исполнения</p>
+              </div>
+            </div>
+          </div>
+        </article>
+        <!-- 4 -->
+        <article class="beyond-card beyond-card--4">
+          <div class="beyond-card__stage">
+            <div class="beyond-card__crop">
+              <img class="beyond-card__img--4" src="assets/img/beyond-4.jpg?v=10" alt="Двери с декоративной подсветкой и окном" loading="lazy">
+              <div class="callouts">
+                <span class="blur-patch" style="left:37.45px"></span>
+                <span class="blur-patch" style="left:885.85px"></span>
+                <div class="callout-stack" style="left:41.53px;width:103px">
+                  <p class="callout-label">Декоративные элементы<br>и подсветка</p>
+                  <img class="is-flipped" src="assets/icons/callout-group.svg" width="77.624" height="66.6459" alt="">
+                </div>
+                <div class="callout-stack callout-stack--gap" style="left:893.53px;width:159px">
+                  <p class="callout-label">Окно —<br>по индивидуальному заказу</p>
+                  <img class="is-flipped" src="assets/icons/callout-group.svg" width="77.624" height="66.6459" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <!-- 5 -->
+        <article class="beyond-card beyond-card--5">
+          <div class="beyond-card__stage">
+            <div class="beyond-card__crop">
+              <img class="beyond-card__img--5" src="assets/img/beyond-5.jpg?v=10" alt="Двери с отделкой из дерева и витражом" loading="lazy">
+              <div class="callouts">
+                <p class="callout-label" style="left:362.98px;top:57px">Любой цвет</p>
+                <p class="callout-label" style="left:909.98px;top:34px">Отделка<br>из дерева</p>
+                <p class="callout-label" style="left:1117.98px;top:71px;width:92px;white-space:normal">Рисунок заказчика</p>
+                <p class="callout-label" style="left:1304.98px;top:94px;width:130px;white-space:normal">Отделка из дерева<br>и витража</p>
+                <img class="is-flipped" src="assets/icons/callout-frame.svg" width="77.624" height="66.6459" alt="" style="left:426.98px;top:77px">
+                <img class="is-flipped" src="assets/icons/callout-frame.svg" width="77.624" height="66.6459" alt="" style="left:964.98px;top:63px">
+                <img class="is-flipped" src="assets/icons/callout-frame.svg" width="77.624" height="66.6459" alt="" style="left:1178.98px;top:100px">
+                <img class="is-flipped" src="assets/icons/callout-frame.svg" width="77.624" height="66.6459" alt="" style="left:1361.98px;top:126px">
+              </div>
+            </div>
+            <div class="beyond-card__shade"></div>
+            <div class="beyond-card__body beyond-card__body--349">
+              <span class="tag tag--light">Возможности завода</span>
+              <div class="beyond-card__desc">
+                <h3 class="beyond-card__title">Индивидуальный<br>подход во всем</h3>
+                <p class="beyond-card__text">Собственное производство позволяет <br class="br-desktop">работать с индивидуальными заказами и контролировать качество исполнения</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="slider-nav" data-target="beyond-track">
+        <button class="slider-nav__btn slider-nav__btn--prev" type="button" data-dir="-1" aria-controls="beyond-track" aria-label="Предыдущая карточка"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12.013L20.789 12M14.013 19L21 12L14.012 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="slider-nav__btn" type="button" data-dir="1" aria-controls="beyond-track" aria-label="Следующая карточка"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12.013L20.789 12M14.013 19L21 12L14.012 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <a class="btn btn--mobile" href="/catalog/">Смотреть каталог <img src="assets/icons/arrow-right-dark-20.svg" width="20.2904" height="20.2904" alt=""></a>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Инженерия и опыт -->
+    <section class="section eng" id="tech">
+      <div class="eng__head">
+        <h2 class="section__title">Красота, за которой стоят инженерия <br class="br-desktop">и многолетний опыт</h2>
+        <span class="eng__brand"><img src="assets/icons/medal.svg" width="24" height="24" alt="">Бренд №1 в Беларуси</span>
+      </div>
+      <div class="eng__track scroller" id="eng-track" data-drag>
+        <article class="eng-card">
+          <span class="tag tag--blue eng-card__tag">Опыт более 30 лет</span>
+          <div class="eng-card__desc">
+            <h3 class="eng-card__title">Качество под контролем<br>с 1996 г.</h3>
+            <p class="eng-card__text">Собственное производство позволяет контролировать ключевые этапы изготовления <br class="br-desktop">и работать с индивидуальными заказами.</p>
+          </div>
+          <div class="eng-card__media">
+            <div class="zoom">
+              <img class="eng-img-full" src="assets/img/exp-quality.jpg?v=12" alt="Мастер вручную обрабатывает дверную панель на производстве" loading="lazy">
+            </div>
+          </div>
+        </article>
+        <article class="eng-card">
+          <span class="tag tag--blue eng-card__tag">Фирменные покрытия</span>
+          <div class="eng-card__desc">
+            <h3 class="eng-card__title">Покрытия, рассчитанные <br>на долгую службу</h3>
+            <p class="eng-card__text">Фирменные материалы и технологии отделки помогают сохранять внешний вид двери <br class="br-desktop">при ежедневной эксплуатации.</p>
+          </div>
+          <div class="eng-card__media">
+            <div class="zoom">
+              <img class="eng-img-full" src="assets/img/exp-coatings.jpg?v=12" alt="Образцы фирменных покрытий и отделок дверей" loading="lazy">
+            </div>
+          </div>
+        </article>
+        <article class="eng-card">
+          <span class="tag tag--blue eng-card__tag">Шумоизоляция</span>
+          <div class="eng-card__desc">
+            <h3 class="eng-card__title">Шум подъезда остается <br>за дверью</h3>
+            <p class="eng-card__text">Многослойная конструкция и система уплотнения помогают снизить проникновение постороннего шума и запахов</p>
+          </div>
+          <div class="eng-card__media">
+            <div class="zoom">
+              <img class="eng-img-full" src="assets/img/exp-noise.jpg?v=12" alt="Дверь со схемой шумоизоляции: шум снаружи гасится полотном" loading="lazy">
+            </div>
+          </div>
+        </article>
+        <article class="eng-card">
+          <span class="tag tag--blue eng-card__tag">Двери с терморазрывом</span>
+          <div class="eng-card__desc eng-card__desc--cta">
+            <div class="eng-card__copy">
+              <h3 class="eng-card__title">Двери с терморазрывом.<br>Тепло дома — под защитой</h3>
+              <p class="eng-card__text">Серия «Хаски» — для суровых условий. Усиленная теплоизоляция и терморазрыв помогают сохранять тепло при уличной установке и низких температурах.</p>
+            </div>
+            <a class="btn btn--solid eng-card__btn--husky" href="/catalog/dom/husky/">Смотреть двери Хаски <img src="assets/icons/arrow-right-white-3.svg?v=2" width="24" height="24" alt=""></a>
+          </div>
+          <div class="eng-card__media eng-card__media--2">
+            <!-- всё фото — ссылка в раздел Хаски -->
+            <a class="eng-card__photo-link" href="/catalog/dom/husky/" aria-label="Двери Хаски — смотреть в каталоге" tabindex="-1"></a>
+            <!-- на телефоне вместо широкой кнопки — круглая стрелка в углу фото -->
+            <a class="eng-card__go" href="/catalog/dom/husky/" aria-label="Двери Хаски — смотреть в каталоге"><img src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></a>
+            <div class="zoom">
+              <div class="eng-crop eng-crop--r8" style="left:-143.98px;top:-4px;width:703px;height:510px">
+                <img src="assets/img/exp-husky.jpg?v=12" alt="Дом зимой: входная дверь «Хаски» и собака хаски на крыльце" loading="lazy" style="left:-20.32%;top:-7.45%;width:166.09%;height:134.9%">
+              </div>
+            </div>
+          </div>
+        </article>
+        <article class="eng-card">
+          <span class="tag tag--blue eng-card__tag">Индивидуальный подход</span>
+          <div class="eng-card__desc eng-card__desc--cta">
+            <div class="eng-card__copy">
+              <h3 class="eng-card__title">Узнайте, какая конструкция нужна вам</h3>
+              <p class="eng-card__text">Учтём место установки, требования к теплу, тишине, дизайну и комплектации.</p>
+            </div>
+            <a class="btn btn--solid" href="#contacts" data-open-form="tech-card">Получить подбор двери <img src="assets/icons/arrow-right-white-3.svg?v=2" width="24" height="24" alt=""></a>
+          </div>
+          <div class="eng-card__media">
+            <div class="zoom">
+              <img class="eng-img-full" src="assets/img/exp-choice.jpg?v=12" alt="Светлая прихожая с белой входной дверью" loading="lazy">
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="slider-nav" data-target="eng-track">
+        <button class="slider-nav__btn slider-nav__btn--prev" type="button" data-dir="-1" aria-controls="eng-track" aria-label="Предыдущая карточка"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12.013L20.789 12M14.013 19L21 12L14.012 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="slider-nav__btn" type="button" data-dir="1" aria-controls="eng-track" aria-label="Следующая карточка"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12.013L20.789 12M14.013 19L21 12L14.012 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+      <a class="btn btn--mobile" href="/catalog/">Смотреть каталог <img src="assets/icons/arrow-right-dark-20.svg" width="20.2904" height="20.2904" alt=""></a>
+    </section>
+
+    <hr class="divider">
+
+    <!-- Какая дверь подойдет вашему дому -->
+    <section class="section doors" id="doors">
+      <div class="section__head section__head--center">
+        <h2 class="section__title">Какая дверь подойдет вашему дому?</h2>
+        <p class="section__lead">Не обязательно начинать с названия серии. Выберите задачу — и мы покажем <br class="br-desktop">подходящие модели, варианты исполнения и стоимость.</p>
+      </div>
+      <div class="doors__grid">
+        <article class="feature">
+          <div class="feature__media doors__media">
+            <div class="zoom"><img src="assets/img/doors-1.jpg?v=10" alt="Тёмно-зелёная классическая дверь в коттедж" loading="lazy" style="inset:0;width:100%;height:100%;object-fit:cover"></div>
+            <a class="doors__link" href="/catalog/dom/" aria-label="Двери в коттедж — смотреть в каталоге"><span class="doors__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="doors__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></a>
+          </div>
+          <h3 class="feature__title">Двери в коттедж</h3>
+          <p class="feature__text">Терморазрыв в полотне и коробе. Двери для парадного входа. Гарантия 2 года</p>
+        </article>
+        <article class="feature">
+          <div class="feature__media doors__media">
+            <div class="zoom"><img src="assets/img/doors-2.jpg?v=10" alt="Тёмно-зелёная дверь в квартиру с подсветкой" loading="lazy" style="inset:0;width:100%;height:100%;object-fit:cover"></div>
+            <a class="doors__link" href="/catalog/kvartira/" aria-label="Двери в квартиру — смотреть в каталоге"><span class="doors__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="doors__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></a>
+          </div>
+          <h3 class="feature__title">Двери в квартиру</h3>
+          <p class="feature__text">Двери с повышенной шумоизоляцией. 4 класс защиты от взлома. Гарантия 2 года</p>
+        </article>
+        <article class="feature">
+          <div class="feature__media doors__media">
+            <div class="zoom"><img src="assets/img/doors-3.jpg?v=10" alt="Тёмная дверь «Хаски» со стеклянной вставкой у заснеженного входа" loading="lazy" style="inset:0;width:100%;height:100%;object-fit:cover"></div>
+            <a class="doors__link" href="/catalog/dom/husky/" aria-label="Двери «Хаски» — смотреть в каталоге"><span class="doors__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="doors__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></a>
+          </div>
+          <h3 class="feature__title">Двери «Хаски»</h3>
+          <p class="feature__text">Энергосберегающие двери для суровых погодных условий</p>
+        </article>
+        <article class="feature">
+          <div class="feature__media doors__media">
+            <div class="zoom"><img src="assets/img/doors-4.jpg?v=10" alt="Бордовая дверь для дома с терморазрывом" loading="lazy" style="inset:0;width:100%;height:100%;object-fit:cover"></div>
+            <a class="doors__link" href="/catalog/dom/svarnie/" aria-label="Двери для дома с терморазрывом — смотреть в каталоге"><span class="doors__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="doors__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></a>
+          </div>
+          <h3 class="feature__title">Двери для дома с терморазрывом</h3>
+          <p class="feature__text">Лучшая комплектация для сурового климата.<br>По выгодной цене. Гарантия 2 года</p>
+        </article>
+        <article class="feature doors__wide">
+          <div class="feature__media doors__media doors__media--wide">
+            <div class="zoom"><img src="assets/img/doors-5.jpg?v=10" alt="Входная группа: мятная дверь с боковыми стёклами" loading="lazy" style="inset:0;width:100%;height:100%;object-fit:cover"></div>
+            <a class="doors__link" href="/catalog/dom/nestandart/" aria-label="Индивидуальные входные группы — смотреть в каталоге"><span class="doors__go" aria-hidden="true"><img src="assets/icons/idea2-circle-40.svg" width="40" height="40" alt=""><img class="doors__corner" src="assets/icons/idea2-corner-10.svg" width="10" height="10" alt=""></span></a>
+          </div>
+          <h3 class="feature__title">Индивидуальные входные группы</h3>
+          <p class="feature__text">Нестандартные размеры и композиции для выразительного входа</p>
+        </article>
+      </div>
+      <div class="actions">
+        <a class="btn btn--gradient btn--lg doors__cta" href="#contacts" data-open-form="zamer-doors">Заказать бесплатный замер <img src="assets/icons/arrow-right-white-4.svg" width="24" height="24" alt=""></a>
+        <a class="btn btn--outline btn--outline-soft btn--lg" href="/catalog/">Перейти в каталог <img src="assets/icons/arrow-right-dark-2.svg" width="24" height="24" alt=""></a>
+      </div>
+    </section>
+
+    <!-- Финальный CTA -->
+    <section class="cta" id="contacts">
+      <div class="cta__texts">
+        <h2 class="cta__title">Приглашаем Вас в салон «Стальная линия» <br class="br-desktop">в Екатеринбурге, ИЦ «Аструм»</h2>
+        <p class="section__lead cta__lead">Будем рады видеть вас в нашем салоне. Поможем выбрать модель, <br class="br-desktop">определиться с отделкой и комплектацией, рассчитать <br class="br-desktop">стоимость под ваш проект.</p>
+      </div>
+      <div class="cta__actions">
+        <a class="btn btn--outline btn--outline-soft btn--lg" href="tel:+79222077552" data-open-form="contact">Записаться на подбор</a>
+        <a class="btn btn--outline btn--outline-soft btn--lg" href="https://yandex.ru/maps/?text=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3%2C%20%D1%83%D0%BB.%20%D0%A6%D0%B2%D0%B8%D0%BB%D0%BB%D0%B8%D0%BD%D0%B3%D0%B0%2C%201" target="_blank" rel="noopener">Как добраться <img src="assets/icons/arrow-right-dark-3.svg" width="24" height="24" alt=""></a>
+      </div>
+      <!-- Мини-галерея салона: по клику фото открывается крупно (окно #gallery-view) -->
+      <div class="salon-gallery">
+        <button class="salon-gallery__item salon-gallery__item--main" type="button" data-full="assets/img/salon/salon-1.jpg?v=10" data-index="0" aria-label="Открыть фото: Стенд «Стальной линии» в салоне ASTROOM">
+          <span class="zoom"><img src="assets/img/salon/thumb/salon-1.jpg?v=1" alt="Стенд «Стальной линии» в салоне ASTROOM" loading="lazy" width="1333" height="2000"></span>
+        </button>
+        <button class="salon-gallery__item" type="button" data-full="assets/img/salon/salon-2.jpg?v=2" data-index="1" aria-label="Открыть фото: Интерьерный центр ASTROOM, ул. Цвиллинга, 1">
+          <span class="zoom"><img src="assets/img/salon/thumb/salon-2.jpg?v=1" alt="Интерьерный центр ASTROOM, ул. Цвиллинга, 1" loading="lazy" width="1920" height="1280"></span>
+        </button>
+        <button class="salon-gallery__item" type="button" data-full="assets/img/salon/salon-3.jpg?v=10" data-index="2" aria-label="Открыть фото: Входные двери в экспозиции салона">
+          <span class="zoom"><img src="assets/img/salon/thumb/salon-3.jpg?v=1" alt="Входные двери в экспозиции салона" loading="lazy" width="1680" height="1135"></span>
+        </button>
+        <button class="salon-gallery__item" type="button" data-full="assets/img/salon/salon-4.jpg?v=10" data-index="3" aria-label="Открыть фото: Входные группы в салоне">
+          <span class="zoom"><img src="assets/img/salon/thumb/salon-4.jpg?v=1" alt="Входные группы в салоне" loading="lazy" width="1680" height="1067"></span>
+        </button>
+        <button class="salon-gallery__item" type="button" data-full="assets/img/salon/salon-5.jpg?v=10" data-index="4" aria-label="Открыть фото: Двери для квартиры и дома в экспозиции">
+          <span class="zoom"><img src="assets/img/salon/thumb/salon-5.jpg?v=1" alt="Двери для квартиры и дома в экспозиции" loading="lazy" width="1680" height="1260"></span>
+        </button>
+      </div>
+      <p class="salon-gallery__caption">Интерьерный центр ASTROOM, 6 этаж, Галерея А</p>
+    </section>
   </main>
+
+  <!-- Footer -->
+  <!-- Уведомление о cookie: выбор хранится в браузере (script.js), Метрику подключать только при «Хорошо» -->
+  <div class="cookie" id="cookie" role="region" aria-label="Уведомление о cookie" hidden>
+    <div class="cookie__copy">
+      <p class="cookie__text">Мы используем файлы cookie, чтобы сайтом было удобно пользоваться. <a href="privacy.html#cookie" target="_blank">Подробнее</a></p>
+    </div>
+    <div class="cookie__actions">
+      <button class="btn btn--gradient btn--lg cookie__btn" type="button" data-cookie="all">Хорошо</button>
+      <button class="btn btn--outline btn--lg cookie__btn" type="button" data-cookie="necessary">Отказаться</button>
+    </div>
+  </div>
+
+  <!-- Скидка 20% за заявку: закреплённая карточка (кроме межкомнатных дверей) -->
+  <div class="bonus-fab js-bonus-fab" hidden>
+    <button class="bonus-fab__open" type="button" data-open-callback="bonus">
+      <span class="bonus-fab__pct">−20%</span>
+      <span class="bonus-fab__text"><b>Вам доступна скидка 20%</b><span>Нажмите, чтобы получить персональный купон</span></span>
+    </button>
+    <button class="bonus-fab__close js-bonus-close" type="button" aria-label="Скрыть предложение"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  </div>
+
+  <!-- Обратный звонок: плавающая кнопка (только десктоп и планшет) и окно -->
+  <button class="callback-fab" type="button" data-open-callback aria-label="Заказать обратный звонок">
+    <span class="callback-fab__label">Заказать звонок</span>
+    <span class="callback-fab__icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5.1 3.5h3.1l1.6 4-2 1.3a10.6 10.6 0 0 0 7.4 7.4l1.3-2 4 1.6v3.1a2 2 0 0 1-2.1 2A16.6 16.6 0 0 1 3.1 5.6a2 2 0 0 1 2-2.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+  </button>
+
+  <dialog class="lead callback" id="callback" aria-labelledby="callback-title">
+    <button class="lead__close" type="button" aria-label="Закрыть" data-close-callback>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <form class="callback__form" id="callback-form" action="send.php" method="post" novalidate>
+      <div class="lead__head">
+        <span class="callback__icon" aria-hidden="true"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M5.1 3.5h3.1l1.6 4-2 1.3a10.6 10.6 0 0 0 7.4 7.4l1.3-2 4 1.6v3.1a2 2 0 0 1-2.1 2A16.6 16.6 0 0 1 3.1 5.6a2 2 0 0 1 2-2.1Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg></span>
+        <h2 class="lead__title callback__title" id="callback-title">Перезвоним в&nbsp;течение часа</h2>
+        <p class="lead__lead callback__lead">Оставьте номер — менеджер салона свяжется с&nbsp;вами в&nbsp;рабочее время, ежедневно с&nbsp;10:00 до&nbsp;20:00.</p>
+        <details class="bonus-terms js-bonus-only" hidden>
+          <summary>Условия акции</summary>
+          <ul>
+            <li>Скидка 20% на&nbsp;входные двери «Стальная линия» по&nbsp;персональному купону.</li>
+            <li>Купон действует 7&nbsp;дней с&nbsp;момента получения.</li>
+            <li>Один купон&nbsp;— на&nbsp;один заказ: назовите код менеджеру при оформлении.</li>
+            <li>Скидка не&nbsp;суммируется с&nbsp;другими акциями и&nbsp;не&nbsp;действует на&nbsp;межкомнатные двери.</li>
+          </ul>
+        </details>
+        <p class="form-bonus js-form-bonus"><b>−20%</b><span><strong>Забронируем скидку за&nbsp;вами</strong>Оставьте контакты, чтобы её&nbsp;получить</span></p>
+      </div>
+      <div class="field">
+        <label class="field__label" for="callback-name">Имя</label>
+        <input class="input ym-disable-keys ym-hide-content" id="callback-name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="Как к вам обращаться">
+        <p class="field__error"></p>
+      </div>
+      <div class="field">
+        <label class="field__label" for="callback-phone">Телефон</label>
+        <input class="input ym-disable-keys ym-hide-content" id="callback-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+7 (___) ___-__-__">
+        <p class="field__error"></p>
+      </div>
+      <input class="lead__trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="source" value="callback">
+      <input type="hidden" name="comment" value="">
+      <div class="field">
+        <label class="check">
+          <input type="checkbox" name="consent" value="1" required>
+          <span>Даю <a href="consent.html" target="_blank">согласие на&nbsp;обработку персональных данных</a> и&nbsp;принимаю <a href="privacy.html" target="_blank">политику конфиденциальности</a></span>
+        </label>
+        <p class="field__error"></p>
+      </div>
+      <button class="btn btn--gradient btn--lg lead__submit callback__submit" type="submit"><span class="callback__submit-text">Жду звонка</span></button>
+      <p class="lead__status callback__status" role="alert"></p>
+    </form>
+    <div class="lead__done callback__done" hidden>
+      <span class="lead__done-icon" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 32 32" fill="none"><path d="M8 16.5l5.5 5.5L24 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h2 class="lead__title">Заявка принята</h2>
+      <p class="lead__lead callback__done-lead">Перезвоним в&nbsp;течение часа в&nbsp;рабочее время. Если звонок нужен срочно — <a href="tel:+79222077552">+7&nbsp;(922)&nbsp;207-75-52</a>.</p>
+      <div class="coupon-code js-bonus-only" hidden><span class="coupon-code__label">Ваш купон</span><b class="coupon-code__value js-coupon"></b><span class="coupon-code__until js-coupon-until"></span></div>
+      <p class="form-bonus-done js-form-bonus">Скидка 20% забронирована за&nbsp;вами</p>
+      <div class="callback__done-actions">
+        <a class="btn btn--gradient btn--lg callback__catalog js-bonus-only" href="/catalog/" hidden>Перейти в каталог</a>
+        <button class="btn btn--outline btn--outline-soft btn--lg" type="button" data-close-callback>Вернуться на сайт</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Мобильная кнопка заявки, закреплена внизу экрана (только ≤767px) -->
+  <a class="btn btn--gradient sticky-cta" href="#contacts" data-open-form="sale20">Подбор двери со скидкой 20% <img src="assets/icons/arrow-right-white-2.svg" width="24" height="24" alt=""></a>
+
+  <footer class="footer" id="footer">
+    <div class="footer__top">
+      <div class="footer__rep">
+        <span class="footer__logo" role="img" aria-label="Дверной Молл — больше, чем двери"></span>
+        <p class="footer__rep-text">Эксклюзивный представитель «Стальной линии» <br>на Урале — «Дверной Молл».</p>
+      </div>
+      <nav class="footer__nav" aria-label="Навигация в подвале">
+        <a href="/catalog/">Каталог</a>
+        <a href="#top">Бренды</a>
+        <a href="/port/">Наши работы</a>
+        <a href="#contacts">Салон</a>
+        <a href="/diz/">Для дизайнеров</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+    </div>
+    <div class="footer__salons">
+      <address class="footer-salon">
+        <p class="footer-salon__name">Интерьерный центр «ASTROOM»</p>
+        <p>Екатеринбург, ул. Цвиллинга, 1<br>6 этаж, Галерея А</p>
+        <p class="footer-salon__muted">Пн–Вс 10:00–20:00</p>
+        <p class="footer-salon__links">
+          <a class="footer__phone" href="tel:+79222077552">+7 (922) 207-75-52</a>
+          <a class="footer__phone" href="tel:+79826056229">+7 (982) 605-62-29</a>
+          <a href="mailto:astroom@steelline.store">astroom@steelline.store</a>
+        </p>
+      </address>
+      <address class="footer-salon">
+        <p class="footer-salon__name">Салон «Дверная лавка»</p>
+        <p>Арамиль, ул. Гарнизон, 5</p>
+        <p class="footer-salon__muted">Пн–Пт 09:00–18:00</p>
+        <p class="footer-salon__links">
+          <a class="footer__phone" href="tel:+79193977317">+7 (919) 397-73-17</a>
+          <a href="mailto:zakazdver@bk.ru">zakazdver@bk.ru</a>
+        </p>
+      </address>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 Дверной Молл. ООО «Прогресс», ИНН&nbsp;6685206681, ОГРН&nbsp;1226600080321</p>
+      <div class="footer__legal">
+        <a href="privacy.html">Политика конфиденциальности</a>
+        <a href="consent.html">Согласие на обработку данных</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Все видеообзоры (вертикальные ролики с steelline.store/gid) -->
+  <dialog class="lead reels" id="reels" aria-labelledby="reels-title">
+    <button class="lead__close" type="button" aria-label="Закрыть" data-close-reels>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+    <div class="reels__body">
+      <div class="reels__head">
+        <h2 class="lead__title" id="reels-title">Видеообзоры дверей</h2>
+        <p class="lead__lead">Короткие ролики из нашего салона: модели, отделки и ответы на частые вопросы.</p>
+      </div>
+      <section class="reels__group">
+        <h3 class="reels__group-title">Обзоры моделей</h3>
+        <div class="reels__grid">
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-1.mp4" aria-label="Смотреть видео: Дверь для дома «Рапсодия»">
+              <img src="assets/img/obzor/poster-1.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:27</span>
+            </button>
+            <h4 class="video-card__title">Дверь для дома «Рапсодия»</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-2.mp4" aria-label="Смотреть видео: Дверь для дома «Лира»">
+              <img src="assets/img/obzor/poster-2.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:44</span>
+            </button>
+            <h4 class="video-card__title">Дверь для дома «Лира»</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-3.mp4" aria-label="Смотреть видео: Дверь для дома «Сага»">
+              <img src="assets/img/obzor/poster-3.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:28</span>
+            </button>
+            <h4 class="video-card__title">Дверь для дома «Сага»</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-4.mp4" aria-label="Смотреть видео: Дверь для дома «Монарх»">
+              <img src="assets/img/obzor/poster-4.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:10</span>
+            </button>
+            <h4 class="video-card__title">Дверь для дома «Монарх»</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-5.mp4" aria-label="Смотреть видео: Дверь для дома «Лаврик»">
+              <img src="assets/img/obzor/poster-5.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:42</span>
+            </button>
+            <h4 class="video-card__title">Дверь для дома «Лаврик»</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-6.mp4" aria-label="Смотреть видео: Дверь для дома «Инта»">
+              <img src="assets/img/obzor/poster-6.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:15</span>
+            </button>
+            <h4 class="video-card__title">Дверь для дома «Инта»</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/review-3.mp4" aria-label="Смотреть видео: Дверь для дома «Бремен»">
+              <img src="assets/img/obzor/poster-7.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:24</span>
+            </button>
+            <h4 class="video-card__title">Дверь для дома «Бремен»</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-8.mp4" aria-label="Смотреть видео: Дверь в квартиру «Бореалис»">
+              <img src="assets/img/obzor/poster-8.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:22</span>
+            </button>
+            <h4 class="video-card__title">Дверь в квартиру «Бореалис»</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-9.mp4" aria-label="Смотреть видео: Дверь для дома «Сага»">
+              <img src="assets/img/obzor/poster-9.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:40</span>
+            </button>
+            <h4 class="video-card__title">Дверь для дома «Сага»</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-10.mp4" aria-label="Смотреть видео: Дверь для дома «Астар»">
+              <img src="assets/img/obzor/poster-10.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:18</span>
+            </button>
+            <h4 class="video-card__title">Дверь для дома «Астар»</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-11.mp4" aria-label="Смотреть видео: Дверь для дома «Пиктор»">
+              <img src="assets/img/obzor/poster-11.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:07</span>
+            </button>
+            <h4 class="video-card__title">Дверь для дома «Пиктор»</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-12.mp4" aria-label="Смотреть видео: Дверь для дома «Мельбурн»">
+              <img src="assets/img/obzor/poster-12.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:04</span>
+            </button>
+            <h4 class="video-card__title">Дверь для дома «Мельбурн»</h4>
+          </article>
+        </div>
+      </section>
+      <section class="reels__group">
+        <h3 class="reels__group-title">Полезная информация</h3>
+        <div class="reels__grid">
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/review-2.mp4" aria-label="Смотреть видео: Чем отличаются двери в дом от дверей в квартиру?">
+              <img src="assets/img/obzor/poster-13.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:28</span>
+            </button>
+            <h4 class="video-card__title">Чем отличаются двери в дом от дверей в квартиру?</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/review-4.mp4" aria-label="Смотреть видео: Двери с фальш-панелями">
+              <img src="assets/img/obzor/poster-14.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:18</span>
+            </button>
+            <h4 class="video-card__title">Двери с фальш-панелями</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/review-1.mp4" aria-label="Смотреть видео: Двери с рейлингами">
+              <img src="assets/img/obzor/poster-15.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:45</span>
+            </button>
+            <h4 class="video-card__title">Двери с рейлингами</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-16.mp4" aria-label="Смотреть видео: Почему так дорого?">
+              <img src="assets/img/obzor/poster-16.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:37</span>
+            </button>
+            <h4 class="video-card__title">Почему так дорого?</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-17.mp4" aria-label="Смотреть видео: Отделка из натурального дерева">
+              <img src="assets/img/obzor/poster-17.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:28</span>
+            </button>
+            <h4 class="video-card__title">Отделка из натурального дерева</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-18.mp4" aria-label="Смотреть видео: Сроки изготовления">
+              <img src="assets/img/obzor/poster-18.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:55</span>
+            </button>
+            <h4 class="video-card__title">Сроки изготовления</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-19.mp4" aria-label="Смотреть видео: Зачем в двери 2 замка?">
+              <img src="assets/img/obzor/poster-19.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">0:15</span>
+            </button>
+            <h4 class="video-card__title">Зачем в двери 2 замка?</h4>
+          </article>
+          <article class="video-card">
+            <button class="video-card__thumb" type="button" data-video="assets/video/obzor-20.mp4" aria-label="Смотреть видео: ТОП-3 модели дверей в дом">
+              <img src="assets/img/obzor/poster-20.jpg" alt="" loading="lazy" width="405" height="720">
+              <span class="video-card__badge"><img src="assets/icons/play-circle.svg" width="16.0254" height="16.0254" alt="">1:15</span>
+            </button>
+            <h4 class="video-card__title">ТОП-3 модели дверей в дом</h4>
+          </article>
+        </div>
+      </section>
+    </div>
+  </dialog>
+
+  <!-- Большой плеер для видеообзоров -->
+  <dialog class="player" id="player" aria-labelledby="player-title">
+    <div class="player__stage">
+      <video class="player__video" controls playsinline preload="metadata"></video>
+      <div class="player__bar">
+        <p class="player__title" id="player-title"></p>
+        <span class="player__count" aria-live="polite"></span>
+      </div>
+    </div>
+    <button class="player__nav player__nav--prev" type="button" aria-label="Предыдущий ролик" data-player-dir="-1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12.013L20.789 12M14.013 19L21 12L14.012 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="player__nav" type="button" aria-label="Следующий ролик" data-player-dir="1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12.013L20.789 12M14.013 19L21 12L14.012 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="player__close" type="button" aria-label="Закрыть видео" data-close-player>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </dialog>
+
+  <!-- Просмотр фото салона -->
+  <dialog class="player gallery-view" id="gallery-view" aria-label="Фото салона">
+    <figure class="gallery-view__stage">
+      <img class="gallery-view__img" alt="">
+      <figcaption class="player__bar">
+        <span class="player__title gallery-view__title"></span>
+        <span class="player__count gallery-view__count" aria-live="polite"></span>
+      </figcaption>
+    </figure>
+    <button class="player__nav player__nav--prev" type="button" aria-label="Предыдущее фото" data-gallery-dir="-1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12.013L20.789 12M14.013 19L21 12L14.012 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="player__nav" type="button" aria-label="Следующее фото" data-gallery-dir="1"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12.013L20.789 12M14.013 19L21 12L14.012 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="player__close" type="button" aria-label="Закрыть фото" data-close-gallery>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+  </dialog>
+
+  <!-- Форма заявки: подбор двери по фото проёма -->
+  <dialog class="lead" id="lead" aria-labelledby="lead-title">
+    <button class="lead__close" type="button" aria-label="Закрыть" data-close-form>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+    </button>
+
+    <!-- Заявки уходят в send.php. Для тестового режима (без отправки) добавить атрибут data-test-mode -->
+    <form class="lead__form" id="lead-form" action="send.php" method="post" enctype="multipart/form-data" novalidate>
+      <div class="lead__head">
+        <h2 class="lead__title" id="lead-title" data-title-photo="Бесплатно подберём дверь по фото проёма" data-title-contact="Запись на подбор" data-title-partner="Станьте партнёром «Стальной линии»" data-title-sale20="Подбор двери со скидкой 20%" data-title-zamer="Бесплатный замер проёма">Бесплатно подберём дверь по фото проёма</h2>
+        <p class="lead__lead" data-lead-photo="Прикрепите фото проёма и оставьте контакты — подберём двери, которые подойдут к&nbsp;вашему дому или квартире, и&nbsp;перезвоним." data-lead-contact="Оставьте имя и телефон — перезвоним, ответим на вопросы и запишем на подбор в салоне или замер." data-lead-partner="Для дизайнеров, архитекторов, застройщиков и ремонтных компаний. Менеджер по работе с партнёрами свяжется с вами и расскажет об условиях." data-lead-sale20="Пришлите фото проёма и оставьте контакты — подберём дверь и закрепим за вами скидку 20%." data-lead-zamer="Оставьте имя и телефон — перезвоним, ответим на вопросы и договоримся об удобном времени. Замер бесплатный и ни к чему не обязывает.">Прикрепите фото проёма и оставьте контакты — подберём двери, которые подойдут к&nbsp;вашему дому или квартире, и&nbsp;перезвоним.</p>
+        
+      </div>
+      <div class="field field--photo">
+        <span class="field__label" id="photos-label">Фото проёма <span class="field__hint">до 5 фото, JPG, PNG или HEIC</span></span>
+        <label class="dropzone" for="lead-photos">
+          <input class="dropzone__input" id="lead-photos" type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" multiple aria-labelledby="photos-label" aria-describedby="photos-error">
+          <svg class="dropzone__icon" width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="3" y="7" width="26" height="20" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M11 7l2-3h6l2 3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="16" cy="17" r="5" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span class="dropzone__text"><b>Загрузите фото</b><span class="dropzone__drag"> или перетащите сюда</span></span>
+          <span class="dropzone__sub">Снимите проём целиком, вместе с откосами и полом</span>
+        </label>
+        <ul class="previews" id="lead-previews" aria-live="polite"></ul>
+        <p class="field__error" id="photos-error"></p>
+      </div>
+
+      <!-- Только в заявке на партнёрство (страница «Дизайнерам и архитекторам») -->
+      <fieldset class="field field--partner">
+        <legend class="field__label">Вы</legend>
+        <div class="role-chips">
+          <label class="role-chip"><input type="radio" name="role" value="Дизайнер интерьера" checked><span>Дизайнер</span></label>
+          <label class="role-chip"><input type="radio" name="role" value="Архитектор"><span>Архитектор</span></label>
+          <label class="role-chip"><input type="radio" name="role" value="Застройщик"><span>Застройщик</span></label>
+          <label class="role-chip"><input type="radio" name="role" value="Ремонтная компания"><span>Ремонтная компания</span></label>
+        </div>
+      </fieldset>
+      <div class="field field--partner">
+        <label class="field__label" for="lead-company">Студия или компания <span class="field__hint">необязательно</span></label>
+        <input class="input ym-disable-keys ym-hide-content" id="lead-company" name="company" type="text" autocomplete="organization" maxlength="120" placeholder="Название или ссылка на портфолио">
+      </div>
+
+      <div class="lead__grid">
+        <div class="field">
+          <label class="field__label" for="lead-name">Имя</label>
+          <input class="input ym-disable-keys ym-hide-content" id="lead-name" name="name" type="text" autocomplete="name" required maxlength="80" placeholder="Как к вам обращаться">
+          <p class="field__error"></p>
+        </div>
+        <div class="field">
+          <label class="field__label" for="lead-phone">Телефон</label>
+          <input class="input ym-disable-keys ym-hide-content" id="lead-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="+7 (___) ___-__-__">
+          <p class="field__error"></p>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field__label" for="lead-comment">Комментарий <span class="field__hint">необязательно</span></label>
+        <textarea class="input input--area ym-disable-keys ym-hide-content" id="lead-comment" name="comment" rows="3" maxlength="1000" placeholder="Размеры проёма, квартира или дом, пожелания по цвету"></textarea>
+      </div>
+
+      <!-- Ловушка для спам-ботов: люди это поле не видят -->
+      <input class="lead__trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="source" value="">
+
+      <div class="field">
+        <label class="check">
+          <input type="checkbox" name="consent" value="1" required>
+          <span>Даю <a href="consent.html" target="_blank">согласие на&nbsp;обработку персональных данных</a> и&nbsp;принимаю <a href="privacy.html" target="_blank">политику конфиденциальности</a></span>
+        </label>
+        <p class="field__error"></p>
+      </div>
+
+      <button class="btn btn--gradient btn--lg lead__submit" type="submit">
+        <span class="lead__submit-text">Получить подбор двери</span>
+        <img src="assets/icons/arrow-right-white-2.svg" width="24" height="24" alt="">
+      </button>
+      <p class="lead__status" role="alert"></p>
+    </form>
+
+    <div class="lead__done" hidden>
+      <span class="lead__done-icon" aria-hidden="true"><svg width="44" height="44" viewBox="0 0 32 32" fill="none"><path d="M8 16.5l5.5 5.5L24 11" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <h2 class="lead__title">Заявка отправлена</h2>
+      <p class="lead__lead lead__done-lead" data-done-contact="Спасибо! Перезвоним в&nbsp;рабочее время и&nbsp;договоримся о&nbsp;подборе." data-done-partner="Спасибо! Менеджер по&nbsp;работе с&nbsp;партнёрами свяжется с&nbsp;вами в&nbsp;рабочее время и&nbsp;расскажет об&nbsp;условиях сотрудничества." data-done-zamer="Спасибо! Перезвоним в рабочее время и договоримся о замере.">Спасибо! Мы посмотрим фото, подберём двери и&nbsp;перезвоним в&nbsp;рабочее время.</p>
+      
+      <button class="btn btn--outline btn--outline-soft btn--lg" type="button" data-close-form>Вернуться на сайт</button>
+    </div>
+  </dialog>
+
+  <script src="script.js?v=67"></script>
 </body>
 </html>
